@@ -6,8 +6,10 @@
 //  Copyright (c) 2015 Manuel Deneu. All rights reserved.
 //
 
+#include <assert.h>
 #include "NameParser.h"
 
+/* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
 
 NameParser::NameParser( SystemErrorHandler &errorHandler ) :
 _errorHandler( &errorHandler)
@@ -19,6 +21,8 @@ NameParser::~NameParser()
 {
     
 }
+
+/* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
 
 bool NameParser::parseXml( const std::string &file )
 {
@@ -68,12 +72,18 @@ bool NameParser::parseXml( const std::string &file )
         
     }
     
+    assert( elementSize == _nameList.size() );
+    
     return true;
     
 }
 
+/* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
+
 void NameParser::inspectCurrentList()
 {
+    sortByDate();
+    
     for (auto name : _nameList )
     {
         Log::log("-------------");
@@ -81,3 +91,35 @@ void NameParser::inspectCurrentList()
         Log::log("Date : %s " , name.date.toString().c_str() );
     }
 }
+
+/* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
+
+void NameParser::sortByDay()
+{
+    auto predicateByDay = [] ( const NameItem &first,const NameItem &second ) -> bool
+    {
+        // true if first goes before second
+        return first.date.day < second.date.day;
+    };
+    
+    _nameList.sort( predicateByDay );
+    
+    
+}
+
+/* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
+
+void NameParser::sortByDate()
+{
+    auto predicateByDate = [] ( const NameItem &first,const NameItem &second ) -> bool
+    {
+        // true if first goes before second
+        return first.date < second.date;
+    };
+    
+    _nameList.sort( predicateByDate );
+}
+
+
+
+

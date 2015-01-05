@@ -47,6 +47,9 @@ public :
     
     void inspectCurrentList();
     
+    void sortByDay();
+    void sortByDate();
+    
 private:
     
     std::list<NameItem> _nameList;
