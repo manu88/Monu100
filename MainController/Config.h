@@ -44,7 +44,7 @@
 #define USE_XML_PARSER
 #endif
 
-#include "../Core/Core.h"
+#include "../../Broadway/Core/Core.h"
 
 
 #endif

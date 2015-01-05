@@ -8,11 +8,36 @@
 
 #include <iostream>
 
+#include "Config.h"
+#include "MainController.h"
+
+
 int main(int argc, const char * argv[])
 {
 
-    // insert code here...
-    std::cout << "Hello, World!\n";
+    ScopedPlateformConfig p;
+    
+    Log::addLocalLogger();
+    Log::addFileLogger("monument_log.txt");
+    
+    std::string configFile = "config_monument.txt";
+    
+    if ( argc > 1)
+        configFile = argv[1];
+    
+    
+    { // nested scope for Broadway to be deleted before cleanupLogger
+        MainController b( configFile );
+        
+        if ( !b.run() )
+        {
+            
+        }
+    }
+    
+    Log::cleanupLogger();
+
+
     return 0;
 }
 
