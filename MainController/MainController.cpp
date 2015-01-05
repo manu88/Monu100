@@ -88,11 +88,8 @@ bool MainController::run()
         
         _globalCheckTimerID = _scheduler.registerTimedEvent(_delayBeforeNextGlobalCheck, _delayBeforeNextGlobalCheck, false);
         _pingTimerID        = _scheduler.registerTimedEvent(_pingInterval,               _pingInterval, false);
-        
-        printf("\n checkID %i" , _globalCheckTimerID);
-        printf("\n pingID %i" , _pingTimerID);
-        
-        _network.addPort( 8000 );
+                
+        _network.addPort( 7000 );
         
         inspectAndLoadNamesIfNeeded();
         
