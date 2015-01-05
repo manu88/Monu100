@@ -1,4 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Workspace
    version = "1.0">
+   <Group
+      location = "container:"
+      name = "blank">
+      <FileRef
+         location = "group:blank/print.c">
+      </FileRef>
+      <FileRef
+         location = "group:blank/test.c">
+      </FileRef>
+      <FileRef
+         location = "group:blank/print.h">
+      </FileRef>
+      <FileRef
+         location = "group:blank/usb_debug_only.c">
+      </FileRef>
+      <FileRef
+         location = "group:blank/usb_debug_only.h">
+      </FileRef>
+   </Group>
+   <Group
+      location = "group:watchdog"
+      name = "watchdog">
+      <FileRef
+         location = "group:Watchdog.c">
+      </FileRef>
+   </Group>
 </Workspace>

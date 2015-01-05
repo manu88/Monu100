@@ -1,4 +1,4 @@
-   1               		.file	"test.c"
+   1               		.file	"Watchdog.c"
    2               	__SP_H__ = 0x3e
    3               	__SP_L__ = 0x3d
    4               	__SREG__ = 0x3f
@@ -12,86 +12,86 @@
   12               	.global	morse_character
   14               	morse_character:
   15               	.LFB8:
-  16               		.file 1 "test.c"
-   1:test.c        **** /* LED Blink Example with USB Debug Channel for Teensy USB Development Board
-   2:test.c        ****  * http://www.pjrc.com/teensy/
-   3:test.c        ****  * Copyright (c) 2008, 2010 PJRC.COM, LLC
-   4:test.c        ****  * 
-   5:test.c        ****  * Permission is hereby granted, free of charge, to any person obtaining a copy
-   6:test.c        ****  * of this software and associated documentation files (the "Software"), to deal
-   7:test.c        ****  * in the Software without restriction, including without limitation the rights
-   8:test.c        ****  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-   9:test.c        ****  * copies of the Software, and to permit persons to whom the Software is
-  10:test.c        ****  * furnished to do so, subject to the following conditions:
-  11:test.c        ****  * 
-  12:test.c        ****  * The above copyright notice and this permission notice shall be included in
-  13:test.c        ****  * all copies or substantial portions of the Software.
-  14:test.c        ****  * 
-  15:test.c        ****  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-  16:test.c        ****  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-  17:test.c        ****  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-  18:test.c        ****  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-  19:test.c        ****  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-  20:test.c        ****  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-  21:test.c        ****  * THE SOFTWARE.
-  22:test.c        ****  */
-  23:test.c        **** 
-  24:test.c        **** #include <avr/io.h>
-  25:test.c        **** #include <avr/pgmspace.h>
-  26:test.c        **** #include <util/delay.h>
-  27:test.c        **** #include "usb_debug_only.h"
-  28:test.c        **** #include "print.h"
-  29:test.c        **** 
-  30:test.c        **** 
-  31:test.c        **** // Teensy 2.0: LED is active high
-  32:test.c        **** #if defined(__AVR_ATmega32U4__) || defined(__AVR_AT90USB1286__)
-  33:test.c        **** #define LED_ON		(PORTD |= (1<<6))
-  34:test.c        **** #define LED_OFF		(PORTD &= ~(1<<6))
-  35:test.c        **** 
-  36:test.c        **** // Teensy 1.0: LED is active low
-  37:test.c        **** #else
-  38:test.c        **** #define LED_ON	(PORTD &= ~(1<<6))
-  39:test.c        **** #define LED_OFF	(PORTD |= (1<<6))
-  40:test.c        **** #endif
-  41:test.c        **** 
-  42:test.c        **** #define LED_CONFIG	(DDRD |= (1<<6))
-  43:test.c        **** #define CPU_PRESCALE(n)	(CLKPR = 0x80, CLKPR = (n))
-  44:test.c        **** #define DIT 80		/* unit time for morse code */
-  45:test.c        **** 
-  46:test.c        **** void morse_character(char c);
-  47:test.c        **** void morse_P(const char *s);
-  48:test.c        **** const unsigned char morse_code_table[];
-  49:test.c        **** 
-  50:test.c        **** 
-  51:test.c        **** int main(void)
-  52:test.c        **** {
-  53:test.c        **** 	unsigned char i;
-  54:test.c        **** 
-  55:test.c        **** 	// set for 16 MHz clock, and make sure the LED is off
-  56:test.c        **** 	CPU_PRESCALE(0);
-  57:test.c        **** 	LED_CONFIG;
-  58:test.c        **** 	LED_OFF;
-  59:test.c        **** 
-  60:test.c        **** 	// initialize the USB, but don't want for the host to
-  61:test.c        **** 	// configure.  The first several messages sent will be
-  62:test.c        **** 	// lost because the PC hasn't configured the USB yet,
-  63:test.c        **** 	// but we care more about blinking than debug messages!
-  64:test.c        **** 	usb_init();
-  65:test.c        **** 
-  66:test.c        **** 	// blink morse code messages!
-  67:test.c        **** 	while (1) {
-  68:test.c        **** 		for (i=0; i<6; i++) {
-  69:test.c        **** 			morse_P(PSTR("SOS"));
-  70:test.c        **** 			_delay_ms(1500);
-  71:test.c        **** 		}
-  72:test.c        **** 		morse_P(PSTR("DOES ANYBODY STILL KNOW MORSE CODE?"));
-  73:test.c        **** 		_delay_ms(4000);
-  74:test.c        **** 	}
-  75:test.c        **** }
-  76:test.c        **** 
-  77:test.c        **** // blink a single character in Morse code
-  78:test.c        **** void morse_character(char c)
-  79:test.c        **** {
+  16               		.file 1 "Watchdog.c"
+   1:Watchdog.c    **** /* LED Blink Example with USB Debug Channel for Teensy USB Development Board
+   2:Watchdog.c    ****  * http://www.pjrc.com/teensy/
+   3:Watchdog.c    ****  * Copyright (c) 2008, 2010 PJRC.COM, LLC
+   4:Watchdog.c    ****  * 
+   5:Watchdog.c    ****  * Permission is hereby granted, free of charge, to any person obtaining a copy
+   6:Watchdog.c    ****  * of this software and associated documentation files (the "Software"), to deal
+   7:Watchdog.c    ****  * in the Software without restriction, including without limitation the rights
+   8:Watchdog.c    ****  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+   9:Watchdog.c    ****  * copies of the Software, and to permit persons to whom the Software is
+  10:Watchdog.c    ****  * furnished to do so, subject to the following conditions:
+  11:Watchdog.c    ****  * 
+  12:Watchdog.c    ****  * The above copyright notice and this permission notice shall be included in
+  13:Watchdog.c    ****  * all copies or substantial portions of the Software.
+  14:Watchdog.c    ****  * 
+  15:Watchdog.c    ****  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  16:Watchdog.c    ****  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  17:Watchdog.c    ****  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  18:Watchdog.c    ****  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  19:Watchdog.c    ****  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  20:Watchdog.c    ****  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+  21:Watchdog.c    ****  * THE SOFTWARE.
+  22:Watchdog.c    ****  */
+  23:Watchdog.c    **** 
+  24:Watchdog.c    **** #include <avr/io.h>
+  25:Watchdog.c    **** #include <avr/pgmspace.h>
+  26:Watchdog.c    **** #include <util/delay.h>
+  27:Watchdog.c    **** #include "usb_debug_only.h"
+  28:Watchdog.c    **** #include "print.h"
+  29:Watchdog.c    **** 
+  30:Watchdog.c    **** 
+  31:Watchdog.c    **** // Teensy 2.0: LED is active high
+  32:Watchdog.c    **** #if defined(__AVR_ATmega32U4__) || defined(__AVR_AT90USB1286__)
+  33:Watchdog.c    **** #define LED_ON		(PORTD |= (1<<6))
+  34:Watchdog.c    **** #define LED_OFF		(PORTD &= ~(1<<6))
+  35:Watchdog.c    **** 
+  36:Watchdog.c    **** // Teensy 1.0: LED is active low
+  37:Watchdog.c    **** #else
+  38:Watchdog.c    **** #define LED_ON	(PORTD &= ~(1<<6))
+  39:Watchdog.c    **** #define LED_OFF	(PORTD |= (1<<6))
+  40:Watchdog.c    **** #endif
+  41:Watchdog.c    **** 
+  42:Watchdog.c    **** #define LED_CONFIG	(DDRD |= (1<<6))
+  43:Watchdog.c    **** #define CPU_PRESCALE(n)	(CLKPR = 0x80, CLKPR = (n))
+  44:Watchdog.c    **** #define DIT 80		/* unit time for morse code */
+  45:Watchdog.c    **** 
+  46:Watchdog.c    **** void morse_character(char c);
+  47:Watchdog.c    **** void morse_P(const char *s);
+  48:Watchdog.c    **** const unsigned char morse_code_table[];
+  49:Watchdog.c    **** 
+  50:Watchdog.c    **** 
+  51:Watchdog.c    **** int main(void)
+  52:Watchdog.c    **** {
+  53:Watchdog.c    **** 	unsigned char i;
+  54:Watchdog.c    **** 
+  55:Watchdog.c    **** 	// set for 16 MHz clock, and make sure the LED is off
+  56:Watchdog.c    **** 	CPU_PRESCALE(0);
+  57:Watchdog.c    **** 	LED_CONFIG;
+  58:Watchdog.c    **** 	LED_OFF;
+  59:Watchdog.c    **** 
+  60:Watchdog.c    **** 	// initialize the USB, but don't want for the host to
+  61:Watchdog.c    **** 	// configure.  The first several messages sent will be
+  62:Watchdog.c    **** 	// lost because the PC hasn't configured the USB yet,
+  63:Watchdog.c    **** 	// but we care more about blinking than debug messages!
+  64:Watchdog.c    **** 	usb_init();
+  65:Watchdog.c    **** 
+  66:Watchdog.c    **** 	// blink morse code messages!
+  67:Watchdog.c    **** 	while (1) {
+  68:Watchdog.c    **** 		for (i=0; i<6; i++) {
+  69:Watchdog.c    **** 			morse_P(PSTR("SOS"));
+  70:Watchdog.c    **** 			_delay_ms(1500);
+  71:Watchdog.c    **** 		}
+  72:Watchdog.c    **** 		morse_P(PSTR("DOES ANYBODY STILL KNOW MORSE CODE?"));
+  73:Watchdog.c    **** 		_delay_ms(4000);
+  74:Watchdog.c    **** 	}
+  75:Watchdog.c    **** }
+  76:Watchdog.c    **** 
+  77:Watchdog.c    **** // blink a single character in Morse code
+  78:Watchdog.c    **** void morse_character(char c)
+  79:Watchdog.c    **** {
   17               		.loc 1 79 0
   18               		.cfi_startproc
   19               	.LVL0:
@@ -108,13 +108,13 @@
   30               	/* stack size = 2 */
   31               	.L__stack_usage = 2
   32 0004 C82F      		mov r28,r24
-  80:test.c        **** 	unsigned char code, count;
-  81:test.c        **** 
-  82:test.c        **** 	if (c == ' ') {
+  80:Watchdog.c    **** 	unsigned char code, count;
+  81:Watchdog.c    **** 
+  82:Watchdog.c    **** 	if (c == ' ') {
   33               		.loc 1 82 0
   34 0006 8032      		cpi r24,lo8(32)
   35 0008 01F4      		brne .L2
-  83:test.c        **** 		print("Space\n");
+  83:Watchdog.c    **** 		print("Space\n");
   36               		.loc 1 83 0
   37 000a 80E0      		ldi r24,lo8(__c.1784)
   38 000c 90E0      		ldi r25,hi8(__c.1784)
@@ -300,112 +300,112 @@
   55               	.L2:
   56               	.LBE27:
   57               	.LBE26:
-  84:test.c        **** 		_delay_ms(DIT * 7);
-  85:test.c        **** 		return;
-  86:test.c        **** 	}
-  87:test.c        **** 	if (c < 'A' || c > 'Z') {
+  84:Watchdog.c    **** 		_delay_ms(DIT * 7);
+  85:Watchdog.c    **** 		return;
+  86:Watchdog.c    **** 	}
+  87:Watchdog.c    **** 	if (c < 'A' || c > 'Z') {
   58               		.loc 1 87 0
   59 0022 8FEB      		ldi r24,lo8(-65)
   60               	.LVL4:
   61 0024 8C0F      		add r24,r28
   62 0026 8A31      		cpi r24,lo8(26)
   63 0028 00F0      		brlo .L4
-  88:test.c        **** 		print("Opps, unsupported character: ");
+  88:Watchdog.c    **** 		print("Opps, unsupported character: ");
   64               		.loc 1 88 0
   65 002a 80E0      		ldi r24,lo8(__c.1786)
   66 002c 90E0      		ldi r25,hi8(__c.1786)
   67 002e 0E94 0000 		call print_P
   68               	.LVL5:
-  89:test.c        **** 		pchar(c);
+  89:Watchdog.c    **** 		pchar(c);
   69               		.loc 1 89 0
   70 0032 8C2F      		mov r24,r28
   71 0034 0E94 0000 		call usb_debug_putchar
   72               	.LVL6:
-  90:test.c        **** 		print("\n");
+  90:Watchdog.c    **** 		print("\n");
   73               		.loc 1 90 0
   74 0038 80E0      		ldi r24,lo8(__c.1788)
   75 003a 90E0      		ldi r25,hi8(__c.1788)
   76               	/* epilogue start */
-  91:test.c        **** 		return;	
-  92:test.c        **** 	}
-  93:test.c        **** 	print("Char ");
-  94:test.c        **** 	pchar(c);
-  95:test.c        **** 	pchar(':');
-  96:test.c        **** 	code = pgm_read_byte(morse_code_table + (c - 'A'));
-  97:test.c        **** 	for (count = code & 0x07; count > 0; count--) {
-  98:test.c        **** 		LED_ON;
-  99:test.c        **** 		if (code & 0x80) {
- 100:test.c        **** 			print(" bah");
- 101:test.c        **** 			_delay_ms(DIT * 3);
- 102:test.c        **** 		} else {
- 103:test.c        **** 			print(" bit");
- 104:test.c        **** 			_delay_ms(DIT);
- 105:test.c        **** 		}
- 106:test.c        **** 		LED_OFF;
- 107:test.c        **** 		_delay_ms(DIT);
- 108:test.c        **** 		code = code << 1;
- 109:test.c        **** 	}
- 110:test.c        **** 	print("\n");
- 111:test.c        **** 	_delay_ms(DIT * 2);
- 112:test.c        **** }
+  91:Watchdog.c    **** 		return;	
+  92:Watchdog.c    **** 	}
+  93:Watchdog.c    **** 	print("Char ");
+  94:Watchdog.c    **** 	pchar(c);
+  95:Watchdog.c    **** 	pchar(':');
+  96:Watchdog.c    **** 	code = pgm_read_byte(morse_code_table + (c - 'A'));
+  97:Watchdog.c    **** 	for (count = code & 0x07; count > 0; count--) {
+  98:Watchdog.c    **** 		LED_ON;
+  99:Watchdog.c    **** 		if (code & 0x80) {
+ 100:Watchdog.c    **** 			print(" bah");
+ 101:Watchdog.c    **** 			_delay_ms(DIT * 3);
+ 102:Watchdog.c    **** 		} else {
+ 103:Watchdog.c    **** 			print(" bit");
+ 104:Watchdog.c    **** 			_delay_ms(DIT);
+ 105:Watchdog.c    **** 		}
+ 106:Watchdog.c    **** 		LED_OFF;
+ 107:Watchdog.c    **** 		_delay_ms(DIT);
+ 108:Watchdog.c    **** 		code = code << 1;
+ 109:Watchdog.c    **** 	}
+ 110:Watchdog.c    **** 	print("\n");
+ 111:Watchdog.c    **** 	_delay_ms(DIT * 2);
+ 112:Watchdog.c    **** }
   77               		.loc 1 112 0
   78 003c DF91      		pop r29
   79 003e CF91      		pop r28
   80               	.LVL7:
-  90:test.c        **** 		print("\n");
+  90:Watchdog.c    **** 		print("\n");
   81               		.loc 1 90 0
   82 0040 0C94 0000 		jmp print_P
   83               	.LVL8:
   84               	.L4:
-  93:test.c        **** 	print("Char ");
+  93:Watchdog.c    **** 	print("Char ");
   85               		.loc 1 93 0
   86 0044 80E0      		ldi r24,lo8(__c.1790)
   87 0046 90E0      		ldi r25,hi8(__c.1790)
   88 0048 0E94 0000 		call print_P
   89               	.LVL9:
-  94:test.c        **** 	pchar(c);
+  94:Watchdog.c    **** 	pchar(c);
   90               		.loc 1 94 0
   91 004c 8C2F      		mov r24,r28
   92 004e 0E94 0000 		call usb_debug_putchar
   93               	.LVL10:
-  95:test.c        **** 	pchar(':');
+  95:Watchdog.c    **** 	pchar(':');
   94               		.loc 1 95 0
   95 0052 8AE3      		ldi r24,lo8(58)
   96 0054 0E94 0000 		call usb_debug_putchar
   97               	.LVL11:
   98               	.LBB28:
-  96:test.c        **** 	code = pgm_read_byte(morse_code_table + (c - 'A'));
+  96:Watchdog.c    **** 	code = pgm_read_byte(morse_code_table + (c - 'A'));
   99               		.loc 1 96 0
  100 0058 EC2F      		mov r30,r28
  101 005a F0E0      		ldi r31,0
  102 005c E050      		subi r30,lo8(-(morse_code_table-65))
  103 005e F040      		sbci r31,hi8(-(morse_code_table-65))
  104               	/* #APP */
- 105               	 ;  96 "test.c" 1
+ 105               	 ;  96 "Watchdog.c" 1
  106 0060 C491      		lpm r28, Z
  107               		
  108               	 ;  0 "" 2
  109               	.LVL12:
  110               	/* #NOAPP */
  111               	.LBE28:
-  97:test.c        **** 	for (count = code & 0x07; count > 0; count--) {
+  97:Watchdog.c    **** 	for (count = code & 0x07; count > 0; count--) {
  112               		.loc 1 97 0
  113 0062 DC2F      		mov r29,r28
  114 0064 D770      		andi r29,lo8(7)
  115               	.LVL13:
  116               	.L5:
-  97:test.c        **** 	for (count = code & 0x07; count > 0; count--) {
+  97:Watchdog.c    **** 	for (count = code & 0x07; count > 0; count--) {
  117               		.loc 1 97 0 is_stmt 0 discriminator 1
  118 0066 DD23      		tst r29
  119 0068 01F0      		breq .L12
-  98:test.c        **** 		LED_ON;
+  98:Watchdog.c    **** 		LED_ON;
  120               		.loc 1 98 0 is_stmt 1
  121 006a 5E9A      		sbi 0xb,6
-  99:test.c        **** 		if (code & 0x80) {
+  99:Watchdog.c    **** 		if (code & 0x80) {
  122               		.loc 1 99 0
  123 006c C7FF      		sbrs r28,7
  124 006e 00C0      		rjmp .L6
- 100:test.c        **** 			print(" bah");
+ 100:Watchdog.c    **** 			print(" bah");
  125               		.loc 1 100 0
  126 0070 80E0      		ldi r24,lo8(__c.1795)
  127 0072 90E0      		ldi r25,hi8(__c.1795)
@@ -426,7 +426,7 @@
  142               	.L6:
  143               	.LBE30:
  144               	.LBE29:
- 103:test.c        **** 			print(" bit");
+ 103:Watchdog.c    **** 			print(" bit");
  145               		.loc 1 103 0
  146 0088 80E0      		ldi r24,lo8(__c.1797)
  147 008a 90E0      		ldi r25,hi8(__c.1797)
@@ -448,7 +448,7 @@
  163 00a0 0000      		nop
  164               	.LBE32:
  165               	.LBE31:
- 106:test.c        **** 		LED_OFF;
+ 106:Watchdog.c    **** 		LED_OFF;
  166               		.loc 1 106 0
  167 00a2 5E98      		cbi 0xb,6
  168               	.LVL18:
@@ -466,18 +466,18 @@
  180 00b4 0000      		nop
  181               	.LBE34:
  182               	.LBE33:
- 108:test.c        **** 		code = code << 1;
+ 108:Watchdog.c    **** 		code = code << 1;
  183               		.loc 1 108 0
  184 00b6 CC0F      		lsl r28
  185               	.LVL19:
-  97:test.c        **** 	for (count = code & 0x07; count > 0; count--) {
+  97:Watchdog.c    **** 	for (count = code & 0x07; count > 0; count--) {
  186               		.loc 1 97 0
  187 00b8 D150      		subi r29,lo8(-(-1))
  188               	.LVL20:
  189 00ba 00C0      		rjmp .L5
  190               	.LVL21:
  191               	.L12:
- 110:test.c        **** 	print("\n");
+ 110:Watchdog.c    **** 	print("\n");
  192               		.loc 1 110 0
  193 00bc 80E0      		ldi r24,lo8(__c.1802)
  194 00be 90E0      		ldi r25,hi8(__c.1802)
@@ -510,11 +510,11 @@
  222               	.global	morse_P
  224               	morse_P:
  225               	.LFB9:
- 113:test.c        **** 
- 114:test.c        **** // blink an entire message in Morse code
- 115:test.c        **** // the string must be in flash memory (using PSTR macro)
- 116:test.c        **** void morse_P(const char *s)
- 117:test.c        **** {
+ 113:Watchdog.c    **** 
+ 114:Watchdog.c    **** // blink an entire message in Morse code
+ 115:Watchdog.c    **** // the string must be in flash memory (using PSTR macro)
+ 116:Watchdog.c    **** void morse_P(const char *s)
+ 117:Watchdog.c    **** {
  226               		.loc 1 117 0
  227               		.cfi_startproc
  228               	.LVL24:
@@ -534,13 +534,13 @@
  242               	.LVL25:
  243               	.L15:
  244               	.LBB37:
- 118:test.c        **** 	char c;
- 119:test.c        **** 	
- 120:test.c        **** 	while (1) {
- 121:test.c        **** 		c = pgm_read_byte(s++);
+ 118:Watchdog.c    **** 	char c;
+ 119:Watchdog.c    **** 	
+ 120:Watchdog.c    **** 	while (1) {
+ 121:Watchdog.c    **** 		c = pgm_read_byte(s++);
  245               		.loc 1 121 0
  246               	/* #APP */
- 247               	 ;  121 "test.c" 1
+ 247               	 ;  121 "Watchdog.c" 1
  248 0006 8491      		lpm r24, Z
  249               		
  250               	 ;  0 "" 2
@@ -550,32 +550,32 @@
  254 000a 2196      		adiw r28,1
  255               	.LVL27:
  256               	.LBE37:
- 122:test.c        **** 		if (!c) break;
+ 122:Watchdog.c    **** 		if (!c) break;
  257               		.loc 1 122 0
  258 000c 8823      		tst r24
  259 000e 01F0      		breq .L14
- 123:test.c        **** 		morse_character(c);
+ 123:Watchdog.c    **** 		morse_character(c);
  260               		.loc 1 123 0
  261 0010 0E94 0000 		call morse_character
  262               	.LVL28:
  263 0014 FE01      		movw r30,r28
- 124:test.c        **** 	}
+ 124:Watchdog.c    **** 	}
  264               		.loc 1 124 0
  265 0016 00C0      		rjmp .L15
  266               	.LVL29:
  267               	.L14:
- 125:test.c        **** 	print("\n");
+ 125:Watchdog.c    **** 	print("\n");
  268               		.loc 1 125 0
  269 0018 80E0      		ldi r24,lo8(__c.1813)
  270 001a 90E0      		ldi r25,hi8(__c.1813)
  271               	.LVL30:
  272               	/* epilogue start */
- 126:test.c        **** }
+ 126:Watchdog.c    **** }
  273               		.loc 1 126 0
  274 001c DF91      		pop r29
  275 001e CF91      		pop r28
  276               	.LVL31:
- 125:test.c        **** 	print("\n");
+ 125:Watchdog.c    **** 	print("\n");
  277               		.loc 1 125 0
  278 0020 0C94 0000 		jmp print_P
  279               	.LVL32:
@@ -585,40 +585,40 @@
  284               	.global	main
  286               	main:
  287               	.LFB7:
-  52:test.c        **** {
+  52:Watchdog.c    **** {
  288               		.loc 1 52 0
  289               		.cfi_startproc
  290               	/* prologue: function */
  291               	/* frame size = 0 */
  292               	/* stack size = 0 */
  293               	.L__stack_usage = 0
-  56:test.c        **** 	CPU_PRESCALE(0);
+  56:Watchdog.c    **** 	CPU_PRESCALE(0);
  294               		.loc 1 56 0
  295 0000 80E8      		ldi r24,lo8(-128)
  296 0002 8093 6100 		sts 97,r24
  297 0006 1092 6100 		sts 97,__zero_reg__
-  57:test.c        **** 	LED_CONFIG;
+  57:Watchdog.c    **** 	LED_CONFIG;
  298               		.loc 1 57 0
  299 000a 569A      		sbi 0xa,6
-  58:test.c        **** 	LED_OFF;
+  58:Watchdog.c    **** 	LED_OFF;
  300               		.loc 1 58 0
  301 000c 5E98      		cbi 0xb,6
-  64:test.c        **** 	usb_init();
+  64:Watchdog.c    **** 	usb_init();
  302               		.loc 1 64 0
  303 000e 0E94 0000 		call usb_init
  304               	.LVL33:
-  68:test.c        **** 		for (i=0; i<6; i++) {
+  68:Watchdog.c    **** 		for (i=0; i<6; i++) {
  305               		.loc 1 68 0
  306 0012 C0E0      		ldi r28,0
  307               	.L17:
  308               	.LVL34:
-  68:test.c        **** 		for (i=0; i<6; i++) {
+  68:Watchdog.c    **** 		for (i=0; i<6; i++) {
  309               		.loc 1 68 0 is_stmt 0 discriminator 1
  310 0014 C630      		cpi r28,lo8(6)
  311 0016 00F4      		brsh .L20
  312               	.LVL35:
  313               	.L18:
-  69:test.c        **** 			morse_P(PSTR("SOS"));
+  69:Watchdog.c    **** 			morse_P(PSTR("SOS"));
  314               		.loc 1 69 0 is_stmt 1 discriminator 2
  315 0018 80E0      		ldi r24,lo8(__c.1771)
  316 001a 90E0      		ldi r25,hi8(__c.1771)
@@ -638,14 +638,14 @@
  330 0030 0000      		nop
  331               	.LBE39:
  332               	.LBE38:
-  68:test.c        **** 		for (i=0; i<6; i++) {
+  68:Watchdog.c    **** 		for (i=0; i<6; i++) {
  333               		.loc 1 68 0 discriminator 2
  334 0032 CF5F      		subi r28,lo8(-(1))
  335               	.LVL37:
  336 0034 00C0      		rjmp .L17
  337               	.LVL38:
  338               	.L20:
-  72:test.c        **** 		morse_P(PSTR("DOES ANYBODY STILL KNOW MORSE CODE?"));
+  72:Watchdog.c    **** 		morse_P(PSTR("DOES ANYBODY STILL KNOW MORSE CODE?"));
  339               		.loc 1 72 0
  340 0036 80E0      		ldi r24,lo8(__c.1776)
  341 0038 90E0      		ldi r25,hi8(__c.1776)
@@ -665,7 +665,7 @@
  355 004e 0000      		nop
  356               	.LBE41:
  357               	.LBE40:
-  68:test.c        **** 		for (i=0; i<6; i++) {
+  68:Watchdog.c    **** 		for (i=0; i<6; i++) {
  358               		.loc 1 68 0
  359 0050 C0E0      		ldi r28,0
  360               	.LVL40:
@@ -739,27 +739,27 @@
  439               		.file 4 "usb_debug_only.h"
  440               		.file 5 "print.h"
 DEFINED SYMBOLS
-                            *ABS*:00000000 test.c
-/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccl9Qypa.s:2      *ABS*:0000003e __SP_H__
-/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccl9Qypa.s:3      *ABS*:0000003d __SP_L__
-/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccl9Qypa.s:4      *ABS*:0000003f __SREG__
-/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccl9Qypa.s:5      *ABS*:0000003b __RAMPZ__
-/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccl9Qypa.s:6      *ABS*:00000000 __tmp_reg__
-/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccl9Qypa.s:7      *ABS*:00000001 __zero_reg__
-/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccl9Qypa.s:14     .text.morse_character:00000000 morse_character
-/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccl9Qypa.s:396    .progmem.data:00000034 __c.1784
-/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccl9Qypa.s:392    .progmem.data:00000016 __c.1786
-/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccl9Qypa.s:388    .progmem.data:00000014 __c.1788
-/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccl9Qypa.s:384    .progmem.data:0000000e __c.1790
-/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccl9Qypa.s:409    .progmem.data:00000063 morse_code_table
-/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccl9Qypa.s:380    .progmem.data:00000009 __c.1795
-/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccl9Qypa.s:376    .progmem.data:00000004 __c.1797
-/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccl9Qypa.s:372    .progmem.data:00000002 __c.1802
-/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccl9Qypa.s:224    .text.morse_P:00000000 morse_P
-/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccl9Qypa.s:368    .progmem.data:00000000 __c.1813
-/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccl9Qypa.s:286    .text.startup.main:00000000 main
-/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccl9Qypa.s:404    .progmem.data:0000005f __c.1771
-/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccl9Qypa.s:400    .progmem.data:0000003b __c.1776
+                            *ABS*:00000000 Watchdog.c
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccqWkOoX.s:2      *ABS*:0000003e __SP_H__
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccqWkOoX.s:3      *ABS*:0000003d __SP_L__
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccqWkOoX.s:4      *ABS*:0000003f __SREG__
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccqWkOoX.s:5      *ABS*:0000003b __RAMPZ__
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccqWkOoX.s:6      *ABS*:00000000 __tmp_reg__
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccqWkOoX.s:7      *ABS*:00000001 __zero_reg__
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccqWkOoX.s:14     .text.morse_character:00000000 morse_character
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccqWkOoX.s:396    .progmem.data:00000034 __c.1784
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccqWkOoX.s:392    .progmem.data:00000016 __c.1786
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccqWkOoX.s:388    .progmem.data:00000014 __c.1788
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccqWkOoX.s:384    .progmem.data:0000000e __c.1790
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccqWkOoX.s:409    .progmem.data:00000063 morse_code_table
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccqWkOoX.s:380    .progmem.data:00000009 __c.1795
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccqWkOoX.s:376    .progmem.data:00000004 __c.1797
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccqWkOoX.s:372    .progmem.data:00000002 __c.1802
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccqWkOoX.s:224    .text.morse_P:00000000 morse_P
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccqWkOoX.s:368    .progmem.data:00000000 __c.1813
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccqWkOoX.s:286    .text.startup.main:00000000 main
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccqWkOoX.s:404    .progmem.data:0000005f __c.1771
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccqWkOoX.s:400    .progmem.data:0000003b __c.1776
 
 UNDEFINED SYMBOLS
 print_P

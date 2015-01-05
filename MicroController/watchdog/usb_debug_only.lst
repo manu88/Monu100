@@ -1800,30 +1800,30 @@
  1196               		.file 2 "/usr/local/CrossPack-AVR-20131216/avr/include/stdint.h"
 DEFINED SYMBOLS
                             *ABS*:00000000 usb_debug_only.c
-/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccRbD916.s:2      *ABS*:0000003e __SP_H__
-/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccRbD916.s:3      *ABS*:0000003d __SP_L__
-/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccRbD916.s:4      *ABS*:0000003f __SREG__
-/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccRbD916.s:5      *ABS*:0000003b __RAMPZ__
-/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccRbD916.s:6      *ABS*:00000000 __tmp_reg__
-/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccRbD916.s:7      *ABS*:00000001 __zero_reg__
-/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccRbD916.s:13     .text.usb_wait_in_ready:00000000 usb_wait_in_ready
-/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccRbD916.s:36     .text.usb_init:00000000 usb_init
-/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccRbD916.s:1024   .bss:00000002 usb_configuration
-/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccRbD916.s:81     .text.usb_configured:00000000 usb_configured
-/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccRbD916.s:99     .text.usb_debug_putchar:00000000 usb_debug_putchar
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccVFKwv2.s:2      *ABS*:0000003e __SP_H__
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccVFKwv2.s:3      *ABS*:0000003d __SP_L__
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccVFKwv2.s:4      *ABS*:0000003f __SREG__
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccVFKwv2.s:5      *ABS*:0000003b __RAMPZ__
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccVFKwv2.s:6      *ABS*:00000000 __tmp_reg__
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccVFKwv2.s:7      *ABS*:00000001 __zero_reg__
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccVFKwv2.s:13     .text.usb_wait_in_ready:00000000 usb_wait_in_ready
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccVFKwv2.s:36     .text.usb_init:00000000 usb_init
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccVFKwv2.s:1024   .bss:00000002 usb_configuration
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccVFKwv2.s:81     .text.usb_configured:00000000 usb_configured
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccVFKwv2.s:99     .text.usb_debug_putchar:00000000 usb_debug_putchar
                              .bss:00000000 previous_timeout.1662
-/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccRbD916.s:1022   .bss:00000001 debug_flush_timer
-/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccRbD916.s:221    .text.usb_debug_flush_output:00000000 usb_debug_flush_output
-/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccRbD916.s:269    .text.__vector_10:00000000 __vector_10
-/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccRbD916.s:374    .text.__vector_11:00000000 __vector_11
-/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccRbD916.s:1030   .progmem.data:00000000 descriptor_list
-/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccRbD916.s:1187   .progmem.data:000000b6 endpoint_config_table
-/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccRbD916.s:1166   .progmem.data:000000a4 device_descriptor
-/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccRbD916.s:1105   .progmem.data:0000006d config1_descriptor
-/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccRbD916.s:1142   .progmem.data:0000008f hid_report_descriptor
-/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccRbD916.s:1099   .progmem.data:00000069 string0
-/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccRbD916.s:1083   .progmem.data:00000053 string1
-/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccRbD916.s:1061   .progmem.data:00000031 string2
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccVFKwv2.s:1022   .bss:00000001 debug_flush_timer
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccVFKwv2.s:221    .text.usb_debug_flush_output:00000000 usb_debug_flush_output
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccVFKwv2.s:269    .text.__vector_10:00000000 __vector_10
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccVFKwv2.s:374    .text.__vector_11:00000000 __vector_11
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccVFKwv2.s:1030   .progmem.data:00000000 descriptor_list
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccVFKwv2.s:1187   .progmem.data:000000b6 endpoint_config_table
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccVFKwv2.s:1166   .progmem.data:000000a4 device_descriptor
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccVFKwv2.s:1105   .progmem.data:0000006d config1_descriptor
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccVFKwv2.s:1142   .progmem.data:0000008f hid_report_descriptor
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccVFKwv2.s:1099   .progmem.data:00000069 string0
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccVFKwv2.s:1083   .progmem.data:00000053 string1
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccVFKwv2.s:1061   .progmem.data:00000031 string2
 
 UNDEFINED SYMBOLS
 __do_clear_bss

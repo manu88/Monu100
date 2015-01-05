@@ -8,8 +8,8 @@ Archive member included because of file (symbol)
 Discarded input sections
 
  .bss           0x00000000        0x0 /usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/../../../../avr/lib/avr51/crtusb1286.o
- .text          0x00000000        0x0 test.o
- .bss           0x00000000        0x0 test.o
+ .text          0x00000000        0x0 Watchdog.o
+ .bss           0x00000000        0x0 Watchdog.o
  .text          0x00000000        0x0 usb_debug_only.o
  .text.usb_configured
                 0x00000000        0x6 usb_debug_only.o
@@ -67,7 +67,7 @@ Linker script and memory map
 
 Address of section .data set to 0x800100
 LOAD /usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/../../../../avr/lib/avr51/crtusb1286.o
-LOAD test.o
+LOAD Watchdog.o
 LOAD usb_debug_only.o
 LOAD print.o
 LOAD /usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/../../../../avr/lib/avr51/libm.a
@@ -181,7 +181,7 @@ END GROUP
  *(.trampolines*)
                 0x00000098                __trampolines_end = .
  *(.progmem*)
- .progmem.data  0x00000098       0x7d test.o
+ .progmem.data  0x00000098       0x7d Watchdog.o
                 0x000000fb                morse_code_table
  .progmem.data  0x00000115       0xbc usb_debug_only.o
                 0x000001d2                . = ALIGN (0x2)
@@ -265,12 +265,12 @@ END GROUP
                 0x000001f4                . = ALIGN (0x2)
  *(.text.*)
  .text.morse_character
-                0x000001f4       0xc8 test.o
+                0x000001f4       0xc8 Watchdog.o
                 0x000001f4                morse_character
- .text.morse_P  0x000002bc       0x20 test.o
+ .text.morse_P  0x000002bc       0x20 Watchdog.o
                 0x000002bc                morse_P
  .text.startup.main
-                0x000002dc       0x4e test.o
+                0x000002dc       0x4e Watchdog.o
                 0x000002dc                main
  .text.usb_wait_in_ready
                 0x0000032a        0xa usb_debug_only.o
@@ -319,7 +319,7 @@ END GROUP
                 0x00800100                PROVIDE (__data_start, .)
  *(.data)
  .data          0x00800100        0x0 /usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/../../../../avr/lib/avr51/crtusb1286.o
- .data          0x00800100        0x0 test.o
+ .data          0x00800100        0x0 Watchdog.o
  .data          0x00800100        0x0 usb_debug_only.o
  .data          0x00800100        0x0 print.o
  .data          0x00800100        0x0 /usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/avr51/libgcc.a(_exit.o)
@@ -388,7 +388,7 @@ END GROUP
 
 .comment        0x00000000       0x11
  *(.comment)
- .comment       0x00000000       0x11 test.o
+ .comment       0x00000000       0x11 Watchdog.o
                                  0x12 (size before relaxing)
  .comment       0x00000000       0x12 usb_debug_only.o
  .comment       0x00000000       0x12 print.o
@@ -408,7 +408,7 @@ END GROUP
 .debug_aranges  0x00000000       0xf8
  *(.debug_aranges)
  .debug_aranges
-                0x00000000       0x30 test.o
+                0x00000000       0x30 Watchdog.o
  .debug_aranges
                 0x00000030       0x50 usb_debug_only.o
  .debug_aranges
@@ -423,7 +423,7 @@ END GROUP
 
 .debug_info     0x00000000      0xec3
  *(.debug_info)
- .debug_info    0x00000000      0x530 test.o
+ .debug_info    0x00000000      0x530 Watchdog.o
  .debug_info    0x00000530      0x617 usb_debug_only.o
  .debug_info    0x00000b47      0x1fe print.o
  .debug_info    0x00000d45       0xbf /usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/avr51/libgcc.a(_exit.o)
@@ -432,38 +432,38 @@ END GROUP
 
 .debug_abbrev   0x00000000      0x4e6
  *(.debug_abbrev)
- .debug_abbrev  0x00000000      0x1ea test.o
+ .debug_abbrev  0x00000000      0x1ea Watchdog.o
  .debug_abbrev  0x000001ea      0x1ba usb_debug_only.o
  .debug_abbrev  0x000003a4      0x11a print.o
  .debug_abbrev  0x000004be       0x14 /usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/avr51/libgcc.a(_exit.o)
  .debug_abbrev  0x000004d2       0x14 /usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/avr51/libgcc.a(_clear_bss.o)
 
-.debug_line     0x00000000      0x519
+.debug_line     0x00000000      0x51d
  *(.debug_line)
- .debug_line    0x00000000      0x177 test.o
- .debug_line    0x00000177      0x221 usb_debug_only.o
- .debug_line    0x00000398       0xcb print.o
- .debug_line    0x00000463       0x58 /usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/avr51/libgcc.a(_exit.o)
- .debug_line    0x000004bb       0x5e /usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/avr51/libgcc.a(_clear_bss.o)
+ .debug_line    0x00000000      0x17b Watchdog.o
+ .debug_line    0x0000017b      0x221 usb_debug_only.o
+ .debug_line    0x0000039c       0xcb print.o
+ .debug_line    0x00000467       0x58 /usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/avr51/libgcc.a(_exit.o)
+ .debug_line    0x000004bf       0x5e /usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/avr51/libgcc.a(_clear_bss.o)
 
 .debug_frame    0x00000000      0x1f0
  *(.debug_frame)
- .debug_frame   0x00000000       0x5c test.o
+ .debug_frame   0x00000000       0x5c Watchdog.o
  .debug_frame   0x0000005c      0x11c usb_debug_only.o
  .debug_frame   0x00000178       0x78 print.o
 
-.debug_str      0x00000000      0x3c8
+.debug_str      0x00000000      0x3cf
  *(.debug_str)
- .debug_str     0x00000000      0x1e0 test.o
-                                0x220 (size before relaxing)
- .debug_str     0x000001e0      0x1ce usb_debug_only.o
-                                0x377 (size before relaxing)
- .debug_str     0x000003ae       0x1a print.o
-                                0x19d (size before relaxing)
+ .debug_str     0x00000000      0x1e7 Watchdog.o
+                                0x227 (size before relaxing)
+ .debug_str     0x000001e7      0x1ce usb_debug_only.o
+                                0x37a (size before relaxing)
+ .debug_str     0x000003b5       0x1a print.o
+                                0x1a0 (size before relaxing)
 
 .debug_loc      0x00000000      0xc8d
  *(.debug_loc)
- .debug_loc     0x00000000      0x37f test.o
+ .debug_loc     0x00000000      0x37f Watchdog.o
  .debug_loc     0x0000037f      0x774 usb_debug_only.o
  .debug_loc     0x00000af3      0x19a print.o
 
@@ -475,13 +475,13 @@ END GROUP
 
 .debug_ranges   0x00000000       0xb8
  *(.debug_ranges)
- .debug_ranges  0x00000000       0x20 test.o
+ .debug_ranges  0x00000000       0x20 Watchdog.o
  .debug_ranges  0x00000020       0x70 usb_debug_only.o
  .debug_ranges  0x00000090       0x28 print.o
 
 .debug_macro
  *(.debug_macro)
-OUTPUT(test.elf elf32-avr)
+OUTPUT(Watchdog.elf elf32-avr)
 LOAD linker stubs
 
 Cross Reference Table
@@ -539,20 +539,20 @@ __vectors                                         /usr/local/CrossPack-AVR-20131
 _exit                                             /usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/avr51/libgcc.a(_exit.o)
 exit                                              /usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/avr51/libgcc.a(_exit.o)
                                                   /usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/../../../../avr/lib/avr51/crtusb1286.o
-main                                              test.o
+main                                              Watchdog.o
                                                   /usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/../../../../avr/lib/avr51/crtusb1286.o
-morse_P                                           test.o
-morse_character                                   test.o
-morse_code_table                                  test.o
+morse_P                                           Watchdog.o
+morse_character                                   Watchdog.o
+morse_code_table                                  Watchdog.o
 phex                                              print.o
 phex1                                             print.o
 phex16                                            print.o
 print_P                                           print.o
-                                                  test.o
+                                                  Watchdog.o
 usb_configured                                    usb_debug_only.o
 usb_debug_flush_output                            usb_debug_only.o
 usb_debug_putchar                                 usb_debug_only.o
                                                   print.o
-                                                  test.o
+                                                  Watchdog.o
 usb_init                                          usb_debug_only.o
-                                                  test.o
+                                                  Watchdog.o

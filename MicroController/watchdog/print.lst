@@ -234,16 +234,16 @@
  182               		.file 3 "usb_debug_only.h"
 DEFINED SYMBOLS
                             *ABS*:00000000 print.c
-/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccmIhmvy.s:2      *ABS*:0000003e __SP_H__
-/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccmIhmvy.s:3      *ABS*:0000003d __SP_L__
-/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccmIhmvy.s:4      *ABS*:0000003f __SREG__
-/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccmIhmvy.s:5      *ABS*:0000003b __RAMPZ__
-/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccmIhmvy.s:6      *ABS*:00000000 __tmp_reg__
-/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccmIhmvy.s:7      *ABS*:00000001 __zero_reg__
-/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccmIhmvy.s:14     .text.print_P:00000000 print_P
-/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccmIhmvy.s:85     .text.phex1:00000000 phex1
-/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccmIhmvy.s:113    .text.phex:00000000 phex
-/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccmIhmvy.s:149    .text.phex16:00000000 phex16
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccWoDrjY.s:2      *ABS*:0000003e __SP_H__
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccWoDrjY.s:3      *ABS*:0000003d __SP_L__
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccWoDrjY.s:4      *ABS*:0000003f __SREG__
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccWoDrjY.s:5      *ABS*:0000003b __RAMPZ__
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccWoDrjY.s:6      *ABS*:00000000 __tmp_reg__
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccWoDrjY.s:7      *ABS*:00000001 __zero_reg__
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccWoDrjY.s:14     .text.print_P:00000000 print_P
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccWoDrjY.s:85     .text.phex1:00000000 phex1
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccWoDrjY.s:113    .text.phex:00000000 phex
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccWoDrjY.s:149    .text.phex16:00000000 phex16
 
 UNDEFINED SYMBOLS
 usb_debug_putchar
