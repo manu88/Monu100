@@ -1,7 +1,24 @@
+####################################################################################################
+#	
+#
+
+# Main XmlFile to be parsed
+# This is the location where the updated file from the web server will go
 
 XmlFile = /Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list.xml
 
+####################################################################################################
 
+# Error's check timer
 ErrorCheckTimerInMin = 1
 
+# Watchdog timer
 WatchdogPingIntervalInSec = 10
+
+####################################################################################################
+# OSC debug
+OSCServer = 127.0.0.1
+OSCOutPort = 9000
+OSCInPort  = 7000
+
+

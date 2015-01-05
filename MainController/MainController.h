@@ -45,6 +45,11 @@ private:
     std::string _configFile;
     std::string _xmlFile;
     
+    // osc
+    std::string _server;
+    unsigned int _oscOutPort;
+    unsigned int _oscInPort;
+    
     Timecode    _delayBeforeNextGlobalCheck;
     int         _globalCheckTimerID;
     

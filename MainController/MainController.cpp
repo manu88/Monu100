@@ -16,7 +16,12 @@ _shouldQuit    ( false ),
 _shouldRestart ( false ),
 _configFile ( configFile ),
 
-_globalCheckTimerID ( -1 )
+_server     ( "127.0.0.1"),
+_oscOutPort ( 9000 ),
+_oscInPort  ( 7000 ),
+
+_globalCheckTimerID ( -1 ),
+_pingTimerID        ( -1 )
 {
     
     _scheduler.setDelegate( this );
@@ -66,6 +71,17 @@ bool MainController::parseConfigFile()
                                       0
                                      );
         }
+        
+        // osc
+        if ( config.itemExists( "OSCServer" ) )
+            _server = config.getValueForItemName<std::string>("OSCServer");
+        
+        if ( config.itemExists( "OSCOutPort" ) )
+            _oscOutPort = atoi( config.getValueForItemName<std::string>("OSCOutPort").c_str() );
+        
+        if ( config.itemExists( "OSCInPort" ) )
+            _oscInPort = atoi( config.getValueForItemName<std::string>("OSCInPort").c_str() );
+        
 
     }
     
@@ -106,7 +122,6 @@ bool MainController::run()
         
         _network.stop();
         _network.removeAllSockets();
-        
         
         Controllers::waitForAllControllersToFinish();
     }
