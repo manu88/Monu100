@@ -1,0 +1,8 @@
+
+
+XmlFile = /Users/manueldeneu/Documents/projets/dev/Broadway/Monument/list.xml
+
+
+ErrorCheckTimerInMin = 1
+
+WatchdogPingIntervalInSec = 10
