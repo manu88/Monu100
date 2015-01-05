@@ -40,6 +40,8 @@ struct NameItem
 class NameParser
 {
 public :
+    typedef std::list<NameItem>::iterator NameIterator;
+    
     NameParser( SystemErrorHandler &errorHandler );
     ~NameParser();
     
@@ -50,9 +52,20 @@ public :
     void sortByDay();
     void sortByDate();
     
+    const NameItem &getNextName()
+    {
+        if ( _nameIter == _nameList.end() )
+            _nameIter = _nameList.begin();
+
+        return *_nameIter++;
+    }
+    
+
+    
 private:
     
     std::list<NameItem> _nameList;
+    NameIterator        _nameIter;
     
     SystemErrorHandler *_errorHandler;
 };

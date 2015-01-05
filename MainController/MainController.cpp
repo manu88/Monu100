@@ -12,13 +12,15 @@
 MainController::MainController( const std::string &configFile ):
 _nameParser( _errorHandler ),
 
-_shouldQuit ( false ),
+_shouldQuit    ( false ),
+_shouldRestart ( false ),
 _configFile ( configFile ),
 
 _globalCheckTimerID ( -1 )
 {
     
     _scheduler.setDelegate( this );
+    _network.setDelegate( this );
     
     
 }
@@ -79,30 +81,41 @@ bool MainController::run()
     if ( parseConfigFile() )
     {
         _scheduler.start();
+        _network.start();
         
         
         Controllers::waitForAllControllersToBeReady();
         
         _globalCheckTimerID = _scheduler.registerTimedEvent(_delayBeforeNextGlobalCheck, _delayBeforeNextGlobalCheck, false);
-
-        _pingTimerID = _scheduler.registerTimedEvent(_pingInterval, _pingInterval, false);
+        _pingTimerID        = _scheduler.registerTimedEvent(_pingInterval,               _pingInterval, false);
         
-        printf("\n timer = %i",_pingTimerID);
+        printf("\n checkID %i" , _globalCheckTimerID);
+        printf("\n pingID %i" , _pingTimerID);
+        
+        _network.addPort( 8000 );
         
         inspectAndLoadNamesIfNeeded();
         
 
+        _shouldQuit    = false;
+        _shouldRestart = false;
         while ( _shouldQuit == false )
         {
             // idle for now
         }
 
         _scheduler.stop();
+        _scheduler.removeAllEvents();
         
+        _network.stop();
+        _network.removeAllSockets();
         
         
         Controllers::waitForAllControllersToFinish();
     }
+    
+    if (_shouldRestart)
+        run();
         
     
     return false;
@@ -116,7 +129,8 @@ bool MainController::inspectAndLoadNamesIfNeeded()
     
     if ( _nameParser.parseXml( _xmlFile ) )
     {
-        _nameParser.inspectCurrentList();
+//        _nameParser.inspectCurrentList();
+        _nameParser.sortByDate();
         return true;
     }
     
@@ -149,16 +163,16 @@ void MainController::scheduledEventReceived( TimedEvent &event)
 {
     dayHasChanged();
  
-    printf("\n timer id = %i" , event.timerId );
+ //   printf("\n timer id = %i" , event.timerId );
     
-    if ( event.timerId == _globalCheckTimerID)
+    if ( event.timerId == _globalCheckTimerID )
     {
-        _errorHandler.dumpSystemReportOnLog();
+//        printf("\n ping to check state");
     }
     
     else if ( event.timerId == _pingTimerID )
     {
-        printf("\n ping to watchdog");
+        _network.sendOSC("127.0.0.1", 9000, "/ping", ArgumentsArray() );   
     }
     
     else
@@ -167,3 +181,40 @@ void MainController::scheduledEventReceived( TimedEvent &event)
 
 /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
 
+void MainController::oscReceived( const std::string &ipAddress ,
+                                  const int port,
+                                  const std::string & addressPattern,
+                                  const ArgumentsArray &arguments)
+{
+    if (addressPattern == "/quit")
+    {
+        _shouldQuit = true;
+        _shouldRestart = false;
+    }
+    
+    else if (addressPattern == "/restart")
+    {
+        _shouldQuit    = true;
+        _shouldRestart = true;
+    }
+    
+    else if ( addressPattern == "/dumpReport")
+    {
+        _errorHandler.dumpSystemReportOnLog();
+    }
+    
+    else if ( addressPattern == "/next")
+    {
+        const NameItem name = _nameParser.getNextName();
+        
+        Log::log("-------------");
+        Log::log("'%s' '%s' mention='%s' " , name.prenom.c_str() , name.nom.c_str() , name.mention.c_str() );
+        Log::log("Date : %s " , name.date.toString().c_str() );
+    }
+    
+    
+    
+    
+}
+
+/* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */

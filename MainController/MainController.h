@@ -15,7 +15,8 @@
 #include "NameParser.h"
 #include "SystemErrorHandler.h"
 
-class MainController : public SchedulerDelegate
+class MainController : public SchedulerDelegate,
+                       public NetworkControllerDelegate
 {
 public:
     MainController( const std::string &configFile );
@@ -25,6 +26,7 @@ public:
     
     
     void scheduledEventReceived( TimedEvent &event);
+    void oscReceived(const std::string &ipAddress , const int port,const std::string & addressPattern, const ArgumentsArray &arguments);
     
 private:
     
@@ -36,6 +38,7 @@ private:
     
     // flags
     bool        _shouldQuit;
+    bool        _shouldRestart;
     Date        _currentDate;
 
     // config stuffs
@@ -49,7 +52,8 @@ private:
     int         _pingTimerID;
     
     // controllers
-    Scheduler       _scheduler;
+    Scheduler         _scheduler;
+    NetworkController _network;
     
     // utility
     SystemErrorHandler _errorHandler;

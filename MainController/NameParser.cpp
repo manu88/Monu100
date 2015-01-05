@@ -104,6 +104,7 @@ void NameParser::sortByDay()
     
     _nameList.sort( predicateByDay );
     
+    _nameIter = _nameList.begin();
     
 }
 
@@ -118,6 +119,8 @@ void NameParser::sortByDate()
     };
     
     _nameList.sort( predicateByDate );
+    
+    _nameIter = _nameList.begin();    
 }
 
 

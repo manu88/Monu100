@@ -4,7 +4,7 @@
 	
     <item nom="Martin"  prenom="Robert"    mention="Mort betement" 			date="23/12/1978" jour="Lundi" />
 	<item nom="Saunier" prenom="Alexande"  mention="Mort vraiment betement" date="05/01/2015" jour="Mardi" />   
-	<item nom="Deneu" 	prenom="Manuel"  mention="Mort vraiment betement" date="06/01/2015" jour="Mardi" />   
+	<item nom="Deneu" 	prenom="Manuel"    mention="Mort vraiment betement" date="06/01/2015" jour="Mardi" />   
 	<item nom="Doe"  	prenom="John"  	   mention="ta race" 				date="11/12/1933" jour="Samedi" />
 	<item nom="Bla"  	prenom="Alice"     mention="ta race" 				date="11/12/1923" jour="Samedi" />
 
