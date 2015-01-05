@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project>
-    <projectFolder value="/Users/manueldeneu/Documents/projets/dev/Broadway/makefileGenerator"/>
-    <targetName value="MakefileGenerator"/>
-    <targetPlateform value="OSX"/>
-    <targetConfig value="debug"/>
-    <coreFolder value="/Users/manueldeneu/Documents/projets/dev/Broadway"/>
-    <userSource value="/Users/manueldeneu/Documents/projets/dev/Broadway/makefileGenerator/main.cpp"/>
-    <userSource value="/Users/manueldeneu/Documents/projets/dev/Broadway/makefileGenerator/MakeGenerator.cpp"/>
-    <module value="xml"/>
+
+	
+    <item nom="Martin"  prenom="Robert"    mention="Mort betement" date="23/12/78" jour="Lundi" />
+	<item nom="Saunier" prenom="Alexande"  mention="Mort vraiment betement" date="05/01/15" jour="Mardi" />    
+	
+
 </project>
 
