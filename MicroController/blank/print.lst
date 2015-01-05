@@ -1,0 +1,249 @@
+   1               		.file	"print.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.text
+   9               	.Ltext0:
+  10               		.cfi_sections	.debug_frame
+  11               		.section	.text.print_P,"ax",@progbits
+  12               	.global	print_P
+  14               	print_P:
+  15               	.LFB1:
+  16               		.file 1 "print.c"
+   1:print.c       **** /* Very basic print functions, intended to be used with usb_debug_only.c
+   2:print.c       ****  * http://www.pjrc.com/teensy/
+   3:print.c       ****  * Copyright (c) 2008 PJRC.COM, LLC
+   4:print.c       ****  * 
+   5:print.c       ****  * Permission is hereby granted, free of charge, to any person obtaining a copy
+   6:print.c       ****  * of this software and associated documentation files (the "Software"), to deal
+   7:print.c       ****  * in the Software without restriction, including without limitation the rights
+   8:print.c       ****  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+   9:print.c       ****  * copies of the Software, and to permit persons to whom the Software is
+  10:print.c       ****  * furnished to do so, subject to the following conditions:
+  11:print.c       ****  * 
+  12:print.c       ****  * The above copyright notice and this permission notice shall be included in
+  13:print.c       ****  * all copies or substantial portions of the Software.
+  14:print.c       ****  * 
+  15:print.c       ****  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  16:print.c       ****  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  17:print.c       ****  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  18:print.c       ****  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  19:print.c       ****  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  20:print.c       ****  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+  21:print.c       ****  * THE SOFTWARE.
+  22:print.c       ****  */
+  23:print.c       **** 
+  24:print.c       **** // Version 1.0: Initial Release
+  25:print.c       **** 
+  26:print.c       **** #include <avr/io.h>
+  27:print.c       **** #include <avr/pgmspace.h>
+  28:print.c       **** 
+  29:print.c       **** #include "print.h"
+  30:print.c       **** 
+  31:print.c       **** void print_P(const char *s)
+  32:print.c       **** {
+  17               		.loc 1 32 0
+  18               		.cfi_startproc
+  19               	.LVL0:
+  20 0000 1F93      		push r17
+  21               	.LCFI0:
+  22               		.cfi_def_cfa_offset 3
+  23               		.cfi_offset 17, -2
+  24 0002 CF93      		push r28
+  25               	.LCFI1:
+  26               		.cfi_def_cfa_offset 4
+  27               		.cfi_offset 28, -3
+  28 0004 DF93      		push r29
+  29               	.LCFI2:
+  30               		.cfi_def_cfa_offset 5
+  31               		.cfi_offset 29, -4
+  32               	/* prologue: function */
+  33               	/* frame size = 0 */
+  34               	/* stack size = 3 */
+  35               	.L__stack_usage = 3
+  36 0006 EC01      		movw r28,r24
+  37               	.LVL1:
+  38               	.L4:
+  39               	.LBB2:
+  33:print.c       **** 	char c;
+  34:print.c       **** 
+  35:print.c       **** 	while (1) {
+  36:print.c       **** 		c = pgm_read_byte(s++);
+  40               		.loc 1 36 0
+  41 0008 FE01      		movw r30,r28
+  42               	/* #APP */
+  43               	 ;  36 "print.c" 1
+  44 000a 1491      		lpm r17, Z
+  45               		
+  46               	 ;  0 "" 2
+  47               	.LVL2:
+  48               	/* #NOAPP */
+  49               	.LBE2:
+  37:print.c       **** 		if (!c) break;
+  50               		.loc 1 37 0
+  51 000c 1123      		tst r17
+  52 000e 01F0      		breq .L1
+  38:print.c       **** 		if (c == '\n') usb_debug_putchar('\r');
+  53               		.loc 1 38 0
+  54 0010 1A30      		cpi r17,lo8(10)
+  55 0012 01F4      		brne .L3
+  56               		.loc 1 38 0 is_stmt 0 discriminator 1
+  57 0014 8DE0      		ldi r24,lo8(13)
+  58 0016 0E94 0000 		call usb_debug_putchar
+  59               	.LVL3:
+  60               	.L3:
+  39:print.c       **** 		usb_debug_putchar(c);
+  61               		.loc 1 39 0 is_stmt 1
+  62 001a 812F      		mov r24,r17
+  63 001c 0E94 0000 		call usb_debug_putchar
+  64               	.LVL4:
+  65 0020 2196      		adiw r28,1
+  66               	.LVL5:
+  40:print.c       **** 	}
+  67               		.loc 1 40 0
+  68 0022 00C0      		rjmp .L4
+  69               	.LVL6:
+  70               	.L1:
+  71               	/* epilogue start */
+  41:print.c       **** }
+  72               		.loc 1 41 0
+  73 0024 DF91      		pop r29
+  74 0026 CF91      		pop r28
+  75               	.LVL7:
+  76 0028 1F91      		pop r17
+  77               	.LVL8:
+  78 002a 0895      		ret
+  79               		.cfi_endproc
+  80               	.LFE1:
+  82               		.section	.text.phex1,"ax",@progbits
+  83               	.global	phex1
+  85               	phex1:
+  86               	.LFB2:
+  42:print.c       **** 
+  43:print.c       **** void phex1(unsigned char c)
+  44:print.c       **** {
+  87               		.loc 1 44 0
+  88               		.cfi_startproc
+  89               	.LVL9:
+  90               	/* prologue: function */
+  91               	/* frame size = 0 */
+  92               	/* stack size = 0 */
+  93               	.L__stack_usage = 0
+  45:print.c       **** 	usb_debug_putchar(c + ((c < 10) ? '0' : 'A' - 10));
+  94               		.loc 1 45 0
+  95 0000 8A30      		cpi r24,lo8(10)
+  96 0002 00F4      		brsh .L8
+  97 0004 90E3      		ldi r25,lo8(48)
+  98 0006 00C0      		rjmp .L7
+  99               	.L8:
+ 100 0008 97E3      		ldi r25,lo8(55)
+ 101               	.L7:
+ 102               		.loc 1 45 0 is_stmt 0 discriminator 3
+ 103 000a 890F      		add r24,r25
+ 104               	.LVL10:
+ 105 000c 0C94 0000 		jmp usb_debug_putchar
+ 106               	.LVL11:
+ 107               		.cfi_endproc
+ 108               	.LFE2:
+ 110               		.section	.text.phex,"ax",@progbits
+ 111               	.global	phex
+ 113               	phex:
+ 114               	.LFB3:
+  46:print.c       **** }
+  47:print.c       **** 
+  48:print.c       **** void phex(unsigned char c)
+  49:print.c       **** {
+ 115               		.loc 1 49 0 is_stmt 1
+ 116               		.cfi_startproc
+ 117               	.LVL12:
+ 118 0000 CF93      		push r28
+ 119               	.LCFI3:
+ 120               		.cfi_def_cfa_offset 3
+ 121               		.cfi_offset 28, -2
+ 122               	/* prologue: function */
+ 123               	/* frame size = 0 */
+ 124               	/* stack size = 1 */
+ 125               	.L__stack_usage = 1
+ 126 0002 C82F      		mov r28,r24
+  50:print.c       **** 	phex1(c >> 4);
+ 127               		.loc 1 50 0
+ 128 0004 8295      		swap r24
+ 129               	.LVL13:
+ 130 0006 8F70      		andi r24,lo8(15)
+ 131 0008 0E94 0000 		call phex1
+ 132               	.LVL14:
+  51:print.c       **** 	phex1(c & 15);
+ 133               		.loc 1 51 0
+ 134 000c 8C2F      		mov r24,r28
+ 135 000e 8F70      		andi r24,lo8(15)
+ 136               	/* epilogue start */
+  52:print.c       **** }
+ 137               		.loc 1 52 0
+ 138 0010 CF91      		pop r28
+ 139               	.LVL15:
+  51:print.c       **** 	phex1(c & 15);
+ 140               		.loc 1 51 0
+ 141 0012 0C94 0000 		jmp phex1
+ 142               	.LVL16:
+ 143               		.cfi_endproc
+ 144               	.LFE3:
+ 146               		.section	.text.phex16,"ax",@progbits
+ 147               	.global	phex16
+ 149               	phex16:
+ 150               	.LFB4:
+  53:print.c       **** 
+  54:print.c       **** void phex16(unsigned int i)
+  55:print.c       **** {
+ 151               		.loc 1 55 0
+ 152               		.cfi_startproc
+ 153               	.LVL17:
+ 154 0000 CF93      		push r28
+ 155               	.LCFI4:
+ 156               		.cfi_def_cfa_offset 3
+ 157               		.cfi_offset 28, -2
+ 158               	/* prologue: function */
+ 159               	/* frame size = 0 */
+ 160               	/* stack size = 1 */
+ 161               	.L__stack_usage = 1
+ 162 0002 C82F      		mov r28,r24
+  56:print.c       **** 	phex(i >> 8);
+ 163               		.loc 1 56 0
+ 164 0004 892F      		mov r24,r25
+ 165               	.LVL18:
+ 166 0006 0E94 0000 		call phex
+ 167               	.LVL19:
+  57:print.c       **** 	phex(i);
+ 168               		.loc 1 57 0
+ 169 000a 8C2F      		mov r24,r28
+ 170               	/* epilogue start */
+  58:print.c       **** }
+ 171               		.loc 1 58 0
+ 172 000c CF91      		pop r28
+  57:print.c       **** 	phex(i);
+ 173               		.loc 1 57 0
+ 174 000e 0C94 0000 		jmp phex
+ 175               	.LVL20:
+ 176               		.cfi_endproc
+ 177               	.LFE4:
+ 179               		.text
+ 180               	.Letext0:
+ 181               		.file 2 "/usr/local/CrossPack-AVR-20131216/avr/include/stdint.h"
+ 182               		.file 3 "usb_debug_only.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 print.c
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccHUwVEU.s:2      *ABS*:0000003e __SP_H__
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccHUwVEU.s:3      *ABS*:0000003d __SP_L__
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccHUwVEU.s:4      *ABS*:0000003f __SREG__
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccHUwVEU.s:5      *ABS*:0000003b __RAMPZ__
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccHUwVEU.s:6      *ABS*:00000000 __tmp_reg__
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccHUwVEU.s:7      *ABS*:00000001 __zero_reg__
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccHUwVEU.s:14     .text.print_P:00000000 print_P
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccHUwVEU.s:85     .text.phex1:00000000 phex1
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccHUwVEU.s:113    .text.phex:00000000 phex
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccHUwVEU.s:149    .text.phex16:00000000 phex16
+
+UNDEFINED SYMBOLS
+usb_debug_putchar

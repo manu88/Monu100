@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>0077EDE7-3769-4A23-8618-7C6AEEF145DA</string>
+	<key>IDESourceControlProjectName</key>
+	<string>MicroControllers</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>E77B9AD3-EC9B-4CF6-A340-54547ED018C9</key>
+		<string>https://github.com/manu88/Monu100.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>MicroController/MicroControllers.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>E77B9AD3-EC9B-4CF6-A340-54547ED018C9</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/manu88/Monu100.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>E77B9AD3-EC9B-4CF6-A340-54547ED018C9</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>E77B9AD3-EC9B-4CF6-A340-54547ED018C9</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Monu100</string>
+		</dict>
+	</array>
+</dict>
+</plist>
