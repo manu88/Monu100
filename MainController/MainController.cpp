@@ -116,7 +116,7 @@ bool MainController::inspectAndLoadNamesIfNeeded()
     
     if ( _nameParser.parseXml( _xmlFile ) )
     {
-        
+        _nameParser.inspectCurrentList();
         return true;
     }
     

@@ -40,17 +40,44 @@ bool NameParser::parseXml( const std::string &file )
         _errorHandler->addError(ERRORS_XMLFILE_PARSING);
         return false;
     }
+  
+    auto list = x.getNodeListForName("item");
     
-/*
-    g.setPlateform(  MakeGenerator::getPlateformForName(x.getAttributeForTag("targetPlateform", "value")) );
+    _nameList.clear();
     
-    g.setVersion( x.getAttributeForTag("version", "value") );
+    const long elementSize = list.size();
     
-    g.setDebugConfig( x.getAttributeForTag("targetConfig", "value") == NAME_DEBUG ? true : false );
+    for ( auto item : list)
+    {
+        const std::string nom     = XMLParser::getAttributeForName( item, "nom");
+        const std::string prenom  = XMLParser::getAttributeForName( item, "prenom");
+        const std::string mention = XMLParser::getAttributeForName( item, "mention");
+        const std::string jour    = XMLParser::getAttributeForName( item, "jour");
+        const std::string date    = XMLParser::getAttributeForName( item, "date");
+        
+        Day _day = dayFromExplicitFrench( jour );
+        
+        Date _date = dateFromStringWithDelimiter( date, '/');
+        _date.day = _day;
+        
     
-    g.setTargetName( x.getAttributeForTag("targetName", "value") );
-*/
+        _nameList.push_back( NameItem(nom , prenom , mention , _date ) );
+        
+
+
+        
+    }
     
     return true;
     
+}
+
+void NameParser::inspectCurrentList()
+{
+    for (auto name : _nameList )
+    {
+        Log::log("-------------");
+        Log::log("Got one '%s' '%s' mention='%s' " , name.prenom.c_str() , name.nom.c_str() , name.mention.c_str() );
+        Log::log("Date : %s " , name.date.toString().c_str() );
+    }
 }
