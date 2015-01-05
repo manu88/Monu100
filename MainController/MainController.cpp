@@ -130,7 +130,7 @@ bool MainController::inspectAndLoadNamesIfNeeded()
     if ( _nameParser.parseXml( _xmlFile ) )
     {
 //        _nameParser.inspectCurrentList();
-        _nameParser.sortByDate();
+//        _nameParser.sortByDate();
         return true;
     }
     
@@ -205,7 +205,9 @@ void MainController::oscReceived( const std::string &ipAddress ,
     
     else if ( addressPattern == "/next")
     {
-        const NameItem name = _nameParser.getNextName();
+        const std::string jour = arguments.getValueAtIndex<std::string>(0);
+        
+        const NameItem name = _nameParser.getNextItemForDay( dayFromExplicitFrench(jour)); //getNextName();
         
         Log::log("-------------");
         Log::log("'%s' '%s' mention='%s' " , name.prenom.c_str() , name.nom.c_str() , name.mention.c_str() );

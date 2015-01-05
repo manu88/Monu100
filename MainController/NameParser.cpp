@@ -71,6 +71,7 @@ bool NameParser::parseXml( const std::string &file )
 
         
     }
+    _nameIter = _nameList.begin();
     
     assert( elementSize == _nameList.size() );
     

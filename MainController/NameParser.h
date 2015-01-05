@@ -26,6 +26,15 @@ struct NameItem
     date    ( date )
     {}
     
+    NameItem( NameItem const& r):
+    nom     ( r.nom),
+    prenom  ( r.prenom),
+    mention ( r.mention ),
+    date    ( r.date )
+    {
+        
+    }
+    
     /* *** */
     
     std::string nom;
@@ -60,7 +69,18 @@ public :
         return *_nameIter++;
     }
     
-
+    const NameItem &getNextItemForDay(const Day day)
+    {
+        while (_nameIter->date.day != day)
+        {
+            _nameIter++;
+            
+            if (_nameIter == _nameList.end() )
+                _nameIter = _nameList.begin();
+        }
+        
+        return *_nameIter++;
+    }
     
 private:
     
