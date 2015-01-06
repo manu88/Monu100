@@ -56,6 +56,8 @@ private:
     Timecode    _pingInterval;
     int         _pingTimerID;
     
+    Timecode    _offsetBeforeUpdating;
+    
     // controllers
     Scheduler         _scheduler;
     NetworkController _network;

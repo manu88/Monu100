@@ -64,7 +64,8 @@ int main(void)
 	usb_init();
 
 	// blink morse code messages!
-	while (1) {
+	while (1)
+    {
 		for (i=0; i<6; i++) {
 			morse_P(PSTR("SOS"));
 			_delay_ms(1500);

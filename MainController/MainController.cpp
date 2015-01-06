@@ -1,4 +1,4 @@
-//
+    //
 //  MainController.cpp
 //  Broadway_core
 //
@@ -21,7 +21,9 @@ _oscOutPort ( 9000 ),
 _oscInPort  ( 7000 ),
 
 _globalCheckTimerID ( -1 ),
-_pingTimerID        ( -1 )
+_pingTimerID        ( -1 ),
+
+_offsetBeforeUpdating ()
 {
     
     _scheduler.setDelegate( this );
@@ -44,10 +46,23 @@ bool MainController::parseConfigFile()
 {
     Database<std::string> config;
     
-
+    Log::cleanupLogger();
     
     if ( config.parseFile(_configFile, '=') )
     {
+        if ( config.itemExists("LogOnStdOut") && atoi( config.getValueForItemName<std::string>("LogOnStdOut").c_str() ) )
+        {
+            Log::addLocalLogger();
+            Log::log("Use stdout logger ");
+        }
+        
+        if ( config.itemExists("LogOnFile") && atoi( config.getValueForItemName<std::string>("LogOnFile").c_str() ) )
+        {
+            Log::addFileLogger( "monument_log.txt" );
+            Log::log("Use file logging " );
+        }
+        
+        
         if ( config.itemExists("XmlFile") )
         {
             _xmlFile = config.getValueForItemName<std::string>("XmlFile");
@@ -56,12 +71,14 @@ bool MainController::parseConfigFile()
         }
         
         if (config.itemExists("ErrorCheckTimerInMin"))
+        {
             _delayBeforeNextGlobalCheck = Timecode( 0,
                                                     atoi( config.getValueForItemName<std::string>("ErrorCheckTimerInMin").c_str() ),
                                                     0,
                                                     0
                                                    );
-        
+            
+        }
         if (config.itemExists("WatchdogPingIntervalInSec"))
         {
 
@@ -81,6 +98,16 @@ bool MainController::parseConfigFile()
         
         if ( config.itemExists( "OSCInPort" ) )
             _oscInPort = atoi( config.getValueForItemName<std::string>("OSCInPort").c_str() );
+        
+        if ( config.itemExists( "UpdateList_TimeOffset" ) )
+        {
+            _offsetBeforeUpdating = Timecode( 0,
+                                              0,
+                                              atoi( config.getValueForItemName<std::string>("UpdateList_TimeOffset").c_str() ),
+                                              0
+                                             );
+
+        }
         
 
     }

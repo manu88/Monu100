@@ -3,6 +3,28 @@
    version = "1.0">
    <Group
       location = "container:"
+      name = "MCP2551">
+      <FileRef
+         location = "group:../../../../Arduino/libraries/Canbus/mcp2515.c">
+      </FileRef>
+      <FileRef
+         location = "group:../../../../Arduino/libraries/Canbus/mcp2515.h">
+      </FileRef>
+      <FileRef
+         location = "group:../../../../Arduino/libraries/Canbus/Canbus.h">
+      </FileRef>
+      <FileRef
+         location = "group:../../../../Arduino/libraries/Canbus/Canbus.cpp">
+      </FileRef>
+      <FileRef
+         location = "group:../../../../Arduino/libraries/Canbus/defaults.h">
+      </FileRef>
+      <FileRef
+         location = "group:../../../../Arduino/libraries/Canbus/global.h">
+      </FileRef>
+   </Group>
+   <Group
+      location = "container:"
       name = "blank">
       <FileRef
          location = "group:blank/print.c">

@@ -17,8 +17,8 @@ int main(int argc, const char * argv[])
 
     ScopedPlateformConfig p;
     
-    Log::addLocalLogger();
-    Log::addFileLogger("monument_log.txt");
+//    Log::addLocalLogger();
+//    Log::addFileLogger("monument_log.txt");
     
     std::string configFile = "config_monument.txt";
     

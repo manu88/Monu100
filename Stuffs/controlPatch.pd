@@ -1,4 +1,4 @@
-#N canvas 227 113 794 327 10;
+#N canvas 220 130 794 327 10;
 #X obj 42 200 packOSC;
 #X msg 69 65 send /quit;
 #X msg 153 65 send /restart;
