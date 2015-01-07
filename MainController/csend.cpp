@@ -25,8 +25,9 @@ int main(void)
 {
 	int s;
 	int nbytes;
-	struct sockaddr_can addr;
 	struct can_frame frame;
+    
+	struct sockaddr_can addr;
 	struct ifreq ifr;
  
 	char *ifname = "can0";
