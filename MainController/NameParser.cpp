@@ -41,6 +41,11 @@ bool NameParser::parseJSON( const std::string &file )
         Log::log("\n unable to parse JSON file '%s'" , file.c_str() );
         return false;
     }
+    const int nameCountCheck = parser.getNode("nameCount")->getInt();
+    
+    const std::string currentDay = parser.getNode("currentDay")->getString();
+    
+    Log::log("Current day is %s" , currentDay.c_str() );
     
     auto nameList = parser.getNode("list");
     
@@ -53,6 +58,9 @@ bool NameParser::parseJSON( const std::string &file )
     assert( nameList->isArray() );
     
     const int nameListSize = nameList->getArraySize();
+    
+    if ( nameListSize != nameCountCheck )
+        Log::log("Warning : Name's count flag is not the same as object count!");
     
     _nameList.clear();
     
