@@ -16,7 +16,8 @@
 #include "SystemErrorHandler.h"
 
 class MainController : public SchedulerDelegate,
-                       public NetworkControllerDelegate
+                       public NetworkControllerDelegate,
+                       public InterfaceControllerDelegate
 {
 public:
     MainController( const std::string &configFile );
@@ -27,6 +28,7 @@ public:
     
     void scheduledEventReceived( TimedEvent &event);
     void oscReceived(const std::string &ipAddress , const int port,const std::string & addressPattern, const ArgumentsArray &arguments);
+    void inputChanged( const InterfaceEvent *event );
     
 private:
     
@@ -59,8 +61,11 @@ private:
     Timecode    _offsetBeforeUpdating;
     
     // controllers
-    Scheduler         _scheduler;
-    NetworkController _network;
+    Scheduler           _scheduler;
+    NetworkController   _network;
+    InterfaceController _interface;
+    
+    CanEvent *_can;
     
     // utility
     SystemErrorHandler _errorHandler;

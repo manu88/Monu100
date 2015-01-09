@@ -12,13 +12,66 @@
 #include "MainController.h"
 
 
+
 int main(int argc, const char * argv[])
 {
 
     ScopedPlateformConfig p;
     
-//    Log::addLocalLogger();
-//    Log::addFileLogger("monument_log.txt");
+    Log::addLocalLogger();
+    
+    JSONParser parser;
+    
+    if (parser.parseFile("test.json"))
+    {
+        Log::log("parse OK");
+        
+        JSONParser::Node node;
+        
+        if ( (node = parser.getNode("testNum2")) )
+        {
+            Log::log(" Node found");
+            
+            if (node.isNumber() )
+                Log::log("is number %f" , node.getDouble());
+        }
+        
+        else
+            Log::log(" Node _NOT_ found");
+        
+        if ( (node = parser.getNode("testNum4")) )
+        {
+            Log::log(" Node found");
+            
+            if (node.isNumber() )
+                Log::log("is number %f" , node.getDouble());
+        }
+        else
+            Log::log(" Node _NOT_ found");
+        
+        
+        if ( (node = parser.getNode("title")) )
+        {
+            Log::log(" Node found");
+            
+            if ( node.isString() )
+                Log::log("is string '%s'" , node.getString().c_str() );
+            
+            
+        }
+        else
+            Log::log(" Node _NOT_ found");
+        
+        
+    }
+    else
+    {
+        Log::log("Error while parsing file ");        
+    }
+    
+
+    
+/*
     
     std::string configFile = "config_monument.txt";
     
@@ -34,6 +87,7 @@ int main(int argc, const char * argv[])
             
         }
     }
+ */
     
     Log::cleanupLogger();
 

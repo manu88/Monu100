@@ -11,6 +11,11 @@
 
 #define BROADWAY_DEBUG
 
+
+#ifndef USE_JSON_PARSER
+#define USE_JSON_PARSER
+#endif
+
 #ifndef USE_NETWORK
 #define USE_NETWORK
 #endif

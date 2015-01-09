@@ -28,7 +28,7 @@ _offsetBeforeUpdating ()
     
     _scheduler.setDelegate( this );
     _network.setDelegate( this );
-    
+    _interface.setDelegate( this );
     
 }
 
@@ -36,6 +36,7 @@ _offsetBeforeUpdating ()
 
 MainController::~MainController()
 {
+
     
 }
 
@@ -125,7 +126,7 @@ bool MainController::run()
     {
         _scheduler.start();
         _network.start();
-        
+        _interface.start();
         
         Controllers::waitForAllControllersToBeReady();
         
@@ -133,6 +134,9 @@ bool MainController::run()
         _pingTimerID        = _scheduler.registerTimedEvent(_pingInterval,               _pingInterval, false);
                 
         _network.addPort( 7000 );
+        
+        _can = _interface.addCanConnexion("can0");
+        _can->connect();
         
         inspectAndLoadNamesIfNeeded();
         
@@ -149,6 +153,9 @@ bool MainController::run()
         
         _network.stop();
         _network.removeAllSockets();
+        
+        _interface.stop();
+
         
         Controllers::waitForAllControllersToFinish();
     }
@@ -255,6 +262,13 @@ void MainController::oscReceived( const std::string &ipAddress ,
     
     
     
+    
+}
+
+/* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
+
+void MainController::inputChanged( const InterfaceEvent *event )
+{
     
 }
 
