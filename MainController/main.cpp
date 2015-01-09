@@ -17,7 +17,7 @@ int main(int argc, const char * argv[])
 {
 
     ScopedPlateformConfig p;
-    
+/*
     Log::addLocalLogger();
     
     JSONParser parser;
@@ -59,10 +59,8 @@ int main(int argc, const char * argv[])
     {
         Log::log("Error while parsing file ");        
     }
-    
 
-    
-/*
+*/
     
     std::string configFile = "config_monument.txt";
     
@@ -78,7 +76,7 @@ int main(int argc, const char * argv[])
             
         }
     }
- */
+
     
     Log::cleanupLogger();
 

@@ -24,7 +24,7 @@ NameParser::~NameParser()
 
 /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
 
-bool NameParser::parseXml( const std::string &file )
+bool NameParser::parseJSON( const std::string &file )
 {
     if (!FileSystem::fileExists( file ) )
     {
@@ -34,7 +34,56 @@ bool NameParser::parseXml( const std::string &file )
         return false;
     }
     
-    XMLParser x;
+    JSONParser parser;
+    
+    if ( !parser.parseFile( file ) )
+    {
+        Log::log("\n unable to parse JSON file '%s'" , file.c_str() );
+        return false;
+    }
+    
+    auto nameList = parser.getNode("list");
+    
+    if (!nameList )
+    {
+        Log::log("\n unable to find 'list' node ");
+        return false;
+    }
+    
+    assert( nameList->isArray() );
+    
+    const int nameListSize = nameList->getArraySize();
+    
+    _nameList.clear();
+    
+    for (int i = 0 ; i< nameListSize; i++)
+    {
+        auto item = nameList->getArrayItem( i );
+        
+        assert( item->isObject() );
+        
+//        const int attribSize = item->getAttribsSize();
+        
+        const std::string nom     = item->getObjectItem("nom")->getString();
+        const std::string prenom  = item->getObjectItem("prenom")->getString();
+        const std::string mention = item->getObjectItem("mention")->getString();
+        const std::string jour    = item->getObjectItem("jour")->getString();
+        const std::string date    = item->getObjectItem("date")->getString();
+        
+        Day _day = dayFromExplicitFrench( jour );
+        
+        Date _date = dateFromStringWithDelimiter( date, '/');
+        _date.day = _day;
+        
+        _nameList.push_back( NameItem(nom , prenom , mention , _date ) );
+    }
+    
+    _nameIter = _nameList.begin();
+    
+    assert( nameListSize == _nameList.size() );
+    
+    
+/*    XMLParser x;
 
     
     if ( !x.parseFile( file ))
@@ -74,6 +123,8 @@ bool NameParser::parseXml( const std::string &file )
     _nameIter = _nameList.begin();
     
     assert( elementSize == _nameList.size() );
+ 
+ */
     
     return true;
     

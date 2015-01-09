@@ -64,10 +64,10 @@ bool MainController::parseConfigFile()
         }
         
         
-        if ( config.itemExists("XmlFile") )
+        if ( config.itemExists("DataFile") )
         {
-            _xmlFile = config.getValueForItemName<std::string>("XmlFile");
-            Log::log("Will use XML file : '%s'", _xmlFile.c_str() );
+            _dataFile = config.getValueForItemName<std::string>("DataFile");
+            Log::log("Will use XML file : '%s'", _dataFile.c_str() );
             
         }
         
@@ -173,7 +173,7 @@ bool MainController::run()
 bool MainController::inspectAndLoadNamesIfNeeded()
 {
     
-    if ( _nameParser.parseXml( _xmlFile ) )
+    if ( _nameParser.parseJSON( _dataFile ) )
     {
 //        _nameParser.inspectCurrentList();
 //        _nameParser.sortByDate();

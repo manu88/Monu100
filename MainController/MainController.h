@@ -45,7 +45,7 @@ private:
 
     // config stuffs
     std::string _configFile;
-    std::string _xmlFile;
+    std::string _dataFile;
     
     // osc
     std::string _server;
