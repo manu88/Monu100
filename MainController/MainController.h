@@ -14,6 +14,7 @@
 #include "Config.h"
 #include "NameParser.h"
 #include "SystemErrorHandler.h"
+#include "WebFetcher.h"
 
 class MainController : public SchedulerDelegate,
                        public NetworkControllerDelegate,
@@ -34,6 +35,7 @@ private:
     
     bool parseConfigFile();
     
+    bool fetchJSONFile();
     bool inspectAndLoadNamesIfNeeded();
     
     void dayHasChanged();
@@ -45,7 +47,10 @@ private:
 
     // config stuffs
     std::string _configFile;
+    
     std::string _dataFile;
+    std::string _tempDataFile;
+    std::string _dataUrl;
     
     // osc
     std::string _server;

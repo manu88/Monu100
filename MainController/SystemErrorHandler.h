@@ -16,20 +16,26 @@
 typedef enum
 {
     // hopefully
-    ERRORS_FREE                  = 0,
+    ERRORS_FREE                  = 0, // yeeeha
     
-    // XML
-    ERRORS_XMLFILE_NOTFOUND      = ( 1 << 0 ),
-    ERRORS_XMLFILE_PARSING       = ( 1 << 1 ),
+    // DATA
+    ERRORS_DATAFILE_NOTFOUND     = ( 1 << 0 ), // data file not found
+    ERRORS_DATAFILE_PARSING      = ( 1 << 1 ), // error in parse -> check NameParser's errors
 
+    // Netork fetch
+    ERROR_INVALID_URL            = ( 1 << 2), // curl fetch failed
+    ERROR_UPDATE_INSPECT         = ( 1 << 3), // set if before copy temp. to def., inspect JSON fails
+    ERROR_UPDATE_COPY            = ( 1 << 4), // copy from temp. file to def file failed
+    
     // Network
-    ERRORS_NETWORK_DOWN          = ( 1 << 4 ),
-    ERRORS_WEB_UNREACHABLE       = ( 1 << 5 ),
+    ERRORS_NETWORK_DOWN          = ( 1 << 10 ), // unable to communicate whith network
+    ERRORS_WEB_UNREACHABLE       = ( 1 << 11 ), // unable to access web server and/or NTP wall time.
     
     // Can
-    ERRORS_CAN_DOWN              = ( 1 << 5 ),
+    ERRORS_CAN_DOWN              = ( 1 << 16 ), // error on can bus
     
     ERRORS_ALL                   = -1
+    
 } Error_flags;
 
 /* **** **** **** **** **** **** */

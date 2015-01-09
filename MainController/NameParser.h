@@ -54,6 +54,8 @@ public :
     NameParser( SystemErrorHandler &errorHandler );
     ~NameParser();
     
+    bool inspectJSON( const std::string &file );
+    
     bool parseJSON( const std::string &file );
     
     void inspectCurrentList();

@@ -44,12 +44,19 @@ void SystemErrorHandler::dumpSystemReportOnLog() const
     Log::log("##########################");
     Log::log("Begin system report :");
     
-    const bool xmlFound   = !isErrorSet( ERRORS_XMLFILE_NOTFOUND );
-    const bool xmlParseOk = !isErrorSet( ERRORS_XMLFILE_PARSING );
+    const bool dataFound   = !isErrorSet( ERRORS_DATAFILE_NOTFOUND );
+    const bool dataParseOk = !isErrorSet( ERRORS_DATAFILE_PARSING );
     
-    Log::log("XML File    -> %s", xmlFound? "Present" : "not found");
-    Log::log("XML Parsing -> %s", xmlParseOk? "Ok" : "has errors");
-
+    const bool urlValid = !isErrorSet( ERROR_INVALID_URL );
+    const bool updateInspect = !isErrorSet( ERROR_UPDATE_INSPECT );
+    const bool updateCopy = !isErrorSet( ERROR_UPDATE_COPY );
+    
+    Log::log("Data File    -> %s", dataFound? "Present" : "not found");
+    Log::log("Data Parsing -> %s", dataParseOk? "Ok" : "has errors");
+    Log::log("-------");
+    Log::log("URL valid      -> %s", urlValid? "Ok" : "invalid");
+    Log::log("Update inspect -> %s", updateInspect? "Ok" : "invalid");
+    Log::log("Update copy    -> %s", updateCopy? "Ok" : "failed");
     
     Log::log("##########################");
 }

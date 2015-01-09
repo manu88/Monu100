@@ -6,6 +6,8 @@
 //  Copyright (c) 2015 Manuel Deneu. All rights reserved.
 //
 
+
+
 #include "MainController.h"
 
 
@@ -67,9 +69,25 @@ bool MainController::parseConfigFile()
         if ( config.itemExists("DataFile") )
         {
             _dataFile = config.getValueForItemName<std::string>("DataFile");
-            Log::log("Will use XML file : '%s'", _dataFile.c_str() );
+            Log::log("Will use JSON file : '%s'", _dataFile.c_str() );
             
         }
+        
+        if ( config.itemExists("TempDataFile") )
+        {
+            _tempDataFile = config.getValueForItemName<std::string>("TempDataFile");
+            Log::log("Will use temp JSON file : '%s'", _tempDataFile.c_str() );
+            
+        }
+        
+        if ( config.itemExists("JsonURL") )
+        {
+            _dataUrl = config.getValueForItemName<std::string>("JsonURL");
+            Log::log("Will use XML url : '%s'", _dataUrl.c_str() );
+            
+        }
+        
+        
         
         if (config.itemExists("ErrorCheckTimerInMin"))
         {
@@ -138,6 +156,9 @@ bool MainController::run()
         _can = _interface.addCanConnexion("can0");
         _can->connect();
         
+        
+        fetchJSONFile();
+        
         inspectAndLoadNamesIfNeeded();
         
 
@@ -166,6 +187,40 @@ bool MainController::run()
     
     return false;
     
+}
+
+/* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
+
+bool MainController::fetchJSONFile()
+{
+    WebFetcher f( _dataUrl , _tempDataFile , _dataFile , _errorHandler );
+    
+    if ( !f.fetch() )
+    {
+        Log::log("Error while fetching url '%s' to '%s'" , _dataUrl.c_str() , _tempDataFile.c_str() );
+
+        _errorHandler.addError( ERROR_INVALID_URL );
+        _errorHandler.addError( ERROR_UPDATE_INSPECT );
+        _errorHandler.addError( ERROR_UPDATE_COPY );
+        return false;
+    }
+    
+    if ( !_nameParser.inspectJSON( _tempDataFile ) )
+    {
+        Log::log("Temp. JSON seems wrong. Can't copy");
+        _errorHandler.addError( ERROR_UPDATE_INSPECT );
+        _errorHandler.addError( ERROR_UPDATE_COPY );
+        return false;
+    }
+    
+    if ( !f.checkAndCopyFile() )
+    {
+        Log::log("Unable to copy temp JSON to def");
+        _errorHandler.addError( ERROR_UPDATE_COPY );
+        return false;
+    }
+    
+    return true;
 }
 
 /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
@@ -242,6 +297,11 @@ void MainController::oscReceived( const std::string &ipAddress ,
     {
         _shouldQuit    = true;
         _shouldRestart = true;
+    }
+    
+    else if ( addressPattern == "/fetch")
+    {
+        fetchJSONFile();
     }
     
     else if ( addressPattern == "/dumpReport")

@@ -24,13 +24,36 @@ NameParser::~NameParser()
 
 /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
 
+bool NameParser::inspectJSON( const std::string &file )
+{
+    if (!FileSystem::fileExists( file ) )
+    {
+        Log::log("Unable to find '%s' file" , file.c_str() );
+        
+        _errorHandler->addError( ERRORS_DATAFILE_NOTFOUND );
+        return false;
+    }
+    
+    JSONParser parser;
+    
+    if ( !parser.parseFile( file ) )
+    {
+        Log::log("\n unable to parse JSON file '%s'" , file.c_str() );
+        return false;
+    }
+    
+    return true;
+}
+
+/* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
+
 bool NameParser::parseJSON( const std::string &file )
 {
     if (!FileSystem::fileExists( file ) )
     {
         Log::log("Unable to find '%s' file" , file.c_str() );
         
-        _errorHandler->addError( ERRORS_XMLFILE_NOTFOUND );
+        _errorHandler->addError( ERRORS_DATAFILE_NOTFOUND );
         return false;
     }
     
@@ -90,7 +113,7 @@ bool NameParser::parseJSON( const std::string &file )
     
     assert( nameListSize == _nameList.size() );
     
-    
+// old XML parser
 /*    XMLParser x;
 
     

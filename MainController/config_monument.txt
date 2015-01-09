@@ -2,10 +2,16 @@
 #	
 #
 
-# Main XmlFile to be parsed
+# Main JSON file to be parsed
 # This is the location where the updated file from the web server will go
 
 DataFile = /Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list.json
+
+TempDataFile = /Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json
+
+# JSON url 
+
+JsonURL = https://github.com/manu88/Monu100/blob/master/MainController/list.json
 
 ####################################################################################################
 #
