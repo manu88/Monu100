@@ -26,41 +26,32 @@ int main(int argc, const char * argv[])
     {
         Log::log("parse OK");
         
-        JSONParser::Node node;
+        auto node = parser.getNode("GlossList");
         
-        if ( (node = parser.getNode("testNum2")) )
-        {
+        
+        if ( node )
+        {   
             Log::log(" Node found");
             
-            if (node.isNumber() )
-                Log::log("is number %f" , node.getDouble());
+            if (node->isArray() )
+            {
+                const int size = node->getArraySize();
+                
+                Log::log("is ARRAY %i" , size );
+                
+                for ( int i = 0; i< size ; i++)
+                {
+                    auto item = node->getArrayItem( i );
+                    
+                    if ( item->isString() )
+                        Log::log("value %i is '%s'" , i , item->getString().c_str() );
+                }
+            }
         }
         
         else
             Log::log(" Node _NOT_ found");
         
-        if ( (node = parser.getNode("testNum4")) )
-        {
-            Log::log(" Node found");
-            
-            if (node.isNumber() )
-                Log::log("is number %f" , node.getDouble());
-        }
-        else
-            Log::log(" Node _NOT_ found");
-        
-        
-        if ( (node = parser.getNode("title")) )
-        {
-            Log::log(" Node found");
-            
-            if ( node.isString() )
-                Log::log("is string '%s'" , node.getString().c_str() );
-            
-            
-        }
-        else
-            Log::log(" Node _NOT_ found");
         
         
     }
