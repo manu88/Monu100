@@ -1,0 +1,20 @@
+{
+    "list" :
+    [
+    {
+        "nom"     : "Martin",
+        "prenom"  : "Robert",
+        "mention" : "Mort betement",
+        "date"    : "23/12/1978", 
+        "jour"    : "Lundi"
+    },
+
+    {
+    "nom"     : "Jose",
+    "prenom"  : "Nicole",
+    "mention" : "Mort ",
+    "date"    : "24/11/1922", 
+    "jour"    : "Dimanche"
+    }
+    ]
+}
