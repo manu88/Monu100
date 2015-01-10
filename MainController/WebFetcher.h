@@ -25,6 +25,10 @@ public:
     
     bool checkAndCopyFile();
     
+    static void init();
+    
+    static void deInit();
+    
 private:
 
     
@@ -36,6 +40,8 @@ private:
     SystemErrorHandler *_errorHandler;
     
     static size_t write_data(void *ptr, size_t size, size_t nmemb, FILE *stream);
+    
+    static bool s_curlInitialized;
     
 };
 

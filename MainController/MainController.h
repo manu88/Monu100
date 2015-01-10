@@ -38,6 +38,10 @@ private:
     bool fetchJSONFile();
     bool inspectAndLoadNamesIfNeeded();
     
+    bool prepareCan();
+    bool prepareNetwork();
+    bool prepareGpio();
+    
     void dayHasChanged();
     
     // flags

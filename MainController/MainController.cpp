@@ -11,7 +11,8 @@
 #include "MainController.h"
 
 
-MainController::MainController( const std::string &configFile ):
+MainController::MainController( const std::string &configFile ) :
+
 _nameParser( _errorHandler ),
 
 _shouldQuit    ( false ),
@@ -27,6 +28,8 @@ _pingTimerID        ( -1 ),
 
 _offsetBeforeUpdating ()
 {
+    WebFetcher::init();
+    _currentDate.day =  Friday;
     
     _scheduler.setDelegate( this );
     _network.setDelegate( this );
@@ -38,7 +41,7 @@ _offsetBeforeUpdating ()
 
 MainController::~MainController()
 {
-
+    WebFetcher::deInit();
     
 }
 
@@ -61,10 +64,17 @@ bool MainController::parseConfigFile()
         
         if ( config.itemExists("LogOnFile") && atoi( config.getValueForItemName<std::string>("LogOnFile").c_str() ) )
         {
-            Log::addFileLogger( "monument_log.txt" );
-            Log::log("Use file logging " );
+            std::string fileLog = "monument_log.txt";
+            
+            if ( config.itemExists("FileLog") )
+                fileLog = config.getValueForItemName<std::string>("FileLog");
+            
+            Log::addFileLogger( fileLog );
+            
+            Log::log("Use file logging '%s' " , fileLog.c_str() );
         }
         
+        /* **** **** **** **** DATA stuff **** **** **** **** **** */
         
         if ( config.itemExists("DataFile") )
         {
@@ -87,6 +97,7 @@ bool MainController::parseConfigFile()
             
         }
         
+        /* **** **** **** **** **** TIMER stuff **** **** **** **** */
         
         
         if (config.itemExists("ErrorCheckTimerInMin"))
@@ -108,6 +119,15 @@ bool MainController::parseConfigFile()
                                      );
         }
         
+        if ( config.itemExists( "UpdateList_TimeOffset" ) )
+        {
+            
+            _offsetBeforeUpdating = Timecode( config.getValueForItemName<std::string>("UpdateList_TimeOffset") );
+            Log::log("will update data at %s" , _offsetBeforeUpdating.getString().c_str() );
+        }
+        
+        /* **** **** **** **** OSC **** **** **** **** **** */
+        
         // osc
         if ( config.itemExists( "OSCServer" ) )
             _server = config.getValueForItemName<std::string>("OSCServer");
@@ -118,15 +138,7 @@ bool MainController::parseConfigFile()
         if ( config.itemExists( "OSCInPort" ) )
             _oscInPort = atoi( config.getValueForItemName<std::string>("OSCInPort").c_str() );
         
-        if ( config.itemExists( "UpdateList_TimeOffset" ) )
-        {
-            _offsetBeforeUpdating = Timecode( 0,
-                                              0,
-                                              atoi( config.getValueForItemName<std::string>("UpdateList_TimeOffset").c_str() ),
-                                              0
-                                             );
 
-        }
         
 
     }
@@ -134,6 +146,37 @@ bool MainController::parseConfigFile()
     
 
     return true;
+}
+
+/* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
+
+bool MainController::prepareCan()
+{
+    DEBUG_ASSERT( _interface.isRunning() );
+    
+    _can = _interface.addCanConnexion("can0");
+    
+    if ( !_can->connect() )
+        _errorHandler.addError( ERRORS_CAN_INTERFACE );
+    
+    return _errorHandler.hasCanErrors() == false;
+}
+
+bool MainController::prepareNetwork()
+{
+    DEBUG_ASSERT( _network.isRunning() );
+    
+    if ( !_network.addPort( 7000 ) )
+        _errorHandler.addError( ERRORS_NETWORK_INTERFACE );
+    
+    return _errorHandler.hasNetworkErrors() == false;
+}
+
+bool MainController::prepareGpio()
+{
+    DEBUG_ASSERT( _interface.isRunning() );
+    
+    return _errorHandler.hasGpioErrors() == false;
 }
 
 /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
@@ -151,10 +194,11 @@ bool MainController::run()
         _globalCheckTimerID = _scheduler.registerTimedEvent(_delayBeforeNextGlobalCheck, _delayBeforeNextGlobalCheck, false);
         _pingTimerID        = _scheduler.registerTimedEvent(_pingInterval,               _pingInterval, false);
                 
-        _network.addPort( 7000 );
-        
-        _can = _interface.addCanConnexion("can0");
-        _can->connect();
+
+        prepareCan();
+        prepareNetwork();
+        prepareGpio();
+
         
         
         fetchJSONFile();
@@ -194,7 +238,7 @@ bool MainController::run()
 bool MainController::fetchJSONFile()
 {
     WebFetcher f( _dataUrl , _tempDataFile , _dataFile , _errorHandler );
-    
+
     if ( !f.fetch() )
     {
         Log::log("Error while fetching url '%s' to '%s'" , _dataUrl.c_str() , _tempDataFile.c_str() );
@@ -213,12 +257,14 @@ bool MainController::fetchJSONFile()
         return false;
     }
     
+
     if ( !f.checkAndCopyFile() )
     {
         Log::log("Unable to copy temp JSON to def");
         _errorHandler.addError( ERROR_UPDATE_COPY );
         return false;
     }
+
     
     return true;
 }
@@ -250,11 +296,14 @@ bool MainController::inspectAndLoadNamesIfNeeded()
 void MainController::dayHasChanged()
 {
     Date newDate;
-    if ( newDate != _currentDate )
+    
+    if ( _offsetBeforeUpdating <= Timecode::getCurrent() && newDate.day != _currentDate.day   )
     {
         _currentDate.update();
         Log::log("Day has changed");
     }
+    else
+        printf(" Time not reached yet ");
     
 }
 
@@ -299,6 +348,15 @@ void MainController::oscReceived( const std::string &ipAddress ,
         _shouldRestart = true;
     }
     
+    else if (addressPattern == "/reboot")
+    {
+        _shouldQuit    = true;
+        _shouldRestart = false;
+        
+        system("sudo reboot");
+        
+    }
+    
     else if ( addressPattern == "/fetch")
     {
         fetchJSONFile();
@@ -312,12 +370,15 @@ void MainController::oscReceived( const std::string &ipAddress ,
     else if ( addressPattern == "/next")
     {
         const std::string jour = arguments.getValueAtIndex<std::string>(0);
-        
+
+        _currentDate.day = dayFromExplicitFrench( jour );
+        /*
         const NameItem name = _nameParser.getNextItemForDay( dayFromExplicitFrench(jour)); //getNextName();
         
         Log::log("-------------");
         Log::log("'%s' '%s' mention='%s' " , name.prenom.c_str() , name.nom.c_str() , name.mention.c_str() );
         Log::log("Date : %s " , name.date.toString().c_str() );
+         */
     }
     
     

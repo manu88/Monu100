@@ -11,7 +11,7 @@ TempDataFile = /Users/manueldeneu/Documents/projets/dev/Monu100/MainController/l
 
 # JSON url 
 
-JsonURL = https://github.com/manu88/Monu100/blob/master/MainController/list.json
+JsonURL = http://github.com/manu88/Monu100/blob/master/MainController/list.json
 
 ####################################################################################################
 #
@@ -29,6 +29,9 @@ WatchdogPingIntervalInSec = 10
 # but you can add an offset ( format HH:MM:SS:MS )
 
 UpdateList_TimeOffset = 11:19:00:000
+
+
+
 
 ####################################################################################################
 # Logging

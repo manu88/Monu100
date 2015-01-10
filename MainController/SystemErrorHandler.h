@@ -28,11 +28,17 @@ typedef enum
     ERROR_UPDATE_COPY            = ( 1 << 4), // copy from temp. file to def file failed
     
     // Network
-    ERRORS_NETWORK_DOWN          = ( 1 << 10 ), // unable to communicate whith network
-    ERRORS_WEB_UNREACHABLE       = ( 1 << 11 ), // unable to access web server and/or NTP wall time.
+    ERRORS_NETWORK_INTERFACE     = ( 1 << 10 ), // unable to communicate whith network
+    ERRORS_NETWORK_DOWN          = ( 1 << 11 ), // unable to communicate whith network
+    ERRORS_WEB_UNREACHABLE       = ( 1 << 12 ), // unable to access web server and/or NTP wall time.
     
     // Can
-    ERRORS_CAN_DOWN              = ( 1 << 16 ), // error on can bus
+    ERRORS_CAN_INTERFACE         = ( 1 << 16 ), // error on can bus
+    ERRORS_CAN_DOWN              = ( 1 << 17 ), // error on can bus
+    
+    // GPIO
+    ERRORS_GPIO_INTERFACE        = ( 1 << 20 ), // error on can bus
+    
     
     ERRORS_ALL                   = -1
     
@@ -60,6 +66,10 @@ public:
     {
         return !isEverythingOk();
     }
+    
+    bool hasNetworkErrors() const;
+    bool hasCanErrors() const;
+    bool hasGpioErrors() const;
     
     void dumpSystemReportOnLog() const;
     
