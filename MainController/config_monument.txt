@@ -2,6 +2,8 @@
 #	
 #
 
+
+
 # Main JSON file to be parsed
 # This is the location where the updated file from the web server will go
 
@@ -30,6 +32,18 @@ WatchdogPingIntervalInSec = 10
 
 UpdateList_TimeOffset = 11:19:00:000
 
+####################################################################################################
+#
+# Watchdog pins
+
+# the select line 
+ActiveLinePin = 1
+
+# the out ping
+PingPin       = 2 
+
+# the input shutdown
+ShutdownPin   = 3
 
 
 

@@ -44,10 +44,14 @@ private:
     
     void dayHasChanged();
     
+    void deepShutdown();
+    void activityChangedTo( bool isActive);
+    
     // flags
     bool        _shouldQuit;
     bool        _shouldRestart;
     Date        _currentDate;
+    bool        _isActive;
 
     // config stuffs
     std::string _configFile;
@@ -75,6 +79,14 @@ private:
     InterfaceController _interface;
     
     CanEvent *_can;
+    
+    // watchdog
+    GPioPin _activeLineInput;
+    GPioPin _pingOutput;
+    GPioPin _shutdownInput;
+    
+    GpioEvent * _gpShutdown;
+    GpioEvent * _gpActive;
     
     // utility
     SystemErrorHandler _errorHandler;

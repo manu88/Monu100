@@ -17,6 +17,8 @@ _nameParser( _errorHandler ),
 
 _shouldQuit    ( false ),
 _shouldRestart ( false ),
+_isActive      ( false ),
+
 _configFile ( configFile ),
 
 _server     ( "127.0.0.1"),
@@ -25,6 +27,15 @@ _oscInPort  ( 7000 ),
 
 _globalCheckTimerID ( -1 ),
 _pingTimerID        ( -1 ),
+
+_can( nullptr ),
+
+_activeLineInput ( -1 ),
+_pingOutput      ( -1 ),
+_shutdownInput   ( -1 ),
+
+_gpShutdown ( nullptr ),
+_gpActive   ( nullptr ),
 
 _offsetBeforeUpdating ()
 {
@@ -126,6 +137,17 @@ bool MainController::parseConfigFile()
             Log::log("will update data at %s" , _offsetBeforeUpdating.getString().c_str() );
         }
         
+        /* **** **** **** **** in/out pins **** **** **** **** **** */
+        
+        if ( config.itemExists("ActiveLinePin") )
+            _activeLineInput = config.getValueForItemNameAsInt("ActiveLinePin");
+        
+        if ( config.itemExists("PingPin") )
+            _pingOutput = config.getValueForItemNameAsInt("PingPin");
+        
+        if ( config.itemExists("ShutdownPin") )
+            _shutdownInput = config.getValueForItemNameAsInt("ShutdownPin");
+        
         /* **** **** **** **** OSC **** **** **** **** **** */
         
         // osc
@@ -133,10 +155,10 @@ bool MainController::parseConfigFile()
             _server = config.getValueForItemName<std::string>("OSCServer");
         
         if ( config.itemExists( "OSCOutPort" ) )
-            _oscOutPort = atoi( config.getValueForItemName<std::string>("OSCOutPort").c_str() );
+            _oscOutPort = config.getValueForItemNameAsInt("OSCOutPort");
         
         if ( config.itemExists( "OSCInPort" ) )
-            _oscInPort = atoi( config.getValueForItemName<std::string>("OSCInPort").c_str() );
+            _oscInPort = config.getValueForItemNameAsInt("OSCInPort");
         
 
         
@@ -175,6 +197,9 @@ bool MainController::prepareNetwork()
 bool MainController::prepareGpio()
 {
     DEBUG_ASSERT( _interface.isRunning() );
+    
+    _gpActive   =  _interface.addGpioInput( _activeLineInput , InputDirect );
+    _gpShutdown =  _interface.addGpioInput( _shutdownInput   , InputDirect );
     
     return _errorHandler.hasGpioErrors() == false;
 }
@@ -293,6 +318,42 @@ bool MainController::inspectAndLoadNamesIfNeeded()
 
 /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
 
+void MainController::deepShutdown()
+{
+    Log::log("system will now shutdown");
+    
+    _shouldQuit = true;
+    _shouldRestart = false;
+    
+    system("sudo shutdown -h now");
+}
+
+/* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
+
+void MainController::activityChangedTo( bool isActive)
+{
+    if ( isActive != _isActive )
+    {
+        
+        // go to inactive state
+        if ( _isActive )
+        {
+            Log::log("system goes to inactive state ...");
+        }
+        
+        // go to active state
+        if ( !_isActive )
+        {
+            Log::log("system goes to active state ...");
+        }
+        
+
+        
+    }
+}
+
+/* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
+
 void MainController::dayHasChanged()
 {
     Date newDate;
@@ -382,6 +443,9 @@ void MainController::oscReceived( const std::string &ipAddress ,
     }
     
     
+
+    
+    
     
     
 }
@@ -390,7 +454,17 @@ void MainController::oscReceived( const std::string &ipAddress ,
 
 void MainController::inputChanged( const InterfaceEvent *event )
 {
+    // shutdown request
+    if ( event == _gpShutdown )
+    {
+        deepShutdown();
+    }
     
+    // Active line : HIGH is active, LOW if not
+    else if (event == _gpActive )
+    {
+        activityChangedTo( _gpActive->read() == high );
+    }
 }
 
 /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
