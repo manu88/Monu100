@@ -23,17 +23,21 @@ ErrorCheckTimerInMin = 1
 WatchdogPingIntervalInSec = 10
 
 ####################################################################################################
+#
 # Time Offset for daily update : 
 # By default the monument's name list will be updated a midnight, 
-# but you can add an offset (in minutes) :
+# but you can add an offset ( format HH:MM:SS:MS )
 
-UpdateList_TimeOffset = 10
+UpdateList_TimeOffset = 11:19:00:000
 
 ####################################################################################################
 # Logging
 
 LogOnStdOut = 1
-LogOnFile   = 0
+LogOnFile   = 1
+
+## specify log file location 
+FileLog = /Users/manueldeneu/Documents/projets/dev/Monu100/MainController/log.txt
 
 ####################################################################################################
 # OSC debug
