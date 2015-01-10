@@ -17,6 +17,7 @@
 #X msg 407 173 send /next dimanche;
 #X msg 117 224 connect 127.0.0.1 7000;
 #X obj 38 274 udpsend;
+#X msg 238 24 send /fetch;
 #X connect 0 0 16 0;
 #X connect 1 0 0 0;
 #X connect 2 0 0 0;
@@ -32,3 +33,4 @@
 #X connect 13 0 0 0;
 #X connect 14 0 0 0;
 #X connect 15 0 16 0;
+#X connect 17 0 0 0;
