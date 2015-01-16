@@ -45,6 +45,10 @@ private:
     void dayHasChanged();
     
     void deepShutdown();
+    void deepReboot();
+    void restart();
+    void quit();
+    
     void activityChangedTo( bool isActive);
     
     // flags

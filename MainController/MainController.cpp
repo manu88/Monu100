@@ -322,10 +322,36 @@ void MainController::deepShutdown()
 {
     Log::log("system will now shutdown");
     
-    _shouldQuit = true;
+    _shouldQuit    = true;
     _shouldRestart = false;
     
     system("sudo shutdown -h now");
+}
+
+/* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
+
+void MainController::deepReboot()
+{
+    _shouldQuit    = true;
+    _shouldRestart = false;
+    
+    system( "sudo reboot ");
+}
+
+/* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
+
+void MainController::restart()
+{
+    _shouldQuit    = true;
+    _shouldRestart = true;
+}
+
+/* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
+
+void MainController::quit()
+{
+    _shouldQuit    = true;
+    _shouldRestart = false;
 }
 
 /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
@@ -342,12 +368,12 @@ void MainController::activityChangedTo( bool isActive)
         }
         
         // go to active state
-        if ( !_isActive )
+        else if ( !_isActive )
         {
             Log::log("system goes to active state ...");
         }
         
-
+        _isActive = isActive;
         
     }
 }
@@ -399,23 +425,17 @@ void MainController::oscReceived( const std::string &ipAddress ,
 {
     if (addressPattern == "/quit")
     {
-        _shouldQuit = true;
-        _shouldRestart = false;
+        quit();
     }
     
     else if (addressPattern == "/restart")
     {
-        _shouldQuit    = true;
-        _shouldRestart = true;
+        restart();
     }
     
     else if (addressPattern == "/reboot")
     {
-        _shouldQuit    = true;
-        _shouldRestart = false;
-        
-        system("sudo reboot");
-        
+        deepReboot();
     }
     
     else if ( addressPattern == "/fetch")
@@ -441,10 +461,17 @@ void MainController::oscReceived( const std::string &ipAddress ,
         Log::log("Date : %s " , name.date.toString().c_str() );
          */
     }
-    
-    
 
+    /* **** ***** */
     
+    // watchdog emulation
+    
+    else if ( addressPattern == "/activeline")
+    {
+        const bool isActive = arguments.getIntValueAtIndex(0);
+        
+        activityChangedTo( isActive );
+    }
     
     
     
