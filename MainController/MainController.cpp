@@ -206,6 +206,13 @@ bool MainController::prepareGpio()
 
 /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
 
+void MainController::wakeMainLoop()
+{
+    _wakeUp.notify_all();
+}
+
+/* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
+
 bool MainController::run()
 {
     if ( parseConfigFile() )
@@ -233,9 +240,15 @@ bool MainController::run()
 
         _shouldQuit    = false;
         _shouldRestart = false;
+        
+        ScopedLock lock( _sync );
         while ( _shouldQuit == false )
         {
-            // idle for now
+
+            _wakeUp.wait( lock );
+            
+            Log::log("main loop unlocked");
+            
         }
 
         _scheduler.stop();
@@ -320,6 +333,8 @@ bool MainController::inspectAndLoadNamesIfNeeded()
 
 void MainController::deepShutdown()
 {
+    wakeMainLoop();
+    
     Log::log("system will now shutdown");
     
     _shouldQuit    = true;
@@ -332,6 +347,8 @@ void MainController::deepShutdown()
 
 void MainController::deepReboot()
 {
+    wakeMainLoop();
+    
     _shouldQuit    = true;
     _shouldRestart = false;
     
@@ -342,6 +359,8 @@ void MainController::deepReboot()
 
 void MainController::restart()
 {
+    wakeMainLoop();
+    
     _shouldQuit    = true;
     _shouldRestart = true;
 }
@@ -350,6 +369,8 @@ void MainController::restart()
 
 void MainController::quit()
 {
+    wakeMainLoop();
+    
     _shouldQuit    = true;
     _shouldRestart = false;
 }
@@ -384,7 +405,9 @@ void MainController::dayHasChanged()
 {
     Date newDate;
     
-    if ( _offsetBeforeUpdating <= Timecode::getCurrent() && newDate.day != _currentDate.day   )
+    if (    _offsetBeforeUpdating <= Timecode::getCurrent()
+         && newDate.day != _currentDate.day
+       )
     {
         _currentDate.update();
         Log::log("Day has changed");
@@ -426,6 +449,11 @@ void MainController::oscReceived( const std::string &ipAddress ,
     if (addressPattern == "/quit")
     {
         quit();
+    }
+    
+    else if ( addressPattern == "/test")
+    {
+        _wakeUp.notify_all();
     }
     
     else if (addressPattern == "/restart")

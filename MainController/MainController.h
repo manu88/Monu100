@@ -10,6 +10,7 @@
 #define __Broadway_core__MainController__
 
 #include <iostream>
+#include <condition_variable>
 
 #include "Config.h"
 #include "NameParser.h"
@@ -32,6 +33,8 @@ public:
     void inputChanged( const InterfaceEvent *event );
     
 private:
+    
+    void wakeMainLoop();
     
     bool parseConfigFile();
     
@@ -95,6 +98,11 @@ private:
     // utility
     SystemErrorHandler _errorHandler;
     NameParser         _nameParser;
+    
+    // threading
+    
+    std::condition_variable _wakeUp;
+    std::mutex              _sync;
     
 };
 #endif /* defined(__Broadway_core__MainController__) */
