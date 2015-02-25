@@ -1,0 +1,2103 @@
+   1               		.file	"main.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   9               		.text
+  10               	.Ltext0:
+ 109               	.global	translateBuffer
+ 111               	translateBuffer:
+   1:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** #include <avr/io.h>
+   2:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+   3:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** #include <avr/pgmspace.h>
+   4:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** #include <avr/interrupt.h>
+   5:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+   6:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** #include <util/delay.h>
+   7:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+   8:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** #include "PinsConfig.h"
+   9:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** #include "Square15.h"
+  10:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** #include "Chars.h"
+  11:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+  12:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** /* **** **** **** **** **** **** **** **** **** **** **** **** */
+  13:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** /*
+  14:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     Global constants defines
+  15:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****  */
+  16:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+  17:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** #define X_TLC_MAX 30
+  18:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** #define Y_MIC_MAX 30
+  19:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+  20:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** #define SENSOR_COUNT     15
+  21:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** #define MIC_SENCOR_COUNT 15
+  22:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+  23:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** /* **** **** **** **** **** **** **** **** **** **** **** **** */
+  24:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+  25:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** uint8_t pixels[ X_TLC_MAX ][ Y_MIC_MAX ];
+  26:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+  27:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** volatile uint8_t backgroundColor = 0b00000011;
+  28:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** volatile uint8_t fontColor       = 0b11111111;
+  29:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+  30:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** /* **** **** **** **** **** **** **** **** **** **** **** **** */
+  31:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+  32:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** uint8_t mat_sensors[ SENSOR_COUNT ] = { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 };
+  33:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+  34:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** /* **** **** **** **** **** **** **** **** **** **** **** **** */
+  35:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+  36:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** void translateBuffer( const uint8_t dX)
+  37:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** {
+ 113               	.LM0:
+ 114               	.LFBB1:
+ 115               	/* prologue: function */
+ 116               	/* frame size = 0 */
+ 117               	/* stack size = 0 */
+ 118               	.L__stack_usage = 0
+ 119 0000 20E0      		ldi r18,lo8(pixels+900)
+ 120 0002 30E0      		ldi r19,hi8(pixels+900)
+ 121 0004 4EE1      		ldi r20,lo8(30)
+ 122 0006 849F      		mul r24,r20
+ 123 0008 C001      		movw r24,r0
+ 124 000a 1124      		clr __zero_reg__
+ 125               	.L5:
+ 126 000c B901      		movw r22,r18
+ 127 000e 680F      		add r22,r24
+ 128 0010 791F      		adc r23,r25
+ 129               	.LBB35:
+ 130               	.LBB36:
+ 131               	.LBB37:
+  38:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     for (int i = X_TLC_MAX ;i>=0;i--)
+  39:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     {
+  40:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         
+  41:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         const int pos = i+dX;//(i+dX) %X_TLC_MAX;
+  42:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+  43:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         for (int j=0;j<Y_MIC_MAX;j++)
+ 133               	.LM1:
+ 134 0012 40E0      		ldi r20,0
+ 135 0014 50E0      		ldi r21,0
+ 136               	.L3:
+ 137 0016 F901      		movw r30,r18
+ 138 0018 E40F      		add r30,r20
+ 139 001a F51F      		adc r31,r21
+  44:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         {
+  45:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****             pixels[pos][j] = pixels[i][j];
+ 141               	.LM2:
+ 142 001c A081      		ld r26,Z
+ 143 001e FB01      		movw r30,r22
+ 144 0020 E40F      		add r30,r20
+ 145 0022 F51F      		adc r31,r21
+ 146 0024 A083      		st Z,r26
+  43:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         for (int j=0;j<Y_MIC_MAX;j++)
+ 148               	.LM3:
+ 149 0026 4F5F      		subi r20,-1
+ 150 0028 5F4F      		sbci r21,-1
+ 151 002a 4E31      		cpi r20,30
+ 152 002c 5105      		cpc r21,__zero_reg__
+ 153 002e 01F4      		brne .L3
+ 154 0030 2E51      		subi r18,30
+ 155 0032 3109      		sbc r19,__zero_reg__
+ 156               	.LBE37:
+ 157               	.LBE36:
+  38:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     for (int i = X_TLC_MAX ;i>=0;i--)
+ 159               	.LM4:
+ 160 0034 40E0      		ldi r20,hi8(pixels-30)
+ 161 0036 2030      		cpi r18,lo8(pixels-30)
+ 162 0038 3407      		cpc r19,r20
+ 163 003a 01F4      		brne .L5
+ 164               	/* epilogue start */
+ 165               	.LBE35:
+  46:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         }
+  47:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+  48:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****             
+  49:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     }
+  50:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** }
+ 167               	.LM5:
+ 168 003c 0895      		ret
+ 173               	.Lscope1:
+ 178               	.global	writeLetter
+ 180               	writeLetter:
+  51:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+  52:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** /* **** **** **** **** **** **** **** **** **** **** **** **** */
+  53:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+  54:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** void writeLetter(const uint8_t *letter , const uint8_t xPos , const uint8_t yPos)
+  55:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** {
+ 182               	.LM6:
+ 183               	.LFBB2:
+ 184 003e 0F93      		push r16
+ 185 0040 1F93      		push r17
+ 186 0042 CF93      		push r28
+ 187 0044 DF93      		push r29
+ 188               	/* prologue: function */
+ 189               	/* frame size = 0 */
+ 190               	/* stack size = 4 */
+ 191               	.L__stack_usage = 4
+ 192 0046 50E0      		ldi r21,0
+ 193 0048 2EE1      		ldi r18,lo8(30)
+ 194 004a 629F      		mul r22,r18
+ 195 004c 400D      		add r20,r0
+ 196 004e 511D      		adc r21,r1
+ 197 0050 1124      		clr __zero_reg__
+ 199               	.LM7:
+ 200 0052 60E0      		ldi r22,0
+ 201 0054 70E0      		ldi r23,0
+ 202 0056 4050      		subi r20,lo8(-(pixels))
+ 203 0058 5040      		sbci r21,hi8(-(pixels))
+ 204 005a 07E0      		ldi r16,lo8(7)
+ 205 005c 10E0      		ldi r17,0
+ 206               	.L8:
+ 207 005e EA01      		movw r28,r20
+ 208 0060 C60F      		add r28,r22
+ 209 0062 D71F      		adc r29,r23
+ 211               	.LM8:
+ 212 0064 20E0      		ldi r18,0
+ 213 0066 30E0      		ldi r19,0
+ 214               	.L13:
+ 215               	.LBB38:
+ 216               	.LBB39:
+  56:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     for (int i= 0;i<CHAR_HEIGHT ;i++)
+  57:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     {
+  58:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         
+  59:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         for (int j= 0;j<CHAR_WIDTH ;j++)
+  60:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         {
+  61:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****             if ( letter[i] & (1<<(7-j) ))
+ 218               	.LM9:
+ 219 0068 DC01      		movw r26,r24
+ 220 006a EC91      		ld r30,X
+ 221 006c F0E0      		ldi r31,0
+ 222 006e D801      		movw r26,r16
+ 223 0070 A21B      		sub r26,r18
+ 224 0072 B30B      		sbc r27,r19
+ 225 0074 00C0      		rjmp 2f
+ 226               		1:
+ 227 0076 F595      		asr r31
+ 228 0078 E795      		ror r30
+ 229               		2:
+ 230 007a AA95      		dec r26
+ 231 007c 02F4      		brpl 1b
+ 232 007e DE01      		movw r26,r28
+ 233 0080 A20F      		add r26,r18
+ 234 0082 B31F      		adc r27,r19
+ 235 0084 E0FF      		sbrs r30,0
+ 236 0086 00C0      		rjmp .L9
+  62:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****                 pixels[xPos+i][yPos+j] = fontColor;
+ 238               	.LM10:
+ 239 0088 E091 0000 		lds r30,fontColor
+ 240 008c 00C0      		rjmp .L14
+ 241               	.L9:
+  63:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****             else
+  64:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****                 pixels[xPos+i][yPos+j] = backgroundColor;
+ 243               	.LM11:
+ 244 008e E091 0000 		lds r30,backgroundColor
+ 245               	.L14:
+ 246 0092 EC93      		st X,r30
+  59:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         for (int j= 0;j<CHAR_WIDTH ;j++)
+ 248               	.LM12:
+ 249 0094 2F5F      		subi r18,-1
+ 250 0096 3F4F      		sbci r19,-1
+ 251 0098 2530      		cpi r18,5
+ 252 009a 3105      		cpc r19,__zero_reg__
+ 253 009c 01F4      		brne .L13
+ 254 009e 625E      		subi r22,-30
+ 255 00a0 7F4F      		sbci r23,-1
+ 256 00a2 0196      		adiw r24,1
+ 257               	.LBE39:
+  56:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     for (int i= 0;i<CHAR_HEIGHT ;i++)
+ 259               	.LM13:
+ 260 00a4 6E30      		cpi r22,14
+ 261 00a6 B1E0      		ldi r27,1
+ 262 00a8 7B07      		cpc r23,r27
+ 263 00aa 01F4      		brne .L8
+ 264               	/* epilogue start */
+ 265               	.LBE38:
+  65:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         }
+  66:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     }
+  67:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** }
+ 267               	.LM14:
+ 268 00ac DF91      		pop r29
+ 269 00ae CF91      		pop r28
+ 270 00b0 1F91      		pop r17
+ 271 00b2 0F91      		pop r16
+ 272 00b4 0895      		ret
+ 277               	.Lscope2:
+ 282               	.global	writeSquareLetter
+ 284               	writeSquareLetter:
+  68:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+  69:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** /* **** **** **** **** **** **** **** **** **** **** **** **** */
+  70:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+  71:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** void writeSquareLetter(const uint8_t *letter , const uint8_t xPos , const uint8_t yPos)
+  72:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** {
+ 286               	.LM15:
+ 287               	.LFBB3:
+ 288 00b6 0F93      		push r16
+ 289 00b8 1F93      		push r17
+ 290 00ba CF93      		push r28
+ 291 00bc DF93      		push r29
+ 292               	/* prologue: function */
+ 293               	/* frame size = 0 */
+ 294               	/* stack size = 4 */
+ 295               	.L__stack_usage = 4
+ 296 00be 50E0      		ldi r21,0
+ 297 00c0 2EE1      		ldi r18,lo8(30)
+ 298 00c2 629F      		mul r22,r18
+ 299 00c4 400D      		add r20,r0
+ 300 00c6 511D      		adc r21,r1
+ 301 00c8 1124      		clr __zero_reg__
+ 303               	.LM16:
+ 304 00ca 60E0      		ldi r22,0
+ 305 00cc 70E0      		ldi r23,0
+ 306 00ce 4050      		subi r20,lo8(-(pixels))
+ 307 00d0 5040      		sbci r21,hi8(-(pixels))
+ 308 00d2 07E0      		ldi r16,lo8(7)
+ 309 00d4 10E0      		ldi r17,0
+ 310               	.L16:
+ 311 00d6 EA01      		movw r28,r20
+ 312 00d8 C60F      		add r28,r22
+ 313 00da D71F      		adc r29,r23
+ 315               	.LM17:
+ 316 00dc 20E0      		ldi r18,0
+ 317 00de 30E0      		ldi r19,0
+ 318               	.L21:
+ 319               	.LBB40:
+ 320               	.LBB41:
+  73:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     for (int i= 0;i<SQUARE_HEIGHT ;i++)
+  74:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     {
+  75:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         
+  76:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         for (int j= 0;j<SQUARE_WIDTH ;j++)
+  77:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         {
+  78:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****             if ( letter[i] & (1<<(7-j) ))
+ 322               	.LM18:
+ 323 00e0 DC01      		movw r26,r24
+ 324 00e2 EC91      		ld r30,X
+ 325 00e4 F0E0      		ldi r31,0
+ 326 00e6 D801      		movw r26,r16
+ 327 00e8 A21B      		sub r26,r18
+ 328 00ea B30B      		sbc r27,r19
+ 329 00ec 00C0      		rjmp 2f
+ 330               		1:
+ 331 00ee F595      		asr r31
+ 332 00f0 E795      		ror r30
+ 333               		2:
+ 334 00f2 AA95      		dec r26
+ 335 00f4 02F4      		brpl 1b
+ 336 00f6 DE01      		movw r26,r28
+ 337 00f8 A20F      		add r26,r18
+ 338 00fa B31F      		adc r27,r19
+ 339 00fc E0FF      		sbrs r30,0
+ 340 00fe 00C0      		rjmp .L17
+  79:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****                 pixels[xPos+i][yPos+j] = fontColor;
+ 342               	.LM19:
+ 343 0100 E091 0000 		lds r30,fontColor
+ 344 0104 00C0      		rjmp .L22
+ 345               	.L17:
+  80:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****             else
+  81:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****                 pixels[xPos+i][yPos+j] = backgroundColor;
+ 347               	.LM20:
+ 348 0106 E091 0000 		lds r30,backgroundColor
+ 349               	.L22:
+ 350 010a EC93      		st X,r30
+  76:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         for (int j= 0;j<SQUARE_WIDTH ;j++)
+ 352               	.LM21:
+ 353 010c 2F5F      		subi r18,-1
+ 354 010e 3F4F      		sbci r19,-1
+ 355 0110 2430      		cpi r18,4
+ 356 0112 3105      		cpc r19,__zero_reg__
+ 357 0114 01F4      		brne .L21
+ 358 0116 625E      		subi r22,-30
+ 359 0118 7F4F      		sbci r23,-1
+ 360 011a 0196      		adiw r24,1
+ 361               	.LBE41:
+  73:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     for (int i= 0;i<SQUARE_HEIGHT ;i++)
+ 363               	.LM22:
+ 364 011c 6639      		cpi r22,-106
+ 365 011e 7105      		cpc r23,__zero_reg__
+ 366 0120 01F4      		brne .L16
+ 367               	/* epilogue start */
+ 368               	.LBE40:
+  82:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         }
+  83:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     }
+  84:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** }
+ 370               	.LM23:
+ 371 0122 DF91      		pop r29
+ 372 0124 CF91      		pop r28
+ 373 0126 1F91      		pop r17
+ 374 0128 0F91      		pop r16
+ 375 012a 0895      		ret
+ 380               	.Lscope3:
+ 382               	.global	initPixels
+ 384               	initPixels:
+  85:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+  86:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** /* **** **** **** **** **** **** **** **** **** **** **** **** */
+  87:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+  88:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** void initPixels(void)
+  89:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** {
+ 386               	.LM24:
+ 387               	.LFBB4:
+ 388               	/* prologue: function */
+ 389               	/* frame size = 0 */
+ 390               	/* stack size = 0 */
+ 391               	.L__stack_usage = 0
+ 392 012c 20E0      		ldi r18,lo8(pixels)
+ 393 012e 30E0      		ldi r19,hi8(pixels)
+ 394               	.L24:
+ 396               	.LM25:
+ 397 0130 8DE1      		ldi r24,lo8(29)
+ 398 0132 90E0      		ldi r25,0
+ 399               	.L27:
+ 400               	.LBB42:
+ 401               	.LBB43:
+  90:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+  91:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     for (int x = 0;x< X_TLC_MAX;x++)
+  92:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     {
+  93:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         for( int y = 0; y<Y_MIC_MAX;y++)
+  94:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         {
+  95:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+  96:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****             pixels[x][Y_MIC_MAX-y-1] = backgroundColor;
+ 403               	.LM26:
+ 404 0134 4091 0000 		lds r20,backgroundColor
+ 405 0138 F901      		movw r30,r18
+ 406 013a E80F      		add r30,r24
+ 407 013c F91F      		adc r31,r25
+ 408 013e 4083      		st Z,r20
+ 409 0140 0197      		sbiw r24,1
+ 410 0142 00F4      		brcc .L27
+ 411 0144 225E      		subi r18,-30
+ 412 0146 3F4F      		sbci r19,-1
+ 413               	.LBE43:
+  91:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     for (int x = 0;x< X_TLC_MAX;x++)
+ 415               	.LM27:
+ 416 0148 80E0      		ldi r24,hi8(pixels+900)
+ 417 014a 2030      		cpi r18,lo8(pixels+900)
+ 418 014c 3807      		cpc r19,r24
+ 419 014e 01F4      		brne .L24
+ 420               	.LBE42:
+  97:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+  98:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****             
+  99:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         }
+ 100:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+ 101:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     }
+ 102:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     
+ 103:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+ 104:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     writeLetter( letter_M, 0, 0);
+ 422               	.LM28:
+ 423 0150 40E0      		ldi r20,0
+ 424 0152 60E0      		ldi r22,0
+ 425 0154 80E0      		ldi r24,lo8(letter_M)
+ 426 0156 90E0      		ldi r25,hi8(letter_M)
+ 427 0158 0E94 0000 		call writeLetter
+ 105:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     writeLetter( letter_i, 0, CHAR_WIDTH);
+ 429               	.LM29:
+ 430 015c 45E0      		ldi r20,lo8(5)
+ 431 015e 60E0      		ldi r22,0
+ 432 0160 80E0      		ldi r24,lo8(letter_i)
+ 433 0162 90E0      		ldi r25,hi8(letter_i)
+ 434 0164 0E94 0000 		call writeLetter
+ 106:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     writeLetter( letter_c, 0, CHAR_WIDTH*2);
+ 436               	.LM30:
+ 437 0168 4AE0      		ldi r20,lo8(10)
+ 438 016a 60E0      		ldi r22,0
+ 439 016c 80E0      		ldi r24,lo8(letter_c)
+ 440 016e 90E0      		ldi r25,hi8(letter_c)
+ 441 0170 0E94 0000 		call writeLetter
+ 107:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     writeLetter( letter_h, 0, CHAR_WIDTH*3);
+ 443               	.LM31:
+ 444 0174 4FE0      		ldi r20,lo8(15)
+ 445 0176 60E0      		ldi r22,0
+ 446 0178 80E0      		ldi r24,lo8(letter_h)
+ 447 017a 90E0      		ldi r25,hi8(letter_h)
+ 448 017c 0E94 0000 		call writeLetter
+ 108:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     writeLetter( letter_e, 0, CHAR_WIDTH*4);
+ 450               	.LM32:
+ 451 0180 44E1      		ldi r20,lo8(20)
+ 452 0182 60E0      		ldi r22,0
+ 453 0184 80E0      		ldi r24,lo8(letter_e)
+ 454 0186 90E0      		ldi r25,hi8(letter_e)
+ 455 0188 0E94 0000 		call writeLetter
+ 109:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     writeLetter( letter_l, 0, CHAR_WIDTH*5);
+ 457               	.LM33:
+ 458 018c 49E1      		ldi r20,lo8(25)
+ 459 018e 60E0      		ldi r22,0
+ 460 0190 80E0      		ldi r24,lo8(letter_l)
+ 461 0192 90E0      		ldi r25,hi8(letter_l)
+ 462 0194 0E94 0000 		call writeLetter
+ 110:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     
+ 111:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     writeLetter( letter_D, CHAR_HEIGHT, 0);
+ 464               	.LM34:
+ 465 0198 40E0      		ldi r20,0
+ 466 019a 69E0      		ldi r22,lo8(9)
+ 467 019c 80E0      		ldi r24,lo8(letter_D)
+ 468 019e 90E0      		ldi r25,hi8(letter_D)
+ 469 01a0 0E94 0000 		call writeLetter
+ 112:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     writeLetter( letter_u, CHAR_HEIGHT, CHAR_WIDTH);
+ 471               	.LM35:
+ 472 01a4 45E0      		ldi r20,lo8(5)
+ 473 01a6 69E0      		ldi r22,lo8(9)
+ 474 01a8 80E0      		ldi r24,lo8(letter_u)
+ 475 01aa 90E0      		ldi r25,hi8(letter_u)
+ 476 01ac 0E94 0000 		call writeLetter
+ 113:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     writeLetter( letter_r, CHAR_HEIGHT, CHAR_WIDTH*2);
+ 478               	.LM36:
+ 479 01b0 4AE0      		ldi r20,lo8(10)
+ 480 01b2 69E0      		ldi r22,lo8(9)
+ 481 01b4 80E0      		ldi r24,lo8(letter_r)
+ 482 01b6 90E0      		ldi r25,hi8(letter_r)
+ 483 01b8 0E94 0000 		call writeLetter
+ 114:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     writeLetter( letter_a, CHAR_HEIGHT, CHAR_WIDTH*3);
+ 485               	.LM37:
+ 486 01bc 4FE0      		ldi r20,lo8(15)
+ 487 01be 69E0      		ldi r22,lo8(9)
+ 488 01c0 80E0      		ldi r24,lo8(letter_a)
+ 489 01c2 90E0      		ldi r25,hi8(letter_a)
+ 490 01c4 0E94 0000 		call writeLetter
+ 115:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     writeLetter( letter_n, CHAR_HEIGHT, CHAR_WIDTH*4);
+ 492               	.LM38:
+ 493 01c8 44E1      		ldi r20,lo8(20)
+ 494 01ca 69E0      		ldi r22,lo8(9)
+ 495 01cc 80E0      		ldi r24,lo8(letter_n)
+ 496 01ce 90E0      		ldi r25,hi8(letter_n)
+ 497 01d0 0E94 0000 		call writeLetter
+ 116:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     writeLetter( letter_d, CHAR_HEIGHT, CHAR_WIDTH*5);
+ 499               	.LM39:
+ 500 01d4 49E1      		ldi r20,lo8(25)
+ 501 01d6 69E0      		ldi r22,lo8(9)
+ 502 01d8 80E0      		ldi r24,lo8(letter_d)
+ 503 01da 90E0      		ldi r25,hi8(letter_d)
+ 504 01dc 0E94 0000 		call writeLetter
+ 117:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     
+ 118:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     writeSquareLetter(square_a, 18, SQUARE_WIDTH*0);
+ 506               	.LM40:
+ 507 01e0 40E0      		ldi r20,0
+ 508 01e2 62E1      		ldi r22,lo8(18)
+ 509 01e4 80E0      		ldi r24,lo8(square_a)
+ 510 01e6 90E0      		ldi r25,hi8(square_a)
+ 511 01e8 0E94 0000 		call writeSquareLetter
+ 119:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     writeSquareLetter(square_b, 18, SQUARE_WIDTH*1);
+ 513               	.LM41:
+ 514 01ec 44E0      		ldi r20,lo8(4)
+ 515 01ee 62E1      		ldi r22,lo8(18)
+ 516 01f0 80E0      		ldi r24,lo8(square_b)
+ 517 01f2 90E0      		ldi r25,hi8(square_b)
+ 518 01f4 0E94 0000 		call writeSquareLetter
+ 120:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     writeSquareLetter(square_c, 18, SQUARE_WIDTH*2);
+ 520               	.LM42:
+ 521 01f8 48E0      		ldi r20,lo8(8)
+ 522 01fa 62E1      		ldi r22,lo8(18)
+ 523 01fc 80E0      		ldi r24,lo8(square_c)
+ 524 01fe 90E0      		ldi r25,hi8(square_c)
+ 525 0200 0E94 0000 		call writeSquareLetter
+ 121:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     writeSquareLetter(square_d, 18, SQUARE_WIDTH*3);
+ 527               	.LM43:
+ 528 0204 4CE0      		ldi r20,lo8(12)
+ 529 0206 62E1      		ldi r22,lo8(18)
+ 530 0208 80E0      		ldi r24,lo8(square_d)
+ 531 020a 90E0      		ldi r25,hi8(square_d)
+ 532 020c 0E94 0000 		call writeSquareLetter
+ 122:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     writeSquareLetter(square_e, 18, SQUARE_WIDTH*4);
+ 534               	.LM44:
+ 535 0210 40E1      		ldi r20,lo8(16)
+ 536 0212 62E1      		ldi r22,lo8(18)
+ 537 0214 80E0      		ldi r24,lo8(square_e)
+ 538 0216 90E0      		ldi r25,hi8(square_e)
+ 539 0218 0E94 0000 		call writeSquareLetter
+ 123:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     writeSquareLetter(square_f, 18, SQUARE_WIDTH*5);
+ 541               	.LM45:
+ 542 021c 44E1      		ldi r20,lo8(20)
+ 543 021e 62E1      		ldi r22,lo8(18)
+ 544 0220 80E0      		ldi r24,lo8(square_f)
+ 545 0222 90E0      		ldi r25,hi8(square_f)
+ 546 0224 0E94 0000 		call writeSquareLetter
+ 124:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     writeSquareLetter(square_g, 18, SQUARE_WIDTH*6); // lim
+ 548               	.LM46:
+ 549 0228 48E1      		ldi r20,lo8(24)
+ 550 022a 62E1      		ldi r22,lo8(18)
+ 551 022c 80E0      		ldi r24,lo8(square_g)
+ 552 022e 90E0      		ldi r25,hi8(square_g)
+ 553 0230 0E94 0000 		call writeSquareLetter
+ 125:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     
+ 126:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     writeSquareLetter(square_h, 24, SQUARE_WIDTH*0);
+ 555               	.LM47:
+ 556 0234 40E0      		ldi r20,0
+ 557 0236 68E1      		ldi r22,lo8(24)
+ 558 0238 80E0      		ldi r24,lo8(square_h)
+ 559 023a 90E0      		ldi r25,hi8(square_h)
+ 560 023c 0E94 0000 		call writeSquareLetter
+ 127:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     writeSquareLetter(square_i, 24, SQUARE_WIDTH*1);
+ 562               	.LM48:
+ 563 0240 44E0      		ldi r20,lo8(4)
+ 564 0242 68E1      		ldi r22,lo8(24)
+ 565 0244 80E0      		ldi r24,lo8(square_i)
+ 566 0246 90E0      		ldi r25,hi8(square_i)
+ 567 0248 0E94 0000 		call writeSquareLetter
+ 128:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     writeSquareLetter(square_j, 24, SQUARE_WIDTH*2);
+ 569               	.LM49:
+ 570 024c 48E0      		ldi r20,lo8(8)
+ 571 024e 68E1      		ldi r22,lo8(24)
+ 572 0250 80E0      		ldi r24,lo8(square_j)
+ 573 0252 90E0      		ldi r25,hi8(square_j)
+ 574 0254 0E94 0000 		call writeSquareLetter
+ 129:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     writeSquareLetter(square_k, 24, SQUARE_WIDTH*3);
+ 576               	.LM50:
+ 577 0258 4CE0      		ldi r20,lo8(12)
+ 578 025a 68E1      		ldi r22,lo8(24)
+ 579 025c 80E0      		ldi r24,lo8(square_k)
+ 580 025e 90E0      		ldi r25,hi8(square_k)
+ 581 0260 0E94 0000 		call writeSquareLetter
+ 130:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     writeSquareLetter(square_l, 24, SQUARE_WIDTH*4);
+ 583               	.LM51:
+ 584 0264 40E1      		ldi r20,lo8(16)
+ 585 0266 68E1      		ldi r22,lo8(24)
+ 586 0268 80E0      		ldi r24,lo8(square_l)
+ 587 026a 90E0      		ldi r25,hi8(square_l)
+ 588 026c 0E94 0000 		call writeSquareLetter
+ 131:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     writeSquareLetter(square_m, 24, SQUARE_WIDTH*5);
+ 590               	.LM52:
+ 591 0270 44E1      		ldi r20,lo8(20)
+ 592 0272 68E1      		ldi r22,lo8(24)
+ 593 0274 80E0      		ldi r24,lo8(square_m)
+ 594 0276 90E0      		ldi r25,hi8(square_m)
+ 595 0278 0E94 0000 		call writeSquareLetter
+ 132:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     writeSquareLetter(square_n, 24, SQUARE_WIDTH*6); // lim
+ 597               	.LM53:
+ 598 027c 48E1      		ldi r20,lo8(24)
+ 599 027e 68E1      		ldi r22,lo8(24)
+ 600 0280 80E0      		ldi r24,lo8(square_n)
+ 601 0282 90E0      		ldi r25,hi8(square_n)
+ 602 0284 0C94 0000 		jmp writeSquareLetter
+ 604               	.Lscope4:
+ 606               	.global	TLC5940_Init
+ 608               	TLC5940_Init:
+ 133:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     
+ 134:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     
+ 135:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** }
+ 136:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+ 137:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+ 138:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+ 139:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+ 140:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** *
+ 141:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+ 142:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** void TLC5940_Init(void)
+ 143:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** {
+ 610               	.LM54:
+ 611               	.LFBB5:
+ 612               	/* prologue: function */
+ 613               	/* frame size = 0 */
+ 614               	/* stack size = 0 */
+ 615               	.L__stack_usage = 0
+ 144:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+ 145:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     setOutput(SCLK_DDR, SCLK_PIN);
+ 617               	.LM55:
+ 618 0288 219A      		sbi 0x4,1
+ 146:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+ 147:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     setOutput(XLAT_DDR, XLAT_PIN);
+ 620               	.LM56:
+ 621 028a 259A      		sbi 0x4,5
+ 148:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     setOutput(BLANK_DDR, BLANK_PIN);
+ 623               	.LM57:
+ 624 028c 209A      		sbi 0x4,0
+ 149:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     setOutput(SIN_DDR, SIN_PIN);
+ 626               	.LM58:
+ 627 028e 229A      		sbi 0x4,2
+ 150:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+ 151:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     setLow(SCLK_PORT, SCLK_PIN);
+ 629               	.LM59:
+ 630 0290 2998      		cbi 0x5,1
+ 152:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+ 153:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     setLow(XLAT_PORT, XLAT_PIN);
+ 632               	.LM60:
+ 633 0292 2D98      		cbi 0x5,5
+ 154:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     
+ 155:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     setHigh(BLANK_PORT, BLANK_PIN);
+ 635               	.LM61:
+ 636 0294 289A      		sbi 0x5,0
+ 156:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     
+ 157:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     // Enable SPI, Master, set clock rate fck/2
+ 158:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     SPCR = (1 << SPE) | (1 << MSTR);
+ 638               	.LM62:
+ 639 0296 80E5      		ldi r24,lo8(80)
+ 640 0298 8CBD      		out 0x2c,r24
+ 159:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     SPSR = (1 << SPI2X);
+ 642               	.LM63:
+ 643 029a 81E0      		ldi r24,lo8(1)
+ 644 029c 8DBD      		out 0x2d,r24
+ 160:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     
+ 161:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     // CTC with OCR0A as TOP
+ 162:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     TCCR0A = (1 << WGM01);
+ 646               	.LM64:
+ 647 029e 82E0      		ldi r24,lo8(2)
+ 648 02a0 84BD      		out 0x24,r24
+ 163:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     // clk_io/1024 (From prescaler)
+ 164:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     TCCR0B = ((1 << CS02) | (1 << CS00));
+ 650               	.LM65:
+ 651 02a2 85E0      		ldi r24,lo8(5)
+ 652 02a4 85BD      		out 0x25,r24
+ 165:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     // Generate an interrupt every 4096 clock cycles
+ 166:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     OCR0A = 3; // 3
+ 654               	.LM66:
+ 655 02a6 83E0      		ldi r24,lo8(3)
+ 656 02a8 87BD      		out 0x27,r24
+ 167:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     // Enable Timer/Counter0 Compare Match A interrupt
+ 168:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     TIMSK0 |= (1 << OCIE0A);
+ 658               	.LM67:
+ 659 02aa EEE6      		ldi r30,lo8(110)
+ 660 02ac F0E0      		ldi r31,0
+ 661 02ae 8081      		ld r24,Z
+ 662 02b0 8260      		ori r24,lo8(2)
+ 663 02b2 8083      		st Z,r24
+ 664 02b4 0895      		ret
+ 666               	.Lscope5:
+ 668               	.global	adc_init
+ 670               	adc_init:
+ 169:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** }
+ 170:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+ 171:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** *
+ 172:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** /*
+ 173:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****  
+ 174:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****  ADC part
+ 175:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****  
+ 176:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****  */
+ 177:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** *
+ 178:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** // initialize adc
+ 179:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** void adc_init(void)
+ 180:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** {
+ 672               	.LM68:
+ 673               	.LFBB6:
+ 674               	/* prologue: function */
+ 675               	/* frame size = 0 */
+ 676               	/* stack size = 0 */
+ 677               	.L__stack_usage = 0
+ 181:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     // AREF = AVcc
+ 182:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     ADMUX = (1<<REFS0);
+ 679               	.LM69:
+ 680 02b6 80E4      		ldi r24,lo8(64)
+ 681 02b8 8093 7C00 		sts 124,r24
+ 183:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     
+ 184:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     // ADC Enable and prescaler of 128
+ 185:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     // 16000000/128 = 125000
+ 186:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     ADCSRA = (1<<ADEN)|(1<<ADPS2)|(1<<ADPS1)|(1<<ADPS0);
+ 683               	.LM70:
+ 684 02bc 87E8      		ldi r24,lo8(-121)
+ 685 02be 8093 7A00 		sts 122,r24
+ 686 02c2 0895      		ret
+ 688               	.Lscope6:
+ 691               	.global	adc_read
+ 693               	adc_read:
+ 187:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** }
+ 188:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+ 189:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** *
+ 190:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+ 191:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** uint16_t adc_read(uint8_t ch)
+ 192:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** {
+ 695               	.LM71:
+ 696               	.LFBB7:
+ 697               	/* prologue: function */
+ 698               	/* frame size = 0 */
+ 699               	/* stack size = 0 */
+ 700               	.L__stack_usage = 0
+ 193:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     // select the corresponding channel 0~7
+ 194:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     // ANDing with ’7′ will always keep the value
+ 195:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     // of ‘ch’ between 0 and 7
+ 196:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     ch &= 0b00000111;  // AND operation with 7
+ 197:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     ADMUX = (ADMUX & 0xF8)|ch; // clears the bottom 3 bits before ORing
+ 702               	.LM72:
+ 703 02c4 9091 7C00 		lds r25,124
+ 196:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     ch &= 0b00000111;  // AND operation with 7
+ 705               	.LM73:
+ 706 02c8 8770      		andi r24,lo8(7)
+ 708               	.LM74:
+ 709 02ca 987F      		andi r25,lo8(-8)
+ 710 02cc 892B      		or r24,r25
+ 711 02ce 8093 7C00 		sts 124,r24
+ 198:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     
+ 199:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     // start single convertion
+ 200:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     // write ’1′ to ADSC
+ 201:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     ADCSRA |= (1<<ADSC);
+ 713               	.LM75:
+ 714 02d2 8091 7A00 		lds r24,122
+ 715 02d6 8064      		ori r24,lo8(64)
+ 716 02d8 8093 7A00 		sts 122,r24
+ 717               	.L32:
+ 202:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     
+ 203:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     // wait for conversion to complete
+ 204:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     // ADSC becomes ’0′ again
+ 205:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     // till then, run loop continuously
+ 206:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     while(ADCSRA & (1<<ADSC));
+ 719               	.LM76:
+ 720 02dc 8091 7A00 		lds r24,122
+ 721 02e0 86FD      		sbrc r24,6
+ 722 02e2 00C0      		rjmp .L32
+ 207:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     
+ 208:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     return (ADC);
+ 724               	.LM77:
+ 725 02e4 8091 7800 		lds r24,120
+ 726 02e8 9091 7900 		lds r25,120+1
+ 209:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** }
+ 728               	.LM78:
+ 729 02ec 0895      		ret
+ 731               	.Lscope7:
+ 733               	.global	__vector_21
+ 735               	__vector_21:
+ 210:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+ 211:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** *
+ 212:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+ 213:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** inline void sendSPI( const uint8_t val)
+ 214:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** {
+ 215:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     SPDR = val;
+ 216:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     while (!(SPSR & (1 << SPIF)));
+ 217:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** }
+ 218:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+ 219:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** *
+ 220:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** // display's interupt
+ 221:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+ 222:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** ISR(TIMER0_COMPA_vect)
+ 223:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** {
+ 737               	.LM79:
+ 738               	.LFBB8:
+ 739 02ee 1F92      		push r1
+ 740 02f0 0F92      		push r0
+ 741 02f2 0FB6      		in r0,__SREG__
+ 742 02f4 0F92      		push r0
+ 743 02f6 1124      		clr __zero_reg__
+ 744 02f8 0BB6      		in r0,__RAMPZ__
+ 745 02fa 0F92      		push r0
+ 746 02fc 2F93      		push r18
+ 747 02fe 3F93      		push r19
+ 748 0300 4F93      		push r20
+ 749 0302 5F93      		push r21
+ 750 0304 6F93      		push r22
+ 751 0306 7F93      		push r23
+ 752 0308 8F93      		push r24
+ 753 030a 9F93      		push r25
+ 754 030c EF93      		push r30
+ 755 030e FF93      		push r31
+ 756               	/* prologue: Signal */
+ 757               	/* frame size = 0 */
+ 758               	/* stack size = 14 */
+ 759               	.L__stack_usage = 14
+ 224:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     static uint16_t rowIndex = Y_MIC_MAX;
+ 225:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     uint8_t firstCycleFlag = 1;// 0;
+ 226:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     static uint8_t xlatNeedsPulse = 0;
+ 227:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     
+ 228:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     
+ 229:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     
+ 230:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     if ( rowIndex == Y_MIC_MAX ) // matrix ok. return col0;
+ 761               	.LM80:
+ 762 0310 8091 0000 		lds r24,rowIndex.1867
+ 763 0314 9091 0000 		lds r25,rowIndex.1867+1
+ 764 0318 4E97      		sbiw r24,30
+ 765 031a 01F4      		brne .L34
+ 231:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     {
+ 232:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         setHigh( DATA0_PORT , DATA0_PIN);
+ 767               	.LM81:
+ 768 031c 8091 0B01 		lds r24,267
+ 769 0320 8860      		ori r24,lo8(8)
+ 770 0322 8093 0B01 		sts 267,r24
+ 233:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         setHigh( DATA1_PORT , DATA1_PIN);
+ 772               	.LM82:
+ 773 0326 8091 0B01 		lds r24,267
+ 774 032a 8061      		ori r24,lo8(16)
+ 775 032c 8093 0B01 		sts 267,r24
+ 234:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         rowIndex = 0;
+ 777               	.LM83:
+ 778 0330 1092 0000 		sts rowIndex.1867+1,__zero_reg__
+ 779 0334 1092 0000 		sts rowIndex.1867,__zero_reg__
+ 780 0338 00C0      		rjmp .L35
+ 781               	.L34:
+ 235:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         
+ 236:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     }
+ 237:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     else
+ 238:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     {
+ 239:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         setLow( DATA0_PORT , DATA0_PIN);
+ 783               	.LM84:
+ 784 033a 8091 0B01 		lds r24,267
+ 785 033e 877F      		andi r24,lo8(-9)
+ 786 0340 8093 0B01 		sts 267,r24
+ 240:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         setLow( DATA1_PORT , DATA1_PIN);
+ 788               	.LM85:
+ 789 0344 8091 0B01 		lds r24,267
+ 790 0348 8F7E      		andi r24,lo8(-17)
+ 791 034a 8093 0B01 		sts 267,r24
+ 792               	.L35:
+ 241:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     }
+ 242:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     
+ 243:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     
+ 244:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     setLow(BLANK_PORT, BLANK_PIN);
+ 794               	.LM86:
+ 795 034e 2898      		cbi 0x5,0
+ 796               	.LBB44:
+ 797               	.LBB45:
+ 215:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     SPDR = val;
+ 799               	.LM87:
+ 800 0350 1EBC      		out 0x2e,__zero_reg__
+ 801               	.L37:
+ 216:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     while (!(SPSR & (1 << SPIF)));
+ 803               	.LM88:
+ 804 0352 0DB4      		in __tmp_reg__,0x2d
+ 805 0354 07FE      		sbrs __tmp_reg__,7
+ 806 0356 00C0      		rjmp .L37
+ 807 0358 80E0      		ldi r24,0
+ 808 035a 90E0      		ldi r25,0
+ 809               	.LBE45:
+ 810               	.LBE44:
+ 811               	.LBB46:
+ 812               	.LBB47:
+ 245:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+ 246:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     
+ 247:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     /**** FILL TLC BUFFERS *****/
+ 248:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     
+ 249:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     // col 0 -> send dumm values ( not displayed)
+ 250:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     sendSPI(0b00000000); // p0
+ 251:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     
+ 252:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     for (int x=0;x<14;x+=2)
+ 253:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     {
+ 254:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         const uint8_t pixA = pixels[x][rowIndex];
+ 814               	.LM89:
+ 815 035c 6EE1      		ldi r22,lo8(30)
+ 816               	.L45:
+ 818               	.LM90:
+ 819 035e 2091 0000 		lds r18,rowIndex.1867
+ 820 0362 3091 0000 		lds r19,rowIndex.1867+1
+ 821 0366 689F      		mul r22,r24
+ 822 0368 F001      		movw r30,r0
+ 823 036a 699F      		mul r22,r25
+ 824 036c F00D      		add r31,r0
+ 825 036e 1124      		clr __zero_reg__
+ 826 0370 E20F      		add r30,r18
+ 827 0372 F31F      		adc r31,r19
+ 828 0374 E050      		subi r30,lo8(-(pixels))
+ 829 0376 F040      		sbci r31,hi8(-(pixels))
+ 830 0378 7081      		ld r23,Z
+ 255:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         const uint8_t pixB = pixels[x+1][rowIndex];
+ 832               	.LM91:
+ 833 037a AC01      		movw r20,r24
+ 834 037c 4F5F      		subi r20,-1
+ 835 037e 5F4F      		sbci r21,-1
+ 836 0380 649F      		mul r22,r20
+ 837 0382 F001      		movw r30,r0
+ 838 0384 659F      		mul r22,r21
+ 839 0386 F00D      		add r31,r0
+ 840 0388 1124      		clr __zero_reg__
+ 841 038a E20F      		add r30,r18
+ 842 038c F31F      		adc r31,r19
+ 843 038e E050      		subi r30,lo8(-(pixels))
+ 844 0390 F040      		sbci r31,hi8(-(pixels))
+ 845 0392 2081      		ld r18,Z
+ 256:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+ 257:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         sendSPI( pixA >> 4); // p1
+ 847               	.LM92:
+ 848 0394 372F      		mov r19,r23
+ 849 0396 3295      		swap r19
+ 850 0398 3F70      		andi r19,lo8(15)
+ 851               	.LBB48:
+ 852               	.LBB49:
+ 215:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     SPDR = val;
+ 854               	.LM93:
+ 855 039a 3EBD      		out 0x2e,r19
+ 856               	.L39:
+ 216:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     while (!(SPSR & (1 << SPIF)));
+ 858               	.LM94:
+ 859 039c 0DB4      		in __tmp_reg__,0x2d
+ 860 039e 07FE      		sbrs __tmp_reg__,7
+ 861 03a0 00C0      		rjmp .L39
+ 862               	.LBE49:
+ 863               	.LBE48:
+ 258:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         sendSPI( (uint8_t )(pixA << 4) ); // p1
+ 865               	.LM95:
+ 866 03a2 7295      		swap r23
+ 867 03a4 707F      		andi r23,lo8(-16)
+ 868               	.LBB50:
+ 869               	.LBB51:
+ 215:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     SPDR = val;
+ 871               	.LM96:
+ 872 03a6 7EBD      		out 0x2e,r23
+ 873               	.L41:
+ 216:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     while (!(SPSR & (1 << SPIF)));
+ 875               	.LM97:
+ 876 03a8 0DB4      		in __tmp_reg__,0x2d
+ 877 03aa 07FE      		sbrs __tmp_reg__,7
+ 878 03ac 00C0      		rjmp .L41
+ 879               	.LBE51:
+ 880               	.LBE50:
+ 881               	.LBB52:
+ 882               	.LBB53:
+ 215:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     SPDR = val;
+ 884               	.LM98:
+ 885 03ae 2EBD      		out 0x2e,r18
+ 886               	.L43:
+ 216:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     while (!(SPSR & (1 << SPIF)));
+ 888               	.LM99:
+ 889 03b0 0DB4      		in __tmp_reg__,0x2d
+ 890 03b2 07FE      		sbrs __tmp_reg__,7
+ 891 03b4 00C0      		rjmp .L43
+ 892               	.LBE53:
+ 893               	.LBE52:
+ 894               	.LBE47:
+ 252:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     for (int x=0;x<14;x+=2)
+ 896               	.LM100:
+ 897 03b6 0296      		adiw r24,2
+ 898 03b8 8E30      		cpi r24,14
+ 899 03ba 9105      		cpc r25,__zero_reg__
+ 900 03bc 01F4      		brne .L45
+ 901               	.LBE46:
+ 259:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         sendSPI( pixB ); // p2
+ 260:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     }
+ 261:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+ 262:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     //  col 15 a la mano
+ 263:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     sendSPI( pixels[14][rowIndex] >> 4); // p15
+ 903               	.LM101:
+ 904 03be E091 0000 		lds r30,rowIndex.1867
+ 905 03c2 F091 0000 		lds r31,rowIndex.1867+1
+ 906 03c6 E050      		subi r30,lo8(-(pixels+420))
+ 907 03c8 F040      		sbci r31,hi8(-(pixels+420))
+ 908 03ca 8081      		ld r24,Z
+ 909 03cc 8295      		swap r24
+ 910 03ce 8F70      		andi r24,lo8(15)
+ 911               	.LBB54:
+ 912               	.LBB55:
+ 215:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     SPDR = val;
+ 914               	.LM102:
+ 915 03d0 8EBD      		out 0x2e,r24
+ 916               	.L47:
+ 216:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     while (!(SPSR & (1 << SPIF)));
+ 918               	.LM103:
+ 919 03d2 0DB4      		in __tmp_reg__,0x2d
+ 920 03d4 07FE      		sbrs __tmp_reg__,7
+ 921 03d6 00C0      		rjmp .L47
+ 922               	.LBE55:
+ 923               	.LBE54:
+ 264:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     sendSPI( (uint8_t )(pixels[14][rowIndex] << 4) ); // p15
+ 925               	.LM104:
+ 926 03d8 E091 0000 		lds r30,rowIndex.1867
+ 927 03dc F091 0000 		lds r31,rowIndex.1867+1
+ 928 03e0 E050      		subi r30,lo8(-(pixels+420))
+ 929 03e2 F040      		sbci r31,hi8(-(pixels+420))
+ 930 03e4 8081      		ld r24,Z
+ 931 03e6 8295      		swap r24
+ 932 03e8 807F      		andi r24,lo8(-16)
+ 933               	.LBB56:
+ 934               	.LBB57:
+ 215:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     SPDR = val;
+ 936               	.LM105:
+ 937 03ea 8EBD      		out 0x2e,r24
+ 938               	.L49:
+ 216:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     while (!(SPSR & (1 << SPIF)));
+ 940               	.LM106:
+ 941 03ec 0DB4      		in __tmp_reg__,0x2d
+ 942 03ee 07FE      		sbrs __tmp_reg__,7
+ 943 03f0 00C0      		rjmp .L49
+ 944               	.LBE57:
+ 945               	.LBE56:
+ 946               	.LBB58:
+ 947               	.LBB59:
+ 215:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     SPDR = val;
+ 949               	.LM107:
+ 950 03f2 1EBC      		out 0x2e,__zero_reg__
+ 951               	.L51:
+ 216:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     while (!(SPSR & (1 << SPIF)));
+ 953               	.LM108:
+ 954 03f4 0DB4      		in __tmp_reg__,0x2d
+ 955 03f6 07FE      		sbrs __tmp_reg__,7
+ 956 03f8 00C0      		rjmp .L51
+ 957 03fa 8FE0      		ldi r24,lo8(15)
+ 958 03fc 90E0      		ldi r25,0
+ 959               	.LBE59:
+ 960               	.LBE58:
+ 961               	.LBB60:
+ 962               	.LBB61:
+ 265:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     
+ 266:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     /**/
+ 267:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     
+ 268:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     // col 16 -> send dumm values ( not displayed)
+ 269:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     sendSPI(0b00000000); // p16
+ 270:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     
+ 271:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     for (int x = 15;x<28;x+=2)
+ 272:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     {
+ 273:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         const uint8_t pixA = pixels[x][rowIndex];
+ 964               	.LM109:
+ 965 03fe 6EE1      		ldi r22,lo8(30)
+ 966               	.L59:
+ 968               	.LM110:
+ 969 0400 2091 0000 		lds r18,rowIndex.1867
+ 970 0404 3091 0000 		lds r19,rowIndex.1867+1
+ 971 0408 689F      		mul r22,r24
+ 972 040a F001      		movw r30,r0
+ 973 040c 699F      		mul r22,r25
+ 974 040e F00D      		add r31,r0
+ 975 0410 1124      		clr __zero_reg__
+ 976 0412 E20F      		add r30,r18
+ 977 0414 F31F      		adc r31,r19
+ 978 0416 E050      		subi r30,lo8(-(pixels))
+ 979 0418 F040      		sbci r31,hi8(-(pixels))
+ 980 041a 7081      		ld r23,Z
+ 274:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         const uint8_t pixB = pixels[x+1][rowIndex];
+ 982               	.LM111:
+ 983 041c AC01      		movw r20,r24
+ 984 041e 4F5F      		subi r20,-1
+ 985 0420 5F4F      		sbci r21,-1
+ 986 0422 649F      		mul r22,r20
+ 987 0424 F001      		movw r30,r0
+ 988 0426 659F      		mul r22,r21
+ 989 0428 F00D      		add r31,r0
+ 990 042a 1124      		clr __zero_reg__
+ 991 042c E20F      		add r30,r18
+ 992 042e F31F      		adc r31,r19
+ 993 0430 E050      		subi r30,lo8(-(pixels))
+ 994 0432 F040      		sbci r31,hi8(-(pixels))
+ 995 0434 2081      		ld r18,Z
+ 275:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         
+ 276:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         sendSPI( pixA >> 4); // p1
+ 997               	.LM112:
+ 998 0436 372F      		mov r19,r23
+ 999 0438 3295      		swap r19
+ 1000 043a 3F70      		andi r19,lo8(15)
+ 1001               	.LBB62:
+ 1002               	.LBB63:
+ 215:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     SPDR = val;
+ 1004               	.LM113:
+ 1005 043c 3EBD      		out 0x2e,r19
+ 1006               	.L53:
+ 216:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     while (!(SPSR & (1 << SPIF)));
+ 1008               	.LM114:
+ 1009 043e 0DB4      		in __tmp_reg__,0x2d
+ 1010 0440 07FE      		sbrs __tmp_reg__,7
+ 1011 0442 00C0      		rjmp .L53
+ 1012               	.LBE63:
+ 1013               	.LBE62:
+ 277:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         sendSPI( (uint8_t )(pixA<< 4) ); // p1
+ 1015               	.LM115:
+ 1016 0444 7295      		swap r23
+ 1017 0446 707F      		andi r23,lo8(-16)
+ 1018               	.LBB64:
+ 1019               	.LBB65:
+ 215:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     SPDR = val;
+ 1021               	.LM116:
+ 1022 0448 7EBD      		out 0x2e,r23
+ 1023               	.L55:
+ 216:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     while (!(SPSR & (1 << SPIF)));
+ 1025               	.LM117:
+ 1026 044a 0DB4      		in __tmp_reg__,0x2d
+ 1027 044c 07FE      		sbrs __tmp_reg__,7
+ 1028 044e 00C0      		rjmp .L55
+ 1029               	.LBE65:
+ 1030               	.LBE64:
+ 1031               	.LBB66:
+ 1032               	.LBB67:
+ 215:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     SPDR = val;
+ 1034               	.LM118:
+ 1035 0450 2EBD      		out 0x2e,r18
+ 1036               	.L57:
+ 216:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     while (!(SPSR & (1 << SPIF)));
+ 1038               	.LM119:
+ 1039 0452 0DB4      		in __tmp_reg__,0x2d
+ 1040 0454 07FE      		sbrs __tmp_reg__,7
+ 1041 0456 00C0      		rjmp .L57
+ 1042               	.LBE67:
+ 1043               	.LBE66:
+ 1044               	.LBE61:
+ 271:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     for (int x = 15;x<28;x+=2)
+ 1046               	.LM120:
+ 1047 0458 0296      		adiw r24,2
+ 1048 045a 8D31      		cpi r24,29
+ 1049 045c 9105      		cpc r25,__zero_reg__
+ 1050 045e 01F4      		brne .L59
+ 1051               	.LBE60:
+ 278:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         sendSPI( pixB ); // p2
+ 279:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     }
+ 280:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+ 281:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     // col 29 a la mano
+ 282:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     sendSPI( pixels[29][rowIndex] >> 4); // p15
+ 1053               	.LM121:
+ 1054 0460 E091 0000 		lds r30,rowIndex.1867
+ 1055 0464 F091 0000 		lds r31,rowIndex.1867+1
+ 1056 0468 E050      		subi r30,lo8(-(pixels+870))
+ 1057 046a F040      		sbci r31,hi8(-(pixels+870))
+ 1058 046c 8081      		ld r24,Z
+ 1059 046e 8295      		swap r24
+ 1060 0470 8F70      		andi r24,lo8(15)
+ 1061               	.LBB68:
+ 1062               	.LBB69:
+ 215:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     SPDR = val;
+ 1064               	.LM122:
+ 1065 0472 8EBD      		out 0x2e,r24
+ 1066               	.L61:
+ 216:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     while (!(SPSR & (1 << SPIF)));
+ 1068               	.LM123:
+ 1069 0474 0DB4      		in __tmp_reg__,0x2d
+ 1070 0476 07FE      		sbrs __tmp_reg__,7
+ 1071 0478 00C0      		rjmp .L61
+ 1072               	.LBE69:
+ 1073               	.LBE68:
+ 283:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     sendSPI( (uint8_t )(pixels[29][rowIndex] << 4) ); // p15
+ 1075               	.LM124:
+ 1076 047a E091 0000 		lds r30,rowIndex.1867
+ 1077 047e F091 0000 		lds r31,rowIndex.1867+1
+ 1078 0482 E050      		subi r30,lo8(-(pixels+870))
+ 1079 0484 F040      		sbci r31,hi8(-(pixels+870))
+ 1080 0486 8081      		ld r24,Z
+ 1081 0488 8295      		swap r24
+ 1082 048a 807F      		andi r24,lo8(-16)
+ 1083               	.LBB70:
+ 1084               	.LBB71:
+ 215:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     SPDR = val;
+ 1086               	.LM125:
+ 1087 048c 8EBD      		out 0x2e,r24
+ 1088               	.L63:
+ 216:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     while (!(SPSR & (1 << SPIF)));
+ 1090               	.LM126:
+ 1091 048e 0DB4      		in __tmp_reg__,0x2d
+ 1092 0490 07FE      		sbrs __tmp_reg__,7
+ 1093 0492 00C0      		rjmp .L63
+ 1094               	.LBE71:
+ 1095               	.LBE70:
+ 284:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+ 285:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     /***** END OF FILL TLC BUFFERS ****/
+ 286:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+ 287:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+ 288:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     xlatNeedsPulse = 1;
+ 1097               	.LM127:
+ 1098 0494 81E0      		ldi r24,lo8(1)
+ 1099 0496 8093 0000 		sts xlatNeedsPulse.1869,r24
+ 289:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+ 290:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     pulse( MIC_CLOCK_PORT , MIC_CLOCK_PIN );
+ 1101               	.LM128:
+ 1102 049a 8091 0B01 		lds r24,267
+ 1103 049e 8260      		ori r24,lo8(2)
+ 1104 04a0 8093 0B01 		sts 267,r24
+ 1105 04a4 8091 0B01 		lds r24,267
+ 1106 04a8 8D7F      		andi r24,lo8(-3)
+ 1107 04aa 8093 0B01 		sts 267,r24
+ 291:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     
+ 292:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     /**/
+ 293:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     // additionnal pulse for non-wired outs of mics.
+ 294:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     
+ 295:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     if ( (rowIndex == 15) ||
+ 1109               	.LM129:
+ 1110 04ae 8091 0000 		lds r24,rowIndex.1867
+ 1111 04b2 9091 0000 		lds r25,rowIndex.1867+1
+ 1112 04b6 8F30      		cpi r24,15
+ 1113 04b8 9105      		cpc r25,__zero_reg__
+ 1114 04ba 01F0      		breq .L64
+ 1116               	.LM130:
+ 1117 04bc 4697      		sbiw r24,22
+ 1118 04be 01F4      		brne .L65
+ 1119               	.L64:
+ 296:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         (rowIndex == 22)
+ 297:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         )
+ 298:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     {
+ 299:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         setLow( DATA0_PORT , DATA0_PIN);
+ 1121               	.LM131:
+ 1122 04c0 8091 0B01 		lds r24,267
+ 1123 04c4 877F      		andi r24,lo8(-9)
+ 1124 04c6 8093 0B01 		sts 267,r24
+ 300:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         setLow( DATA1_PORT , DATA1_PIN);
+ 1126               	.LM132:
+ 1127 04ca 8091 0B01 		lds r24,267
+ 1128 04ce 8F7E      		andi r24,lo8(-17)
+ 1129 04d0 8093 0B01 		sts 267,r24
+ 301:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+ 302:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         pulse( MIC_CLOCK_PORT , MIC_CLOCK_PIN );
+ 1131               	.LM133:
+ 1132 04d4 8091 0B01 		lds r24,267
+ 1133 04d8 8260      		ori r24,lo8(2)
+ 1134 04da 8093 0B01 		sts 267,r24
+ 1135 04de 8091 0B01 		lds r24,267
+ 1136 04e2 8D7F      		andi r24,lo8(-3)
+ 1137 04e4 8093 0B01 		sts 267,r24
+ 1138               	.L65:
+ 303:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     }
+ 304:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     
+ 305:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     /**/
+ 306:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     
+ 307:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     setHigh(BLANK_PORT, BLANK_PIN);
+ 1140               	.LM134:
+ 1141 04e8 289A      		sbi 0x5,0
+ 308:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     
+ 309:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     
+ 310:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     if (xlatNeedsPulse)
+ 1143               	.LM135:
+ 1144 04ea 8091 0000 		lds r24,xlatNeedsPulse.1869
+ 1145 04ee 8823      		tst r24
+ 1146 04f0 01F0      		breq .L66
+ 311:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     {
+ 312:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         pulse(XLAT_PORT, XLAT_PIN);
+ 1148               	.LM136:
+ 1149 04f2 2D9A      		sbi 0x5,5
+ 1150 04f4 2D98      		cbi 0x5,5
+ 313:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         xlatNeedsPulse = 0;
+ 1152               	.LM137:
+ 1153 04f6 1092 0000 		sts xlatNeedsPulse.1869,__zero_reg__
+ 1154               	.L66:
+ 314:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         
+ 315:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         
+ 316:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     }
+ 317:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     
+ 318:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     if (firstCycleFlag)
+ 319:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     {
+ 320:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         pulse(SCLK_PORT, SCLK_PIN);
+ 1156               	.LM138:
+ 1157 04fa 299A      		sbi 0x5,1
+ 1158 04fc 2998      		cbi 0x5,1
+ 321:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         
+ 322:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         
+ 323:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     }
+ 324:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+ 325:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+ 326:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     rowIndex++;
+ 1160               	.LM139:
+ 1161 04fe 8091 0000 		lds r24,rowIndex.1867
+ 1162 0502 9091 0000 		lds r25,rowIndex.1867+1
+ 1163 0506 0196      		adiw r24,1
+ 1164 0508 9093 0000 		sts rowIndex.1867+1,r25
+ 1165 050c 8093 0000 		sts rowIndex.1867,r24
+ 1166               	/* epilogue start */
+ 327:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+ 328:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** }
+ 1168               	.LM140:
+ 1169 0510 FF91      		pop r31
+ 1170 0512 EF91      		pop r30
+ 1171 0514 9F91      		pop r25
+ 1172 0516 8F91      		pop r24
+ 1173 0518 7F91      		pop r23
+ 1174 051a 6F91      		pop r22
+ 1175 051c 5F91      		pop r21
+ 1176 051e 4F91      		pop r20
+ 1177 0520 3F91      		pop r19
+ 1178 0522 2F91      		pop r18
+ 1179 0524 0F90      		pop r0
+ 1180 0526 0BBE      		out __RAMPZ__,r0
+ 1181 0528 0F90      		pop r0
+ 1182 052a 0FBE      		out __SREG__,r0
+ 1183 052c 0F90      		pop r0
+ 1184 052e 1F90      		pop r1
+ 1185 0530 1895      		reti
+ 1205               	.Lscope8:
+ 1206               		.section	.text.startup,"ax",@progbits
+ 1208               	.global	main
+ 1210               	main:
+ 329:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+ 330:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+ 331:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+ 332:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** *
+ 333:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+ 334:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** int main( void )
+ 335:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** {
+ 1212               	.LM141:
+ 1213               	.LFBB9:
+ 1214               	/* prologue: function */
+ 1215               	/* frame size = 0 */
+ 1216               	/* stack size = 0 */
+ 1217               	.L__stack_usage = 0
+ 336:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     /* Hardware configuration */
+ 337:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     
+ 338:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     adc_init();
+ 1219               	.LM142:
+ 1220 0000 0E94 0000 		call adc_init
+ 339:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     
+ 340:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     // init MICs leds
+ 341:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     setOutput( DATA0_DDR , DATA0_PIN         ); // data row1
+ 1222               	.LM143:
+ 1223 0004 8091 0A01 		lds r24,266
+ 1224 0008 8860      		ori r24,lo8(8)
+ 1225 000a 8093 0A01 		sts 266,r24
+ 342:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     setOutput( DATA1_DDR , DATA1_PIN         ); // data row2
+ 1227               	.LM144:
+ 1228 000e 8091 0A01 		lds r24,266
+ 1229 0012 8061      		ori r24,lo8(16)
+ 1230 0014 8093 0A01 		sts 266,r24
+ 343:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     setOutput( MIC_CLOCK_DDR , MIC_CLOCK_PIN ); // clock
+ 1232               	.LM145:
+ 1233 0018 8091 0A01 		lds r24,266
+ 1234 001c 8260      		ori r24,lo8(2)
+ 1235 001e 8093 0A01 		sts 266,r24
+ 344:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     
+ 345:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     setOutput( MIC_STROBE_DDR , MIC_STROBE_PIN ); // strobe
+ 1237               	.LM146:
+ 1238 0022 8091 0A01 		lds r24,266
+ 1239 0026 8460      		ori r24,lo8(4)
+ 1240 0028 8093 0A01 		sts 266,r24
+ 346:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     
+ 347:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     setOutput( MIC_OUT_ENABLE_DDR , MIC_OUT_ENABLE_PIN ); // utile?
+ 1242               	.LM147:
+ 1243 002c 8091 0A01 		lds r24,266
+ 1244 0030 8160      		ori r24,lo8(1)
+ 1245 0032 8093 0A01 		sts 266,r24
+ 348:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     
+ 349:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     // MICs LDR
+ 350:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+ 351:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     setOutput( LDR_DATA_DDR       , LDR_DATA_PIN ); // data
+ 1247               	.LM148:
+ 1248 0036 579A      		sbi 0xa,7
+ 352:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     setOutput( LDR_STROBE_DDR     , LDR_STROBE_PIN ); // strobe
+ 1250               	.LM149:
+ 1251 0038 6C9A      		sbi 0xd,4
+ 353:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     setOutput( LDR_OUT_ENABLE_DDR , LDR_OUT_ENABLE_PIN ); // out enable
+ 1253               	.LM150:
+ 1254 003a 6B9A      		sbi 0xd,3
+ 354:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     setOutput( LDR_CLOCK_DDR      , LDR_CLOCK_PIN ); // clock
+ 1256               	.LM151:
+ 1257 003c 569A      		sbi 0xa,6
+ 355:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+ 356:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     
+ 357:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     setHigh( MIC_STROBE_PORT , MIC_STROBE_PIN ); // strobe mic leds
+ 1259               	.LM152:
+ 1260 003e 8091 0B01 		lds r24,267
+ 1261 0042 8460      		ori r24,lo8(4)
+ 1262 0044 8093 0B01 		sts 267,r24
+ 358:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     setHigh( LDR_STROBE_PORT , LDR_STROBE_PIN ); // strobe mic LDR
+ 1264               	.LM153:
+ 1265 0048 749A      		sbi 0xe,4
+ 359:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     
+ 360:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     
+ 361:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     // reset mic ldr
+ 362:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     
+ 363:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     setLow( LDR_DATA_PORT , LDR_DATA_PIN ); // data to low
+ 1267               	.LM154:
+ 1268 004a 5F98      		cbi 0xb,7
+ 1269 004c 8FE0      		ldi r24,lo8(15)
+ 1270 004e 90E0      		ldi r25,0
+ 1271               	.L75:
+ 1272               	.LBB72:
+ 364:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     
+ 365:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     for (int i =0;i< MIC_SENCOR_COUNT;i++)
+ 366:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         pulse( LDR_CLOCK_PORT , LDR_CLOCK_PIN );
+ 1274               	.LM155:
+ 1275 0050 5E9A      		sbi 0xb,6
+ 1276 0052 5E98      		cbi 0xb,6
+ 1277 0054 0197      		sbiw r24,1
+ 365:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     for (int i =0;i< MIC_SENCOR_COUNT;i++)
+ 1279               	.LM156:
+ 1280 0056 0097      		sbiw r24,0
+ 1281 0058 01F4      		brne .L75
+ 1282               	.LBE72:
+ 367:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     
+ 368:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     
+ 369:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     // reset mic buffers
+ 370:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     
+ 371:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+ 372:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     setLow( DATA0_PORT , DATA0_PIN); // val 0 prévue -> pulse après écrit la valeur dans le buff
+ 1284               	.LM157:
+ 1285 005a 8091 0B01 		lds r24,267
+ 1286 005e 877F      		andi r24,lo8(-9)
+ 1287 0060 8093 0B01 		sts 267,r24
+ 373:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     setLow( DATA1_PORT , DATA1_PIN);
+ 1289               	.LM158:
+ 1290 0064 8091 0B01 		lds r24,267
+ 1291 0068 8F7E      		andi r24,lo8(-17)
+ 1292 006a 8093 0B01 		sts 267,r24
+ 1293 006e 8EE1      		ldi r24,lo8(30)
+ 1294 0070 90E0      		ldi r25,0
+ 1295               	.L77:
+ 1296               	.LBB73:
+ 374:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     
+ 375:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     for (int i=0; i< Y_MIC_MAX ; i++)
+ 376:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     {
+ 377:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         pulse( MIC_CLOCK_PORT , MIC_CLOCK_PIN );
+ 1298               	.LM159:
+ 1299 0072 2091 0B01 		lds r18,267
+ 1300 0076 2260      		ori r18,lo8(2)
+ 1301 0078 2093 0B01 		sts 267,r18
+ 1302 007c 2091 0B01 		lds r18,267
+ 1303 0080 2D7F      		andi r18,lo8(-3)
+ 1304 0082 2093 0B01 		sts 267,r18
+ 1305 0086 0197      		sbiw r24,1
+ 375:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     for (int i=0; i< Y_MIC_MAX ; i++)
+ 1307               	.LM160:
+ 1308 0088 0097      		sbiw r24,0
+ 1309 008a 01F4      		brne .L77
+ 1310               	.LBE73:
+ 378:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         
+ 379:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     }
+ 380:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     
+ 381:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     
+ 382:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     setHigh( LDR_DATA_PORT , LDR_DATA_PIN );
+ 1312               	.LM161:
+ 1313 008c 5F9A      		sbi 0xb,7
+ 383:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     pulse( LDR_CLOCK_PORT , LDR_CLOCK_PIN);
+ 1315               	.LM162:
+ 1316 008e 5E9A      		sbi 0xb,6
+ 1317 0090 5E98      		cbi 0xb,6
+ 384:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+ 385:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     TLC5940_Init();
+ 1319               	.LM163:
+ 1320 0092 0E94 0000 		call TLC5940_Init
+ 386:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     
+ 387:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     /* Vars configuration */    
+ 388:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     
+ 389:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     
+ 390:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     initPixels();
+ 1322               	.LM164:
+ 1323 0096 0E94 0000 		call initPixels
+ 391:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+ 392:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+ 393:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     sei();
+ 1325               	.LM165:
+ 1326               	/* #APP */
+ 1327               	 ;  393 "/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/mai
+ 1328 009a 7894      		sei
+ 1329               	 ;  0 "" 2
+ 1330               	/* #NOAPP */
+ 1331               	.L81:
+ 1332               	.LBB74:
+ 394:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+ 395:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+ 396:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+ 397:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     for (;;)
+ 398:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     {
+ 399:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+ 400:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         
+ 401:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         for (int i=0; i< SENSOR_COUNT ; i++)
+ 1334               	.LM166:
+ 1335 009c C0E0      		ldi r28,0
+ 1336 009e D0E0      		ldi r29,0
+ 1337               	.L78:
+ 1339               	.LM167:
+ 1340 00a0 CF30      		cpi r28,15
+ 1341 00a2 D105      		cpc r29,__zero_reg__
+ 1342 00a4 04F4      		brge .L82
+ 402:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         {
+ 403:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****             mat_sensors[i] = (uint8_t) adc_read(i);
+ 1344               	.LM168:
+ 1345 00a6 8C2F      		mov r24,r28
+ 1346 00a8 0E94 0000 		call adc_read
+ 1347 00ac FE01      		movw r30,r28
+ 1348 00ae E050      		subi r30,lo8(-(mat_sensors))
+ 1349 00b0 F040      		sbci r31,hi8(-(mat_sensors))
+ 1350 00b2 8083      		st Z,r24
+ 401:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         for (int i=0; i< SENSOR_COUNT ; i++)
+ 1352               	.LM169:
+ 1353 00b4 2196      		adiw r28,1
+ 1354 00b6 00C0      		rjmp .L78
+ 1355               	.L82:
+ 1356               	.LBE74:
+ 1357               	.LBB75:
+ 1358               	.LBB76:
+ 1360               	.Ltext1:
+   1:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** /* Copyright (c) 2002, Marek Michalkiewicz
+   2:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****    Copyright (c) 2004,2005,2007 Joerg Wunsch
+   3:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****    Copyright (c) 2007  Florin-Viorel Petrov
+   4:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****    All rights reserved.
+   5:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 
+   6:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****    Redistribution and use in source and binary forms, with or without
+   7:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****    modification, are permitted provided that the following conditions are met:
+   8:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 
+   9:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****    * Redistributions of source code must retain the above copyright
+  10:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****      notice, this list of conditions and the following disclaimer.
+  11:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 
+  12:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****    * Redistributions in binary form must reproduce the above copyright
+  13:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****      notice, this list of conditions and the following disclaimer in
+  14:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****      the documentation and/or other materials provided with the
+  15:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****      distribution.
+  16:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 
+  17:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****    * Neither the name of the copyright holders nor the names of
+  18:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****      contributors may be used to endorse or promote products derived
+  19:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****      from this software without specific prior written permission.
+  20:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 
+  21:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+  22:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****   AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+  23:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****   IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+  24:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****   ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+  25:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****   LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+  26:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****   CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+  27:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****   SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+  28:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****   INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+  29:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****   CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+  30:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****   ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+  31:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****   POSSIBILITY OF SUCH DAMAGE. */
+  32:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 
+  33:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** /* $Id$ */
+  34:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 
+  35:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** #ifndef _UTIL_DELAY_H_
+  36:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** #define _UTIL_DELAY_H_ 1
+  37:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 
+  38:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** #ifndef __HAS_DELAY_CYCLES
+  39:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** #define __HAS_DELAY_CYCLES 1
+  40:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** #endif
+  41:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 
+  42:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** #include <inttypes.h>
+  43:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** #include <util/delay_basic.h>
+  44:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** #include <math.h>
+  45:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 
+  46:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** /** \file */
+  47:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** /** \defgroup util_delay <util/delay.h>: Convenience functions for busy-wait delay loops
+  48:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****     \code
+  49:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****     #define F_CPU 1000000UL  // 1 MHz
+  50:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****     //#define F_CPU 14.7456E6
+  51:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****     #include <util/delay.h>
+  52:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****     \endcode
+  53:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 
+  54:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****     \note As an alternative method, it is possible to pass the
+  55:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****     F_CPU macro down to the compiler from the Makefile.
+  56:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****     Obviously, in that case, no \c \#define statement should be
+  57:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****     used.
+  58:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 
+  59:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****     The functions in this header file are wrappers around the basic
+  60:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****     busy-wait functions from <util/delay_basic.h>.  They are meant as
+  61:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****     convenience functions where actual time values can be specified
+  62:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****     rather than a number of cycles to wait for.  The idea behind is
+  63:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****     that compile-time constant expressions will be eliminated by
+  64:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****     compiler optimization so floating-point expressions can be used
+  65:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****     to calculate the number of delay cycles needed based on the CPU
+  66:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****     frequency passed by the macro F_CPU.
+  67:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 
+  68:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****     \note In order for these functions to work as intended, compiler
+  69:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****     optimizations <em>must</em> be enabled, and the delay time
+  70:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****     <em>must</em> be an expression that is a known constant at
+  71:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****     compile-time.  If these requirements are not met, the resulting
+  72:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****     delay will be much longer (and basically unpredictable), and
+  73:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****     applications that otherwise do not use floating-point calculations
+  74:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****     will experience severe code bloat by the floating-point library
+  75:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****     routines linked into the application.
+  76:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 
+  77:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****     The functions available allow the specification of microsecond, and
+  78:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****     millisecond delays directly, using the application-supplied macro
+  79:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****     F_CPU as the CPU clock frequency (in Hertz).
+  80:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 
+  81:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** */
+  82:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 
+  83:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** #if !defined(__DOXYGEN__)
+  84:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** static inline void _delay_us(double __us) __attribute__((always_inline));
+  85:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** static inline void _delay_ms(double __ms) __attribute__((always_inline));
+  86:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** #endif
+  87:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 
+  88:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** #ifndef F_CPU
+  89:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** /* prevent compiler error by supplying a default */
+  90:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** # warning "F_CPU not defined for <util/delay.h>"
+  91:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** # define F_CPU 1000000UL
+  92:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** #endif
+  93:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 
+  94:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** #ifndef __OPTIMIZE__
+  95:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** # warning "Compiler optimizations disabled; functions from <util/delay.h> won't work as designed"
+  96:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** #endif
+  97:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 
+  98:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** #if __HAS_DELAY_CYCLES && defined(__OPTIMIZE__) && \
+  99:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****   !defined(__DELAY_BACKWARD_COMPATIBLE__) &&	   \
+ 100:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****   __STDC_HOSTED__
+ 101:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** #  include <math.h>
+ 102:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** #endif
+ 103:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 
+ 104:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** /**
+ 105:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****    \ingroup util_delay
+ 106:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 
+ 107:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****    Perform a delay of \c __ms milliseconds, using _delay_loop_2().
+ 108:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 
+ 109:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****    The macro F_CPU is supposed to be defined to a
+ 110:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****    constant defining the CPU clock frequency (in Hertz).
+ 111:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 
+ 112:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****    The maximal possible delay is 262.14 ms / F_CPU in MHz.
+ 113:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 
+ 114:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****    When the user request delay which exceed the maximum possible one,
+ 115:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****    _delay_ms() provides a decreased resolution functionality. In this
+ 116:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****    mode _delay_ms() will work with a resolution of 1/10 ms, providing
+ 117:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****    delays up to 6.5535 seconds (independent from CPU frequency).  The
+ 118:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****    user will not be informed about decreased resolution.
+ 119:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 
+ 120:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****    If the avr-gcc toolchain has __builtin_avr_delay_cycles(unsigned long)
+ 121:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****    support, maximal possible delay is 4294967.295 ms/ F_CPU in MHz. For
+ 122:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****    values greater than the maximal possible delay, overflows results in
+ 123:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****    no delay i.e., 0ms.
+ 124:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 
+ 125:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****    Conversion of __us into clock cycles may not always result in integer.
+ 126:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****    By default, the clock cycles rounded up to next integer. This ensures that
+ 127:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****    the user gets atleast __us microseconds of delay.
+ 128:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 
+ 129:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****    Alternatively, user can define __DELAY_ROUND_DOWN__ and __DELAY_ROUND_CLOSEST__
+ 130:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****    to round down and round to closest integer.
+ 131:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 
+ 132:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****    Note: The new implementation of _delay_ms(double __ms) with 
+ 133:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****     __builtin_avr_delay_cycles(unsigned long) support is not backward compatible. 
+ 134:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****    User can define __DELAY_BACKWARD_COMPATIBLE__ to get a backward compatible delay.
+ 135:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****    Also, the backward compatible
+ 136:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****    algorithm will be chosen if the code is compiled in a <em>freestanding
+ 137:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****    environment</em> (GCC option \c -ffreestanding), as the math functions
+ 138:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****    required for rounding are not available to the compiler then.
+ 139:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 
+ 140:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****  */
+ 141:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** void
+ 142:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** _delay_ms(double __ms)
+ 143:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** {
+ 144:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 	double __tmp ; 
+ 145:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** #if __HAS_DELAY_CYCLES && defined(__OPTIMIZE__) && \
+ 146:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****   !defined(__DELAY_BACKWARD_COMPATIBLE__) &&	   \
+ 147:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****   __STDC_HOSTED__
+ 148:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 	uint32_t __ticks_dc;
+ 149:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 	extern void __builtin_avr_delay_cycles(unsigned long);
+ 150:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 	__tmp = ((F_CPU) / 1e3) * __ms;
+ 151:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 
+ 152:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 	#if defined(__DELAY_ROUND_DOWN__)
+ 153:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 		__ticks_dc = (uint32_t)fabs(__tmp);
+ 154:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 
+ 155:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 	#elif defined(__DELAY_ROUND_CLOSEST__)
+ 156:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 		__ticks_dc = (uint32_t)(fabs(__tmp)+0.5);
+ 157:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 
+ 158:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 	#else
+ 159:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 		//round up by default
+ 160:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+ 161:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 	#endif
+ 162:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 
+ 163:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 	__builtin_avr_delay_cycles(__ticks_dc);
+ 1362               	.LM170:
+ 1363 00b8 2FEF      		ldi r18,lo8(255999)
+ 1364 00ba 87EE      		ldi r24,hi8(255999)
+ 1365 00bc 93E0      		ldi r25,hlo8(255999)
+ 1366 00be 2150      		1: subi r18,1
+ 1367 00c0 8040      		sbci r24,0
+ 1368 00c2 9040      		sbci r25,0
+ 1369 00c4 01F4      		brne 1b
+ 1370 00c6 00C0      		rjmp .
+ 1371 00c8 0000      		nop
+ 1372 00ca 00C0      		rjmp .L81
+ 1373               	.LBE76:
+ 1374               	.LBE75:
+ 1379               	.Lscope9:
+ 1380               		.local	xlatNeedsPulse.1869
+ 1381               		.comm	xlatNeedsPulse.1869,1,1
+ 1382               		.data
+ 1385               	rowIndex.1867:
+ 1386 0000 1E00      		.word	30
+ 1387               	.global	mat_sensors
+ 1388               		.section .bss
+ 1391               	mat_sensors:
+ 1392 0000 0000 0000 		.zero	15
+ 1392      0000 0000 
+ 1392      0000 0000 
+ 1392      0000 00
+ 1393               	.global	fontColor
+ 1394               		.data
+ 1397               	fontColor:
+ 1398 0002 FF        		.byte	-1
+ 1399               	.global	backgroundColor
+ 1402               	backgroundColor:
+ 1403 0003 03        		.byte	3
+ 1404               		.comm	pixels,900,1
+ 1405               	.global	letter_M
+ 1408               	letter_M:
+ 1409 0004 00        		.byte	0
+ 1410 0005 88        		.byte	-120
+ 1411 0006 D8        		.byte	-40
+ 1412 0007 A8        		.byte	-88
+ 1413 0008 88        		.byte	-120
+ 1414 0009 88        		.byte	-120
+ 1415 000a 88        		.byte	-120
+ 1416 000b 88        		.byte	-120
+ 1417 000c 00        		.byte	0
+ 1418               	.global	letter_D
+ 1421               	letter_D:
+ 1422 000d 00        		.byte	0
+ 1423 000e F0        		.byte	-16
+ 1424 000f 88        		.byte	-120
+ 1425 0010 88        		.byte	-120
+ 1426 0011 88        		.byte	-120
+ 1427 0012 88        		.byte	-120
+ 1428 0013 88        		.byte	-120
+ 1429 0014 F0        		.byte	-16
+ 1430 0015 00        		.byte	0
+ 1431               	.global	letter_space
+ 1432               		.section .bss
+ 1435               	letter_space:
+ 1436 000f 0000 0000 		.zero	9
+ 1436      0000 0000 
+ 1436      00
+ 1437               	.global	letter_u
+ 1438               		.data
+ 1441               	letter_u:
+ 1442 0016 00        		.byte	0
+ 1443 0017 00        		.byte	0
+ 1444 0018 00        		.byte	0
+ 1445 0019 88        		.byte	-120
+ 1446 001a 88        		.byte	-120
+ 1447 001b 88        		.byte	-120
+ 1448 001c 88        		.byte	-120
+ 1449 001d 70        		.byte	112
+ 1450 001e 00        		.byte	0
+ 1451               	.global	letter_r
+ 1454               	letter_r:
+ 1455 001f 00        		.byte	0
+ 1456 0020 00        		.byte	0
+ 1457 0021 00        		.byte	0
+ 1458 0022 B0        		.byte	-80
+ 1459 0023 C0        		.byte	-64
+ 1460 0024 80        		.byte	-128
+ 1461 0025 80        		.byte	-128
+ 1462 0026 80        		.byte	-128
+ 1463 0027 00        		.byte	0
+ 1464               	.global	letter_n
+ 1467               	letter_n:
+ 1468 0028 00        		.byte	0
+ 1469 0029 00        		.byte	0
+ 1470 002a 00        		.byte	0
+ 1471 002b F0        		.byte	-16
+ 1472 002c 88        		.byte	-120
+ 1473 002d 88        		.byte	-120
+ 1474 002e 88        		.byte	-120
+ 1475 002f 88        		.byte	-120
+ 1476 0030 00        		.byte	0
+ 1477               	.global	letter_l
+ 1480               	letter_l:
+ 1481 0031 00        		.byte	0
+ 1482 0032 20        		.byte	32
+ 1483 0033 20        		.byte	32
+ 1484 0034 20        		.byte	32
+ 1485 0035 20        		.byte	32
+ 1486 0036 20        		.byte	32
+ 1487 0037 20        		.byte	32
+ 1488 0038 20        		.byte	32
+ 1489 0039 00        		.byte	0
+ 1490               	.global	letter_i
+ 1493               	letter_i:
+ 1494 003a 00        		.byte	0
+ 1495 003b 20        		.byte	32
+ 1496 003c 00        		.byte	0
+ 1497 003d 20        		.byte	32
+ 1498 003e 20        		.byte	32
+ 1499 003f 20        		.byte	32
+ 1500 0040 20        		.byte	32
+ 1501 0041 20        		.byte	32
+ 1502 0042 00        		.byte	0
+ 1503               	.global	letter_h
+ 1506               	letter_h:
+ 1507 0043 00        		.byte	0
+ 1508 0044 80        		.byte	-128
+ 1509 0045 80        		.byte	-128
+ 1510 0046 F0        		.byte	-16
+ 1511 0047 88        		.byte	-120
+ 1512 0048 88        		.byte	-120
+ 1513 0049 88        		.byte	-120
+ 1514 004a 88        		.byte	-120
+ 1515 004b 00        		.byte	0
+ 1516               	.global	letter_g
+ 1519               	letter_g:
+ 1520 004c 00        		.byte	0
+ 1521 004d 00        		.byte	0
+ 1522 004e 78        		.byte	120
+ 1523 004f 88        		.byte	-120
+ 1524 0050 88        		.byte	-120
+ 1525 0051 88        		.byte	-120
+ 1526 0052 78        		.byte	120
+ 1527 0053 08        		.byte	8
+ 1528 0054 18        		.byte	24
+ 1529               	.global	letter_f
+ 1532               	letter_f:
+ 1533 0055 00        		.byte	0
+ 1534 0056 30        		.byte	48
+ 1535 0057 40        		.byte	64
+ 1536 0058 E0        		.byte	-32
+ 1537 0059 40        		.byte	64
+ 1538 005a 40        		.byte	64
+ 1539 005b 40        		.byte	64
+ 1540 005c 40        		.byte	64
+ 1541 005d 00        		.byte	0
+ 1542               	.global	letter_e
+ 1545               	letter_e:
+ 1546 005e 00        		.byte	0
+ 1547 005f 00        		.byte	0
+ 1548 0060 00        		.byte	0
+ 1549 0061 70        		.byte	112
+ 1550 0062 88        		.byte	-120
+ 1551 0063 F8        		.byte	-8
+ 1552 0064 80        		.byte	-128
+ 1553 0065 78        		.byte	120
+ 1554 0066 00        		.byte	0
+ 1555               	.global	letter_d
+ 1558               	letter_d:
+ 1559 0067 00        		.byte	0
+ 1560 0068 08        		.byte	8
+ 1561 0069 08        		.byte	8
+ 1562 006a 78        		.byte	120
+ 1563 006b 88        		.byte	-120
+ 1564 006c 88        		.byte	-120
+ 1565 006d 88        		.byte	-120
+ 1566 006e 78        		.byte	120
+ 1567 006f 00        		.byte	0
+ 1568               	.global	letter_c
+ 1571               	letter_c:
+ 1572 0070 00        		.byte	0
+ 1573 0071 00        		.byte	0
+ 1574 0072 00        		.byte	0
+ 1575 0073 70        		.byte	112
+ 1576 0074 88        		.byte	-120
+ 1577 0075 80        		.byte	-128
+ 1578 0076 88        		.byte	-120
+ 1579 0077 70        		.byte	112
+ 1580 0078 00        		.byte	0
+ 1581               	.global	letter_b
+ 1584               	letter_b:
+ 1585 0079 00        		.byte	0
+ 1586 007a 80        		.byte	-128
+ 1587 007b 80        		.byte	-128
+ 1588 007c F0        		.byte	-16
+ 1589 007d 88        		.byte	-120
+ 1590 007e 88        		.byte	-120
+ 1591 007f 88        		.byte	-120
+ 1592 0080 F0        		.byte	-16
+ 1593 0081 00        		.byte	0
+ 1594               	.global	letter_a
+ 1597               	letter_a:
+ 1598 0082 00        		.byte	0
+ 1599 0083 00        		.byte	0
+ 1600 0084 00        		.byte	0
+ 1601 0085 70        		.byte	112
+ 1602 0086 08        		.byte	8
+ 1603 0087 78        		.byte	120
+ 1604 0088 88        		.byte	-120
+ 1605 0089 78        		.byte	120
+ 1606 008a 00        		.byte	0
+ 1607               	.global	square_space
+ 1608               		.section .bss
+ 1611               	square_space:
+ 1612 0018 0000 0000 		.zero	5
+ 1612      00
+ 1613               	.global	square_z
+ 1614               		.data
+ 1617               	square_z:
+ 1618 008b E0        		.byte	-32
+ 1619 008c 20        		.byte	32
+ 1620 008d 40        		.byte	64
+ 1621 008e 80        		.byte	-128
+ 1622 008f E0        		.byte	-32
+ 1623               	.global	square_y
+ 1626               	square_y:
+ 1627 0090 A0        		.byte	-96
+ 1628 0091 A0        		.byte	-96
+ 1629 0092 E0        		.byte	-32
+ 1630 0093 40        		.byte	64
+ 1631 0094 40        		.byte	64
+ 1632               	.global	square_x
+ 1635               	square_x:
+ 1636 0095 A0        		.byte	-96
+ 1637 0096 A0        		.byte	-96
+ 1638 0097 40        		.byte	64
+ 1639 0098 A0        		.byte	-96
+ 1640 0099 A0        		.byte	-96
+ 1641               	.global	square_w
+ 1644               	square_w:
+ 1645 009a A0        		.byte	-96
+ 1646 009b A0        		.byte	-96
+ 1647 009c A0        		.byte	-96
+ 1648 009d E0        		.byte	-32
+ 1649 009e A0        		.byte	-96
+ 1650               	.global	square_v
+ 1653               	square_v:
+ 1654 009f A0        		.byte	-96
+ 1655 00a0 A0        		.byte	-96
+ 1656 00a1 A0        		.byte	-96
+ 1657 00a2 A0        		.byte	-96
+ 1658 00a3 40        		.byte	64
+ 1659               	.global	square_u
+ 1662               	square_u:
+ 1663 00a4 A0        		.byte	-96
+ 1664 00a5 A0        		.byte	-96
+ 1665 00a6 A0        		.byte	-96
+ 1666 00a7 A0        		.byte	-96
+ 1667 00a8 E0        		.byte	-32
+ 1668               	.global	square_t
+ 1671               	square_t:
+ 1672 00a9 E0        		.byte	-32
+ 1673 00aa 40        		.byte	64
+ 1674 00ab 40        		.byte	64
+ 1675 00ac 40        		.byte	64
+ 1676 00ad 40        		.byte	64
+ 1677               	.global	square_s
+ 1680               	square_s:
+ 1681 00ae E0        		.byte	-32
+ 1682 00af 80        		.byte	-128
+ 1683 00b0 E0        		.byte	-32
+ 1684 00b1 20        		.byte	32
+ 1685 00b2 E0        		.byte	-32
+ 1686               	.global	square_r
+ 1689               	square_r:
+ 1690 00b3 E0        		.byte	-32
+ 1691 00b4 A0        		.byte	-96
+ 1692 00b5 C0        		.byte	-64
+ 1693 00b6 A0        		.byte	-96
+ 1694 00b7 A0        		.byte	-96
+ 1695               	.global	square_q
+ 1698               	square_q:
+ 1699 00b8 E0        		.byte	-32
+ 1700 00b9 A0        		.byte	-96
+ 1701 00ba A0        		.byte	-96
+ 1702 00bb E0        		.byte	-32
+ 1703 00bc 20        		.byte	32
+ 1704               	.global	square_p
+ 1707               	square_p:
+ 1708 00bd E0        		.byte	-32
+ 1709 00be A0        		.byte	-96
+ 1710 00bf E0        		.byte	-32
+ 1711 00c0 80        		.byte	-128
+ 1712 00c1 80        		.byte	-128
+ 1713               	.global	square_o
+ 1716               	square_o:
+ 1717 00c2 E0        		.byte	-32
+ 1718 00c3 A0        		.byte	-96
+ 1719 00c4 A0        		.byte	-96
+ 1720 00c5 A0        		.byte	-96
+ 1721 00c6 E0        		.byte	-32
+ 1722               	.global	square_n
+ 1725               	square_n:
+ 1726 00c7 C0        		.byte	-64
+ 1727 00c8 A0        		.byte	-96
+ 1728 00c9 A0        		.byte	-96
+ 1729 00ca A0        		.byte	-96
+ 1730 00cb A0        		.byte	-96
+ 1731               	.global	square_m
+ 1734               	square_m:
+ 1735 00cc A0        		.byte	-96
+ 1736 00cd E0        		.byte	-32
+ 1737 00ce A0        		.byte	-96
+ 1738 00cf A0        		.byte	-96
+ 1739 00d0 A0        		.byte	-96
+ 1740               	.global	square_l
+ 1743               	square_l:
+ 1744 00d1 80        		.byte	-128
+ 1745 00d2 80        		.byte	-128
+ 1746 00d3 80        		.byte	-128
+ 1747 00d4 80        		.byte	-128
+ 1748 00d5 E0        		.byte	-32
+ 1749               	.global	square_k
+ 1752               	square_k:
+ 1753 00d6 A0        		.byte	-96
+ 1754 00d7 A0        		.byte	-96
+ 1755 00d8 C0        		.byte	-64
+ 1756 00d9 A0        		.byte	-96
+ 1757 00da A0        		.byte	-96
+ 1758               	.global	square_j
+ 1761               	square_j:
+ 1762 00db E0        		.byte	-32
+ 1763 00dc 40        		.byte	64
+ 1764 00dd 40        		.byte	64
+ 1765 00de 40        		.byte	64
+ 1766 00df C0        		.byte	-64
+ 1767               	.global	square_i
+ 1770               	square_i:
+ 1771 00e0 40        		.byte	64
+ 1772 00e1 40        		.byte	64
+ 1773 00e2 40        		.byte	64
+ 1774 00e3 40        		.byte	64
+ 1775 00e4 40        		.byte	64
+ 1776               	.global	square_h
+ 1779               	square_h:
+ 1780 00e5 A0        		.byte	-96
+ 1781 00e6 A0        		.byte	-96
+ 1782 00e7 E0        		.byte	-32
+ 1783 00e8 A0        		.byte	-96
+ 1784 00e9 A0        		.byte	-96
+ 1785               	.global	square_g
+ 1788               	square_g:
+ 1789 00ea E0        		.byte	-32
+ 1790 00eb 80        		.byte	-128
+ 1791 00ec A0        		.byte	-96
+ 1792 00ed A0        		.byte	-96
+ 1793 00ee E0        		.byte	-32
+ 1794               	.global	square_f
+ 1797               	square_f:
+ 1798 00ef E0        		.byte	-32
+ 1799 00f0 80        		.byte	-128
+ 1800 00f1 C0        		.byte	-64
+ 1801 00f2 80        		.byte	-128
+ 1802 00f3 80        		.byte	-128
+ 1803               	.global	square_e
+ 1806               	square_e:
+ 1807 00f4 E0        		.byte	-32
+ 1808 00f5 80        		.byte	-128
+ 1809 00f6 C0        		.byte	-64
+ 1810 00f7 80        		.byte	-128
+ 1811 00f8 E0        		.byte	-32
+ 1812               	.global	square_d
+ 1815               	square_d:
+ 1816 00f9 C0        		.byte	-64
+ 1817 00fa A0        		.byte	-96
+ 1818 00fb A0        		.byte	-96
+ 1819 00fc A0        		.byte	-96
+ 1820 00fd C0        		.byte	-64
+ 1821               	.global	square_c
+ 1824               	square_c:
+ 1825 00fe E0        		.byte	-32
+ 1826 00ff 80        		.byte	-128
+ 1827 0100 80        		.byte	-128
+ 1828 0101 80        		.byte	-128
+ 1829 0102 E0        		.byte	-32
+ 1830               	.global	square_b
+ 1833               	square_b:
+ 1834 0103 E0        		.byte	-32
+ 1835 0104 A0        		.byte	-96
+ 1836 0105 C0        		.byte	-64
+ 1837 0106 A0        		.byte	-96
+ 1838 0107 E0        		.byte	-32
+ 1839               	.global	square_a
+ 1842               	square_a:
+ 1843 0108 E0        		.byte	-32
+ 1844 0109 A0        		.byte	-96
+ 1845 010a E0        		.byte	-32
+ 1846 010b A0        		.byte	-96
+ 1847 010c A0        		.byte	-96
+ 1895               		.text
+ 1897               	.Letext0:
+ 1898               		.ident	"GCC: (GNU) 4.8.1"
+ 1899               	.global __do_copy_data
+ 1900               	.global __do_clear_bss
+DEFINED SYMBOLS
+                            *ABS*:00000000 main.c
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccXWlRkI.s:2      *ABS*:0000003e __SP_H__
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccXWlRkI.s:3      *ABS*:0000003d __SP_L__
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccXWlRkI.s:4      *ABS*:0000003f __SREG__
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccXWlRkI.s:5      *ABS*:0000003b __RAMPZ__
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccXWlRkI.s:6      *ABS*:00000000 __tmp_reg__
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccXWlRkI.s:7      *ABS*:00000001 __zero_reg__
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccXWlRkI.s:111    .text:00000000 translateBuffer
+                            *COM*:00000384 pixels
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccXWlRkI.s:180    .text:0000003e writeLetter
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccXWlRkI.s:1397   .data:00000002 fontColor
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccXWlRkI.s:1402   .data:00000003 backgroundColor
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccXWlRkI.s:284    .text:000000b6 writeSquareLetter
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccXWlRkI.s:384    .text:0000012c initPixels
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccXWlRkI.s:1408   .data:00000004 letter_M
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccXWlRkI.s:1493   .data:0000003a letter_i
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccXWlRkI.s:1571   .data:00000070 letter_c
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccXWlRkI.s:1506   .data:00000043 letter_h
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccXWlRkI.s:1545   .data:0000005e letter_e
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccXWlRkI.s:1480   .data:00000031 letter_l
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccXWlRkI.s:1421   .data:0000000d letter_D
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccXWlRkI.s:1441   .data:00000016 letter_u
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccXWlRkI.s:1454   .data:0000001f letter_r
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccXWlRkI.s:1597   .data:00000082 letter_a
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccXWlRkI.s:1467   .data:00000028 letter_n
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccXWlRkI.s:1558   .data:00000067 letter_d
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccXWlRkI.s:1842   .data:00000108 square_a
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccXWlRkI.s:1833   .data:00000103 square_b
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccXWlRkI.s:1824   .data:000000fe square_c
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccXWlRkI.s:1815   .data:000000f9 square_d
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccXWlRkI.s:1806   .data:000000f4 square_e
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccXWlRkI.s:1797   .data:000000ef square_f
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccXWlRkI.s:1788   .data:000000ea square_g
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccXWlRkI.s:1779   .data:000000e5 square_h
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccXWlRkI.s:1770   .data:000000e0 square_i
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccXWlRkI.s:1761   .data:000000db square_j
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccXWlRkI.s:1752   .data:000000d6 square_k
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccXWlRkI.s:1743   .data:000000d1 square_l
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccXWlRkI.s:1734   .data:000000cc square_m
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccXWlRkI.s:1725   .data:000000c7 square_n
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccXWlRkI.s:608    .text:00000288 TLC5940_Init
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccXWlRkI.s:670    .text:000002b6 adc_init
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccXWlRkI.s:693    .text:000002c4 adc_read
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccXWlRkI.s:735    .text:000002ee __vector_21
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccXWlRkI.s:1385   .data:00000000 rowIndex.1867
+                             .bss:0000001d xlatNeedsPulse.1869
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccXWlRkI.s:1210   .text.startup:00000000 main
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccXWlRkI.s:1391   .bss:00000000 mat_sensors
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccXWlRkI.s:1435   .bss:0000000f letter_space
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccXWlRkI.s:1519   .data:0000004c letter_g
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccXWlRkI.s:1532   .data:00000055 letter_f
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccXWlRkI.s:1584   .data:00000079 letter_b
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccXWlRkI.s:1611   .bss:00000018 square_space
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccXWlRkI.s:1617   .data:0000008b square_z
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccXWlRkI.s:1626   .data:00000090 square_y
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccXWlRkI.s:1635   .data:00000095 square_x
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccXWlRkI.s:1644   .data:0000009a square_w
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccXWlRkI.s:1653   .data:0000009f square_v
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccXWlRkI.s:1662   .data:000000a4 square_u
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccXWlRkI.s:1671   .data:000000a9 square_t
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccXWlRkI.s:1680   .data:000000ae square_s
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccXWlRkI.s:1689   .data:000000b3 square_r
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccXWlRkI.s:1698   .data:000000b8 square_q
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccXWlRkI.s:1707   .data:000000bd square_p
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccXWlRkI.s:1716   .data:000000c2 square_o
+
+UNDEFINED SYMBOLS
+__do_copy_data
+__do_clear_bss

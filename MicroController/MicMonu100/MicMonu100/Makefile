@@ -1,6 +1,6 @@
 # Hey Emacs, this is a -*- makefile -*-
 #----------------------------------------------------------------------------
-# WinAVR Makefile Template written by Eric B. Weddington, Jörg Wunsch, et al.
+# WinAVR Makefile Template written by Eric B. Weddington, JÃ¶rg Wunsch, et al.
 #
 # Released to the Public Domain
 #
@@ -12,7 +12,6 @@
 # Markus Pfaff
 # Sander Pool
 # Frederik Rouleau
-# Carlos Lamas
 #
 #----------------------------------------------------------------------------
 # On command line:
@@ -39,47 +38,36 @@
 # To rebuild project do "make clean" then "make all".
 #----------------------------------------------------------------------------
 
-
-# Target file name (without extension).
-TARGET = test
-
-
-# List C source files here. (C dependencies are automatically generated.)
-SRC =	$(TARGET).c \
-	usb_debug_only.c \
-	print.c
-
-# MCU name, you MUST set this to match the board you are using
-# type "make clean" after changing this, so all files will be rebuilt
-#
-#MCU = at90usb162       # Teensy 1.0
-#MCU = atmega32u4        # Teensy 2.0
-#MCU = at90usb646       # Teensy++ 1.0
-MCU = at90usb1286      # Teensy++ 2.0
+#include conf.mk
+# MCU name
+MCU = atmega2560
 
 
 # Processor frequency.
-#   Normally the first thing your program should do is set the clock prescaler,
-#   so your program will run at the correct speed.  You should also set this
-#   variable to same clock speed.  The _delay_ms() macro uses this, and many
-#   examples use this variable to calculate timings.  Do not add a "UL" here.
+#     This will define a symbol, F_CPU, in all source code files equal to the 
+#     processor frequency. You can then use this symbol in your source code to 
+#     calculate timings. Do NOT tack on a 'UL' at the end, this will be done
+#     automatically to create a 32-bit value in your source code.
 F_CPU = 16000000
 
+AVRDUDE_PROGRAMMER = avrispmkII -P usb
+
+# com1 = serial port. Use lpt1 to connect to parallel port.
+AVRDUDE_PORT = /dev/cu.usbmodemfd121    # programmer connected to serial device
 
 # Output format. (can be srec, ihex, binary)
 FORMAT = ihex
 
 
-# Object files directory
-#     To put object files in current directory, use a dot (.), do NOT make
-#     this an empty or blank macro!
-OBJDIR = .
+# Target file name (without extension).
+TARGET = main
 
 
-# List C++ source files here. (C dependencies are automatically generated.)
-CPPSRC = 
+# List C source files here. (C dependencies are automatically generated.)
 
+SRC = $(wildcard *.c)
 
+OBJDIR = Builds
 # List Assembler source files here.
 #     Make them always end in a capital .S.  Files ending in a lowercase .s
 #     will not be considered source files but generated files (assembler
@@ -87,7 +75,7 @@ CPPSRC =
 #     Even though the DOS/Win* filesystem matches both .s and .S the same,
 #     it will preserve the spelling of the filenames, and gcc itself does
 #     care about how the name is spelled on its command-line.
-ASRC =
+ASRC = 
 
 
 # Optimization level, can be [0, 1, 2, 3, s]. 
@@ -100,7 +88,7 @@ OPT = s
 #     Native formats for AVR-GCC's -g are dwarf-2 [default] or stabs.
 #     AVR Studio 4.10 requires dwarf-2.
 #     AVR [Extended] COFF format requires stabs, plus an avr-objcopy run.
-DEBUG = dwarf-2
+DEBUG = stabs
 
 
 # List any extra directories to look for include files here.
@@ -118,22 +106,16 @@ EXTRAINCDIRS =
 CSTANDARD = -std=gnu99
 
 
-# Place -D or -U options here for C sources
+# Place -D or -U options here
 CDEFS = -DF_CPU=$(F_CPU)UL
 
 
-# Place -D or -U options here for ASM sources
-ADEFS = -DF_CPU=$(F_CPU)
-
-
-# Place -D or -U options here for C++ sources
-CPPDEFS = -DF_CPU=$(F_CPU)UL
-#CPPDEFS += -D__STDC_LIMIT_MACROS
-#CPPDEFS += -D__STDC_CONSTANT_MACROS
+# Place -I options here
+CINCS =
 
 
 
-#---------------- Compiler Options C ----------------
+#---------------- Compiler Options ----------------
 #  -g*:          generate debugging information
 #  -O*:          optimization level
 #  -f...:        tuning, see GCC manual and avr-libc documentation
@@ -141,62 +123,26 @@ CPPDEFS = -DF_CPU=$(F_CPU)UL
 #  -Wa,...:      tell GCC to pass this to the assembler.
 #    -adhlns...: create assembler listing
 CFLAGS = -g$(DEBUG)
-CFLAGS += $(CDEFS)
+CFLAGS += $(CDEFS) $(CINCS)
 CFLAGS += -O$(OPT)
-CFLAGS += -funsigned-char
-CFLAGS += -funsigned-bitfields
-CFLAGS += -ffunction-sections
-CFLAGS += -fpack-struct
-CFLAGS += -fshort-enums
-CFLAGS += -Wall
-CFLAGS += -Wstrict-prototypes
-#CFLAGS += -mshort-calls
-#CFLAGS += -fno-unit-at-a-time
-#CFLAGS += -Wundef
-#CFLAGS += -Wunreachable-code
-#CFLAGS += -Wsign-compare
-CFLAGS += -Wa,-adhlns=$(<:%.c=$(OBJDIR)/%.lst)
+CFLAGS += -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums
+CFLAGS += -Wall -Wstrict-prototypes
+CFLAGS += -Wa,-adhlns=$(addprefix $(OBJDIR)/,$(<:.c=.lst))
 CFLAGS += $(patsubst %,-I%,$(EXTRAINCDIRS))
 CFLAGS += $(CSTANDARD)
-
-
-#---------------- Compiler Options C++ ----------------
-#  -g*:          generate debugging information
-#  -O*:          optimization level
-#  -f...:        tuning, see GCC manual and avr-libc documentation
-#  -Wall...:     warning level
-#  -Wa,...:      tell GCC to pass this to the assembler.
-#    -adhlns...: create assembler listing
-CPPFLAGS = -g$(DEBUG)
-CPPFLAGS += $(CPPDEFS)
-CPPFLAGS += -O$(OPT)
-CPPFLAGS += -funsigned-char
-CPPFLAGS += -funsigned-bitfields
-CPPFLAGS += -fpack-struct
-CPPFLAGS += -fshort-enums
-CPPFLAGS += -fno-exceptions
-CPPFLAGS += -Wall
-CPPFLAGS += -Wundef
-#CPPFLAGS += -mshort-calls
-#CPPFLAGS += -fno-unit-at-a-time
-#CPPFLAGS += -Wstrict-prototypes
-#CPPFLAGS += -Wunreachable-code
-#CPPFLAGS += -Wsign-compare
-CPPFLAGS += -Wa,-adhlns=$(<:%.cpp=$(OBJDIR)/%.lst)
-CPPFLAGS += $(patsubst %,-I%,$(EXTRAINCDIRS))
-#CPPFLAGS += $(CSTANDARD)
-
+CFLAGS += -gstabs
+CFLAGS += -gstrict-dwarf
 
 #---------------- Assembler Options ----------------
 #  -Wa,...:   tell GCC to pass this to the assembler.
-#  -adhlns:   create listing
+#  -ahlms:    create listing
 #  -gstabs:   have the assembler create line number information; note that
 #             for use in COFF files, additional information about filenames
 #             and function names needs to be present in the assembler source
 #             files -- see avr-libc docs [FIXME: not yet described there]
 #  -listing-cont-lines: Sets the maximum number of continuation lines of hex 
 #       dump that will be displayed for a given single line of source input.
-ASFLAGS = $(ADEFS) -Wa,-adhlns=$(<:%.S=$(OBJDIR)/%.lst),-gstabs,--listing-cont-lines=100
+ASFLAGS = -Wa,-adhlns=$(addprefix $(OBJDIR)/,$(<:.S=.lst)),-gstabs,--listing-cont-lines=100
 
 
 #---------------- Library Options ----------------
@@ -227,23 +173,16 @@ SCANF_LIB =
 MATH_LIB = -lm
 
 
-# List any extra directories to look for libraries here.
-#     Each directory must be seperated by a space.
-#     Use forward slashes for directory separators.
-#     For a directory that has spaces, enclose it in quotes.
-EXTRALIBDIRS = 
-
-
 
 #---------------- External Memory Options ----------------
 
 # 64 KB of external RAM, starting after internal RAM (ATmega128!),
 # used for variables (.data/.bss) and heap (malloc()).
-#EXTMEMOPTS = -Wl,-Tdata=0x801100,--defsym=__heap_end=0x80ffff
+#EXTMEMOPTS = -Wl,--section-start,.data=0x801100,--defsym=__heap_end=0x80ffff
 
 # 64 KB of external RAM, starting after internal RAM (ATmega128!),
 # only used for heap (malloc()).
-#EXTMEMOPTS = -Wl,--section-start,.data=0x801100,--defsym=__heap_end=0x80ffff
+#EXTMEMOPTS = -Wl,--defsym=__heap_start=0x801100,--defsym=__heap_end=0x80ffff
 
 EXTMEMOPTS =
 
@@ -253,28 +192,22 @@ EXTMEMOPTS =
 #  -Wl,...:     tell GCC to pass this to linker.
 #    -Map:      create map file
 #    --cref:    add cross reference to  map file
-LDFLAGS = -Wl,-Map=$(TARGET).map,--cref
-LDFLAGS += -Wl,--relax
-LDFLAGS += -Wl,--gc-sections
+LDFLAGS = -Wl,-Map=$(OBJDIR)/$(TARGET).map,--cref
 LDFLAGS += $(EXTMEMOPTS)
-LDFLAGS += $(patsubst %,-L%,$(EXTRALIBDIRS))
 LDFLAGS += $(PRINTF_LIB) $(SCANF_LIB) $(MATH_LIB)
-#LDFLAGS += -T linker_script.x
 
 
 
 #---------------- Programming Options (avrdude) ----------------
 
-# Programming hardware
+# Programming hardware: alf avr910 avrisp bascom bsd 
+# dt006 pavr picoweb pony-stk200 sp12 stk200 stk500
+#
 # Type: avrdude -c ?
 # to get a full listing.
 #
-AVRDUDE_PROGRAMMER = avrispmkII #stk500v2
 
-# com1 = serial port. Use lpt1 to connect to parallel port.
-AVRDUDE_PORT = usb #com1    # programmer connected to serial device
-
-AVRDUDE_WRITE_FLASH = -U flash:w:$(TARGET).hex
+AVRDUDE_WRITE_FLASH = -U flash:w:$(OBJDIR)/$(TARGET).hex
 #AVRDUDE_WRITE_EEPROM = -U eeprom:w:$(TARGET).eep
 
 
@@ -333,15 +266,13 @@ DEBUG_HOST = localhost
 
 # Define programs and commands.
 SHELL = sh
-CC = avr-gcc
-OBJCOPY = avr-objcopy
-OBJDUMP = avr-objdump
-SIZE = avr-size
-AR = avr-ar rcs
-NM = avr-nm
-AVRDUDE = avrdude
+CC = /usr/local/CrossPack-AVR/bin/avr-gcc
+OBJCOPY = /usr/local/CrossPack-AVR/bin/avr-objcopy
+OBJDUMP = /usr/local/CrossPack-AVR/bin/avr-objdump
+SIZE = /usr/local/CrossPack-AVR/bin/avr-size
+NM = /usr/local/CrossPack-AVR/bin/avr-nm
+AVRDUDE = /usr/local/CrossPack-AVR/bin/avrdude
 REMOVE = rm -f
-REMOVEDIR = rm -rf
 COPY = cp
 WINSHELL = cmd
 
@@ -360,30 +291,27 @@ MSG_EEPROM = Creating load file for EEPROM:
 MSG_EXTENDED_LISTING = Creating Extended Listing:
 MSG_SYMBOL_TABLE = Creating Symbol Table:
 MSG_LINKING = Linking:
-MSG_COMPILING = Compiling C:
-MSG_COMPILING_CPP = Compiling C++:
+MSG_COMPILING = Compiling:
 MSG_ASSEMBLING = Assembling:
 MSG_CLEANING = Cleaning project:
-MSG_CREATING_LIBRARY = Creating library:
 
 
 
 
 # Define all object files.
-OBJ = $(SRC:%.c=$(OBJDIR)/%.o) $(CPPSRC:%.cpp=$(OBJDIR)/%.o) $(ASRC:%.S=$(OBJDIR)/%.o) 
+OBJ = $(addprefix $(OBJDIR)/,$(SRC:.c=.o)) $(addprefix $(OBJDIR)/,$(ASRC:.S=.o))
 
 # Define all listing files.
-LST = $(SRC:%.c=$(OBJDIR)/%.lst) $(CPPSRC:%.cpp=$(OBJDIR)/%.lst) $(ASRC:%.S=$(OBJDIR)/%.lst) 
+LST = $(addprefix $(OBJDIR)/,$(SRC:.c=.lst)) $(addprefix $(OBJDIR)/,$(ASRC:.S=.lst))
 
 
 # Compiler flags to generate dependency files.
-GENDEPFLAGS = -MMD -MP -MF .dep/$(@F).d
+GENDEPFLAGS = -MD -MP -MF $(OBJDIR)/.dep/$(@F).d
 
 
 # Combine all necessary flags and optional flags.
 # Add target processor to flags.
 ALL_CFLAGS = -mmcu=$(MCU) -I. $(CFLAGS) $(GENDEPFLAGS)
-ALL_CPPFLAGS = -mmcu=$(MCU) -I. -x c++ $(CPPFLAGS) $(GENDEPFLAGS)
 ALL_ASFLAGS = -mmcu=$(MCU) -I. -x assembler-with-cpp $(ASFLAGS)
 
 
@@ -391,22 +319,18 @@ ALL_ASFLAGS = -mmcu=$(MCU) -I. -x assembler-with-cpp $(ASFLAGS)
 
 
 # Default target.
-all: begin gccversion sizebefore build sizeafter end
+all: begin gccversion sizebefore clean build program sizeafter end
 
-# Change the build target to build a HEX file or a library.
-build: elf hex eep lss sym
-#build: lib
+build: $(OBJDIR) elf hex eep lss sym
 
+elf: $(OBJDIR)/$(TARGET).elf
+hex: $(OBJDIR)/$(TARGET).hex
+eep: $(OBJDIR)/$(TARGET).eep
+lss: $(OBJDIR)/$(TARGET).lss 
+sym: $(OBJDIR)/$(TARGET).sym
 
-elf: $(TARGET).elf
-hex: $(TARGET).hex
-eep: $(TARGET).eep
-lss: $(TARGET).lss
-sym: $(TARGET).sym
-LIBNAME=lib$(TARGET).a
-lib: $(LIBNAME)
-
-
+$(OBJDIR):
+	@mkdir -p $@
 
 # Eye candy.
 # AVR Studio 3.x does not check make's exit code but relies on
@@ -421,16 +345,15 @@ end:
 
 
 # Display size of file.
-HEXSIZE = $(SIZE) --target=$(FORMAT) $(TARGET).hex
-#ELFSIZE = $(SIZE) --mcu=$(MCU) --format=avr $(TARGET).elf
-ELFSIZE = $(SIZE) $(TARGET).elf
+HEXSIZE = $(SIZE) --target=$(FORMAT) $(OBJDIR)/$(TARGET).hex
+ELFSIZE = $(SIZE) --format=avr $(OBJDIR)/$(TARGET).elf
 
 sizebefore:
-	@if test -f $(TARGET).elf; then echo; echo $(MSG_SIZE_BEFORE); $(ELFSIZE); \
+	@if test -f $(OBJDIR)/$(TARGET).elf; then echo; echo $(MSG_SIZE_BEFORE); $(ELFSIZE); \
 	2>/dev/null; echo; fi
 
 sizeafter:
-	@if test -f $(TARGET).elf; then echo; echo $(MSG_SIZE_AFTER); $(ELFSIZE); \
+	@if test -f $(OBJDIR)/$(TARGET).elf; then echo; echo $(MSG_SIZE_AFTER); $(ELFSIZE); \
 	2>/dev/null; echo; fi
 
 
@@ -442,9 +365,8 @@ gccversion :
 
 
 # Program the device.  
-program: $(TARGET).hex $(TARGET).eep
-	teensy_loader_cli -mmcu=$(MCU) -v -w $(TARGET).hex 
-
+program: $(OBJDIR)/$(TARGET).hex $(OBJDIR)/$(TARGET).eep
+	$(AVRDUDE) $(AVRDUDE_FLAGS) $(AVRDUDE_WRITE_FLASH) $(AVRDUDE_WRITE_EEPROM)
 
 # Generate avr-gdb config/init file which does the following:
 #     define the reset signal, load the target file, connect to target, and set 
@@ -454,20 +376,19 @@ gdb-config:
 	@echo define reset >> $(GDBINIT_FILE)
 	@echo SIGNAL SIGHUP >> $(GDBINIT_FILE)
 	@echo end >> $(GDBINIT_FILE)
-	@echo file $(TARGET).elf >> $(GDBINIT_FILE)
+	@echo file $(OBJDIR)/$(TARGET).elf >> $(GDBINIT_FILE)
 	@echo target remote $(DEBUG_HOST):$(DEBUG_PORT)  >> $(GDBINIT_FILE)
 ifeq ($(DEBUG_BACKEND),simulavr)
 	@echo load  >> $(GDBINIT_FILE)
-endif
+endif	
 	@echo break main >> $(GDBINIT_FILE)
 
-debug: gdb-config $(TARGET).elf
+debug: gdb-config $(OBJDIR)/$(TARGET).elf
 ifeq ($(DEBUG_BACKEND), avarice)
 	@echo Starting AVaRICE - Press enter when "waiting to connect" message displays.
 	@$(WINSHELL) /c start avarice --jtag $(JTAG_DEV) --erase --program --file \
-	$(TARGET).elf $(DEBUG_HOST):$(DEBUG_PORT)
+	$(OBJDIR)/$(TARGET).elf $(DEBUG_HOST):$(DEBUG_PORT)
 	@$(WINSHELL) /c pause
-
 else
 	@$(WINSHELL) /c start simulavr --gdbserver --device $(MCU) --clock-freq \
 	$(DEBUG_MFREQ) --port $(DEBUG_PORT)
@@ -476,68 +397,57 @@ endif
 
 
 
-
 # Convert ELF to COFF for use in debugging / simulating in AVR Studio or VMLAB.
-COFFCONVERT = $(OBJCOPY) --debugging
-COFFCONVERT += --change-section-address .data-0x800000
-COFFCONVERT += --change-section-address .bss-0x800000
-COFFCONVERT += --change-section-address .noinit-0x800000
-COFFCONVERT += --change-section-address .eeprom-0x810000
+COFFCONVERT=$(OBJCOPY) --debugging \
+--change-section-address .data-0x800000 \
+--change-section-address .bss-0x800000 \
+--change-section-address .noinit-0x800000 \
+--change-section-address .eeprom-0x810000 
 
 
-
-coff: $(TARGET).elf
+coff: $(OBJDIR)/$(TARGET).elf
 	@echo
-	@echo $(MSG_COFF) $(TARGET).cof
-	$(COFFCONVERT) -O coff-avr $< $(TARGET).cof
+	@echo $(MSG_COFF) $(OBJDIR)/$(TARGET).cof
+	$(COFFCONVERT) -O coff-avr $< $(OBJDIR)/$(TARGET).cof
 
 
-extcoff: $(TARGET).elf
+extcoff: $(OBJDIR)/$(TARGET).elf
 	@echo
-	@echo $(MSG_EXTENDED_COFF) $(TARGET).cof
-	$(COFFCONVERT) -O coff-ext-avr $< $(TARGET).cof
+	@echo $(MSG_EXTENDED_COFF) $(OBJDIR)/$(TARGET).cof
+	$(COFFCONVERT) -O coff-ext-avr $< $(OBJDIR)/$(TARGET).cof
 
 
 
 # Create final output files (.hex, .eep) from ELF output file.
-%.hex: %.elf
+$(OBJDIR)/%.hex: $(OBJDIR)/%.elf
 	@echo
 	@echo $(MSG_FLASH) $@
-	$(OBJCOPY) -O $(FORMAT) -R .eeprom -R .fuse -R .lock -R .signature $< $@
+	$(OBJCOPY) -O $(FORMAT) -R .eeprom $< $@
 
-%.eep: %.elf
+$(OBJDIR)/%.eep: $(OBJDIR)/%.elf
 	@echo
 	@echo $(MSG_EEPROM) $@
-	-$(OBJCOPY) -j .eeprom --set-section-flags=.eeprom="alloc,load" \
-	--change-section-lma .eeprom=0 --no-change-warnings -O $(FORMAT) $< $@ || exit 0
+	-$(OBJCOPY) -j .eeprom --set-section-flags .eeprom=alloc,load \
+	--change-section-lma .eeprom=0 -O $(FORMAT) $< $@
 
 # Create extended listing file from ELF output file.
-%.lss: %.elf
+$(OBJDIR)/%.lss: $(OBJDIR)/%.elf
 	@echo
 	@echo $(MSG_EXTENDED_LISTING) $@
-	$(OBJDUMP) -h -S -z $< > $@
+	$(OBJDUMP) -h -S $< > $@
 
 # Create a symbol table from ELF output file.
-%.sym: %.elf
+$(OBJDIR)/%.sym: $(OBJDIR)/%.elf
 	@echo
 	@echo $(MSG_SYMBOL_TABLE) $@
 	$(NM) -n $< > $@
 
 
 
-# Create library from object files.
-.SECONDARY : $(TARGET).a
-.PRECIOUS : $(OBJ)
-%.a: $(OBJ)
-	@echo
-	@echo $(MSG_CREATING_LIBRARY) $@
-	$(AR) $@ $(OBJ)
-
-
 # Link: create ELF output file from object files.
-.SECONDARY : $(TARGET).elf
+.SECONDARY : $(OBJDIR)/$(TARGET).elf
 .PRECIOUS : $(OBJ)
-%.elf: $(OBJ)
+$(OBJDIR)/%.elf: $(OBJ)
 	@echo
 	@echo $(MSG_LINKING) $@
 	$(CC) $(ALL_CFLAGS) $^ --output $@ $(LDFLAGS)
@@ -547,24 +457,12 @@ extcoff: $(TARGET).elf
 $(OBJDIR)/%.o : %.c
 	@echo
 	@echo $(MSG_COMPILING) $<
-	$(CC) -c $(ALL_CFLAGS) $< -o $@ 
-
-
-# Compile: create object files from C++ source files.
-$(OBJDIR)/%.o : %.cpp
-	@echo
-	@echo $(MSG_COMPILING_CPP) $<
-	$(CC) -c $(ALL_CPPFLAGS) $< -o $@ 
+	$(CC) -c $(ALL_CFLAGS) $(abspath $<) -o $@ 
 
 
 # Compile: create assembler files from C source files.
-%.s : %.c
+$(OBJDIR)/%.s : %.c
 	$(CC) -S $(ALL_CFLAGS) $< -o $@
-
-
-# Compile: create assembler files from C++ source files.
-%.s : %.cpp
-	$(CC) -S $(ALL_CPPFLAGS) $< -o $@
 
 
 # Assemble: create object files from assembler source files.
@@ -573,9 +471,8 @@ $(OBJDIR)/%.o : %.S
 	@echo $(MSG_ASSEMBLING) $<
 	$(CC) -c $(ALL_ASFLAGS) $< -o $@
 
-
 # Create preprocessed source for use in sending a bug report.
-%.i : %.c
+$(OBJDIR)/%.i : %.c
 	$(CC) -E -mmcu=$(MCU) -I. $(CFLAGS) $< -o $@ 
 
 
@@ -585,30 +482,27 @@ clean: begin clean_list end
 clean_list :
 	@echo
 	@echo $(MSG_CLEANING)
-	$(REMOVE) $(TARGET).hex
-	$(REMOVE) $(TARGET).eep
-	$(REMOVE) $(TARGET).cof
-	$(REMOVE) $(TARGET).elf
-	$(REMOVE) $(TARGET).map
-	$(REMOVE) $(TARGET).sym
-	$(REMOVE) $(TARGET).lss
-	$(REMOVE) $(SRC:%.c=$(OBJDIR)/%.o)
-	$(REMOVE) $(SRC:%.c=$(OBJDIR)/%.lst)
-	$(REMOVE) $(SRC:.c=.s)
-	$(REMOVE) $(SRC:.c=.d)
-	$(REMOVE) $(SRC:.c=.i)
-	$(REMOVEDIR) .dep
+	$(REMOVE) $(OBJDIR)/$(TARGET).hex
+	$(REMOVE) $(OBJDIR)/$(TARGET).eep
+	$(REMOVE) $(OBJDIR)/$(TARGET).cof
+	$(REMOVE) $(OBJDIR)/$(TARGET).elf
+	$(REMOVE) $(OBJDIR)/$(TARGET).map
+	$(REMOVE) $(OBJDIR)/$(TARGET).sym
+	$(REMOVE) $(OBJDIR)/$(TARGET).lss
+	$(REMOVE) $(OBJ)
+	$(REMOVE) $(LST)
+	$(REMOVE) $(OBJDIR)/$(SRC:.c=.s)
+	$(REMOVE) $(OBJDIR)/$(SRC:.c=.d)
+	$(REMOVE) $(OBJDIR)/.dep/*
 
-
-# Create object files directory
-$(shell mkdir $(OBJDIR) 2>/dev/null)
 
 
 # Include the dependency files.
--include $(shell mkdir .dep 2>/dev/null) $(wildcard .dep/*)
+-include $(shell mkdir $(OBJDIR)/.dep 2>/dev/null) $(wildcard $(OBJDIR)/.dep/*)
 
 
 # Listing of phony targets.
 .PHONY : all begin finish end sizebefore sizeafter gccversion \
 build elf hex eep lss sym coff extcoff \
 clean clean_list program debug gdb-config
+

@@ -1,0 +1,1338 @@
+
+Builds/main.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .data         0000010e  00800200  0000072c  000007c0  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  1 .text         0000072c  00000000  00000000  00000094  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  2 .bss          000003a2  0080030e  0080030e  000008ce  2**0
+                  ALLOC
+  3 .stab         0000111c  00000000  00000000  000008d0  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  4 .stabstr      000011d7  00000000  00000000  000019ec  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .comment      00000011  00000000  00000000  00002bc3  2**0
+                  CONTENTS, READONLY
+  6 .debug_aranges 00000060  00000000  00000000  00002bd8  2**3
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_info   0000023a  00000000  00000000  00002c38  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_abbrev 0000003c  00000000  00000000  00002e72  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_line   00000119  00000000  00000000  00002eae  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 72 00 	jmp	0xe4	; 0xe4 <__ctors_end>
+   4:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+   8:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+   c:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  10:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  14:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  18:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  1c:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  20:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  24:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  28:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  2c:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  30:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  34:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  38:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  3c:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  40:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  44:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  48:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  4c:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  50:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  54:	0c 94 0c 02 	jmp	0x418	; 0x418 <__vector_21>
+  58:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  5c:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  60:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  64:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  68:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  6c:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  70:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  74:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  78:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  7c:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  80:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  84:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  88:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  8c:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  90:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  94:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  98:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  9c:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  a0:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  a4:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  a8:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  ac:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  b0:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  b4:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  b8:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  bc:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  c0:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  c4:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  c8:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  cc:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  d0:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  d4:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  d8:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  dc:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+  e0:	0c 94 93 00 	jmp	0x126	; 0x126 <__bad_interrupt>
+
+000000e4 <__ctors_end>:
+  e4:	11 24       	eor	r1, r1
+  e6:	1f be       	out	0x3f, r1	; 63
+  e8:	cf ef       	ldi	r28, 0xFF	; 255
+  ea:	d1 e2       	ldi	r29, 0x21	; 33
+  ec:	de bf       	out	0x3e, r29	; 62
+  ee:	cd bf       	out	0x3d, r28	; 61
+  f0:	00 e0       	ldi	r16, 0x00	; 0
+  f2:	0c bf       	out	0x3c, r16	; 60
+
+000000f4 <__do_copy_data>:
+  f4:	13 e0       	ldi	r17, 0x03	; 3
+  f6:	a0 e0       	ldi	r26, 0x00	; 0
+  f8:	b2 e0       	ldi	r27, 0x02	; 2
+  fa:	ec e2       	ldi	r30, 0x2C	; 44
+  fc:	f7 e0       	ldi	r31, 0x07	; 7
+  fe:	00 e0       	ldi	r16, 0x00	; 0
+ 100:	0b bf       	out	0x3b, r16	; 59
+ 102:	02 c0       	rjmp	.+4      	; 0x108 <__do_copy_data+0x14>
+ 104:	07 90       	elpm	r0, Z+
+ 106:	0d 92       	st	X+, r0
+ 108:	ae 30       	cpi	r26, 0x0E	; 14
+ 10a:	b1 07       	cpc	r27, r17
+ 10c:	d9 f7       	brne	.-10     	; 0x104 <__do_copy_data+0x10>
+
+0000010e <__do_clear_bss>:
+ 10e:	26 e0       	ldi	r18, 0x06	; 6
+ 110:	ae e0       	ldi	r26, 0x0E	; 14
+ 112:	b3 e0       	ldi	r27, 0x03	; 3
+ 114:	01 c0       	rjmp	.+2      	; 0x118 <.do_clear_bss_start>
+
+00000116 <.do_clear_bss_loop>:
+ 116:	1d 92       	st	X+, r1
+
+00000118 <.do_clear_bss_start>:
+ 118:	a0 3b       	cpi	r26, 0xB0	; 176
+ 11a:	b2 07       	cpc	r27, r18
+ 11c:	e1 f7       	brne	.-8      	; 0x116 <.do_clear_bss_loop>
+ 11e:	0e 94 2e 03 	call	0x65c	; 0x65c <main>
+ 122:	0c 94 94 03 	jmp	0x728	; 0x728 <_exit>
+
+00000126 <__bad_interrupt>:
+ 126:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+0000012a <translateBuffer>:
+uint8_t mat_sensors[ SENSOR_COUNT ] = { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 };
+
+/* **** **** **** **** **** **** **** **** **** **** **** **** */
+
+void translateBuffer( const uint8_t dX)
+{
+ 12a:	20 eb       	ldi	r18, 0xB0	; 176
+ 12c:	36 e0       	ldi	r19, 0x06	; 6
+ 12e:	4e e1       	ldi	r20, 0x1E	; 30
+ 130:	84 9f       	mul	r24, r20
+ 132:	c0 01       	movw	r24, r0
+ 134:	11 24       	eor	r1, r1
+ 136:	b9 01       	movw	r22, r18
+ 138:	68 0f       	add	r22, r24
+ 13a:	79 1f       	adc	r23, r25
+    for (int i = X_TLC_MAX ;i>=0;i--)
+    {
+        
+        const int pos = i+dX;//(i+dX) %X_TLC_MAX;
+
+        for (int j=0;j<Y_MIC_MAX;j++)
+ 13c:	40 e0       	ldi	r20, 0x00	; 0
+ 13e:	50 e0       	ldi	r21, 0x00	; 0
+ 140:	f9 01       	movw	r30, r18
+ 142:	e4 0f       	add	r30, r20
+ 144:	f5 1f       	adc	r31, r21
+        {
+            pixels[pos][j] = pixels[i][j];
+ 146:	a0 81       	ld	r26, Z
+ 148:	fb 01       	movw	r30, r22
+ 14a:	e4 0f       	add	r30, r20
+ 14c:	f5 1f       	adc	r31, r21
+ 14e:	a0 83       	st	Z, r26
+    for (int i = X_TLC_MAX ;i>=0;i--)
+    {
+        
+        const int pos = i+dX;//(i+dX) %X_TLC_MAX;
+
+        for (int j=0;j<Y_MIC_MAX;j++)
+ 150:	4f 5f       	subi	r20, 0xFF	; 255
+ 152:	5f 4f       	sbci	r21, 0xFF	; 255
+ 154:	4e 31       	cpi	r20, 0x1E	; 30
+ 156:	51 05       	cpc	r21, r1
+ 158:	99 f7       	brne	.-26     	; 0x140 <translateBuffer+0x16>
+ 15a:	2e 51       	subi	r18, 0x1E	; 30
+ 15c:	31 09       	sbc	r19, r1
+
+/* **** **** **** **** **** **** **** **** **** **** **** **** */
+
+void translateBuffer( const uint8_t dX)
+{
+    for (int i = X_TLC_MAX ;i>=0;i--)
+ 15e:	43 e0       	ldi	r20, 0x03	; 3
+ 160:	2e 30       	cpi	r18, 0x0E	; 14
+ 162:	34 07       	cpc	r19, r20
+ 164:	41 f7       	brne	.-48     	; 0x136 <translateBuffer+0xc>
+            pixels[pos][j] = pixels[i][j];
+        }
+
+            
+    }
+}
+ 166:	08 95       	ret
+
+00000168 <writeLetter>:
+
+/* **** **** **** **** **** **** **** **** **** **** **** **** */
+
+void writeLetter(const uint8_t *letter , const uint8_t xPos , const uint8_t yPos)
+{
+ 168:	0f 93       	push	r16
+ 16a:	1f 93       	push	r17
+ 16c:	cf 93       	push	r28
+ 16e:	df 93       	push	r29
+ 170:	50 e0       	ldi	r21, 0x00	; 0
+ 172:	2e e1       	ldi	r18, 0x1E	; 30
+ 174:	62 9f       	mul	r22, r18
+ 176:	40 0d       	add	r20, r0
+ 178:	51 1d       	adc	r21, r1
+ 17a:	11 24       	eor	r1, r1
+ 17c:	60 e0       	ldi	r22, 0x00	; 0
+ 17e:	70 e0       	ldi	r23, 0x00	; 0
+ 180:	44 5d       	subi	r20, 0xD4	; 212
+ 182:	5c 4f       	sbci	r21, 0xFC	; 252
+ 184:	07 e0       	ldi	r16, 0x07	; 7
+ 186:	10 e0       	ldi	r17, 0x00	; 0
+ 188:	ea 01       	movw	r28, r20
+ 18a:	c6 0f       	add	r28, r22
+ 18c:	d7 1f       	adc	r29, r23
+ 18e:	20 e0       	ldi	r18, 0x00	; 0
+ 190:	30 e0       	ldi	r19, 0x00	; 0
+    for (int i= 0;i<CHAR_HEIGHT ;i++)
+    {
+        
+        for (int j= 0;j<CHAR_WIDTH ;j++)
+        {
+            if ( letter[i] & (1<<(7-j) ))
+ 192:	dc 01       	movw	r26, r24
+ 194:	ec 91       	ld	r30, X
+ 196:	f0 e0       	ldi	r31, 0x00	; 0
+ 198:	d8 01       	movw	r26, r16
+ 19a:	a2 1b       	sub	r26, r18
+ 19c:	b3 0b       	sbc	r27, r19
+ 19e:	02 c0       	rjmp	.+4      	; 0x1a4 <writeLetter+0x3c>
+ 1a0:	f5 95       	asr	r31
+ 1a2:	e7 95       	ror	r30
+ 1a4:	aa 95       	dec	r26
+ 1a6:	e2 f7       	brpl	.-8      	; 0x1a0 <writeLetter+0x38>
+ 1a8:	de 01       	movw	r26, r28
+ 1aa:	a2 0f       	add	r26, r18
+ 1ac:	b3 1f       	adc	r27, r19
+ 1ae:	e0 ff       	sbrs	r30, 0
+ 1b0:	03 c0       	rjmp	.+6      	; 0x1b8 <writeLetter+0x50>
+                pixels[xPos+i][yPos+j] = fontColor;
+ 1b2:	e0 91 02 02 	lds	r30, 0x0202
+ 1b6:	02 c0       	rjmp	.+4      	; 0x1bc <writeLetter+0x54>
+            else
+                pixels[xPos+i][yPos+j] = backgroundColor;
+ 1b8:	e0 91 03 02 	lds	r30, 0x0203
+ 1bc:	ec 93       	st	X, r30
+void writeLetter(const uint8_t *letter , const uint8_t xPos , const uint8_t yPos)
+{
+    for (int i= 0;i<CHAR_HEIGHT ;i++)
+    {
+        
+        for (int j= 0;j<CHAR_WIDTH ;j++)
+ 1be:	2f 5f       	subi	r18, 0xFF	; 255
+ 1c0:	3f 4f       	sbci	r19, 0xFF	; 255
+ 1c2:	25 30       	cpi	r18, 0x05	; 5
+ 1c4:	31 05       	cpc	r19, r1
+ 1c6:	29 f7       	brne	.-54     	; 0x192 <writeLetter+0x2a>
+ 1c8:	62 5e       	subi	r22, 0xE2	; 226
+ 1ca:	7f 4f       	sbci	r23, 0xFF	; 255
+ 1cc:	01 96       	adiw	r24, 0x01	; 1
+
+/* **** **** **** **** **** **** **** **** **** **** **** **** */
+
+void writeLetter(const uint8_t *letter , const uint8_t xPos , const uint8_t yPos)
+{
+    for (int i= 0;i<CHAR_HEIGHT ;i++)
+ 1ce:	6e 30       	cpi	r22, 0x0E	; 14
+ 1d0:	b1 e0       	ldi	r27, 0x01	; 1
+ 1d2:	7b 07       	cpc	r23, r27
+ 1d4:	c9 f6       	brne	.-78     	; 0x188 <writeLetter+0x20>
+                pixels[xPos+i][yPos+j] = fontColor;
+            else
+                pixels[xPos+i][yPos+j] = backgroundColor;
+        }
+    }
+}
+ 1d6:	df 91       	pop	r29
+ 1d8:	cf 91       	pop	r28
+ 1da:	1f 91       	pop	r17
+ 1dc:	0f 91       	pop	r16
+ 1de:	08 95       	ret
+
+000001e0 <writeSquareLetter>:
+
+/* **** **** **** **** **** **** **** **** **** **** **** **** */
+
+void writeSquareLetter(const uint8_t *letter , const uint8_t xPos , const uint8_t yPos)
+{
+ 1e0:	0f 93       	push	r16
+ 1e2:	1f 93       	push	r17
+ 1e4:	cf 93       	push	r28
+ 1e6:	df 93       	push	r29
+ 1e8:	50 e0       	ldi	r21, 0x00	; 0
+ 1ea:	2e e1       	ldi	r18, 0x1E	; 30
+ 1ec:	62 9f       	mul	r22, r18
+ 1ee:	40 0d       	add	r20, r0
+ 1f0:	51 1d       	adc	r21, r1
+ 1f2:	11 24       	eor	r1, r1
+ 1f4:	60 e0       	ldi	r22, 0x00	; 0
+ 1f6:	70 e0       	ldi	r23, 0x00	; 0
+ 1f8:	44 5d       	subi	r20, 0xD4	; 212
+ 1fa:	5c 4f       	sbci	r21, 0xFC	; 252
+ 1fc:	07 e0       	ldi	r16, 0x07	; 7
+ 1fe:	10 e0       	ldi	r17, 0x00	; 0
+ 200:	ea 01       	movw	r28, r20
+ 202:	c6 0f       	add	r28, r22
+ 204:	d7 1f       	adc	r29, r23
+ 206:	20 e0       	ldi	r18, 0x00	; 0
+ 208:	30 e0       	ldi	r19, 0x00	; 0
+    for (int i= 0;i<SQUARE_HEIGHT ;i++)
+    {
+        
+        for (int j= 0;j<SQUARE_WIDTH ;j++)
+        {
+            if ( letter[i] & (1<<(7-j) ))
+ 20a:	dc 01       	movw	r26, r24
+ 20c:	ec 91       	ld	r30, X
+ 20e:	f0 e0       	ldi	r31, 0x00	; 0
+ 210:	d8 01       	movw	r26, r16
+ 212:	a2 1b       	sub	r26, r18
+ 214:	b3 0b       	sbc	r27, r19
+ 216:	02 c0       	rjmp	.+4      	; 0x21c <writeSquareLetter+0x3c>
+ 218:	f5 95       	asr	r31
+ 21a:	e7 95       	ror	r30
+ 21c:	aa 95       	dec	r26
+ 21e:	e2 f7       	brpl	.-8      	; 0x218 <writeSquareLetter+0x38>
+ 220:	de 01       	movw	r26, r28
+ 222:	a2 0f       	add	r26, r18
+ 224:	b3 1f       	adc	r27, r19
+ 226:	e0 ff       	sbrs	r30, 0
+ 228:	03 c0       	rjmp	.+6      	; 0x230 <writeSquareLetter+0x50>
+                pixels[xPos+i][yPos+j] = fontColor;
+ 22a:	e0 91 02 02 	lds	r30, 0x0202
+ 22e:	02 c0       	rjmp	.+4      	; 0x234 <writeSquareLetter+0x54>
+            else
+                pixels[xPos+i][yPos+j] = backgroundColor;
+ 230:	e0 91 03 02 	lds	r30, 0x0203
+ 234:	ec 93       	st	X, r30
+void writeSquareLetter(const uint8_t *letter , const uint8_t xPos , const uint8_t yPos)
+{
+    for (int i= 0;i<SQUARE_HEIGHT ;i++)
+    {
+        
+        for (int j= 0;j<SQUARE_WIDTH ;j++)
+ 236:	2f 5f       	subi	r18, 0xFF	; 255
+ 238:	3f 4f       	sbci	r19, 0xFF	; 255
+ 23a:	24 30       	cpi	r18, 0x04	; 4
+ 23c:	31 05       	cpc	r19, r1
+ 23e:	29 f7       	brne	.-54     	; 0x20a <writeSquareLetter+0x2a>
+ 240:	62 5e       	subi	r22, 0xE2	; 226
+ 242:	7f 4f       	sbci	r23, 0xFF	; 255
+ 244:	01 96       	adiw	r24, 0x01	; 1
+
+/* **** **** **** **** **** **** **** **** **** **** **** **** */
+
+void writeSquareLetter(const uint8_t *letter , const uint8_t xPos , const uint8_t yPos)
+{
+    for (int i= 0;i<SQUARE_HEIGHT ;i++)
+ 246:	66 39       	cpi	r22, 0x96	; 150
+ 248:	71 05       	cpc	r23, r1
+ 24a:	d1 f6       	brne	.-76     	; 0x200 <writeSquareLetter+0x20>
+                pixels[xPos+i][yPos+j] = fontColor;
+            else
+                pixels[xPos+i][yPos+j] = backgroundColor;
+        }
+    }
+}
+ 24c:	df 91       	pop	r29
+ 24e:	cf 91       	pop	r28
+ 250:	1f 91       	pop	r17
+ 252:	0f 91       	pop	r16
+ 254:	08 95       	ret
+
+00000256 <initPixels>:
+
+/* **** **** **** **** **** **** **** **** **** **** **** **** */
+
+void initPixels(void)
+{
+ 256:	2c e2       	ldi	r18, 0x2C	; 44
+ 258:	33 e0       	ldi	r19, 0x03	; 3
+ 25a:	8d e1       	ldi	r24, 0x1D	; 29
+ 25c:	90 e0       	ldi	r25, 0x00	; 0
+    for (int x = 0;x< X_TLC_MAX;x++)
+    {
+        for( int y = 0; y<Y_MIC_MAX;y++)
+        {
+
+            pixels[x][Y_MIC_MAX-y-1] = backgroundColor;
+ 25e:	40 91 03 02 	lds	r20, 0x0203
+ 262:	f9 01       	movw	r30, r18
+ 264:	e8 0f       	add	r30, r24
+ 266:	f9 1f       	adc	r31, r25
+ 268:	40 83       	st	Z, r20
+ 26a:	01 97       	sbiw	r24, 0x01	; 1
+ 26c:	c0 f7       	brcc	.-16     	; 0x25e <initPixels+0x8>
+ 26e:	22 5e       	subi	r18, 0xE2	; 226
+ 270:	3f 4f       	sbci	r19, 0xFF	; 255
+/* **** **** **** **** **** **** **** **** **** **** **** **** */
+
+void initPixels(void)
+{
+
+    for (int x = 0;x< X_TLC_MAX;x++)
+ 272:	86 e0       	ldi	r24, 0x06	; 6
+ 274:	20 3b       	cpi	r18, 0xB0	; 176
+ 276:	38 07       	cpc	r19, r24
+ 278:	81 f7       	brne	.-32     	; 0x25a <initPixels+0x4>
+        }
+
+    }
+    
+
+    writeLetter( letter_M, 0, 0);
+ 27a:	40 e0       	ldi	r20, 0x00	; 0
+ 27c:	60 e0       	ldi	r22, 0x00	; 0
+ 27e:	84 e0       	ldi	r24, 0x04	; 4
+ 280:	92 e0       	ldi	r25, 0x02	; 2
+ 282:	0e 94 b4 00 	call	0x168	; 0x168 <writeLetter>
+    writeLetter( letter_i, 0, CHAR_WIDTH);
+ 286:	45 e0       	ldi	r20, 0x05	; 5
+ 288:	60 e0       	ldi	r22, 0x00	; 0
+ 28a:	8a e3       	ldi	r24, 0x3A	; 58
+ 28c:	92 e0       	ldi	r25, 0x02	; 2
+ 28e:	0e 94 b4 00 	call	0x168	; 0x168 <writeLetter>
+    writeLetter( letter_c, 0, CHAR_WIDTH*2);
+ 292:	4a e0       	ldi	r20, 0x0A	; 10
+ 294:	60 e0       	ldi	r22, 0x00	; 0
+ 296:	80 e7       	ldi	r24, 0x70	; 112
+ 298:	92 e0       	ldi	r25, 0x02	; 2
+ 29a:	0e 94 b4 00 	call	0x168	; 0x168 <writeLetter>
+    writeLetter( letter_h, 0, CHAR_WIDTH*3);
+ 29e:	4f e0       	ldi	r20, 0x0F	; 15
+ 2a0:	60 e0       	ldi	r22, 0x00	; 0
+ 2a2:	83 e4       	ldi	r24, 0x43	; 67
+ 2a4:	92 e0       	ldi	r25, 0x02	; 2
+ 2a6:	0e 94 b4 00 	call	0x168	; 0x168 <writeLetter>
+    writeLetter( letter_e, 0, CHAR_WIDTH*4);
+ 2aa:	44 e1       	ldi	r20, 0x14	; 20
+ 2ac:	60 e0       	ldi	r22, 0x00	; 0
+ 2ae:	8e e5       	ldi	r24, 0x5E	; 94
+ 2b0:	92 e0       	ldi	r25, 0x02	; 2
+ 2b2:	0e 94 b4 00 	call	0x168	; 0x168 <writeLetter>
+    writeLetter( letter_l, 0, CHAR_WIDTH*5);
+ 2b6:	49 e1       	ldi	r20, 0x19	; 25
+ 2b8:	60 e0       	ldi	r22, 0x00	; 0
+ 2ba:	81 e3       	ldi	r24, 0x31	; 49
+ 2bc:	92 e0       	ldi	r25, 0x02	; 2
+ 2be:	0e 94 b4 00 	call	0x168	; 0x168 <writeLetter>
+    
+    writeLetter( letter_D, CHAR_HEIGHT, 0);
+ 2c2:	40 e0       	ldi	r20, 0x00	; 0
+ 2c4:	69 e0       	ldi	r22, 0x09	; 9
+ 2c6:	8d e0       	ldi	r24, 0x0D	; 13
+ 2c8:	92 e0       	ldi	r25, 0x02	; 2
+ 2ca:	0e 94 b4 00 	call	0x168	; 0x168 <writeLetter>
+    writeLetter( letter_u, CHAR_HEIGHT, CHAR_WIDTH);
+ 2ce:	45 e0       	ldi	r20, 0x05	; 5
+ 2d0:	69 e0       	ldi	r22, 0x09	; 9
+ 2d2:	86 e1       	ldi	r24, 0x16	; 22
+ 2d4:	92 e0       	ldi	r25, 0x02	; 2
+ 2d6:	0e 94 b4 00 	call	0x168	; 0x168 <writeLetter>
+    writeLetter( letter_r, CHAR_HEIGHT, CHAR_WIDTH*2);
+ 2da:	4a e0       	ldi	r20, 0x0A	; 10
+ 2dc:	69 e0       	ldi	r22, 0x09	; 9
+ 2de:	8f e1       	ldi	r24, 0x1F	; 31
+ 2e0:	92 e0       	ldi	r25, 0x02	; 2
+ 2e2:	0e 94 b4 00 	call	0x168	; 0x168 <writeLetter>
+    writeLetter( letter_a, CHAR_HEIGHT, CHAR_WIDTH*3);
+ 2e6:	4f e0       	ldi	r20, 0x0F	; 15
+ 2e8:	69 e0       	ldi	r22, 0x09	; 9
+ 2ea:	82 e8       	ldi	r24, 0x82	; 130
+ 2ec:	92 e0       	ldi	r25, 0x02	; 2
+ 2ee:	0e 94 b4 00 	call	0x168	; 0x168 <writeLetter>
+    writeLetter( letter_n, CHAR_HEIGHT, CHAR_WIDTH*4);
+ 2f2:	44 e1       	ldi	r20, 0x14	; 20
+ 2f4:	69 e0       	ldi	r22, 0x09	; 9
+ 2f6:	88 e2       	ldi	r24, 0x28	; 40
+ 2f8:	92 e0       	ldi	r25, 0x02	; 2
+ 2fa:	0e 94 b4 00 	call	0x168	; 0x168 <writeLetter>
+    writeLetter( letter_d, CHAR_HEIGHT, CHAR_WIDTH*5);
+ 2fe:	49 e1       	ldi	r20, 0x19	; 25
+ 300:	69 e0       	ldi	r22, 0x09	; 9
+ 302:	87 e6       	ldi	r24, 0x67	; 103
+ 304:	92 e0       	ldi	r25, 0x02	; 2
+ 306:	0e 94 b4 00 	call	0x168	; 0x168 <writeLetter>
+    
+    writeSquareLetter(square_a, 18, SQUARE_WIDTH*0);
+ 30a:	40 e0       	ldi	r20, 0x00	; 0
+ 30c:	62 e1       	ldi	r22, 0x12	; 18
+ 30e:	88 e0       	ldi	r24, 0x08	; 8
+ 310:	93 e0       	ldi	r25, 0x03	; 3
+ 312:	0e 94 f0 00 	call	0x1e0	; 0x1e0 <writeSquareLetter>
+    writeSquareLetter(square_b, 18, SQUARE_WIDTH*1);
+ 316:	44 e0       	ldi	r20, 0x04	; 4
+ 318:	62 e1       	ldi	r22, 0x12	; 18
+ 31a:	83 e0       	ldi	r24, 0x03	; 3
+ 31c:	93 e0       	ldi	r25, 0x03	; 3
+ 31e:	0e 94 f0 00 	call	0x1e0	; 0x1e0 <writeSquareLetter>
+    writeSquareLetter(square_c, 18, SQUARE_WIDTH*2);
+ 322:	48 e0       	ldi	r20, 0x08	; 8
+ 324:	62 e1       	ldi	r22, 0x12	; 18
+ 326:	8e ef       	ldi	r24, 0xFE	; 254
+ 328:	92 e0       	ldi	r25, 0x02	; 2
+ 32a:	0e 94 f0 00 	call	0x1e0	; 0x1e0 <writeSquareLetter>
+    writeSquareLetter(square_d, 18, SQUARE_WIDTH*3);
+ 32e:	4c e0       	ldi	r20, 0x0C	; 12
+ 330:	62 e1       	ldi	r22, 0x12	; 18
+ 332:	89 ef       	ldi	r24, 0xF9	; 249
+ 334:	92 e0       	ldi	r25, 0x02	; 2
+ 336:	0e 94 f0 00 	call	0x1e0	; 0x1e0 <writeSquareLetter>
+    writeSquareLetter(square_e, 18, SQUARE_WIDTH*4);
+ 33a:	40 e1       	ldi	r20, 0x10	; 16
+ 33c:	62 e1       	ldi	r22, 0x12	; 18
+ 33e:	84 ef       	ldi	r24, 0xF4	; 244
+ 340:	92 e0       	ldi	r25, 0x02	; 2
+ 342:	0e 94 f0 00 	call	0x1e0	; 0x1e0 <writeSquareLetter>
+    writeSquareLetter(square_f, 18, SQUARE_WIDTH*5);
+ 346:	44 e1       	ldi	r20, 0x14	; 20
+ 348:	62 e1       	ldi	r22, 0x12	; 18
+ 34a:	8f ee       	ldi	r24, 0xEF	; 239
+ 34c:	92 e0       	ldi	r25, 0x02	; 2
+ 34e:	0e 94 f0 00 	call	0x1e0	; 0x1e0 <writeSquareLetter>
+    writeSquareLetter(square_g, 18, SQUARE_WIDTH*6); // lim
+ 352:	48 e1       	ldi	r20, 0x18	; 24
+ 354:	62 e1       	ldi	r22, 0x12	; 18
+ 356:	8a ee       	ldi	r24, 0xEA	; 234
+ 358:	92 e0       	ldi	r25, 0x02	; 2
+ 35a:	0e 94 f0 00 	call	0x1e0	; 0x1e0 <writeSquareLetter>
+    
+    writeSquareLetter(square_h, 24, SQUARE_WIDTH*0);
+ 35e:	40 e0       	ldi	r20, 0x00	; 0
+ 360:	68 e1       	ldi	r22, 0x18	; 24
+ 362:	85 ee       	ldi	r24, 0xE5	; 229
+ 364:	92 e0       	ldi	r25, 0x02	; 2
+ 366:	0e 94 f0 00 	call	0x1e0	; 0x1e0 <writeSquareLetter>
+    writeSquareLetter(square_i, 24, SQUARE_WIDTH*1);
+ 36a:	44 e0       	ldi	r20, 0x04	; 4
+ 36c:	68 e1       	ldi	r22, 0x18	; 24
+ 36e:	80 ee       	ldi	r24, 0xE0	; 224
+ 370:	92 e0       	ldi	r25, 0x02	; 2
+ 372:	0e 94 f0 00 	call	0x1e0	; 0x1e0 <writeSquareLetter>
+    writeSquareLetter(square_j, 24, SQUARE_WIDTH*2);
+ 376:	48 e0       	ldi	r20, 0x08	; 8
+ 378:	68 e1       	ldi	r22, 0x18	; 24
+ 37a:	8b ed       	ldi	r24, 0xDB	; 219
+ 37c:	92 e0       	ldi	r25, 0x02	; 2
+ 37e:	0e 94 f0 00 	call	0x1e0	; 0x1e0 <writeSquareLetter>
+    writeSquareLetter(square_k, 24, SQUARE_WIDTH*3);
+ 382:	4c e0       	ldi	r20, 0x0C	; 12
+ 384:	68 e1       	ldi	r22, 0x18	; 24
+ 386:	86 ed       	ldi	r24, 0xD6	; 214
+ 388:	92 e0       	ldi	r25, 0x02	; 2
+ 38a:	0e 94 f0 00 	call	0x1e0	; 0x1e0 <writeSquareLetter>
+    writeSquareLetter(square_l, 24, SQUARE_WIDTH*4);
+ 38e:	40 e1       	ldi	r20, 0x10	; 16
+ 390:	68 e1       	ldi	r22, 0x18	; 24
+ 392:	81 ed       	ldi	r24, 0xD1	; 209
+ 394:	92 e0       	ldi	r25, 0x02	; 2
+ 396:	0e 94 f0 00 	call	0x1e0	; 0x1e0 <writeSquareLetter>
+    writeSquareLetter(square_m, 24, SQUARE_WIDTH*5);
+ 39a:	44 e1       	ldi	r20, 0x14	; 20
+ 39c:	68 e1       	ldi	r22, 0x18	; 24
+ 39e:	8c ec       	ldi	r24, 0xCC	; 204
+ 3a0:	92 e0       	ldi	r25, 0x02	; 2
+ 3a2:	0e 94 f0 00 	call	0x1e0	; 0x1e0 <writeSquareLetter>
+    writeSquareLetter(square_n, 24, SQUARE_WIDTH*6); // lim
+ 3a6:	48 e1       	ldi	r20, 0x18	; 24
+ 3a8:	68 e1       	ldi	r22, 0x18	; 24
+ 3aa:	87 ec       	ldi	r24, 0xC7	; 199
+ 3ac:	92 e0       	ldi	r25, 0x02	; 2
+ 3ae:	0c 94 f0 00 	jmp	0x1e0	; 0x1e0 <writeSquareLetter>
+
+000003b2 <TLC5940_Init>:
+/* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
+
+void TLC5940_Init(void)
+{
+
+    setOutput(SCLK_DDR, SCLK_PIN);
+ 3b2:	21 9a       	sbi	0x04, 1	; 4
+
+    setOutput(XLAT_DDR, XLAT_PIN);
+ 3b4:	25 9a       	sbi	0x04, 5	; 4
+    setOutput(BLANK_DDR, BLANK_PIN);
+ 3b6:	20 9a       	sbi	0x04, 0	; 4
+    setOutput(SIN_DDR, SIN_PIN);
+ 3b8:	22 9a       	sbi	0x04, 2	; 4
+
+    setLow(SCLK_PORT, SCLK_PIN);
+ 3ba:	29 98       	cbi	0x05, 1	; 5
+
+    setLow(XLAT_PORT, XLAT_PIN);
+ 3bc:	2d 98       	cbi	0x05, 5	; 5
+    
+    setHigh(BLANK_PORT, BLANK_PIN);
+ 3be:	28 9a       	sbi	0x05, 0	; 5
+    
+    // Enable SPI, Master, set clock rate fck/2
+    SPCR = (1 << SPE) | (1 << MSTR);
+ 3c0:	80 e5       	ldi	r24, 0x50	; 80
+ 3c2:	8c bd       	out	0x2c, r24	; 44
+    SPSR = (1 << SPI2X);
+ 3c4:	81 e0       	ldi	r24, 0x01	; 1
+ 3c6:	8d bd       	out	0x2d, r24	; 45
+    
+    // CTC with OCR0A as TOP
+    TCCR0A = (1 << WGM01);
+ 3c8:	82 e0       	ldi	r24, 0x02	; 2
+ 3ca:	84 bd       	out	0x24, r24	; 36
+    // clk_io/1024 (From prescaler)
+    TCCR0B = ((1 << CS02) | (1 << CS00));
+ 3cc:	85 e0       	ldi	r24, 0x05	; 5
+ 3ce:	85 bd       	out	0x25, r24	; 37
+    // Generate an interrupt every 4096 clock cycles
+    OCR0A = 3; // 3
+ 3d0:	83 e0       	ldi	r24, 0x03	; 3
+ 3d2:	87 bd       	out	0x27, r24	; 39
+    // Enable Timer/Counter0 Compare Match A interrupt
+    TIMSK0 |= (1 << OCIE0A);
+ 3d4:	ee e6       	ldi	r30, 0x6E	; 110
+ 3d6:	f0 e0       	ldi	r31, 0x00	; 0
+ 3d8:	80 81       	ld	r24, Z
+ 3da:	82 60       	ori	r24, 0x02	; 2
+ 3dc:	80 83       	st	Z, r24
+ 3de:	08 95       	ret
+
+000003e0 <adc_init>:
+/* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
+// initialize adc
+void adc_init(void)
+{
+    // AREF = AVcc
+    ADMUX = (1<<REFS0);
+ 3e0:	80 e4       	ldi	r24, 0x40	; 64
+ 3e2:	80 93 7c 00 	sts	0x007C, r24
+    
+    // ADC Enable and prescaler of 128
+    // 16000000/128 = 125000
+    ADCSRA = (1<<ADEN)|(1<<ADPS2)|(1<<ADPS1)|(1<<ADPS0);
+ 3e6:	87 e8       	ldi	r24, 0x87	; 135
+ 3e8:	80 93 7a 00 	sts	0x007A, r24
+ 3ec:	08 95       	ret
+
+000003ee <adc_read>:
+{
+    // select the corresponding channel 0~7
+    // ANDing with ’7′ will always keep the value
+    // of ‘ch’ between 0 and 7
+    ch &= 0b00000111;  // AND operation with 7
+    ADMUX = (ADMUX & 0xF8)|ch; // clears the bottom 3 bits before ORing
+ 3ee:	90 91 7c 00 	lds	r25, 0x007C
+uint16_t adc_read(uint8_t ch)
+{
+    // select the corresponding channel 0~7
+    // ANDing with ’7′ will always keep the value
+    // of ‘ch’ between 0 and 7
+    ch &= 0b00000111;  // AND operation with 7
+ 3f2:	87 70       	andi	r24, 0x07	; 7
+    ADMUX = (ADMUX & 0xF8)|ch; // clears the bottom 3 bits before ORing
+ 3f4:	98 7f       	andi	r25, 0xF8	; 248
+ 3f6:	89 2b       	or	r24, r25
+ 3f8:	80 93 7c 00 	sts	0x007C, r24
+    
+    // start single convertion
+    // write ’1′ to ADSC
+    ADCSRA |= (1<<ADSC);
+ 3fc:	80 91 7a 00 	lds	r24, 0x007A
+ 400:	80 64       	ori	r24, 0x40	; 64
+ 402:	80 93 7a 00 	sts	0x007A, r24
+    
+    // wait for conversion to complete
+    // ADSC becomes ’0′ again
+    // till then, run loop continuously
+    while(ADCSRA & (1<<ADSC));
+ 406:	80 91 7a 00 	lds	r24, 0x007A
+ 40a:	86 fd       	sbrc	r24, 6
+ 40c:	fc cf       	rjmp	.-8      	; 0x406 <adc_read+0x18>
+    
+    return (ADC);
+ 40e:	80 91 78 00 	lds	r24, 0x0078
+ 412:	90 91 79 00 	lds	r25, 0x0079
+}
+ 416:	08 95       	ret
+
+00000418 <__vector_21>:
+
+/* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
+// display's interupt
+
+ISR(TIMER0_COMPA_vect)
+{
+ 418:	1f 92       	push	r1
+ 41a:	0f 92       	push	r0
+ 41c:	0f b6       	in	r0, 0x3f	; 63
+ 41e:	0f 92       	push	r0
+ 420:	11 24       	eor	r1, r1
+ 422:	0b b6       	in	r0, 0x3b	; 59
+ 424:	0f 92       	push	r0
+ 426:	2f 93       	push	r18
+ 428:	3f 93       	push	r19
+ 42a:	4f 93       	push	r20
+ 42c:	5f 93       	push	r21
+ 42e:	6f 93       	push	r22
+ 430:	7f 93       	push	r23
+ 432:	8f 93       	push	r24
+ 434:	9f 93       	push	r25
+ 436:	ef 93       	push	r30
+ 438:	ff 93       	push	r31
+    uint8_t firstCycleFlag = 1;// 0;
+    static uint8_t xlatNeedsPulse = 0;
+    
+    
+    
+    if ( rowIndex == Y_MIC_MAX ) // matrix ok. return col0;
+ 43a:	80 91 00 02 	lds	r24, 0x0200
+ 43e:	90 91 01 02 	lds	r25, 0x0201
+ 442:	4e 97       	sbiw	r24, 0x1e	; 30
+ 444:	79 f4       	brne	.+30     	; 0x464 <__vector_21+0x4c>
+    {
+        setHigh( DATA0_PORT , DATA0_PIN);
+ 446:	80 91 0b 01 	lds	r24, 0x010B
+ 44a:	88 60       	ori	r24, 0x08	; 8
+ 44c:	80 93 0b 01 	sts	0x010B, r24
+        setHigh( DATA1_PORT , DATA1_PIN);
+ 450:	80 91 0b 01 	lds	r24, 0x010B
+ 454:	80 61       	ori	r24, 0x10	; 16
+ 456:	80 93 0b 01 	sts	0x010B, r24
+        rowIndex = 0;
+ 45a:	10 92 01 02 	sts	0x0201, r1
+ 45e:	10 92 00 02 	sts	0x0200, r1
+ 462:	0a c0       	rjmp	.+20     	; 0x478 <__vector_21+0x60>
+        
+    }
+    else
+    {
+        setLow( DATA0_PORT , DATA0_PIN);
+ 464:	80 91 0b 01 	lds	r24, 0x010B
+ 468:	87 7f       	andi	r24, 0xF7	; 247
+ 46a:	80 93 0b 01 	sts	0x010B, r24
+        setLow( DATA1_PORT , DATA1_PIN);
+ 46e:	80 91 0b 01 	lds	r24, 0x010B
+ 472:	8f 7e       	andi	r24, 0xEF	; 239
+ 474:	80 93 0b 01 	sts	0x010B, r24
+    }
+    
+    
+    setLow(BLANK_PORT, BLANK_PIN);
+ 478:	28 98       	cbi	0x05, 0	; 5
+
+/* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
+
+inline void sendSPI( const uint8_t val)
+{
+    SPDR = val;
+ 47a:	1e bc       	out	0x2e, r1	; 46
+    while (!(SPSR & (1 << SPIF)));
+ 47c:	0d b4       	in	r0, 0x2d	; 45
+ 47e:	07 fe       	sbrs	r0, 7
+ 480:	fd cf       	rjmp	.-6      	; 0x47c <__vector_21+0x64>
+ 482:	80 e0       	ldi	r24, 0x00	; 0
+ 484:	90 e0       	ldi	r25, 0x00	; 0
+    // col 0 -> send dumm values ( not displayed)
+    sendSPI(0b00000000); // p0
+    
+    for (int x=0;x<14;x+=2)
+    {
+        const uint8_t pixA = pixels[x][rowIndex];
+ 486:	6e e1       	ldi	r22, 0x1E	; 30
+ 488:	20 91 00 02 	lds	r18, 0x0200
+ 48c:	30 91 01 02 	lds	r19, 0x0201
+ 490:	68 9f       	mul	r22, r24
+ 492:	f0 01       	movw	r30, r0
+ 494:	69 9f       	mul	r22, r25
+ 496:	f0 0d       	add	r31, r0
+ 498:	11 24       	eor	r1, r1
+ 49a:	e2 0f       	add	r30, r18
+ 49c:	f3 1f       	adc	r31, r19
+ 49e:	e4 5d       	subi	r30, 0xD4	; 212
+ 4a0:	fc 4f       	sbci	r31, 0xFC	; 252
+ 4a2:	70 81       	ld	r23, Z
+        const uint8_t pixB = pixels[x+1][rowIndex];
+ 4a4:	ac 01       	movw	r20, r24
+ 4a6:	4f 5f       	subi	r20, 0xFF	; 255
+ 4a8:	5f 4f       	sbci	r21, 0xFF	; 255
+ 4aa:	64 9f       	mul	r22, r20
+ 4ac:	f0 01       	movw	r30, r0
+ 4ae:	65 9f       	mul	r22, r21
+ 4b0:	f0 0d       	add	r31, r0
+ 4b2:	11 24       	eor	r1, r1
+ 4b4:	e2 0f       	add	r30, r18
+ 4b6:	f3 1f       	adc	r31, r19
+ 4b8:	e4 5d       	subi	r30, 0xD4	; 212
+ 4ba:	fc 4f       	sbci	r31, 0xFC	; 252
+ 4bc:	20 81       	ld	r18, Z
+
+        sendSPI( pixA >> 4); // p1
+ 4be:	37 2f       	mov	r19, r23
+ 4c0:	32 95       	swap	r19
+ 4c2:	3f 70       	andi	r19, 0x0F	; 15
+
+/* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
+
+inline void sendSPI( const uint8_t val)
+{
+    SPDR = val;
+ 4c4:	3e bd       	out	0x2e, r19	; 46
+    while (!(SPSR & (1 << SPIF)));
+ 4c6:	0d b4       	in	r0, 0x2d	; 45
+ 4c8:	07 fe       	sbrs	r0, 7
+ 4ca:	fd cf       	rjmp	.-6      	; 0x4c6 <__vector_21+0xae>
+    {
+        const uint8_t pixA = pixels[x][rowIndex];
+        const uint8_t pixB = pixels[x+1][rowIndex];
+
+        sendSPI( pixA >> 4); // p1
+        sendSPI( (uint8_t )(pixA << 4) ); // p1
+ 4cc:	72 95       	swap	r23
+ 4ce:	70 7f       	andi	r23, 0xF0	; 240
+
+/* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
+
+inline void sendSPI( const uint8_t val)
+{
+    SPDR = val;
+ 4d0:	7e bd       	out	0x2e, r23	; 46
+    while (!(SPSR & (1 << SPIF)));
+ 4d2:	0d b4       	in	r0, 0x2d	; 45
+ 4d4:	07 fe       	sbrs	r0, 7
+ 4d6:	fd cf       	rjmp	.-6      	; 0x4d2 <__vector_21+0xba>
+
+/* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
+
+inline void sendSPI( const uint8_t val)
+{
+    SPDR = val;
+ 4d8:	2e bd       	out	0x2e, r18	; 46
+    while (!(SPSR & (1 << SPIF)));
+ 4da:	0d b4       	in	r0, 0x2d	; 45
+ 4dc:	07 fe       	sbrs	r0, 7
+ 4de:	fd cf       	rjmp	.-6      	; 0x4da <__vector_21+0xc2>
+    /**** FILL TLC BUFFERS *****/
+    
+    // col 0 -> send dumm values ( not displayed)
+    sendSPI(0b00000000); // p0
+    
+    for (int x=0;x<14;x+=2)
+ 4e0:	02 96       	adiw	r24, 0x02	; 2
+ 4e2:	8e 30       	cpi	r24, 0x0E	; 14
+ 4e4:	91 05       	cpc	r25, r1
+ 4e6:	81 f6       	brne	.-96     	; 0x488 <__vector_21+0x70>
+        sendSPI( (uint8_t )(pixA << 4) ); // p1
+        sendSPI( pixB ); // p2
+    }
+
+    //  col 15 a la mano
+    sendSPI( pixels[14][rowIndex] >> 4); // p15
+ 4e8:	e0 91 00 02 	lds	r30, 0x0200
+ 4ec:	f0 91 01 02 	lds	r31, 0x0201
+ 4f0:	e0 53       	subi	r30, 0x30	; 48
+ 4f2:	fb 4f       	sbci	r31, 0xFB	; 251
+ 4f4:	80 81       	ld	r24, Z
+ 4f6:	82 95       	swap	r24
+ 4f8:	8f 70       	andi	r24, 0x0F	; 15
+
+/* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
+
+inline void sendSPI( const uint8_t val)
+{
+    SPDR = val;
+ 4fa:	8e bd       	out	0x2e, r24	; 46
+    while (!(SPSR & (1 << SPIF)));
+ 4fc:	0d b4       	in	r0, 0x2d	; 45
+ 4fe:	07 fe       	sbrs	r0, 7
+ 500:	fd cf       	rjmp	.-6      	; 0x4fc <__vector_21+0xe4>
+        sendSPI( pixB ); // p2
+    }
+
+    //  col 15 a la mano
+    sendSPI( pixels[14][rowIndex] >> 4); // p15
+    sendSPI( (uint8_t )(pixels[14][rowIndex] << 4) ); // p15
+ 502:	e0 91 00 02 	lds	r30, 0x0200
+ 506:	f0 91 01 02 	lds	r31, 0x0201
+ 50a:	e0 53       	subi	r30, 0x30	; 48
+ 50c:	fb 4f       	sbci	r31, 0xFB	; 251
+ 50e:	80 81       	ld	r24, Z
+ 510:	82 95       	swap	r24
+ 512:	80 7f       	andi	r24, 0xF0	; 240
+
+/* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
+
+inline void sendSPI( const uint8_t val)
+{
+    SPDR = val;
+ 514:	8e bd       	out	0x2e, r24	; 46
+    while (!(SPSR & (1 << SPIF)));
+ 516:	0d b4       	in	r0, 0x2d	; 45
+ 518:	07 fe       	sbrs	r0, 7
+ 51a:	fd cf       	rjmp	.-6      	; 0x516 <__vector_21+0xfe>
+
+/* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
+
+inline void sendSPI( const uint8_t val)
+{
+    SPDR = val;
+ 51c:	1e bc       	out	0x2e, r1	; 46
+    while (!(SPSR & (1 << SPIF)));
+ 51e:	0d b4       	in	r0, 0x2d	; 45
+ 520:	07 fe       	sbrs	r0, 7
+ 522:	fd cf       	rjmp	.-6      	; 0x51e <__vector_21+0x106>
+ 524:	8f e0       	ldi	r24, 0x0F	; 15
+ 526:	90 e0       	ldi	r25, 0x00	; 0
+    // col 16 -> send dumm values ( not displayed)
+    sendSPI(0b00000000); // p16
+    
+    for (int x = 15;x<28;x+=2)
+    {
+        const uint8_t pixA = pixels[x][rowIndex];
+ 528:	6e e1       	ldi	r22, 0x1E	; 30
+ 52a:	20 91 00 02 	lds	r18, 0x0200
+ 52e:	30 91 01 02 	lds	r19, 0x0201
+ 532:	68 9f       	mul	r22, r24
+ 534:	f0 01       	movw	r30, r0
+ 536:	69 9f       	mul	r22, r25
+ 538:	f0 0d       	add	r31, r0
+ 53a:	11 24       	eor	r1, r1
+ 53c:	e2 0f       	add	r30, r18
+ 53e:	f3 1f       	adc	r31, r19
+ 540:	e4 5d       	subi	r30, 0xD4	; 212
+ 542:	fc 4f       	sbci	r31, 0xFC	; 252
+ 544:	70 81       	ld	r23, Z
+        const uint8_t pixB = pixels[x+1][rowIndex];
+ 546:	ac 01       	movw	r20, r24
+ 548:	4f 5f       	subi	r20, 0xFF	; 255
+ 54a:	5f 4f       	sbci	r21, 0xFF	; 255
+ 54c:	64 9f       	mul	r22, r20
+ 54e:	f0 01       	movw	r30, r0
+ 550:	65 9f       	mul	r22, r21
+ 552:	f0 0d       	add	r31, r0
+ 554:	11 24       	eor	r1, r1
+ 556:	e2 0f       	add	r30, r18
+ 558:	f3 1f       	adc	r31, r19
+ 55a:	e4 5d       	subi	r30, 0xD4	; 212
+ 55c:	fc 4f       	sbci	r31, 0xFC	; 252
+ 55e:	20 81       	ld	r18, Z
+        
+        sendSPI( pixA >> 4); // p1
+ 560:	37 2f       	mov	r19, r23
+ 562:	32 95       	swap	r19
+ 564:	3f 70       	andi	r19, 0x0F	; 15
+
+/* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
+
+inline void sendSPI( const uint8_t val)
+{
+    SPDR = val;
+ 566:	3e bd       	out	0x2e, r19	; 46
+    while (!(SPSR & (1 << SPIF)));
+ 568:	0d b4       	in	r0, 0x2d	; 45
+ 56a:	07 fe       	sbrs	r0, 7
+ 56c:	fd cf       	rjmp	.-6      	; 0x568 <__vector_21+0x150>
+    {
+        const uint8_t pixA = pixels[x][rowIndex];
+        const uint8_t pixB = pixels[x+1][rowIndex];
+        
+        sendSPI( pixA >> 4); // p1
+        sendSPI( (uint8_t )(pixA<< 4) ); // p1
+ 56e:	72 95       	swap	r23
+ 570:	70 7f       	andi	r23, 0xF0	; 240
+
+/* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
+
+inline void sendSPI( const uint8_t val)
+{
+    SPDR = val;
+ 572:	7e bd       	out	0x2e, r23	; 46
+    while (!(SPSR & (1 << SPIF)));
+ 574:	0d b4       	in	r0, 0x2d	; 45
+ 576:	07 fe       	sbrs	r0, 7
+ 578:	fd cf       	rjmp	.-6      	; 0x574 <__vector_21+0x15c>
+
+/* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
+
+inline void sendSPI( const uint8_t val)
+{
+    SPDR = val;
+ 57a:	2e bd       	out	0x2e, r18	; 46
+    while (!(SPSR & (1 << SPIF)));
+ 57c:	0d b4       	in	r0, 0x2d	; 45
+ 57e:	07 fe       	sbrs	r0, 7
+ 580:	fd cf       	rjmp	.-6      	; 0x57c <__vector_21+0x164>
+    /**/
+    
+    // col 16 -> send dumm values ( not displayed)
+    sendSPI(0b00000000); // p16
+    
+    for (int x = 15;x<28;x+=2)
+ 582:	02 96       	adiw	r24, 0x02	; 2
+ 584:	8d 31       	cpi	r24, 0x1D	; 29
+ 586:	91 05       	cpc	r25, r1
+ 588:	81 f6       	brne	.-96     	; 0x52a <__vector_21+0x112>
+        sendSPI( (uint8_t )(pixA<< 4) ); // p1
+        sendSPI( pixB ); // p2
+    }
+
+    // col 29 a la mano
+    sendSPI( pixels[29][rowIndex] >> 4); // p15
+ 58a:	e0 91 00 02 	lds	r30, 0x0200
+ 58e:	f0 91 01 02 	lds	r31, 0x0201
+ 592:	ee 56       	subi	r30, 0x6E	; 110
+ 594:	f9 4f       	sbci	r31, 0xF9	; 249
+ 596:	80 81       	ld	r24, Z
+ 598:	82 95       	swap	r24
+ 59a:	8f 70       	andi	r24, 0x0F	; 15
+
+/* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
+
+inline void sendSPI( const uint8_t val)
+{
+    SPDR = val;
+ 59c:	8e bd       	out	0x2e, r24	; 46
+    while (!(SPSR & (1 << SPIF)));
+ 59e:	0d b4       	in	r0, 0x2d	; 45
+ 5a0:	07 fe       	sbrs	r0, 7
+ 5a2:	fd cf       	rjmp	.-6      	; 0x59e <__vector_21+0x186>
+        sendSPI( pixB ); // p2
+    }
+
+    // col 29 a la mano
+    sendSPI( pixels[29][rowIndex] >> 4); // p15
+    sendSPI( (uint8_t )(pixels[29][rowIndex] << 4) ); // p15
+ 5a4:	e0 91 00 02 	lds	r30, 0x0200
+ 5a8:	f0 91 01 02 	lds	r31, 0x0201
+ 5ac:	ee 56       	subi	r30, 0x6E	; 110
+ 5ae:	f9 4f       	sbci	r31, 0xF9	; 249
+ 5b0:	80 81       	ld	r24, Z
+ 5b2:	82 95       	swap	r24
+ 5b4:	80 7f       	andi	r24, 0xF0	; 240
+
+/* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
+
+inline void sendSPI( const uint8_t val)
+{
+    SPDR = val;
+ 5b6:	8e bd       	out	0x2e, r24	; 46
+    while (!(SPSR & (1 << SPIF)));
+ 5b8:	0d b4       	in	r0, 0x2d	; 45
+ 5ba:	07 fe       	sbrs	r0, 7
+ 5bc:	fd cf       	rjmp	.-6      	; 0x5b8 <__vector_21+0x1a0>
+    sendSPI( (uint8_t )(pixels[29][rowIndex] << 4) ); // p15
+
+    /***** END OF FILL TLC BUFFERS ****/
+
+
+    xlatNeedsPulse = 1;
+ 5be:	81 e0       	ldi	r24, 0x01	; 1
+ 5c0:	80 93 2b 03 	sts	0x032B, r24
+
+    pulse( MIC_CLOCK_PORT , MIC_CLOCK_PIN );
+ 5c4:	80 91 0b 01 	lds	r24, 0x010B
+ 5c8:	82 60       	ori	r24, 0x02	; 2
+ 5ca:	80 93 0b 01 	sts	0x010B, r24
+ 5ce:	80 91 0b 01 	lds	r24, 0x010B
+ 5d2:	8d 7f       	andi	r24, 0xFD	; 253
+ 5d4:	80 93 0b 01 	sts	0x010B, r24
+    
+    /**/
+    // additionnal pulse for non-wired outs of mics.
+    
+    if ( (rowIndex == 15) ||
+ 5d8:	80 91 00 02 	lds	r24, 0x0200
+ 5dc:	90 91 01 02 	lds	r25, 0x0201
+ 5e0:	8f 30       	cpi	r24, 0x0F	; 15
+ 5e2:	91 05       	cpc	r25, r1
+ 5e4:	11 f0       	breq	.+4      	; 0x5ea <__vector_21+0x1d2>
+ 5e6:	46 97       	sbiw	r24, 0x16	; 22
+ 5e8:	a1 f4       	brne	.+40     	; 0x612 <__vector_21+0x1fa>
+        (rowIndex == 22)
+        )
+    {
+        setLow( DATA0_PORT , DATA0_PIN);
+ 5ea:	80 91 0b 01 	lds	r24, 0x010B
+ 5ee:	87 7f       	andi	r24, 0xF7	; 247
+ 5f0:	80 93 0b 01 	sts	0x010B, r24
+        setLow( DATA1_PORT , DATA1_PIN);
+ 5f4:	80 91 0b 01 	lds	r24, 0x010B
+ 5f8:	8f 7e       	andi	r24, 0xEF	; 239
+ 5fa:	80 93 0b 01 	sts	0x010B, r24
+
+        pulse( MIC_CLOCK_PORT , MIC_CLOCK_PIN );
+ 5fe:	80 91 0b 01 	lds	r24, 0x010B
+ 602:	82 60       	ori	r24, 0x02	; 2
+ 604:	80 93 0b 01 	sts	0x010B, r24
+ 608:	80 91 0b 01 	lds	r24, 0x010B
+ 60c:	8d 7f       	andi	r24, 0xFD	; 253
+ 60e:	80 93 0b 01 	sts	0x010B, r24
+    }
+    
+    /**/
+    
+    setHigh(BLANK_PORT, BLANK_PIN);
+ 612:	28 9a       	sbi	0x05, 0	; 5
+    
+    
+    if (xlatNeedsPulse)
+ 614:	80 91 2b 03 	lds	r24, 0x032B
+ 618:	88 23       	and	r24, r24
+ 61a:	21 f0       	breq	.+8      	; 0x624 <__vector_21+0x20c>
+    {
+        pulse(XLAT_PORT, XLAT_PIN);
+ 61c:	2d 9a       	sbi	0x05, 5	; 5
+ 61e:	2d 98       	cbi	0x05, 5	; 5
+        xlatNeedsPulse = 0;
+ 620:	10 92 2b 03 	sts	0x032B, r1
+        
+    }
+    
+    if (firstCycleFlag)
+    {
+        pulse(SCLK_PORT, SCLK_PIN);
+ 624:	29 9a       	sbi	0x05, 1	; 5
+ 626:	29 98       	cbi	0x05, 1	; 5
+        
+        
+    }
+
+
+    rowIndex++;
+ 628:	80 91 00 02 	lds	r24, 0x0200
+ 62c:	90 91 01 02 	lds	r25, 0x0201
+ 630:	01 96       	adiw	r24, 0x01	; 1
+ 632:	90 93 01 02 	sts	0x0201, r25
+ 636:	80 93 00 02 	sts	0x0200, r24
+
+}
+ 63a:	ff 91       	pop	r31
+ 63c:	ef 91       	pop	r30
+ 63e:	9f 91       	pop	r25
+ 640:	8f 91       	pop	r24
+ 642:	7f 91       	pop	r23
+ 644:	6f 91       	pop	r22
+ 646:	5f 91       	pop	r21
+ 648:	4f 91       	pop	r20
+ 64a:	3f 91       	pop	r19
+ 64c:	2f 91       	pop	r18
+ 64e:	0f 90       	pop	r0
+ 650:	0b be       	out	0x3b, r0	; 59
+ 652:	0f 90       	pop	r0
+ 654:	0f be       	out	0x3f, r0	; 63
+ 656:	0f 90       	pop	r0
+ 658:	1f 90       	pop	r1
+ 65a:	18 95       	reti
+
+0000065c <main>:
+
+int main( void )
+{
+    /* Hardware configuration */
+    
+    adc_init();
+ 65c:	0e 94 f0 01 	call	0x3e0	; 0x3e0 <adc_init>
+    
+    // init MICs leds
+    setOutput( DATA0_DDR , DATA0_PIN         ); // data row1
+ 660:	80 91 0a 01 	lds	r24, 0x010A
+ 664:	88 60       	ori	r24, 0x08	; 8
+ 666:	80 93 0a 01 	sts	0x010A, r24
+    setOutput( DATA1_DDR , DATA1_PIN         ); // data row2
+ 66a:	80 91 0a 01 	lds	r24, 0x010A
+ 66e:	80 61       	ori	r24, 0x10	; 16
+ 670:	80 93 0a 01 	sts	0x010A, r24
+    setOutput( MIC_CLOCK_DDR , MIC_CLOCK_PIN ); // clock
+ 674:	80 91 0a 01 	lds	r24, 0x010A
+ 678:	82 60       	ori	r24, 0x02	; 2
+ 67a:	80 93 0a 01 	sts	0x010A, r24
+    
+    setOutput( MIC_STROBE_DDR , MIC_STROBE_PIN ); // strobe
+ 67e:	80 91 0a 01 	lds	r24, 0x010A
+ 682:	84 60       	ori	r24, 0x04	; 4
+ 684:	80 93 0a 01 	sts	0x010A, r24
+    
+    setOutput( MIC_OUT_ENABLE_DDR , MIC_OUT_ENABLE_PIN ); // utile?
+ 688:	80 91 0a 01 	lds	r24, 0x010A
+ 68c:	81 60       	ori	r24, 0x01	; 1
+ 68e:	80 93 0a 01 	sts	0x010A, r24
+    
+    // MICs LDR
+
+    setOutput( LDR_DATA_DDR       , LDR_DATA_PIN ); // data
+ 692:	57 9a       	sbi	0x0a, 7	; 10
+    setOutput( LDR_STROBE_DDR     , LDR_STROBE_PIN ); // strobe
+ 694:	6c 9a       	sbi	0x0d, 4	; 13
+    setOutput( LDR_OUT_ENABLE_DDR , LDR_OUT_ENABLE_PIN ); // out enable
+ 696:	6b 9a       	sbi	0x0d, 3	; 13
+    setOutput( LDR_CLOCK_DDR      , LDR_CLOCK_PIN ); // clock
+ 698:	56 9a       	sbi	0x0a, 6	; 10
+
+    
+    setHigh( MIC_STROBE_PORT , MIC_STROBE_PIN ); // strobe mic leds
+ 69a:	80 91 0b 01 	lds	r24, 0x010B
+ 69e:	84 60       	ori	r24, 0x04	; 4
+ 6a0:	80 93 0b 01 	sts	0x010B, r24
+    setHigh( LDR_STROBE_PORT , LDR_STROBE_PIN ); // strobe mic LDR
+ 6a4:	74 9a       	sbi	0x0e, 4	; 14
+    
+    
+    // reset mic ldr
+    
+    setLow( LDR_DATA_PORT , LDR_DATA_PIN ); // data to low
+ 6a6:	5f 98       	cbi	0x0b, 7	; 11
+ 6a8:	8f e0       	ldi	r24, 0x0F	; 15
+ 6aa:	90 e0       	ldi	r25, 0x00	; 0
+    
+    for (int i =0;i< MIC_SENCOR_COUNT;i++)
+        pulse( LDR_CLOCK_PORT , LDR_CLOCK_PIN );
+ 6ac:	5e 9a       	sbi	0x0b, 6	; 11
+ 6ae:	5e 98       	cbi	0x0b, 6	; 11
+ 6b0:	01 97       	sbiw	r24, 0x01	; 1
+    
+    // reset mic ldr
+    
+    setLow( LDR_DATA_PORT , LDR_DATA_PIN ); // data to low
+    
+    for (int i =0;i< MIC_SENCOR_COUNT;i++)
+ 6b2:	00 97       	sbiw	r24, 0x00	; 0
+ 6b4:	d9 f7       	brne	.-10     	; 0x6ac <main+0x50>
+    
+    
+    // reset mic buffers
+    
+
+    setLow( DATA0_PORT , DATA0_PIN); // val 0 prévue -> pulse après écrit la valeur dans le buffer
+ 6b6:	80 91 0b 01 	lds	r24, 0x010B
+ 6ba:	87 7f       	andi	r24, 0xF7	; 247
+ 6bc:	80 93 0b 01 	sts	0x010B, r24
+    setLow( DATA1_PORT , DATA1_PIN);
+ 6c0:	80 91 0b 01 	lds	r24, 0x010B
+ 6c4:	8f 7e       	andi	r24, 0xEF	; 239
+ 6c6:	80 93 0b 01 	sts	0x010B, r24
+ 6ca:	8e e1       	ldi	r24, 0x1E	; 30
+ 6cc:	90 e0       	ldi	r25, 0x00	; 0
+    
+    for (int i=0; i< Y_MIC_MAX ; i++)
+    {
+        pulse( MIC_CLOCK_PORT , MIC_CLOCK_PIN );
+ 6ce:	20 91 0b 01 	lds	r18, 0x010B
+ 6d2:	22 60       	ori	r18, 0x02	; 2
+ 6d4:	20 93 0b 01 	sts	0x010B, r18
+ 6d8:	20 91 0b 01 	lds	r18, 0x010B
+ 6dc:	2d 7f       	andi	r18, 0xFD	; 253
+ 6de:	20 93 0b 01 	sts	0x010B, r18
+ 6e2:	01 97       	sbiw	r24, 0x01	; 1
+    
+
+    setLow( DATA0_PORT , DATA0_PIN); // val 0 prévue -> pulse après écrit la valeur dans le buffer
+    setLow( DATA1_PORT , DATA1_PIN);
+    
+    for (int i=0; i< Y_MIC_MAX ; i++)
+ 6e4:	00 97       	sbiw	r24, 0x00	; 0
+ 6e6:	99 f7       	brne	.-26     	; 0x6ce <main+0x72>
+        pulse( MIC_CLOCK_PORT , MIC_CLOCK_PIN );
+        
+    }
+    
+    
+    setHigh( LDR_DATA_PORT , LDR_DATA_PIN );
+ 6e8:	5f 9a       	sbi	0x0b, 7	; 11
+    pulse( LDR_CLOCK_PORT , LDR_CLOCK_PIN);
+ 6ea:	5e 9a       	sbi	0x0b, 6	; 11
+ 6ec:	5e 98       	cbi	0x0b, 6	; 11
+
+    TLC5940_Init();
+ 6ee:	0e 94 d9 01 	call	0x3b2	; 0x3b2 <TLC5940_Init>
+    
+    /* Vars configuration */    
+    
+    
+    initPixels();
+ 6f2:	0e 94 2b 01 	call	0x256	; 0x256 <initPixels>
+
+
+    sei();
+ 6f6:	78 94       	sei
+
+    for (;;)
+    {
+
+        
+        for (int i=0; i< SENSOR_COUNT ; i++)
+ 6f8:	c0 e0       	ldi	r28, 0x00	; 0
+ 6fa:	d0 e0       	ldi	r29, 0x00	; 0
+ 6fc:	cf 30       	cpi	r28, 0x0F	; 15
+ 6fe:	d1 05       	cpc	r29, r1
+ 700:	4c f4       	brge	.+18     	; 0x714 <main+0xb8>
+        {
+            mat_sensors[i] = (uint8_t) adc_read(i);
+ 702:	8c 2f       	mov	r24, r28
+ 704:	0e 94 f7 01 	call	0x3ee	; 0x3ee <adc_read>
+ 708:	fe 01       	movw	r30, r28
+ 70a:	e2 5f       	subi	r30, 0xF2	; 242
+ 70c:	fc 4f       	sbci	r31, 0xFC	; 252
+ 70e:	80 83       	st	Z, r24
+
+    for (;;)
+    {
+
+        
+        for (int i=0; i< SENSOR_COUNT ; i++)
+ 710:	21 96       	adiw	r28, 0x01	; 1
+ 712:	f4 cf       	rjmp	.-24     	; 0x6fc <main+0xa0>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 714:	2f ef       	ldi	r18, 0xFF	; 255
+ 716:	87 ee       	ldi	r24, 0xE7	; 231
+ 718:	93 e0       	ldi	r25, 0x03	; 3
+ 71a:	21 50       	subi	r18, 0x01	; 1
+ 71c:	80 40       	sbci	r24, 0x00	; 0
+ 71e:	90 40       	sbci	r25, 0x00	; 0
+ 720:	e1 f7       	brne	.-8      	; 0x71a <main+0xbe>
+ 722:	00 c0       	rjmp	.+0      	; 0x724 <main+0xc8>
+ 724:	00 00       	nop
+ 726:	e8 cf       	rjmp	.-48     	; 0x6f8 <main+0x9c>
+
+00000728 <_exit>:
+ 728:	f8 94       	cli
+
+0000072a <__stop_program>:
+ 72a:	ff cf       	rjmp	.-2      	; 0x72a <__stop_program>
