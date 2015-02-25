@@ -126,7 +126,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0x72c
+.text           0x00000000      0x7e6
  *(.vectors)
  .vectors       0x00000000       0xe4 /usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/../../../../avr/lib/avr6/crtm2560.o
                 0x00000000                __vectors
@@ -239,66 +239,67 @@ END GROUP
                 0x00000126                __vector_18
                 0x00000126                __vector_20
                 0x00000126                __vector_38
- .text          0x0000012a      0x532 Builds/main.o
+ .text          0x0000012a      0x572 Builds/main.o
                 0x0000012a                translateBuffer
                 0x00000168                writeLetter
                 0x000001e0                writeSquareLetter
-                0x00000256                initPixels
-                0x000003b2                TLC5940_Init
-                0x000003e0                adc_init
-                0x000003ee                adc_read
-                0x00000418                __vector_21
- .text          0x0000065c        0x0 /usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/avr6/libgcc.a(_exit.o)
- .text          0x0000065c        0x0 /usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/avr6/libgcc.a(_copy_data.o)
- .text          0x0000065c        0x0 /usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/avr6/libgcc.a(_clear_bss.o)
-                0x0000065c                . = ALIGN (0x2)
+                0x00000252                writeImage
+                0x00000292                initPixels
+                0x000003f2                TLC5940_Init
+                0x00000420                adc_init
+                0x0000042e                adc_read
+                0x00000458                __vector_21
+ .text          0x0000069c        0x0 /usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/avr6/libgcc.a(_exit.o)
+ .text          0x0000069c        0x0 /usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/avr6/libgcc.a(_copy_data.o)
+ .text          0x0000069c        0x0 /usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/avr6/libgcc.a(_clear_bss.o)
+                0x0000069c                . = ALIGN (0x2)
  *(.text.*)
- .text.startup  0x0000065c       0xcc Builds/main.o
-                0x0000065c                main
+ .text.startup  0x0000069c      0x146 Builds/main.o
+                0x0000069c                main
  .text.libgcc.mul
-                0x00000728        0x0 /usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/avr6/libgcc.a(_exit.o)
+                0x000007e2        0x0 /usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/avr6/libgcc.a(_exit.o)
  .text.libgcc.div
-                0x00000728        0x0 /usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/avr6/libgcc.a(_exit.o)
- .text.libgcc   0x00000728        0x0 /usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/avr6/libgcc.a(_exit.o)
+                0x000007e2        0x0 /usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/avr6/libgcc.a(_exit.o)
+ .text.libgcc   0x000007e2        0x0 /usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/avr6/libgcc.a(_exit.o)
  .text.libgcc.prologue
-                0x00000728        0x0 /usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/avr6/libgcc.a(_exit.o)
+                0x000007e2        0x0 /usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/avr6/libgcc.a(_exit.o)
  .text.libgcc.builtins
-                0x00000728        0x0 /usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/avr6/libgcc.a(_exit.o)
+                0x000007e2        0x0 /usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/avr6/libgcc.a(_exit.o)
  .text.libgcc.fmul
-                0x00000728        0x0 /usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/avr6/libgcc.a(_exit.o)
+                0x000007e2        0x0 /usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/avr6/libgcc.a(_exit.o)
  .text.libgcc.fixed
-                0x00000728        0x0 /usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/avr6/libgcc.a(_exit.o)
+                0x000007e2        0x0 /usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/avr6/libgcc.a(_exit.o)
  .text.libgcc.mul
-                0x00000728        0x0 /usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/avr6/libgcc.a(_copy_data.o)
+                0x000007e2        0x0 /usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/avr6/libgcc.a(_copy_data.o)
  .text.libgcc.div
-                0x00000728        0x0 /usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/avr6/libgcc.a(_copy_data.o)
- .text.libgcc   0x00000728        0x0 /usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/avr6/libgcc.a(_copy_data.o)
+                0x000007e2        0x0 /usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/avr6/libgcc.a(_copy_data.o)
+ .text.libgcc   0x000007e2        0x0 /usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/avr6/libgcc.a(_copy_data.o)
  .text.libgcc.prologue
-                0x00000728        0x0 /usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/avr6/libgcc.a(_copy_data.o)
+                0x000007e2        0x0 /usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/avr6/libgcc.a(_copy_data.o)
  .text.libgcc.builtins
-                0x00000728        0x0 /usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/avr6/libgcc.a(_copy_data.o)
+                0x000007e2        0x0 /usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/avr6/libgcc.a(_copy_data.o)
  .text.libgcc.fmul
-                0x00000728        0x0 /usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/avr6/libgcc.a(_copy_data.o)
+                0x000007e2        0x0 /usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/avr6/libgcc.a(_copy_data.o)
  .text.libgcc.fixed
-                0x00000728        0x0 /usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/avr6/libgcc.a(_copy_data.o)
+                0x000007e2        0x0 /usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/avr6/libgcc.a(_copy_data.o)
  .text.libgcc.mul
-                0x00000728        0x0 /usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/avr6/libgcc.a(_clear_bss.o)
+                0x000007e2        0x0 /usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/avr6/libgcc.a(_clear_bss.o)
  .text.libgcc.div
-                0x00000728        0x0 /usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/avr6/libgcc.a(_clear_bss.o)
- .text.libgcc   0x00000728        0x0 /usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/avr6/libgcc.a(_clear_bss.o)
+                0x000007e2        0x0 /usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/avr6/libgcc.a(_clear_bss.o)
+ .text.libgcc   0x000007e2        0x0 /usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/avr6/libgcc.a(_clear_bss.o)
  .text.libgcc.prologue
-                0x00000728        0x0 /usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/avr6/libgcc.a(_clear_bss.o)
+                0x000007e2        0x0 /usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/avr6/libgcc.a(_clear_bss.o)
  .text.libgcc.builtins
-                0x00000728        0x0 /usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/avr6/libgcc.a(_clear_bss.o)
+                0x000007e2        0x0 /usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/avr6/libgcc.a(_clear_bss.o)
  .text.libgcc.fmul
-                0x00000728        0x0 /usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/avr6/libgcc.a(_clear_bss.o)
+                0x000007e2        0x0 /usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/avr6/libgcc.a(_clear_bss.o)
  .text.libgcc.fixed
-                0x00000728        0x0 /usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/avr6/libgcc.a(_clear_bss.o)
-                0x00000728                . = ALIGN (0x2)
+                0x000007e2        0x0 /usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/avr6/libgcc.a(_clear_bss.o)
+                0x000007e2                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x00000728        0x0 /usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/avr6/libgcc.a(_exit.o)
-                0x00000728                exit
-                0x00000728                _exit
+ .fini9         0x000007e2        0x0 /usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/avr6/libgcc.a(_exit.o)
+                0x000007e2                exit
+                0x000007e2                _exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -317,95 +318,97 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x00000728        0x4 /usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/avr6/libgcc.a(_exit.o)
+ .fini0         0x000007e2        0x4 /usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/avr6/libgcc.a(_exit.o)
  *(.fini0)
-                0x0000072c                _etext = .
+                0x000007e6                _etext = .
 
-.data           0x00800200      0x10e load address 0x0000072c
+.data           0x00800200      0x816 load address 0x000007e6
                 0x00800200                PROVIDE (__data_start, .)
  *(.data)
  .data          0x00800200        0x0 /usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/../../../../avr/lib/avr6/crtm2560.o
- .data          0x00800200      0x10d Builds/main.o
+ .data          0x00800200      0x815 Builds/main.o
                 0x00800202                fontColor
                 0x00800203                backgroundColor
-                0x00800204                letter_M
-                0x0080020d                letter_D
-                0x00800216                letter_u
-                0x0080021f                letter_r
-                0x00800228                letter_n
-                0x00800231                letter_l
-                0x0080023a                letter_i
-                0x00800243                letter_h
-                0x0080024c                letter_g
-                0x00800255                letter_f
-                0x0080025e                letter_e
-                0x00800267                letter_d
-                0x00800270                letter_c
-                0x00800279                letter_b
-                0x00800282                letter_a
-                0x0080028b                square_z
-                0x00800290                square_y
-                0x00800295                square_x
-                0x0080029a                square_w
-                0x0080029f                square_v
-                0x008002a4                square_u
-                0x008002a9                square_t
-                0x008002ae                square_s
-                0x008002b3                square_r
-                0x008002b8                square_q
-                0x008002bd                square_p
-                0x008002c2                square_o
-                0x008002c7                square_n
-                0x008002cc                square_m
-                0x008002d1                square_l
-                0x008002d6                square_k
-                0x008002db                square_j
-                0x008002e0                square_i
-                0x008002e5                square_h
-                0x008002ea                square_g
-                0x008002ef                square_f
-                0x008002f4                square_e
-                0x008002f9                square_d
-                0x008002fe                square_c
-                0x00800303                square_b
-                0x00800308                square_a
- .data          0x0080030d        0x0 /usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/avr6/libgcc.a(_exit.o)
- .data          0x0080030d        0x0 /usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/avr6/libgcc.a(_copy_data.o)
- .data          0x0080030d        0x0 /usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/avr6/libgcc.a(_clear_bss.o)
+                0x00800204                catImage
+                0x00800588                spashImage
+                0x0080090c                letter_M
+                0x00800915                letter_D
+                0x0080091e                letter_u
+                0x00800927                letter_r
+                0x00800930                letter_n
+                0x00800939                letter_l
+                0x00800942                letter_i
+                0x0080094b                letter_h
+                0x00800954                letter_g
+                0x0080095d                letter_f
+                0x00800966                letter_e
+                0x0080096f                letter_d
+                0x00800978                letter_c
+                0x00800981                letter_b
+                0x0080098a                letter_a
+                0x00800993                square_z
+                0x00800998                square_y
+                0x0080099d                square_x
+                0x008009a2                square_w
+                0x008009a7                square_v
+                0x008009ac                square_u
+                0x008009b1                square_t
+                0x008009b6                square_s
+                0x008009bb                square_r
+                0x008009c0                square_q
+                0x008009c5                square_p
+                0x008009ca                square_o
+                0x008009cf                square_n
+                0x008009d4                square_m
+                0x008009d9                square_l
+                0x008009de                square_k
+                0x008009e3                square_j
+                0x008009e8                square_i
+                0x008009ed                square_h
+                0x008009f2                square_g
+                0x008009f7                square_f
+                0x008009fc                square_e
+                0x00800a01                square_d
+                0x00800a06                square_c
+                0x00800a0b                square_b
+                0x00800a10                square_a
+ .data          0x00800a15        0x0 /usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/avr6/libgcc.a(_exit.o)
+ .data          0x00800a15        0x0 /usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/avr6/libgcc.a(_copy_data.o)
+ .data          0x00800a15        0x0 /usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/avr6/libgcc.a(_clear_bss.o)
  *(.data*)
  *(.rodata)
  *(.rodata*)
  *(.gnu.linkonce.d*)
-                0x0080030e                . = ALIGN (0x2)
- *fill*         0x0080030d        0x1 
-                0x0080030e                _edata = .
-                0x0080030e                PROVIDE (__data_end, .)
+                0x00800a16                . = ALIGN (0x2)
+ *fill*         0x00800a15        0x1 
+                0x00800a16                _edata = .
+                0x00800a16                PROVIDE (__data_end, .)
 
-.bss            0x0080030e      0x3a2
-                0x0080030e                PROVIDE (__bss_start, .)
+.bss            0x00800a16      0x3a2
+                0x00800a16                PROVIDE (__bss_start, .)
  *(.bss)
- .bss           0x0080030e        0x0 /usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/../../../../avr/lib/avr6/crtm2560.o
- .bss           0x0080030e       0x1e Builds/main.o
-                0x0080030e                mat_sensors
-                0x0080031d                letter_space
-                0x00800326                square_space
- .bss           0x0080032c        0x0 /usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/avr6/libgcc.a(_exit.o)
- .bss           0x0080032c        0x0 /usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/avr6/libgcc.a(_copy_data.o)
- .bss           0x0080032c        0x0 /usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/avr6/libgcc.a(_clear_bss.o)
+ .bss           0x00800a16        0x0 /usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/../../../../avr/lib/avr6/crtm2560.o
+ .bss           0x00800a16       0x1e Builds/main.o
+                0x00800a16                mat_sensors
+                0x00800a25                letter_space
+                0x00800a2e                square_space
+ .bss           0x00800a34        0x0 /usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/avr6/libgcc.a(_exit.o)
+ .bss           0x00800a34        0x0 /usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/avr6/libgcc.a(_copy_data.o)
+ .bss           0x00800a34        0x0 /usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/avr6/libgcc.a(_clear_bss.o)
  *(.bss*)
  *(COMMON)
- COMMON         0x0080032c      0x384 Builds/main.o
-                0x0080032c                pixels
-                0x008006b0                PROVIDE (__bss_end, .)
-                0x0000072c                __data_load_start = LOADADDR (.data)
-                0x0000083a                __data_load_end = (__data_load_start + SIZEOF (.data))
+ COMMON         0x00800a34      0x384 Builds/main.o
+                0x00800a34                pixels
+                0x00800db8                PROVIDE (__bss_end, .)
+                0x000007e6                __data_load_start = LOADADDR (.data)
+                0x00000ffc                __data_load_end = (__data_load_start + SIZEOF (.data))
 
-.noinit         0x008006b0        0x0
-                0x008006b0                PROVIDE (__noinit_start, .)
+.noinit         0x00800db8        0x0
+                0x00800db8                PROVIDE (__noinit_start, .)
  *(.noinit*)
-                0x008006b0                PROVIDE (__noinit_end, .)
-                0x008006b0                _end = .
-                0x008006b0                PROVIDE (__heap_start, .)
+                0x00800db8                PROVIDE (__noinit_end, .)
+                0x00800db8                _end = .
+                0x00800db8                PROVIDE (__heap_start, .)
 
 .eeprom         0x00810000        0x0
  *(.eeprom*)
@@ -426,13 +429,13 @@ END GROUP
 .user_signatures
  *(.user_signatures*)
 
-.stab           0x00000000     0x111c
+.stab           0x00000000     0x1308
  *(.stab)
- .stab          0x00000000     0x111c Builds/main.o
+ .stab          0x00000000     0x1308 Builds/main.o
 
-.stabstr        0x00000000     0x11d7
+.stabstr        0x00000000     0x123a
  *(.stabstr)
- .stabstr       0x00000000     0x11d7 Builds/main.o
+ .stabstr       0x00000000     0x123a Builds/main.o
 
 .stab.excl
  *(.stab.excl)
@@ -597,6 +600,7 @@ _exit                                             /usr/local/CrossPack-AVR-20131
 adc_init                                          Builds/main.o
 adc_read                                          Builds/main.o
 backgroundColor                                   Builds/main.o
+catImage                                          Builds/main.o
 exit                                              /usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/avr6/libgcc.a(_exit.o)
                                                   /usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/../../../../avr/lib/avr6/crtm2560.o
 fontColor                                         Builds/main.o
@@ -621,6 +625,7 @@ main                                              Builds/main.o
                                                   /usr/local/CrossPack-AVR-20131216/lib/gcc/avr/4.8.1/../../../../avr/lib/avr6/crtm2560.o
 mat_sensors                                       Builds/main.o
 pixels                                            Builds/main.o
+spashImage                                        Builds/main.o
 square_a                                          Builds/main.o
 square_b                                          Builds/main.o
 square_c                                          Builds/main.o
@@ -649,5 +654,6 @@ square_x                                          Builds/main.o
 square_y                                          Builds/main.o
 square_z                                          Builds/main.o
 translateBuffer                                   Builds/main.o
+writeImage                                        Builds/main.o
 writeLetter                                       Builds/main.o
 writeSquareLetter                                 Builds/main.o

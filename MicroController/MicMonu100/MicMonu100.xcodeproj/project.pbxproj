@@ -18,6 +18,7 @@
 		59D40C3A1A9B463600FC0E5A /* Index */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Index; sourceTree = BUILT_PRODUCTS_DIR; };
 		59D40C3D1A9B463600FC0E5A /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 		59D40C401A9B463600FC0E5A /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		59E5381B1A9E71A600BBE0FE /* Images.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Images.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -43,6 +44,7 @@
 				595354861A9DDAFB0054C036 /* PinsConfig.h */,
 				59D40C3D1A9B463600FC0E5A /* main.c */,
 				5953549C1A9E05F60054C036 /* Chars.h */,
+				59E5381B1A9E71A600BBE0FE /* Images.h */,
 				5953549D1A9E319C0054C036 /* Square15.h */,
 				59D40C3F1A9B463600FC0E5A /* Makefiles */,
 			);

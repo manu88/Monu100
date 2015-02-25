@@ -6,8 +6,10 @@
 #include <util/delay.h>
 
 #include "PinsConfig.h"
+
 #include "Square15.h"
 #include "Chars.h"
+#include "Images.h"
 
 /* **** **** **** **** **** **** **** **** **** **** **** **** */
 /*
@@ -24,7 +26,7 @@
 
 uint8_t pixels[ X_TLC_MAX ][ Y_MIC_MAX ];
 
-volatile uint8_t backgroundColor = 0b00000011;
+volatile uint8_t backgroundColor = 0b00000010;
 volatile uint8_t fontColor       = 0b11111111;
 
 /* **** **** **** **** **** **** **** **** **** **** **** **** */
@@ -77,8 +79,23 @@ void writeSquareLetter(const uint8_t *letter , const uint8_t xPos , const uint8_
         {
             if ( letter[i] & (1<<(7-j) ))
                 pixels[xPos+i][yPos+j] = fontColor;
+            /*
             else
                 pixels[xPos+i][yPos+j] = backgroundColor;
+             */
+        }
+    }
+}
+
+/* **** **** **** **** **** **** **** **** **** **** **** **** */
+
+void writeImage(const uint8_t *image )
+{
+    for (int x = 0; x<30;x++)
+    {
+        for (int y = 0; y<30;y++)
+        {
+            pixels[x][y] = image[y + x*30];
         }
     }
 }
@@ -93,7 +110,7 @@ void initPixels(void)
         for( int y = 0; y<Y_MIC_MAX;y++)
         {
 
-            pixels[x][Y_MIC_MAX-y-1] = backgroundColor;
+            pixels[x][y] = backgroundColor;
 
             
         }
@@ -387,12 +404,46 @@ int main( void )
     /* Vars configuration */    
     
     
-    initPixels();
+
+    
+
 
 
     sei();
 
 
+    /* **** Splash wait **** */
+    writeImage( catImage/* spashImage*/ );
+    
+    
+    const int wait = 100;
+    for (int i = 0 ; i< 10 ; i++)
+    {
+        pixels[13][14] = 255;
+        pixels[14][14] = 255;
+        _delay_ms( wait );
+        
+        pixels[13][14] = 0;
+        pixels[14][14] = 0;
+        
+        pixels[13][15] = 255;
+        pixels[14][15] = 255;
+        _delay_ms( wait );
+        
+        pixels[13][15] = 0;
+        pixels[14][15] = 0;
+
+        pixels[13][16] = 255;
+        pixels[14][16] = 255;
+        _delay_ms( wait );
+
+        pixels[13][16] = 0;
+        pixels[14][16] = 0;
+    }
+    
+    /* **** END OF Splash wait **** */
+    
+    initPixels();
 
     for (;;)
     {
