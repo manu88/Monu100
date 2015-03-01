@@ -35,7 +35,7 @@ struct _Display
 
     Point pos; // -> drawing pos
 
-    uint8_t needsDisplay; // byte 0
+
     
     /* This color will be used when clearing the display */
     uint8_t backgroundColor;
@@ -44,6 +44,11 @@ struct _Display
     
     uint8_t fontColor;
     
+    
+    uint8_t needsDisplay; // byte 0
+    
+    /* This flag will be set to 1 during the drawing interupt */
+    volatile uint8_t isDrawing;
     
 };
 
@@ -63,6 +68,7 @@ void display_clearZone     ( Display *display , const uint8_t x , const uint8_t 
 
 void display_clear         ( Display *display);
 
+void display_translate( Display *display , int8_t dX , int8_t dY);
 
 /* Drawing ops */
 
