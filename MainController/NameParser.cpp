@@ -111,7 +111,7 @@ bool NameParser::parseJSON( const std::string &file )
     
     _nameIter = _nameList.begin();
     
-    assert( nameListSize == _nameList.size() );
+    assert( nameListSize == (int) _nameList.size() );
     
 // old XML parser
 /*    XMLParser x;

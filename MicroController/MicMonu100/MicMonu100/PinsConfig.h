@@ -6,6 +6,14 @@
 //  Copyright (c) 2015 Manuel Deneu. All rights reserved.
 //
 
+
+
+
+
+
+#ifndef MicMonu100_PinsConfig_h
+#define MicMonu100_PinsConfig_h
+
 /* **** **** **** **** **** **** **** **** **** **** */
 /*
  
@@ -17,11 +25,7 @@
 #error " pinout mustbe redefined"
 #endif
 
-
 /* **** **** **** **** **** **** **** **** **** **** */
-
-#ifndef MicMonu100_PinsConfig_h
-#define MicMonu100_PinsConfig_h
 
 #define LED_CONFIG	(DDRH |= (1<<3))
 #define LED_ON	(PORTH &= ~(1<<3))

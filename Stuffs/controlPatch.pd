@@ -1,12 +1,12 @@
-#N canvas 381 51 794 327 10;
+#N canvas 393 35 823 426 10;
 #X obj 42 200 packOSC;
 #X msg 69 65 send /quit;
 #X msg 153 65 send /restart;
 #X msg 252 66 send /dumpReport;
-#X obj 672 183 udpreceive 9000;
-#X obj 672 212 unpackOSC;
-#X obj 672 242 route /ping;
-#X obj 672 272 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X obj 442 248 udpreceive 9000;
+#X obj 442 277 unpackOSC;
+#X obj 442 307 route /ping;
+#X obj 442 337 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
 #X msg 408 48 send /next lundi;
 #X msg 407 69 send /next mardi;
@@ -18,6 +18,10 @@
 #X msg 117 224 connect 127.0.0.1 7000;
 #X obj 38 274 udpsend;
 #X msg 238 24 send /fetch;
+#X obj 576 23 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X msg 576 43 send /activeline \$1;
+#X msg 115 25 send /test;
 #X connect 0 0 16 0;
 #X connect 1 0 0 0;
 #X connect 2 0 0 0;
@@ -34,3 +38,6 @@
 #X connect 14 0 0 0;
 #X connect 15 0 16 0;
 #X connect 17 0 0 0;
+#X connect 18 0 19 0;
+#X connect 19 0 0 0;
+#X connect 20 0 0 0;

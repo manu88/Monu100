@@ -19,11 +19,11 @@
 
 struct NameItem
 {
-    NameItem( const std::string &nom , const std::string &prenom , const std::string &mention , Date date):
-    nom     ( nom),
-    prenom  ( prenom),
-    mention ( mention ),
-    date    ( date )
+    NameItem( const std::string &nom_ , const std::string &prenom_ , const std::string &mention_ , Date date_):
+    nom     ( nom_     ),
+    prenom  ( prenom_  ),
+    mention ( mention_ ),
+    date    ( date_    )
     {}
     
     NameItem( NameItem const& r):
