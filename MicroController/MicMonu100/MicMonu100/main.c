@@ -12,11 +12,9 @@
 
 #include "PinsConfig.h"
 
+#include "Sensors.h"
 
 #include "Display.h"
-
-
-
 #include "Images.h"
 
 /* **** **** **** **** **** **** **** **** **** **** **** **** */
@@ -26,27 +24,15 @@
 
 
 
-#define SENSOR_COUNT     15
-#define MIC_SENCOR_COUNT 15
+
 
 Display _display;
+Sensors _sensors;
 
-uint8_t mat_sensors[ SENSOR_COUNT ] = { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 };
 
-// initialize adc
-void adc_init(void)
-{
-    // AREF = AVcc
-    ADMUX = (1<<REFS0);
-    
-    // ADC Enable and prescaler of 128
-    // 16000000/128 = 125000
-    ADCSRA = (1<<ADEN)|(1<<ADPS2)|(1<<ADPS1)|(1<<ADPS0);
-    
-}
 
 /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
-
+// move to Sensors.h
  inline uint16_t adc_read(uint8_t ch)
 {
     // select the corresponding channel 0~7
@@ -113,34 +99,10 @@ int main( void )
     
     display_init( &_display);
     
-    /* sensor array */
-    
-    adc_init();
-    
 
     
-    // MICs LDR
+    sensors_init( &_sensors);
 
-    setOutput( LDR_DATA_DDR       , LDR_DATA_PIN ); // data
-    setOutput( LDR_STROBE_DDR     , LDR_STROBE_PIN ); // strobe
-    setOutput( LDR_OUT_ENABLE_DDR , LDR_OUT_ENABLE_PIN ); // out enable
-    setOutput( LDR_CLOCK_DDR      , LDR_CLOCK_PIN ); // clock
-
-    
-    setHigh( MIC_STROBE_PORT , MIC_STROBE_PIN ); // strobe mic leds
-    setHigh( LDR_STROBE_PORT , LDR_STROBE_PIN ); // strobe mic LDR
-    
-    
-    // reset mic ldr
-    
-    setLow( LDR_DATA_PORT , LDR_DATA_PIN ); // data to low
-    
-    for (int i =0;i< 16;i++)
-        pulse( LDR_CLOCK_PORT , LDR_CLOCK_PIN );
-    
-
-    /* sensor array */
-    
     sei();
 
 

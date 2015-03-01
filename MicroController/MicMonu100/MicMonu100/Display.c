@@ -166,7 +166,7 @@ void TLC5940_Init(void)
         
     }
     
-    
+     setHigh( MIC_STROBE_PORT , MIC_STROBE_PIN ); // strobe mic leds
 
     
     setOutput(SCLK_DDR, SCLK_PIN);

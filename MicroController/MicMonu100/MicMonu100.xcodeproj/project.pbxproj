@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		59B41C881AA34642003CB61F /* Display.c in Sources */ = {isa = PBXBuildFile; fileRef = 59B41C871AA34641003CB61F /* Display.c */; };
+		59B41C8B1AA363B4003CB61F /* Sensors.c in Sources */ = {isa = PBXBuildFile; fileRef = 59B41C8A1AA363B4003CB61F /* Sensors.c */; };
 		59D40C3E1A9B463600FC0E5A /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 59D40C3D1A9B463600FC0E5A /* main.c */; };
 		59D40C411A9B463600FC0E5A /* Makefile in Sources */ = {isa = PBXBuildFile; fileRef = 59D40C401A9B463600FC0E5A /* Makefile */; };
 /* End PBXBuildFile section */
@@ -18,6 +19,8 @@
 		5953549D1A9E319C0054C036 /* Square15.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Square15.h; sourceTree = "<group>"; };
 		59B41C861AA3453A003CB61F /* Display.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Display.h; sourceTree = "<group>"; };
 		59B41C871AA34641003CB61F /* Display.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Display.c; sourceTree = "<group>"; };
+		59B41C891AA363A8003CB61F /* Sensors.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Sensors.h; sourceTree = "<group>"; };
+		59B41C8A1AA363B4003CB61F /* Sensors.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Sensors.c; sourceTree = "<group>"; };
 		59D40C3A1A9B463600FC0E5A /* Index */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Index; sourceTree = BUILT_PRODUCTS_DIR; };
 		59D40C3D1A9B463600FC0E5A /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 		59D40C401A9B463600FC0E5A /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
@@ -46,6 +49,8 @@
 			children = (
 				595354861A9DDAFB0054C036 /* PinsConfig.h */,
 				59D40C3D1A9B463600FC0E5A /* main.c */,
+				59B41C891AA363A8003CB61F /* Sensors.h */,
+				59B41C8A1AA363B4003CB61F /* Sensors.c */,
 				59B41C861AA3453A003CB61F /* Display.h */,
 				59B41C871AA34641003CB61F /* Display.c */,
 				5953549C1A9E05F60054C036 /* Chars.h */,
@@ -176,6 +181,7 @@
 				59D40C411A9B463600FC0E5A /* Makefile in Sources */,
 				59D40C3E1A9B463600FC0E5A /* main.c in Sources */,
 				59B41C881AA34642003CB61F /* Display.c in Sources */,
+				59B41C8B1AA363B4003CB61F /* Sensors.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
