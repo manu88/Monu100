@@ -1,0 +1,190 @@
+   1               		.file	"Sensors.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   9               		.text
+  10               	.Ltext0:
+ 115               	.global	adc_init
+ 117               	adc_init:
+   1:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** //
+   2:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** //  Sensors.c
+   3:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** //  MicMonu100
+   4:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** //
+   5:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** //  Created by Manuel Deneu on 01/03/15.
+   6:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** //  Copyright (c) 2015 Manuel Deneu. All rights reserved.
+   7:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** //
+   8:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** 
+   9:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** #include <stdio.h>
+  10:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** #include <avr/io.h>
+  11:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** 
+  12:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** 
+  13:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** #include "Sensors.h"
+  14:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** 
+  15:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** #include "PinsConfig.h"
+  16:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** 
+  17:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** 
+  18:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** 
+  19:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** // initialize adc
+  20:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** void adc_init(void)
+  21:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** {
+ 119               	.LM0:
+ 120               	.LFBB1:
+ 121               	/* prologue: function */
+ 122               	/* frame size = 0 */
+ 123               	/* stack size = 0 */
+ 124               	.L__stack_usage = 0
+  22:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     // MICs LDR
+  23:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     
+  24:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     setOutput( LDR_DATA_DDR       , LDR_DATA_PIN ); // data
+ 126               	.LM1:
+ 127 0000 579A      		sbi 0xa,7
+  25:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     setOutput( LDR_STROBE_DDR     , LDR_STROBE_PIN ); // strobe
+ 129               	.LM2:
+ 130 0002 6C9A      		sbi 0xd,4
+  26:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     setOutput( LDR_OUT_ENABLE_DDR , LDR_OUT_ENABLE_PIN ); // out enable
+ 132               	.LM3:
+ 133 0004 6B9A      		sbi 0xd,3
+  27:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     setOutput( LDR_CLOCK_DDR      , LDR_CLOCK_PIN ); // clock
+ 135               	.LM4:
+ 136 0006 569A      		sbi 0xa,6
+  28:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     
+  29:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     
+  30:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****    
+  31:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     setHigh( LDR_STROBE_PORT , LDR_STROBE_PIN ); // strobe mic LDR
+ 138               	.LM5:
+ 139 0008 749A      		sbi 0xe,4
+  32:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     
+  33:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     
+  34:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     // reset mic ldr
+  35:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     
+  36:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     setLow( LDR_DATA_PORT , LDR_DATA_PIN ); // data to low
+ 141               	.LM6:
+ 142 000a 5F98      		cbi 0xb,7
+ 143 000c 80E1      		ldi r24,lo8(16)
+ 144 000e 90E0      		ldi r25,0
+ 145               	.L3:
+ 146               	.LBB2:
+  37:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     
+  38:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     for (int i =0;i< 16;i++)
+  39:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****         pulse( LDR_CLOCK_PORT , LDR_CLOCK_PIN );
+ 148               	.LM7:
+ 149 0010 5E9A      		sbi 0xb,6
+ 150 0012 5E98      		cbi 0xb,6
+ 151 0014 0197      		sbiw r24,1
+  38:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     for (int i =0;i< 16;i++)
+ 153               	.LM8:
+ 154 0016 0097      		sbiw r24,0
+ 155 0018 01F4      		brne .L3
+ 156               	.LBE2:
+  40:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** 
+  41:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     
+  42:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     // AREF = AVcc
+  43:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     ADMUX = (1<<REFS0);
+ 158               	.LM9:
+ 159 001a 80E4      		ldi r24,lo8(64)
+ 160 001c 8093 7C00 		sts 124,r24
+  44:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     
+  45:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     // ADC Enable and prescaler of 128
+  46:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     // 16000000/128 = 125000
+  47:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     ADCSRA = (1<<ADEN)|(1<<ADPS2)|(1<<ADPS1)|(1<<ADPS0);
+ 162               	.LM10:
+ 163 0020 87E8      		ldi r24,lo8(-121)
+ 164 0022 8093 7A00 		sts 122,r24
+ 165 0026 0895      		ret
+ 167               	.Lscope1:
+ 171               	.global	sensors_setValuesTo
+ 173               	sensors_setValuesTo:
+  48:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     
+  49:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** 
+  50:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** }
+  51:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** 
+  52:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** void sensors_init( Sensors *sensors)
+  53:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** {
+  54:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     adc_init();    
+  55:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     sensors_setValuesTo(sensors, 0);
+  56:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     
+  57:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** }
+  58:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** 
+  59:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** 
+  60:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** void sensors_setValuesTo( Sensors *sensors , uint8_t val)
+  61:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** {
+ 175               	.LM11:
+ 176               	.LFBB2:
+ 177               	/* prologue: function */
+ 178               	/* frame size = 0 */
+ 179               	/* stack size = 0 */
+ 180               	.L__stack_usage = 0
+ 182               	.LM12:
+ 183 0028 2FE0      		ldi r18,lo8(15)
+ 184               	.L7:
+ 185               	.LBB3:
+  62:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     for (uint8_t i =0; i<SENSOR_COUNT ; i++)
+  63:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****         sensors->values[i] = val;
+ 187               	.LM13:
+ 188 002a FC01      		movw r30,r24
+ 189 002c 6193      		st Z+,r22
+ 190 002e CF01      		movw r24,r30
+ 191 0030 2150      		subi r18,lo8(-(-1))
+  62:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     for (uint8_t i =0; i<SENSOR_COUNT ; i++)
+ 193               	.LM14:
+ 194 0032 01F4      		brne .L7
+ 195               	/* epilogue start */
+ 196               	.LBE3:
+  64:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** }...
+ 198               	.LM15:
+ 199 0034 0895      		ret
+ 201               	.Lscope2:
+ 204               	.global	sensors_init
+ 206               	sensors_init:
+  53:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** {
+ 208               	.LM16:
+ 209               	.LFBB3:
+ 210 0036 CF93      		push r28
+ 211 0038 DF93      		push r29
+ 212 003a 1F92      		push __zero_reg__
+ 213 003c 1F92      		push __zero_reg__
+ 214 003e CDB7      		in r28,__SP_L__
+ 215 0040 DEB7      		in r29,__SP_H__
+ 216               	/* prologue: function */
+ 217               	/* frame size = 2 */
+ 218               	/* stack size = 4 */
+ 219               	.L__stack_usage = 4
+  54:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     adc_init();    
+ 221               	.LM17:
+ 222 0042 8983      		std Y+1,r24
+ 223 0044 9A83      		std Y+2,r25
+ 224 0046 0E94 0000 		call adc_init
+  55:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     sensors_setValuesTo(sensors, 0);
+ 226               	.LM18:
+ 227 004a 60E0      		ldi r22,0
+ 228 004c 8981      		ldd r24,Y+1
+ 229 004e 9A81      		ldd r25,Y+2
+ 230               	/* epilogue start */
+  57:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** }
+ 232               	.LM19:
+ 233 0050 0F90      		pop __tmp_reg__
+ 234 0052 0F90      		pop __tmp_reg__
+ 235 0054 DF91      		pop r29
+ 236 0056 CF91      		pop r28
+  55:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     sensors_setValuesTo(sensors, 0);
+ 238               	.LM20:
+ 239 0058 0C94 0000 		jmp sensors_setValuesTo
+ 241               	.Lscope3:
+ 243               	.Letext0:
+ 244               		.ident	"GCC: (GNU) 4.8.1"
+DEFINED SYMBOLS
+                            *ABS*:00000000 Sensors.c
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//cc1mdSqc.s:2      *ABS*:0000003e __SP_H__
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//cc1mdSqc.s:3      *ABS*:0000003d __SP_L__
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//cc1mdSqc.s:4      *ABS*:0000003f __SREG__
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//cc1mdSqc.s:5      *ABS*:0000003b __RAMPZ__
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//cc1mdSqc.s:6      *ABS*:00000000 __tmp_reg__
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//cc1mdSqc.s:7      *ABS*:00000001 __zero_reg__
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//cc1mdSqc.s:117    .text:00000000 adc_init
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//cc1mdSqc.s:173    .text:00000028 sensors_setValuesTo
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//cc1mdSqc.s:206    .text:00000036 sensors_init
+
+NO UNDEFINED SYMBOLS

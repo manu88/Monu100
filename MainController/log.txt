@@ -1,0 +1,1269 @@
+
+############ START ####################
+Date : Saturday 10 January 2015 
+Use file logging '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/log.txt' 
+Will use JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list.json'
+Will use temp JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Will use XML url : 'https://github.com/manu88/Monu100/blob/master/MainController/list.json'
+will update data at 10:51:10:250
+Wait for 1 controller(s) ... 
+Starting GPIO Thread
+All controllers are OK
+Unable to create soket for CAN interface 'can0'
+Unable to create soket for CAN interface 'can0'
+
+ unable to parse JSON file '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Temp. JSON seems wrong. Can't copy
+Current day is Dimanche
+ Network Thread Stopped
+network controller stopped
+GPIO Thread Stopped
+Wait for 0 controller(s) to finish ... 
+All controllers' tasks are Finished
+ Network Thread Stopped
+############ STOP ####################
+############ START ####################
+Date : Saturday 10 January 2015 
+Use file logging '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/log.txt' 
+Will use JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list.json'
+Will use temp JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Will use XML url : 'https://github.com/manu88/Monu100/blob/master/MainController/list.json'
+will update data at 10:51:10:250
+Starting GPIO Thread
+Wait for 1 controller(s) ... 
+All controllers are OK
+Unable to create soket for CAN interface 'can0'
+Unable to create soket for CAN interface 'can0'
+
+ unable to parse JSON file '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Temp. JSON seems wrong. Can't copy
+Current day is Dimanche
+##########################
+Begin system report :
+Data File    -> Present
+Data Parsing -> Ok
+-------
+URL valid      -> Ok
+Update inspect -> invalid
+Update copy    -> failed
+-------
+Can Interface -> Error
+Can Down      -> YES
+##########################
+############ START ####################
+Date : Saturday 10 January 2015 
+Use file logging '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/log.txt' 
+Will use JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list.json'
+Will use temp JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Will use XML url : 'https://github.com/manu88/Monu100/blob/master/MainController/list.json'
+will update data at 10:51:10:250
+Starting GPIO Thread
+Wait for 1 controller(s) ... 
+All controllers are OK
+Unable to create soket for CAN interface 'can0'
+Unable to create soket for CAN interface 'can0'
+
+ unable to parse JSON file '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Temp. JSON seems wrong. Can't copy
+Current day is Dimanche
+##########################
+Begin system report :
+Data File    -> Present
+Data Parsing -> Ok
+-------
+URL valid      -> Ok
+Update inspect -> invalid
+Update copy    -> failed
+-------
+Can Interface -> Error
+Can Ok        -> YES
+##########################
+network controller stopped
+ Network Thread Stopped
+GPIO Thread Stopped
+Wait for 0 controller(s) to finish ... 
+All controllers' tasks are Finished
+ Network Thread Stopped
+############ STOP ####################
+############ START ####################
+Date : Saturday 10 January 2015 
+Use file logging '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/log.txt' 
+Will use JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list.json'
+Will use temp JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Will use XML url : 'https://github.com/manu88/Monu100/blob/master/MainController/list.json'
+will update data at 11:16: 0:  0
+Wait for 3 controller(s) ... 
+Starting GPIO Thread
+All controllers are OK
+Unable to create soket for CAN interface 'can0'
+Unable to create soket for CAN interface 'can0'
+
+ unable to parse JSON file '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Temp. JSON seems wrong. Can't copy
+Current day is Dimanche
+############ START ####################
+Date : Saturday 10 January 2015 
+Use file logging '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/log.txt' 
+Will use JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list.json'
+Will use temp JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Will use XML url : 'https://github.com/manu88/Monu100/blob/master/MainController/list.json'
+will update data at 11:16: 0:  0
+Wait for 3 controller(s) ... 
+Starting GPIO Thread
+All controllers are OK
+Unable to create soket for CAN interface 'can0'
+Unable to create soket for CAN interface 'can0'
+
+ unable to parse JSON file '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Temp. JSON seems wrong. Can't copy
+Current day is Dimanche
+network controller stopped
+ Network Thread Stopped
+GPIO Thread Stopped
+Wait for 0 controller(s) to finish ... 
+All controllers' tasks are Finished
+############ STOP ####################
+############ START ####################
+Date : Saturday 10 January 2015 
+Use file logging '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/log.txt' 
+Will use JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list.json'
+Will use temp JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Will use XML url : 'https://github.com/manu88/Monu100/blob/master/MainController/list.json'
+will update data at 11:17: 0:  0
+Starting GPIO Thread
+Wait for 1 controller(s) ... 
+All controllers are OK
+Unable to create soket for CAN interface 'can0'
+Unable to create soket for CAN interface 'can0'
+
+ unable to parse JSON file '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Temp. JSON seems wrong. Can't copy
+Current day is Dimanche
+############ START ####################
+Date : Saturday 10 January 2015 
+Use file logging '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/log.txt' 
+Will use JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list.json'
+Will use temp JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Will use XML url : 'https://github.com/manu88/Monu100/blob/master/MainController/list.json'
+will update data at 11:19: 0:  0
+Starting GPIO Thread
+Wait for 1 controller(s) ... 
+All controllers are OK
+Unable to create soket for CAN interface 'can0'
+Unable to create soket for CAN interface 'can0'
+
+ unable to parse JSON file '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Temp. JSON seems wrong. Can't copy
+Current day is Dimanche
+############ START ####################
+Date : Saturday 10 January 2015 
+Use file logging '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/log.txt' 
+Will use JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list.json'
+Will use temp JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Will use XML url : 'https://github.com/manu88/Monu100/blob/master/MainController/list.json'
+will update data at 11:19: 0:  0
+Starting GPIO Thread
+Wait for 3 controller(s) ... 
+All controllers are OK
+Unable to create soket for CAN interface 'can0'
+Unable to create soket for CAN interface 'can0'
+
+ unable to parse JSON file '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Temp. JSON seems wrong. Can't copy
+Current day is Dimanche
+############ START ####################
+Date : Saturday 10 January 2015 
+Use file logging '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/log.txt' 
+Will use JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list.json'
+Will use temp JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Will use XML url : 'https://github.com/manu88/Monu100/blob/master/MainController/list.json'
+will update data at 11:19: 0:  0
+Starting GPIO Thread
+Wait for 2 controller(s) ... 
+All controllers are OK
+Unable to create soket for CAN interface 'can0'
+Unable to create soket for CAN interface 'can0'
+
+ unable to parse JSON file '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Temp. JSON seems wrong. Can't copy
+Current day is Dimanche
+############ START ####################
+Date : Saturday 10 January 2015 
+Use file logging '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/log.txt' 
+Will use JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list.json'
+Will use temp JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Will use XML url : 'https://github.com/manu88/Monu100/blob/master/MainController/list.json'
+will update data at 11:19: 0:  0
+Wait for 2 controller(s) ... 
+Starting GPIO Thread
+All controllers are OK
+Unable to create soket for CAN interface 'can0'
+Unable to create soket for CAN interface 'can0'
+
+ unable to parse JSON file '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Temp. JSON seems wrong. Can't copy
+Current day is Dimanche
+############ START ####################
+Date : Saturday 10 January 2015 
+Use file logging '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/log.txt' 
+Will use JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list.json'
+Will use temp JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Will use XML url : 'https://github.com/manu88/Monu100/blob/master/MainController/list.json'
+will update data at 11:19: 0:  0
+Wait for 1 controller(s) ... 
+Starting GPIO Thread
+All controllers are OK
+Unable to create soket for CAN interface 'can0'
+Unable to create soket for CAN interface 'can0'
+
+ unable to parse JSON file '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Temp. JSON seems wrong. Can't copy
+Current day is Dimanche
+Day has changed
+Day has changed
+Day has changed
+Day has changed
+Day has changed
+Day has changed
+Day has changed
+Day has changed
+Day has changed
+Day has changed
+Day has changed
+Day has changed
+Day has changed
+Day has changed
+############ START ####################
+Date : Saturday 10 January 2015 
+Use file logging '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/log.txt' 
+Will use JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list.json'
+Will use temp JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Will use XML url : 'https://github.com/manu88/Monu100/blob/master/MainController/list.json'
+will update data at 11:19: 0:  0
+Starting GPIO Thread
+Wait for 1 controller(s) ... 
+All controllers are OK
+Unable to create soket for CAN interface 'can0'
+Unable to create soket for CAN interface 'can0'
+
+ unable to parse JSON file '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Temp. JSON seems wrong. Can't copy
+Current day is Dimanche
+Day has changed
+network controller stopped
+ Network Thread Stopped
+GPIO Thread Stopped
+Wait for 0 controller(s) to finish ... 
+All controllers' tasks are Finished
+ Network Thread Stopped
+############ STOP ####################
+############ START ####################
+Date : Saturday 10 January 2015 
+Use file logging '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/log.txt' 
+Will use JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list.json'
+Will use temp JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Will use XML url : 'https://github.com/manu88/Monu100/blob/master/MainController/list.json'
+will update data at 11:19: 0:  0
+Wait for 2 controller(s) ... 
+Starting GPIO Thread
+All controllers are OK
+Unable to create soket for CAN interface 'can0'
+Unable to create soket for CAN interface 'can0'
+
+ unable to parse JSON file '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Temp. JSON seems wrong. Can't copy
+Current day is Dimanche
+############ START ####################
+Date : Saturday 10 January 2015 
+Use file logging '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/log.txt' 
+Will use JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list.json'
+Will use temp JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Will use XML url : 'https://github.com/manu88/Monu100/blob/master/MainController/list.json'
+will update data at 11:19: 0:  0
+Starting GPIO Thread
+Wait for 1 controller(s) ... 
+All controllers are OK
+Unable to create soket for CAN interface 'can0'
+Unable to create soket for CAN interface 'can0'
+
+ unable to parse JSON file '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Temp. JSON seems wrong. Can't copy
+Current day is Dimanche
+Day has changed
+############ START ####################
+Date : Saturday 10 January 2015 
+Use file logging '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/log.txt' 
+Will use JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list.json'
+Will use temp JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Will use XML url : 'https://github.com/manu88/Monu100/blob/master/MainController/list.json'
+will update data at 11:19: 0:  0
+Wait for 3 controller(s) ... 
+Starting GPIO Thread
+All controllers are OK
+Unable to create soket for CAN interface 'can0'
+Unable to create soket for CAN interface 'can0'
+
+ unable to parse JSON file '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Temp. JSON seems wrong. Can't copy
+Current day is Dimanche
+Day has changed
+Day has changed
+Day has changed
+############ START ####################
+Date : Saturday 10 January 2015 
+Use file logging '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/log.txt' 
+Will use JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list.json'
+Will use temp JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Will use XML url : 'https://github.com/manu88/Monu100/blob/master/MainController/list.json'
+will update data at 11:19: 0:  0
+Wait for 1 controller(s) ... 
+Starting GPIO Thread
+All controllers are OK
+Unable to create soket for CAN interface 'can0'
+Unable to create soket for CAN interface 'can0'
+
+ unable to parse JSON file '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Temp. JSON seems wrong. Can't copy
+Current day is Dimanche
+Day has changed
+############ START ####################
+Date : Saturday 10 January 2015 
+Use file logging '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/log.txt' 
+Will use JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list.json'
+Will use temp JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Will use XML url : 'https://github.com/manu88/Monu100/blob/master/MainController/list.json'
+will update data at 11:19: 0:  0
+Wait for 3 controller(s) ... 
+Starting GPIO Thread
+All controllers are OK
+Unable to create soket for CAN interface 'can0'
+Unable to create soket for CAN interface 'can0'
+
+ unable to parse JSON file '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Temp. JSON seems wrong. Can't copy
+Current day is Dimanche
+Day has changed
+ Network Thread Stopped
+network controller stopped
+GPIO Thread Stopped
+Wait for 0 controller(s) to finish ... 
+All controllers' tasks are Finished
+############ STOP ####################
+############ START ####################
+Date : Saturday 10 January 2015 
+Use file logging '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/log.txt' 
+Will use JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list.json'
+Will use temp JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Will use XML url : 'https://github.com/manu88/Monu100/blob/master/MainController/list.json'
+will update data at 11:19: 0:  0
+Wait for 1 controller(s) ... 
+Starting GPIO Thread
+All controllers are OK
+Unable to create soket for CAN interface 'can0'
+Unable to create soket for CAN interface 'can0'
+
+ unable to parse JSON file '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Temp. JSON seems wrong. Can't copy
+Current day is Dimanche
+############ START ####################
+Date : Saturday 10 January 2015 
+Use file logging '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/log.txt' 
+Will use JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list.json'
+Will use temp JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Will use XML url : 'https://github.com/manu88/Monu100/blob/master/MainController/list.json'
+will update data at 11:19: 0:  0
+Starting GPIO Thread
+Wait for 1 controller(s) ... 
+All controllers are OK
+Unable to create soket for CAN interface 'can0'
+Unable to create soket for CAN interface 'can0'
+
+ unable to parse JSON file '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Temp. JSON seems wrong. Can't copy
+Current day is Dimanche
+Day has changed
+Day has changed
+
+ unable to parse JSON file '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Temp. JSON seems wrong. Can't copy
+
+ unable to parse JSON file '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Temp. JSON seems wrong. Can't copy
+
+ unable to parse JSON file '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Temp. JSON seems wrong. Can't copy
+############ START ####################
+Date : Saturday 10 January 2015 
+Use file logging '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/log.txt' 
+Will use JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list.json'
+Will use temp JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Will use XML url : 'https://github.com/manu88/Monu100/blob/master/MainController/list.json'
+will update data at 11:19: 0:  0
+Wait for 1 controller(s) ... 
+Starting GPIO Thread
+All controllers are OK
+Unable to create soket for CAN interface 'can0'
+Unable to create soket for CAN interface 'can0'
+
+ unable to parse JSON file '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Temp. JSON seems wrong. Can't copy
+Current day is Dimanche
+
+ unable to parse JSON file '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Temp. JSON seems wrong. Can't copy
+Day has changed
+############ START ####################
+Date : Saturday 10 January 2015 
+Use file logging '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/log.txt' 
+Will use JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list.json'
+Will use temp JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Will use XML url : 'https://github.com/manu88/Monu100/blob/master/MainController/list.json'
+will update data at 11:19: 0:  0
+Wait for 1 controller(s) ... 
+Starting GPIO Thread
+All controllers are OK
+Unable to create soket for CAN interface 'can0'
+Unable to create soket for CAN interface 'can0'
+
+ unable to parse JSON file '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Temp. JSON seems wrong. Can't copy
+Current day is Dimanche
+
+ unable to parse JSON file '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Temp. JSON seems wrong. Can't copy
+Day has changed
+############ START ####################
+Date : Saturday 10 January 2015 
+Use file logging '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/log.txt' 
+Will use JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list.json'
+Will use temp JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Will use XML url : 'https://github.com/manu88/Monu100/blob/master/MainController/list.json'
+will update data at 11:19: 0:  0
+Starting GPIO Thread
+Wait for 1 controller(s) ... 
+All controllers are OK
+Unable to create soket for CAN interface 'can0'
+Unable to create soket for CAN interface 'can0'
+
+ unable to parse JSON file '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Temp. JSON seems wrong. Can't copy
+Current day is Dimanche
+############ START ####################
+Date : Saturday 10 January 2015 
+Use file logging '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/log.txt' 
+Will use JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list.json'
+Will use temp JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Will use XML url : 'https://github.com/manu88/Monu100/blob/master/MainController/list.json'
+will update data at 11:19: 0:  0
+Wait for 3 controller(s) ... 
+Starting GPIO Thread
+All controllers are OK
+Unable to create soket for CAN interface 'can0'
+Unable to create soket for CAN interface 'can0'
+
+ unable to parse JSON file '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Temp. JSON seems wrong. Can't copy
+Current day is Dimanche
+Day has changed
+
+ unable to parse JSON file '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Temp. JSON seems wrong. Can't copy
+
+ unable to parse JSON file '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Temp. JSON seems wrong. Can't copy
+
+ unable to parse JSON file '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Temp. JSON seems wrong. Can't copy
+
+ unable to parse JSON file '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Temp. JSON seems wrong. Can't copy
+############ START ####################
+Date : Saturday 10 January 2015 
+Use file logging '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/log.txt' 
+Will use JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list.json'
+Will use temp JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Will use XML url : 'https://github.com/manu88/Monu100/blob/master/MainController/list.json'
+will update data at 11:19: 0:  0
+Wait for 1 controller(s) ... 
+Starting GPIO Thread
+All controllers are OK
+Unable to create soket for CAN interface 'can0'
+Unable to create soket for CAN interface 'can0'
+
+ unable to parse JSON file '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Temp. JSON seems wrong. Can't copy
+Current day is Dimanche
+Day has changed
+
+ unable to parse JSON file '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Temp. JSON seems wrong. Can't copy
+
+ unable to parse JSON file '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Temp. JSON seems wrong. Can't copy
+############ START ####################
+Date : Saturday 10 January 2015 
+Use file logging '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/log.txt' 
+Will use JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list.json'
+Will use temp JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Will use XML url : 'https://github.com/manu88/Monu100/blob/master/MainController/list.json'
+will update data at 11:19: 0:  0
+Wait for 3 controller(s) ... 
+Starting GPIO Thread
+All controllers are OK
+Unable to create soket for CAN interface 'can0'
+Unable to create soket for CAN interface 'can0'
+############ START ####################
+Date : Saturday 10 January 2015 
+Use file logging '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/log.txt' 
+Will use JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list.json'
+Will use temp JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Will use XML url : 'https://github.com/manu88/Monu100/blob/master/MainController/list.json'
+will update data at 11:19: 0:  0
+Wait for 3 controller(s) ... 
+Starting GPIO Thread
+All controllers are OK
+Unable to create soket for CAN interface 'can0'
+Unable to create soket for CAN interface 'can0'
+
+ unable to parse JSON file '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Temp. JSON seems wrong. Can't copy
+Current day is Dimanche
+############ START ####################
+Date : Saturday 10 January 2015 
+Use file logging '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/log.txt' 
+Will use JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list.json'
+Will use temp JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Will use XML url : 'https://github.com/manu88/Monu100/blob/master/MainController/list.json'
+will update data at 11:19: 0:  0
+Wait for 1 controller(s) ... 
+Starting GPIO Thread
+All controllers are OK
+Unable to create soket for CAN interface 'can0'
+Unable to create soket for CAN interface 'can0'
+Current day is Dimanche
+Day has changed
+############ START ####################
+Date : Saturday 10 January 2015 
+Use file logging '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/log.txt' 
+Will use JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list.json'
+Will use temp JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Will use XML url : 'https://github.com/manu88/Monu100/blob/master/MainController/list.json'
+will update data at 11:19: 0:  0
+Starting GPIO Thread
+Wait for 2 controller(s) ... 
+All controllers are OK
+Unable to create soket for CAN interface 'can0'
+Unable to create soket for CAN interface 'can0'
+Current day is Dimanche
+Day has changed
+##########################
+Begin system report :
+Data File    -> Present
+Data Parsing -> Ok
+-------
+URL valid      -> Ok
+Update inspect -> Ok
+Update copy    -> Ok
+-------
+Can Interface -> Error
+Can Ok        -> YES
+##########################
+############ START ####################
+Date : Saturday 10 January 2015 
+Use file logging '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/log.txt' 
+Will use JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list.json'
+Will use temp JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Will use XML url : 'https://github.com/manu88/Monu100/blob/master/MainController/list.json'
+will update data at 11:19: 0:  0
+Starting GPIO Thread
+Wait for 2 controller(s) ... 
+All controllers are OK
+Unable to create soket for CAN interface 'can0'
+Unable to create soket for CAN interface 'can0'
+
+ unable to parse JSON file '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Temp. JSON seems wrong. Can't copy
+Current day is Dimanche
+Day has changed
+
+ unable to parse JSON file '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Temp. JSON seems wrong. Can't copy
+
+ unable to parse JSON file '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Temp. JSON seems wrong. Can't copy
+##########################
+Begin system report :
+Data File    -> Present
+Data Parsing -> Ok
+-------
+URL valid      -> Ok
+Update inspect -> invalid
+Update copy    -> failed
+-------
+Can Interface -> Error
+Can Ok        -> YES
+##########################
+
+ unable to parse JSON file '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Temp. JSON seems wrong. Can't copy
+############ START ####################
+Date : Saturday 10 January 2015 
+Use file logging '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/log.txt' 
+Will use JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list.json'
+Will use temp JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Will use XML url : 'https://github.com/manu88/Monu100/blob/master/MainController/list.json'
+will update data at 11:19: 0:  0
+Starting GPIO Thread
+Wait for 1 controller(s) ... 
+All controllers are OK
+Unable to create soket for CAN interface 'can0'
+Unable to create soket for CAN interface 'can0'
+
+ unable to parse JSON file '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Temp. JSON seems wrong. Can't copy
+Current day is Dimanche
+network controller stopped
+ Network Thread Stopped
+GPIO Thread Stopped
+Wait for 0 controller(s) to finish ... 
+All controllers' tasks are Finished
+ Network Thread Stopped
+############ STOP ####################
+############ START ####################
+Date : Saturday 10 January 2015 
+Use file logging '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/log.txt' 
+Will use JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list.json'
+Will use temp JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Will use XML url : 'https://github.com/manu88/Monu100/blob/master/MainController/list.json'
+will update data at 11:19: 0:  0
+Wait for 1 controller(s) ... 
+Starting GPIO Thread
+All controllers are OK
+Unable to create soket for CAN interface 'can0'
+Unable to create soket for CAN interface 'can0'
+
+ unable to parse JSON file '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Temp. JSON seems wrong. Can't copy
+Current day is Dimanche
+Day has changed
+
+ unable to parse JSON file '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Temp. JSON seems wrong. Can't copy
+
+ unable to parse JSON file '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Temp. JSON seems wrong. Can't copy
+
+ unable to parse JSON file '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Temp. JSON seems wrong. Can't copy
+
+ unable to parse JSON file '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Temp. JSON seems wrong. Can't copy
+############ START ####################
+Date : Saturday 10 January 2015 
+Use file logging '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/log.txt' 
+Will use JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list.json'
+Will use temp JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Will use XML url : 'https://github.com/manu88/Monu100/blob/master/MainController/list.json'
+will update data at 11:19: 0:  0
+Wait for 3 controller(s) ... 
+Starting GPIO Thread
+All controllers are OK
+Unable to create soket for CAN interface 'can0'
+Unable to create soket for CAN interface 'can0'
+
+ unable to parse JSON file '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Temp. JSON seems wrong. Can't copy
+Current day is Dimanche
+Day has changed
+
+ unable to parse JSON file '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Temp. JSON seems wrong. Can't copy
+
+ unable to parse JSON file '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Temp. JSON seems wrong. Can't copy
+############ START ####################
+Date : Saturday 10 January 2015 
+Use file logging '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/log.txt' 
+Will use JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list.json'
+Will use temp JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Will use XML url : 'https://github.com/manu88/Monu100/blob/master/MainController/list.json'
+will update data at 11:19: 0:  0
+Wait for 2 controller(s) ... 
+Starting GPIO Thread
+All controllers are OK
+Unable to create soket for CAN interface 'can0'
+Unable to create soket for CAN interface 'can0'
+
+ unable to parse JSON file '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Temp. JSON seems wrong. Can't copy
+Current day is Dimanche
+Day has changed
+
+ unable to parse JSON file '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Temp. JSON seems wrong. Can't copy
+############ START ####################
+Date : Saturday 10 January 2015 
+Use file logging '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/log.txt' 
+Will use JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list.json'
+Will use temp JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Will use XML url : 'http://github.com/manu88/Monu100/blob/master/MainController/list.json'
+will update data at 11:19: 0:  0
+Wait for 1 controller(s) ... 
+Starting GPIO Thread
+All controllers are OK
+Unable to create soket for CAN interface 'can0'
+Unable to create soket for CAN interface 'can0'
+
+ unable to parse JSON file '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Temp. JSON seems wrong. Can't copy
+Current day is Dimanche
+Day has changed
+
+ unable to parse JSON file '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Temp. JSON seems wrong. Can't copy
+ Network Thread Stopped
+network controller stopped
+GPIO Thread Stopped
+Wait for 0 controller(s) to finish ... 
+All controllers' tasks are Finished
+ Network Thread Stopped
+############ STOP ####################
+############ START ####################
+Date : Tuesday 13 January 2015 
+Use file logging '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/log.txt' 
+Will use JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list.json'
+Will use temp JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Will use XML url : 'http://github.com/manu88/Monu100/blob/master/MainController/list.json'
+will update data at 11:19: 0:  0
+Wait for 2 controller(s) ... 
+Starting GPIO Thread
+All controllers are OK
+Unable to create soket for CAN interface 'can0'
+Unable to create soket for CAN interface 'can0'
+
+ unable to parse JSON file '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Temp. JSON seems wrong. Can't copy
+Current day is Dimanche
+Day has changed
+
+ unable to parse JSON file '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Temp. JSON seems wrong. Can't copy
+Day has changed
+
+ unable to parse JSON file '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Temp. JSON seems wrong. Can't copy
+##########################
+Begin system report :
+Data File    -> Present
+Data Parsing -> Ok
+-------
+URL valid      -> Ok
+Update inspect -> invalid
+Update copy    -> failed
+-------
+Can Interface -> Error
+Can Ok        -> YES
+##########################
+##########################
+Begin system report :
+Data File    -> Present
+Data Parsing -> Ok
+-------
+URL valid      -> Ok
+Update inspect -> invalid
+Update copy    -> failed
+-------
+Can Interface -> Error
+Can Ok        -> YES
+##########################
+##########################
+Begin system report :
+Data File    -> Present
+Data Parsing -> Ok
+-------
+URL valid      -> Ok
+Update inspect -> invalid
+Update copy    -> failed
+-------
+Can Interface -> Error
+Can Ok        -> YES
+##########################
+##########################
+Begin system report :
+Data File    -> Present
+Data Parsing -> Ok
+-------
+URL valid      -> Ok
+Update inspect -> invalid
+Update copy    -> failed
+-------
+Can Interface -> Error
+Can Ok        -> YES
+##########################
+
+ unable to parse JSON file '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Temp. JSON seems wrong. Can't copy
+Day has changed
+Day has changed
+Day has changed
+############ START ####################
+Date : Tuesday 13 January 2015 
+Use file logging '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/log.txt' 
+Will use JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list.json'
+Will use temp JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Will use XML url : 'http://github.com/manu88/Monu100/blob/master/MainController/list.json'
+will update data at 11:19: 0:  0
+Starting GPIO Thread
+Wait for 2 controller(s) ... 
+All controllers are OK
+Unable to create soket for CAN interface 'can0'
+Unable to create soket for CAN interface 'can0'
+
+ unable to parse JSON file '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Temp. JSON seems wrong. Can't copy
+Current day is Dimanche
+Day has changed
+system goes to active state ...
+ Network Thread Stopped
+network controller stopped
+GPIO Thread Stopped
+Wait for 0 controller(s) to finish ... 
+All controllers' tasks are Finished
+ Network Thread Stopped
+############ STOP ####################
+############ START ####################
+Date : Tuesday 13 January 2015 
+Use file logging '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/log.txt' 
+Will use JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list.json'
+Will use temp JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Will use XML url : 'http://github.com/manu88/Monu100/blob/master/MainController/list.json'
+will update data at 11:19: 0:  0
+Wait for 3 controller(s) ... 
+Starting GPIO Thread
+All controllers are OK
+Unable to create soket for CAN interface 'can0'
+Unable to create soket for CAN interface 'can0'
+
+ unable to parse JSON file '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Temp. JSON seems wrong. Can't copy
+Current day is Dimanche
+system goes to active state ...
+system goes to inactive state ...
+system goes to active state ...
+system goes to inactive state ...
+system goes to active state ...
+system goes to inactive state ...
+system goes to active state ...
+system goes to inactive state ...
+system goes to active state ...
+system goes to inactive state ...
+system goes to active state ...
+system goes to inactive state ...
+system goes to active state ...
+system goes to inactive state ...
+Day has changed
+system goes to active state ...
+ Network Thread Stopped
+network controller stopped
+GPIO Thread Stopped
+Wait for 0 controller(s) to finish ... 
+All controllers' tasks are Finished
+############ STOP ####################
+############ START ####################
+Date : Tuesday 13 January 2015 
+Use file logging '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/log.txt' 
+Will use JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list.json'
+Will use temp JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Will use XML url : 'http://github.com/manu88/Monu100/blob/master/MainController/list.json'
+will update data at 11:19: 0:  0
+Wait for 1 controller(s) ... 
+Starting GPIO Thread
+All controllers are OK
+Unable to create soket for CAN interface 'can0'
+Unable to create soket for CAN interface 'can0'
+
+ unable to parse JSON file '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Temp. JSON seems wrong. Can't copy
+Current day is Dimanche
+############ START ####################
+Date : Wednesday 14 January 2015 
+Use file logging '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/log.txt' 
+Will use JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list.json'
+Will use temp JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Will use XML url : 'http://github.com/manu88/Monu100/blob/master/MainController/list.json'
+will update data at 11:19: 0:  0
+Wait for 3 controller(s) ... 
+Starting GPIO Thread
+All controllers are OK
+Unable to create soket for CAN interface 'can0'
+Unable to create soket for CAN interface 'can0'
+
+ unable to parse JSON file '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Temp. JSON seems wrong. Can't copy
+Current day is Dimanche
+Day has changed
+############ START ####################
+Date : Friday 16 January 2015 
+Use file logging '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/log.txt' 
+Will use JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list.json'
+Will use temp JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Will use XML url : 'http://github.com/manu88/Monu100/blob/master/MainController/list.json'
+will update data at 11:19: 0:  0
+Starting GPIO Thread
+Wait for 2 controller(s) ... 
+All controllers are OK
+Unable to create soket for CAN interface 'can0'
+Unable to create soket for CAN interface 'can0'
+
+ unable to parse JSON file '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Temp. JSON seems wrong. Can't copy
+Current day is Dimanche
+############ START ####################
+Date : Saturday 17 January 2015 
+Use file logging '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/log.txt' 
+Will use JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list.json'
+Will use temp JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Will use XML url : 'http://github.com/manu88/Monu100/blob/master/MainController/list.json'
+will update data at 11:19: 0:  0
+Starting GPIO Thread
+Wait for 2 controller(s) ... 
+All controllers are OK
+Unable to create soket for CAN interface 'can0'
+Unable to create soket for CAN interface 'can0'
+
+ unable to parse JSON file '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Temp. JSON seems wrong. Can't copy
+Current day is Dimanche
+
+ unable to parse JSON file '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Temp. JSON seems wrong. Can't copy
+
+ unable to parse JSON file '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Temp. JSON seems wrong. Can't copy
+############ START ####################
+Date : Saturday 17 January 2015 
+Use file logging '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/log.txt' 
+Will use JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list.json'
+Will use temp JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Will use XML url : 'http://github.com/manu88/Monu100/blob/master/MainController/list.json'
+will update data at 11:19: 0:  0
+Wait for 1 controller(s) ... 
+Starting GPIO Thread
+All controllers are OK
+Unable to create soket for CAN interface 'can0'
+Unable to create soket for CAN interface 'can0'
+
+ unable to parse JSON file '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Temp. JSON seems wrong. Can't copy
+Current day is Dimanche
+ Network Thread Stopped
+network controller stopped
+GPIO Thread Stopped
+Wait for 0 controller(s) to finish ... 
+All controllers' tasks are Finished
+############ STOP ####################
+############ START ####################
+Date : Saturday 17 January 2015 
+Use file logging '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/log.txt' 
+Will use JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list.json'
+Will use temp JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Will use XML url : 'http://github.com/manu88/Monu100/blob/master/MainController/list.json'
+will update data at 11:19: 0:  0
+Wait for 1 controller(s) ... 
+Starting GPIO Thread
+All controllers are OK
+Unable to create soket for CAN interface 'can0'
+Unable to create soket for CAN interface 'can0'
+
+ unable to parse JSON file '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Temp. JSON seems wrong. Can't copy
+Current day is Dimanche
+ Network Thread Stopped
+network controller stopped
+GPIO Thread Stopped
+Wait for 0 controller(s) to finish ... 
+All controllers' tasks are Finished
+ Network Thread Stopped
+############ STOP ####################
+############ START ####################
+Date : Saturday 17 January 2015 
+Use file logging '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/log.txt' 
+Will use JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list.json'
+Will use temp JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Will use XML url : 'http://github.com/manu88/Monu100/blob/master/MainController/list.json'
+will update data at 11:19: 0:  0
+Wait for 1 controller(s) ... 
+Starting GPIO Thread
+ gpio in list is empty, wait...
+All controllers are OK
+############ START ####################
+Date : Saturday 17 January 2015 
+Use file logging '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/log.txt' 
+Will use JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list.json'
+Will use temp JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Will use XML url : 'http://github.com/manu88/Monu100/blob/master/MainController/list.json'
+will update data at 11:19: 0:  0
+Wait for 3 controller(s) ... 
+Starting GPIO Thread
+ gpio in list is empty, wait...
+All controllers are OK
+Unable to create soket for CAN interface 'can0'
+Unable to create soket for CAN interface 'can0'
+
+ unable to parse JSON file '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Temp. JSON seems wrong. Can't copy
+Current day is Dimanche
+
+ unable to parse JSON file '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Temp. JSON seems wrong. Can't copy
+
+ unable to parse JSON file '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Temp. JSON seems wrong. Can't copy
+network controller stopped
+ Network Thread Stopped
+############ START ####################
+Date : Saturday 17 January 2015 
+Use file logging '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/log.txt' 
+Will use JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list.json'
+Will use temp JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Will use XML url : 'http://github.com/manu88/Monu100/blob/master/MainController/list.json'
+will update data at 11:19: 0:  0
+Starting GPIO Thread
+Wait for 1 controller(s) ... 
+All controllers are OK
+ gpio in list is empty, wait...
+Unable to create soket for CAN interface 'can0'
+Unable to create soket for CAN interface 'can0'
+
+ unable to parse JSON file '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Temp. JSON seems wrong. Can't copy
+Current day is Dimanche
+
+ unable to parse JSON file '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Temp. JSON seems wrong. Can't copy
+network controller stopped
+ Network Thread Stopped
+GPIO Thread Stopped
+Wait for 0 controller(s) to finish ... 
+All controllers' tasks are Finished
+############ STOP ####################
+############ START ####################
+Date : Saturday 17 January 2015 
+Use file logging '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/log.txt' 
+Will use JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list.json'
+Will use temp JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Will use XML url : 'http://github.com/manu88/Monu100/blob/master/MainController/list.json'
+will update data at 11:19: 0:  0
+Starting GPIO Thread
+Wait for 1 controller(s) ... 
+All controllers are OK
+Unable to create soket for CAN interface 'can0'
+Unable to create soket for CAN interface 'can0'
+
+ unable to parse JSON file '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Temp. JSON seems wrong. Can't copy
+Current day is Dimanche
+network controller stopped
+ Network Thread Stopped
+GPIO Thread Stopped
+Wait for 0 controller(s) to finish ... 
+All controllers' tasks are Finished
+ Network Thread Stopped
+############ STOP ####################
+############ START ####################
+Date : Saturday 17 January 2015 
+Use file logging '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/log.txt' 
+Will use JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list.json'
+Will use temp JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Will use XML url : 'http://github.com/manu88/Monu100/blob/master/MainController/list.json'
+will update data at 11:19: 0:  0
+Wait for 3 controller(s) ... 
+Starting GPIO Thread
+ gpio in list is empty, wait...
+All controllers are OK
+Unable to create soket for CAN interface 'can0'
+Unable to create soket for CAN interface 'can0'
+
+ unable to parse JSON file '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Temp. JSON seems wrong. Can't copy
+Current day is Dimanche
+############ START ####################
+Date : Saturday 17 January 2015 
+Use file logging '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/log.txt' 
+Will use JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list.json'
+Will use temp JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Will use XML url : 'http://github.com/manu88/Monu100/blob/master/MainController/list.json'
+will update data at 11:19: 0:  0
+Starting GPIO Thread
+Wait for 1 controller(s) ... 
+ gpio in list is empty, wait...
+All controllers are OK
+Unable to create soket for CAN interface 'can0'
+Unable to create soket for CAN interface 'can0'
+
+ unable to parse JSON file '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Temp. JSON seems wrong. Can't copy
+Current day is Dimanche
+##########################
+Begin system report :
+Data File    -> Present
+Data Parsing -> Ok
+-------
+URL valid      -> Ok
+Update inspect -> invalid
+Update copy    -> failed
+-------
+Can Interface -> Error
+Can Ok        -> YES
+##########################
+ Network Thread Stopped
+network controller stopped
+GPIO Thread Stopped
+Wait for 0 controller(s) to finish ... 
+All controllers' tasks are Finished
+ Network Thread Stopped
+############ STOP ####################
+############ START ####################
+Date : Wednesday 21 January 2015 
+Use file logging '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/log.txt' 
+Will use JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list.json'
+Will use temp JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Will use XML url : 'http://github.com/manu88/Monu100/blob/master/MainController/list.json'
+will update data at 11:19: 0:  0
+Wait for 2 controller(s) ... 
+Starting GPIO Thread
+ gpio in list is empty, wait...
+All controllers are OK
+Unable to create soket for CAN interface 'can0'
+Unable to create soket for CAN interface 'can0'
+
+ unable to parse JSON file '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Temp. JSON seems wrong. Can't copy
+Current day is Dimanche
+Day has changed
+############ START ####################
+Date : Wednesday 21 January 2015 
+Use file logging '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/log.txt' 
+Will use JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list.json'
+Will use temp JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Will use XML url : 'http://github.com/manu88/Monu100/blob/master/MainController/list.json'
+will update data at 11:19: 0:  0
+Wait for 1 controller(s) ... 
+Starting GPIO Thread
+ gpio in list is empty, wait...
+All controllers are OK
+Unable to create soket for CAN interface 'can0'
+Unable to create soket for CAN interface 'can0'
+
+ unable to parse JSON file '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Temp. JSON seems wrong. Can't copy
+Current day is Dimanche
+main loop unlocked
+main loop unlocked
+main loop unlocked
+main loop unlocked
+main loop unlocked
+Day has changed
+main loop unlocked
+main loop unlocked
+main loop unlocked
+ Network Thread Stopped
+network controller stopped
+GPIO Thread Stopped
+Wait for 0 controller(s) to finish ... 
+All controllers' tasks are Finished
+############ STOP ####################
+############ START ####################
+Date : Wednesday 21 January 2015 
+Use file logging '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/log.txt' 
+Will use JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list.json'
+Will use temp JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Will use XML url : 'http://github.com/manu88/Monu100/blob/master/MainController/list.json'
+will update data at 11:19: 0:  0
+Starting GPIO Thread
+Wait for 1 controller(s) ... 
+All controllers are OK
+Unable to create soket for CAN interface 'can0'
+Unable to create soket for CAN interface 'can0'
+
+ unable to parse JSON file '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Temp. JSON seems wrong. Can't copy
+Current day is Dimanche
+main loop unlocked
+main loop unlocked
+main loop unlocked
+main loop unlocked
+main loop unlocked
+main loop unlocked
+main loop unlocked
+main loop unlocked
+main loop unlocked
+main loop unlocked
+main loop unlocked
+system goes to active state ...
+system goes to inactive state ...
+system goes to active state ...
+system goes to inactive state ...
+main loop unlocked
+main loop unlocked
+main loop unlocked
+main loop unlocked
+main loop unlocked
+main loop unlocked
+main loop unlocked
+main loop unlocked
+main loop unlocked
+main loop unlocked
+main loop unlocked
+main loop unlocked
+main loop unlocked
+main loop unlocked
+main loop unlocked
+main loop unlocked
+main loop unlocked
+main loop unlocked
+main loop unlocked
+main loop unlocked
+##########################
+Begin system report :
+Data File    -> Present
+Data Parsing -> Ok
+-------
+URL valid      -> Ok
+Update inspect -> invalid
+Update copy    -> failed
+-------
+Can Interface -> Error
+Can Ok        -> YES
+##########################
+main loop unlocked
+ Network Thread Stopped
+network controller stopped
+GPIO Thread Stopped
+Wait for 0 controller(s) to finish ... 
+All controllers' tasks are Finished
+############ STOP ####################
+############ START ####################
+Date : Wednesday 21 January 2015 
+Use file logging '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/log.txt' 
+Will use JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list.json'
+Will use temp JSON file : '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Will use XML url : 'http://github.com/manu88/Monu100/blob/master/MainController/list.json'
+will update data at 11:19: 0:  0
+Starting GPIO Thread
+Wait for 3 controller(s) ... 
+All controllers are OK
+Unable to create soket for CAN interface 'can0'
+Unable to create soket for CAN interface 'can0'
+
+ unable to parse JSON file '/Users/manueldeneu/Documents/projets/dev/Monu100/MainController/list_temp.json'
+Temp. JSON seems wrong. Can't copy
+Current day is Dimanche
+main loop unlocked
+ Network Thread Stopped
+network controller stopped
+GPIO Thread Stopped
+Wait for 0 controller(s) to finish ... 
+All controllers' tasks are Finished
+ Network Thread Stopped
+############ STOP ####################

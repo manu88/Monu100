@@ -13,6 +13,8 @@
 #define X_TLC_MAX 30
 #define Y_MIC_MAX 30
 
+#define PIXEL_MAX_VALUE  100 //112
+
 struct _Point
 {
     uint8_t x;
@@ -39,9 +41,7 @@ struct _Display
     
     /* This color will be used when clearing the display */
     uint8_t backgroundColor;
-    
     uint8_t fillColor;
-    
     uint8_t fontColor;
     
     
@@ -63,9 +63,13 @@ void display_swapbuffers   ( Display *display);
 void display_setNeedsUpdate( Display *display);
 uint8_t display_needsUpdate( Display *display);
 
+/* getters/setters */
+
+void display_setFontColor( Display *display ,uint8_t color);
+void display_setFillColor( Display *display ,uint8_t color);
+
 // inv x<->y
 void display_clearZone     ( Display *display , const uint8_t x , const uint8_t y, const uint8_t w , const uint8_t h );
-
 void display_clear         ( Display *display);
 
 void display_translate( Display *display , int8_t dX , int8_t dY);
@@ -82,7 +86,7 @@ void display_fillZone  ( Display *display , const uint8_t x , const uint8_t y, c
 
 // inv x<->y 
 void display_setPixel( Display *display , const uint8_t x , const uint8_t y, const uint8_t value);
-
+void display_addPixel( Display *display , const uint8_t x , const uint8_t y, const uint8_t value);
 
 
 

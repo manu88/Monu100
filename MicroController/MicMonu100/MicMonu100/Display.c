@@ -105,7 +105,7 @@ ISR(TIMER0_COMPA_vect)
     // additionnal pulse for non-wired outs of mics.
     
     if ( (rowIndex == 15) ||
-        (rowIndex == 22)
+         (rowIndex == 22)
         )
     {
         setLow( DATA0_PORT , DATA0_PIN);
@@ -196,7 +196,17 @@ void TLC5940_Init(void)
 }
 
 
-/* **** **** **** **** **** **** **** **** **** **** **** */
+/* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
+/* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
+
+inline uint8_t clipVal( uint8_t val)
+{
+    return val>=PIXEL_MAX_VALUE ? PIXEL_MAX_VALUE : val;
+}
+
+/* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
+/* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
+
 
 
 void display_init( Display *display)
@@ -207,8 +217,8 @@ void display_init( Display *display)
     display->pos.y = 0;
     
     display->backgroundColor = 0b00000000;
-    display->fontColor = 0b11111111;
-    display->fillColor = 0b11110000;
+    display->fontColor = PIXEL_MAX_VALUE;
+    display->fillColor = PIXEL_MAX_VALUE;
     
     display->isDrawing = 0;
     
@@ -236,7 +246,19 @@ uint8_t display_needsUpdate( Display *display)
     return display->needsDisplay & 1 <<0;
 }
 
-/* **** **** **** **** **** **** **** **** **** **** **** */
+/* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
+
+void display_setFontColor( Display *display ,uint8_t color)
+{
+    display->fontColor = clipVal(color);
+}
+
+void display_setFillColor( Display *display ,uint8_t color)
+{
+    display->fillColor = clipVal( color);
+}
+
+/* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
 
 void display_clearZone( Display *display , const uint8_t x , const uint8_t y, const uint8_t w , const uint8_t h )
 {
@@ -260,14 +282,14 @@ void display_clear( Display *display)
 
 }
 
-/* **** **** **** **** **** **** **** **** **** **** **** */
+/* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
 
 void display_translate( Display *display , int8_t dX , int8_t dY)
 {
     
 }
 
-/* **** **** **** **** **** **** **** **** **** **** **** */
+/* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
 
 void display_write(Display *display , const char* text, uint8_t x , uint8_t y)
 {
@@ -294,26 +316,23 @@ void display_write(Display *display , const char* text, uint8_t x , uint8_t y)
         
         else
         {
-            const uint8_t* ch = getChar( text[i] );
-            //writeLetter( ch, /*xPOs*/xx,/*yPos*/ yy);
+            const Glyphe* ch = getChar( text[i] );
+            const uint8_t* buf = ch->buf;
             
             for (int i= 0;i<CHAR_HEIGHT ;i++)
             {
                 
-                for (int j= 0;j<CHAR_WIDTH ;j++)
+                for (int j= 0;j<ch->advance ;j++)
                 {
-                    if ( ch[i] & (1<<(7-j) ))
+                    if ( buf[i] & (1<<(7-j) ))
                         display->buff_A[xx+i][yy+j] = display->fontColor;
-                    /*
-                     else
-                     _display.buff_A[xx+i][yy+j] = backgroundColor;
-                     */
+
                 }
             }
             
             //
             
-            yy+=CHAR_WIDTH;
+            yy+=ch->advance+1;
         }
         i++;
         
@@ -332,7 +351,7 @@ void display_writeImage( Display *display,const  uint8_t *image )
     {
         for (int y = 0; y<Y_MIC_MAX;y++)
         {
-            display->buff_A[x][y] = image[y + x*30];
+            display->buff_A[x][y] = clipVal( image[y + x*30] );
         }
     }
 }
@@ -341,8 +360,11 @@ void display_writeImage( Display *display,const  uint8_t *image )
 
 void display_fillZone  ( Display *display , const uint8_t x , const uint8_t y, const uint8_t w , const uint8_t h )
 {
+    /*
     if (display->isDrawing == 1)
         return;
+    */
+    
     // inv x<->y
     for (uint8_t xx=0; xx< w; xx++)
         
@@ -360,10 +382,22 @@ void display_setPixel( Display *display , const uint8_t x , const uint8_t y, con
     
     // inversion x<->y
     if ( (y < X_TLC_MAX) && ( x <Y_MIC_MAX) )
-        display->buff_A[y][x] = value;
+        display->buff_A[y][x] = clipVal( value );
 }
 
 /* **** **** **** **** **** **** **** **** **** **** **** */
+
+void display_addPixel( Display *display , const uint8_t x , const uint8_t y, const uint8_t value)
+{
+    // inversion x<->y
+    if ( (y < X_TLC_MAX) && ( x <Y_MIC_MAX) )
+        display->buff_A[y][x] = clipVal( value );
+}
+
+
+
+/* **** **** **** **** **** **** **** **** **** **** **** */
+
 
 
 
