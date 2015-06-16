@@ -29,7 +29,7 @@ public:
     
     
     void scheduledEventReceived( TimedEvent &event);
-    void oscReceived(const std::string &ipAddress , const int port,const std::string & addressPattern, const ArgumentsArray &arguments);
+    void oscReceived(const std::string &ipAddress , const int port,const std::string & addressPattern, const VariantList &arguments);
     void inputChanged( const InterfaceEvent *event );
     
 private:

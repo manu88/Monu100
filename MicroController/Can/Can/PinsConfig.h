@@ -28,7 +28,7 @@
 /* **** **** **** **** **** **** **** **** **** **** */
 
 
-
+#include <avr/io.h>
 
 #define setOutput(ddr, pin) ((ddr) |= (1 << (pin)))
 #define setLow(port, pin) ((port) &= ~(1 << (pin)))
@@ -94,19 +94,19 @@ setLow((port), (pin));   \
 
 /* LDR sensors */
 
-#define LDR_DATA_DDR  DDRD // 38
+#define LDR_DATA_DDR  DDRD
 #define LDR_DATA_PORT PORTD
 #define LDR_DATA_PIN  PD7
 
-#define LDR_CLOCK_DDR  DDRD // 18
+#define LDR_CLOCK_DDR  DDRD
 #define LDR_CLOCK_PORT PORTD
-#define LDR_CLOCK_PIN  PD3
+#define LDR_CLOCK_PIN  PD6
 
-#define LDR_STROBE_DDR  DDRE //2
+#define LDR_STROBE_DDR  DDRE
 #define LDR_STROBE_PORT PORTE
 #define LDR_STROBE_PIN  PE4
 
-#define LDR_OUT_ENABLE_DDR  DDRE // 5
+#define LDR_OUT_ENABLE_DDR  DDRE // utile?
 #define LDR_OUT_ENABLE_PORT PORTE
 #define LDR_OUT_ENABLE_PIN  PE3
 

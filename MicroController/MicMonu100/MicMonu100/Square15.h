@@ -11,7 +11,7 @@
 
 #define SQUARE_WIDTH  4
 #define SQUARE_HEIGHT 5
-
+/*
 uint8_t square_a[SQUARE_HEIGHT] =
 {
     0b11100000,
@@ -254,6 +254,6 @@ uint8_t square_space[SQUARE_HEIGHT] =
     0b00000000,
 };
 
-
+*/
 
 #endif

@@ -444,7 +444,7 @@ void MainController::scheduledEventReceived( TimedEvent &event)
 void MainController::oscReceived( const std::string &ipAddress ,
                                   const int port,
                                   const std::string & addressPattern,
-                                  const ArgumentsArray &arguments)
+                                  const VariantList &arguments)
 {
     if (addressPattern == "/quit")
     {

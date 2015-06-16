@@ -7,6 +7,7 @@
 //
 #include <stdio.h>
 #include <avr/io.h>
+#define __PROG_TYPES_COMPAT__
 #include <avr/pgmspace.h>
 #include <avr/interrupt.h>
 
@@ -18,6 +19,21 @@
 
 
 extern Display _display;
+
+/*
+uint8_t strLen( const char *s)
+{
+    return strlen( s )*CHAR_WIDTH;
+}
+*/
+uint8_t getCharWidth()
+{
+    return CHAR_WIDTH;
+}
+uint8_t getCharHeight()
+{
+    return CHAR_HEIGHT;
+}
 
 /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
 
@@ -42,6 +58,7 @@ ISR(TIMER0_COMPA_vect)
     {
         setHigh( DATA0_PORT , DATA0_PIN);
         setHigh( DATA1_PORT , DATA1_PIN);
+        
         rowIndex = 0;
         
     }
@@ -154,6 +171,7 @@ void TLC5940_Init(void)
     setOutput( MIC_OUT_ENABLE_DDR , MIC_OUT_ENABLE_PIN ); // utile?
     
     
+    setLow(MIC_OUT_ENABLE_PORT, MIC_OUT_ENABLE_PIN);
     // reset mic buffers
     
     
@@ -166,7 +184,7 @@ void TLC5940_Init(void)
         
     }
     
-     setHigh( MIC_STROBE_PORT , MIC_STROBE_PIN ); // strobe mic leds
+    setHigh( MIC_STROBE_PORT , MIC_STROBE_PIN ); // strobe mic leds
 
     
     setOutput(SCLK_DDR, SCLK_PIN);
@@ -260,7 +278,7 @@ void display_setFillColor( Display *display ,uint8_t color)
 
 /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
 
-void display_clearZone( Display *display , const uint8_t x , const uint8_t y, const uint8_t w , const uint8_t h )
+void display_clearZone( Display *display , const int8_t x , const int8_t y, const uint8_t w , const uint8_t h )
 {
     if (display->isDrawing == 1)
         return;
@@ -270,8 +288,13 @@ void display_clearZone( Display *display , const uint8_t x , const uint8_t y, co
     for (uint8_t xx=0; xx< w; xx++)
         
         for (uint8_t yy=0; yy<h; yy++)
+        {
+            const int8_t defX =x+xx;
+            const int8_t defY =y+yy;
             
-            display->buff_A[y+yy][x+xx] = display->backgroundColor;
+            if( inBouds(defX, defY) )
+                display->buff_A[defY][defX] = display->backgroundColor;
+        }
 }
 
 /* **** **** **** **** **** **** **** **** **** **** **** */
@@ -291,17 +314,18 @@ void display_translate( Display *display , int8_t dX , int8_t dY)
 
 /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
 
-void display_write(Display *display , const char* text, uint8_t x , uint8_t y)
+void display_write(Display *display , const char* text, int8_t x , int8_t y , uint8_t dir /* 0 : hori , 1 : verti*/)
 {
+    /*
     if (display->isDrawing == 1)
         return;
-    
+    */
     // inv x<->y
     int i =0;
     
     
-    uint8_t xx =y;
-    uint8_t yy =x;
+    int8_t xx =y;
+    int8_t yy =x;
     
     while ( text[i] != '\0' )
     {
@@ -325,14 +349,25 @@ void display_write(Display *display , const char* text, uint8_t x , uint8_t y)
                 for (int j= 0;j<ch->advance ;j++)
                 {
                     if ( buf[i] & (1<<(7-j) ))
-                        display->buff_A[xx+i][yy+j] = display->fontColor;
+                    {
+                        const int8_t defX = xx+i;
+                        const int8_t defY = yy+j;
+                        
+                        // ][ Y_MIC_MAX
+                        if( inBouds(defX, defY) )
+                        {
+                            display->buff_A[ defX ][ defY ] = display->fontColor;
+                        }
+                    }
 
                 }
             }
             
             //
-            
-            yy+=ch->advance+1;
+            if( dir == 0 )
+                yy+=ch->advance;
+            else
+                xx+= CHAR_HEIGHT;
         }
         i++;
         
@@ -377,8 +412,8 @@ void display_fillZone  ( Display *display , const uint8_t x , const uint8_t y, c
 
 void display_setPixel( Display *display , const uint8_t x , const uint8_t y, const uint8_t value)
 {
-    if (display->isDrawing == 1)
-        return;
+//    if (display->isDrawing == 1)
+//        return;
     
     // inversion x<->y
     if ( (y < X_TLC_MAX) && ( x <Y_MIC_MAX) )

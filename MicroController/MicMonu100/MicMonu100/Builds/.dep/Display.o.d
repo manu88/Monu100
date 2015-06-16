@@ -19,7 +19,8 @@ Builds/Display.o: \
  /usr/local/CrossPack-AVR-20131216/avr/include/avr/interrupt.h \
  /Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/PinsConfig.h \
  /Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Display.h \
- /Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Chars.h
+ /Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Chars.h \
+ /usr/local/CrossPack-AVR-20131216/avr/include/string.h
 
 /usr/local/CrossPack-AVR-20131216/avr/include/stdio.h:
 
@@ -60,3 +61,5 @@ Builds/Display.o: \
 /Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Display.h:
 
 /Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Chars.h:
+
+/usr/local/CrossPack-AVR-20131216/avr/include/string.h:

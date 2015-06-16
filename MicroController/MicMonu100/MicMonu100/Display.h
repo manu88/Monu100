@@ -55,6 +55,17 @@ struct _Display
 typedef struct _Display Display;
 
 
+inline uint8_t inBouds( int8_t x , int8_t y)
+{
+    return    ( x >=0 && x <X_TLC_MAX )
+           && ( y >=0 && y <Y_MIC_MAX );
+}
+
+//uint8_t strLen( const char *s);
+
+uint8_t getCharWidth( void );
+uint8_t getCharHeight( void );
+
 
 void display_init( Display *display);
 
@@ -69,7 +80,7 @@ void display_setFontColor( Display *display ,uint8_t color);
 void display_setFillColor( Display *display ,uint8_t color);
 
 // inv x<->y
-void display_clearZone     ( Display *display , const uint8_t x , const uint8_t y, const uint8_t w , const uint8_t h );
+void display_clearZone     ( Display *display , const int8_t x , const int8_t y, const uint8_t w , const uint8_t h );
 void display_clear         ( Display *display);
 
 void display_translate( Display *display , int8_t dX , int8_t dY);
@@ -77,7 +88,11 @@ void display_translate( Display *display , int8_t dX , int8_t dY);
 /* Drawing ops */
 
 // inv x<->y
-void display_write     ( Display *display , const char* text, uint8_t x , uint8_t y);
+
+/*
+  x y can be <0 or > max , text will be croped
+ */
+void display_write     ( Display *display , const char* text, int8_t x , int8_t y , uint8_t dir /* 0 : hori , 1 : verti*/);
 
 void display_writeImage( Display *display , const uint8_t *image );
 

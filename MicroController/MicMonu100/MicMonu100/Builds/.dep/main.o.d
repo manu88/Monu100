@@ -24,7 +24,7 @@ Builds/main.o: \
  /Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/PinsConfig.h \
  /Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.h \
  /Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Display.h \
- /Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Images.h
+ /Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Coms.h
 
 /usr/local/CrossPack-AVR-20131216/avr/include/stdlib.h:
 
@@ -74,4 +74,4 @@ Builds/main.o: \
 
 /Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Display.h:
 
-/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Images.h:
+/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Coms.h:
