@@ -18,7 +18,8 @@
 #include "Coms.h"
 
 
-// initialize adc
+/* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
+
 void adc_init(void)
 {
     // MICs LDR
@@ -69,26 +70,42 @@ void adc_init(void)
 
 /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
 
-void sensors_init( Sensors *sensors)
+inline uint16_t adc_read(uint8_t channel)
 {
-    adc_init();    
-    sensors_setValuesTo(sensors, 0);
-    sensors_resetCalibration( sensors );
     
+    ADMUX &= 0xE0;           //Clear bits MUX0-4
+    ADMUX |= channel&0x07;   //Defines the new ADC channel to be read by setting bits MUX0-2
+    ADCSRB = channel&(1<<3); //Set MUX5
+    ADCSRA |= (1<<ADSC);      //Starts a new conversion
     
+    while( ADCSRA & (1<<ADSC) );  //Wait until the conversion is done
+    
+    return ADCW;
 }
 
 /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
+/* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
 
-void sensors_setValuesTo( Sensors *sensors , uint8_t val)
+void sensors_init( Sensors *sensors)
 {
-    for (uint8_t i =0; i<SENSOR_COUNT ; i++)
+    adc_init();    
+    sensors_resetCalibration( sensors );
+    
+    sensors->thresholdHigh = 0;
+    
+    sensors->thresholdLow  = 0;
+    
+    for (int j = 0; j<MIC_SENSOR_COUNT ; j++) // mics
     {
-        for(uint8_t j = 0 ; j< MIC_SENSOR_COUNT ; j++)
-            sensors->values[i][j] = val;
+        
+        for (int i = 0; i < MIC_SENSOR_COUNT ; i++)
+        {
+            sensors->values[i][j] = 0;
+        }
     }
-
+    
 }
+
 /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
 
 void sensors_resetCalibration( Sensors *sensors )
@@ -110,7 +127,7 @@ void sensors_calibration( Sensors *sensors , uint8_t count)
 {
     sensors_resetCalibration( sensors );
     
-    int temp[ SENSOR_COUNT ][ MIC_SENSOR_COUNT ];
+    float temp[ SENSOR_COUNT ][ MIC_SENSOR_COUNT ];
     
     
     for ( uint8_t iter = 0; iter < count ; iter++)
@@ -120,17 +137,17 @@ void sensors_calibration( Sensors *sensors , uint8_t count)
             
             for (int i = 0; i < MIC_SENSOR_COUNT ; i++)
             {
-                if (i == 0) adc_read( 15 );
+
                 
                 if (iter == 0)
                     temp[i][j] = 0;
                 
-                temp[i][j] += adc_read( i ) >> 4;
+                temp[i][j] += adc_read( i );// >> ADC_SHIFT_MULT;
                 
                 if( iter == count-1)
                 {
                     temp[i][j] /= count;
-                    sensors->calibValues[i][j] = (uint8_t) temp[i][j];
+                    sensors->calibValues[i][j] =  (uint16_t)temp[i][j];
                 }
             }
             
@@ -156,153 +173,124 @@ void sensors_calibration( Sensors *sensors , uint8_t count)
 
 /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
 
-void sensors_cleanDetected( Sensors *sensors)
-{
-    sensors->num_detected = 0;
-}
-
-/* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
-
-void test(Sensors *sensors)
+void readFrame(Sensors *sensors)
 {
     extract_image( sensors );
-    
 }
 
 /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
 
-void sensors_reccordState( Sensors *sensors , uint16_t thresholdLow , uint16_t thresholdHigh  ,uint8_t mode )
+void readRow( Sensors *sensors , uint8_t *buffer)
 {
-
-    uint8_t x = 0;
-    uint8_t y = 0;
     
-    for (int j = 0; j<MIC_SENSOR_COUNT ; j++) // mics
+    for (int i = 0; i < MIC_SENSOR_COUNT ; i++)
     {
-        _delay_us( 10);
-        for (int i = 0; i < MIC_SENSOR_COUNT ; i++)
-        {
-            
-            _delay_us( 10);
-
-            if (i == 0)
-                adc_read( 15 );
-
-            
-            const uint8_t read = (adc_read( i ) >> 4);
-            
-            uint8_t val = read - sensors->calibValues[i][j];
-            
-            /*
-            if( mode == 0)
-                val*=2;
-            else if( mode == 1)
-                val =  read >= threshold ? 127 :0 ;
-            
-            else if( mode == 2)
-                val =  read >= threshold ? 0:255 ;
-            */
-
-            if ( read < thresholdLow)
-                val = 127;
-            
-            else if ( read > thresholdHigh )
-                val = 255;
-            
-            else
-                val = 0;
-
-            /*
-            if ( val< (sensors->calibValues[i][j]*0.7) )
-            {
-                // ombre
-                val = 127;
-            }
-            
-            else if (val >  (sensors->calibValues[i][j]*1.1) ) //threshold)
-            {
-                //lum
-                val = 255;
-                
-            }
-            else
-                val = 0;
-             */
-            
-            x = j*2;
-            y = (14-i)*2;
-            
-            if ( (i != 0) && (i != 1) && (i != 2))
-            //if ( val != sensors->values[i][j] )
-            {
-                sensors->values[i][j] = val;
-                display_setFillColor( sensors->display, val );
-//                display_fillZone( sensors->display , x, y , 2, 2);
-            }
-            
-
-
-        }
-
+        uint8_t x = 0;
+        uint8_t y = 0;
         
-        if (j== (MIC_SENSOR_COUNT-1) )
-        {
-            setHigh( LDR_DATA_PORT , LDR_DATA_PIN );
-        }
+        int val = ( adc_read( i ) );// - sensors->calibValues[i][ sensors->currentRow ];
+
+
+        /*if ( val < sensors->thresholdLow )
+            val = BLOB_SHADOW;
+        
+        else */if ( val > sensors->thresholdHigh )
+            val = BLOB_LIGHT;
+        
+        
         else
-        {
-            setLow( LDR_DATA_PORT , LDR_DATA_PIN );
-        }
+            val = 0;
+
+        x = sensors->currentRow*2;
+        y = (14-i)*2;
+
+        if ( buffer != NULL)
+            buffer[i] =(uint8_t) val ;
         
-        pulse( LDR_CLOCK_PORT , LDR_CLOCK_PIN);
-        pulse( LDR_STROBE_PORT, LDR_STROBE_PIN);
-        
+        sensors->values[i][ sensors->currentRow ] = val;
+
+        display_setFillColor( sensors->display, val );
+        display_fillZone( sensors->display , x - 2, y - 2 , 4, 4 );
+
 
     }
-
-//    extract_image( sensors );
+    
+    
+    if (sensors->currentRow == ( MIC_SENSOR_COUNT - 1) )
+    {
+        setHigh( LDR_DATA_PORT , LDR_DATA_PIN );
+    }
+    else
+    {
+        setLow( LDR_DATA_PORT , LDR_DATA_PIN );
+    }
+    
+    pulse( LDR_CLOCK_PORT , LDR_CLOCK_PIN);
+    pulse( LDR_STROBE_PORT, LDR_STROBE_PIN);
 
 }
 
+
+void readAll( Sensors *sensors)
+{
+    sensors->currentRow = 0;
+    display_clear( sensors->display );
+    for ( int i=0; i< MIC_SENSOR_COUNT;i++ )
+    {
+        readRow( sensors, NULL );
+        sensors->currentRow++;
+    }
+}
 
 /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
 /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
 
 void log_blob_hook(void* user_struct, struct blob* b)
 {
-    if ( (b->center_x <0 ) || (b->center_y <0 ))
+
+    
+    const uint8_t x = b->center_y*2;
+    const uint8_t y = (14-b->center_x)*2;
+    
+    /*
+    if ( ( x <-BLOB_MARGIN ) || ( y <-BLOB_MARGIN ))
         return;
     
-    const uint8_t x = b->center_x*2;
-    const uint8_t y = (14-b->center_y)*2;
-    
-    if ( (x >30) || (y>30 ) )
+    if ( (x >(30+BLOB_MARGIN)) || (y>(30+BLOB_MARGIN) ) )
         return;
     
 
 
-    Sensors* sensors = ( Sensors* ) user_struct;
-
-    serial_send(  10 );
-    _delay_us( 100 );
+    if (( b->size < MIN_BLOB_SIZE ) || ( b->size > MAX_BLOB_SIZE ))
+        return;
     
-    serial_send(  x );
-    _delay_us( 100 );
-    
-    serial_send(  y );
-    _delay_us( 100 );
+     */
 
 
-    
-    
-    
-    
+    const Sensors* sensors = ( const Sensors* ) user_struct;
 
-    if (1)//b->color )
+
+    display_clear(sensors->display);
+    display_setFillColor( sensors->display, 255 );
+
+
+    if ( b->color == BLOB_SHADOW )
     {
-        display_setFillColor( sensors->display, 255 );
-        display_fillZone( sensors->display , x-b->size, y-b->size , b->size*2, b->size*2 );
+        const uint8_t x1 = b->bb_x1*2;
+        const uint8_t y1 = (14-b->bb_y1)*2;
+        
+        const uint8_t x2 = b->bb_x2*2;
+        const uint8_t y2 = (14-b->bb_y2)*2;
+        
+        display_fillZone( sensors->display , x1, y1, x2 , y2 );
     }
+    
+    else if (b->color == BLOB_LIGHT )
+    {
+        display_drawCircle(sensors->display, x, y, b->size);
+    }
+
+
 
 }
 
@@ -321,10 +309,6 @@ int init_pixel_stream_hook(void* user_struct, struct stream_state* stream)
     
     return 0;
 }
-// you need to set several variables:
-// stream->w = image width
-// stream->h = image hight
-// return status (0 for success)
 
 /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
 
@@ -333,8 +317,6 @@ int close_pixel_stream_hook(void* user_struct, struct stream_state* stream)
 
     return 0;
 }
-// free up anything you allocated in init_pixel_stream_hook
-// return status (0 for success)
 
 /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
 
@@ -348,8 +330,7 @@ int next_row_hook(void* user_struct, struct stream_state* stream)
         return -1;
     }
     
-    for (int i = 0 ; i<stream->w ; i++)
-        stream->row[i] = sensors->values[ sensors->currentRow ][i];
+    readRow( sensors , stream->row );
 
     sensors->currentRow++;
     
@@ -357,28 +338,30 @@ int next_row_hook(void* user_struct, struct stream_state* stream)
     
     return 0;
 }
-// load the (grayscale) row at stream->y into the (8 bit) stream->row array
-// return status (0 for success)
+
 /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
-
-
 
 int next_frame_hook(void* user_struct, struct stream_state* stream)
 {
-
     
     Sensors* sensors = ( Sensors*) user_struct;
-
-    display_clear( sensors->display );
     sensors->currentRow = 0;
-    sensors_reccordState( sensors , 2 , 10  , 2);
     
+    
+    userCall();
+    
+    if ( sensors->currentRow == SENSOR_COUNT)
+    {
+        sensors->currentRow = 0;
+        return -1;
+    }
+
+
     
 
     return 0;
 }
-// basically a no-op in the library, but useful for applications
-// return status (0 for success, otherwise breaks the video loop)
+
 
 
 

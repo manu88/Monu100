@@ -15,14 +15,6 @@
 
 #define PIXEL_MAX_VALUE  100 //112
 
-struct _Point
-{
-    uint8_t x;
-    uint8_t y;
-};
-
-typedef struct _Point Point;
-
 
 /* **** **** **** **** **** **** **** **** **** **** **** */
 /*
@@ -35,7 +27,7 @@ struct _Display
     uint8_t buff_A[ X_TLC_MAX ][ Y_MIC_MAX ]; // -> to display
     uint8_t buff_B[ X_TLC_MAX ][ Y_MIC_MAX ]; // -> image is constructed in this one
 
-    Point pos; // -> drawing pos
+   // Point pos; // -> drawing pos
 
 
     
@@ -54,6 +46,7 @@ struct _Display
 
 typedef struct _Display Display;
 
+/* **** **** **** **** **** **** **** **** **** **** **** **** **** */
 
 inline uint8_t inBouds( int8_t x , int8_t y)
 {
@@ -66,6 +59,7 @@ inline uint8_t inBouds( int8_t x , int8_t y)
 uint8_t getCharWidth( void );
 uint8_t getCharHeight( void );
 
+/* **** **** **** **** **** **** **** **** **** **** **** **** **** */
 
 void display_init( Display *display);
 
@@ -103,6 +97,7 @@ void display_fillZone  ( Display *display , const uint8_t x , const uint8_t y, c
 void display_setPixel( Display *display , const uint8_t x , const uint8_t y, const uint8_t value);
 void display_addPixel( Display *display , const uint8_t x , const uint8_t y, const uint8_t value);
 
-
+void display_drawCircle( Display *display , const uint8_t x0 , const uint8_t y0 , const uint8_t r);
+void display_drawLine( Display *display , uint8_t x0 , uint8_t y0 , uint8_t x1 , uint8_t y1 );
 
 #endif

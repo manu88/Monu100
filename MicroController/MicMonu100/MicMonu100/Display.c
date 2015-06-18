@@ -10,7 +10,7 @@
 #define __PROG_TYPES_COMPAT__
 #include <avr/pgmspace.h>
 #include <avr/interrupt.h>
-
+#include <stdlib.h>
 #include "PinsConfig.h"
 
 #include "Display.h"
@@ -20,12 +20,8 @@
 
 extern Display _display;
 
-/*
-uint8_t strLen( const char *s)
-{
-    return strlen( s )*CHAR_WIDTH;
-}
-*/
+/* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
+
 uint8_t getCharWidth()
 {
     return CHAR_WIDTH;
@@ -35,6 +31,12 @@ uint8_t getCharHeight()
     return CHAR_HEIGHT;
 }
 
+inline uint8_t clipVal( uint8_t val)
+{
+    return val>=PIXEL_MAX_VALUE ? PIXEL_MAX_VALUE : val;
+}
+
+/* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
 /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
 
 inline void sendSPI( const uint8_t val)
@@ -217,22 +219,13 @@ void TLC5940_Init(void)
 /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
 /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
 
-inline uint8_t clipVal( uint8_t val)
-{
-    return val>=PIXEL_MAX_VALUE ? PIXEL_MAX_VALUE : val;
-}
-
-/* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
-/* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
-
 
 
 void display_init( Display *display)
 {
     display_clear( display);
 
-    display->pos.x = 0;
-    display->pos.y = 0;
+
     
     display->backgroundColor = 0b00000000;
     display->fontColor = PIXEL_MAX_VALUE;
@@ -429,10 +422,65 @@ void display_addPixel( Display *display , const uint8_t x , const uint8_t y, con
         display->buff_A[y][x] = clipVal( value );
 }
 
+/* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
+/* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
 
+/*
+ 
+    Drawing routines
+ 
+ */
+/* **** **** **** **** **** **** **** **** **** **** **** */
+
+void display_drawCircle( Display *display , const uint8_t x0 , const uint8_t y0 , const uint8_t r)
+{
+    int x = r;
+    int y = 0;
+    int decisionOver2 = 1 - x;   // Decision criterion divided by 2 evaluated at x=r, y=0
+    
+    while(x >= y)
+    {
+        display_setPixel( display , x + x0,  y + y0  , display->fillColor);
+        display_setPixel( display , x + x0,  y + y0  , display->fillColor);
+        display_setPixel( display , y + x0,  x + y0  , display->fillColor);
+        display_setPixel( display , -x + x0,  y + y0 , display->fillColor);
+        display_setPixel( display , -y + x0,  x + y0 , display->fillColor);
+        display_setPixel( display , -x + x0, -y + y0 , display->fillColor);
+        display_setPixel( display , -y + x0, -x + y0 , display->fillColor);
+        display_setPixel( display ,  x + x0, -y + y0 , display->fillColor);
+        display_setPixel( display ,  y + x0, -x + y0 , display->fillColor);
+        y++;
+        
+        if (decisionOver2<=0)
+        {
+            decisionOver2 += 2 * y + 1;   // Change in decision criterion for y -> y+1
+        }
+        else
+        {
+            x--;
+            decisionOver2 += 2 * (y - x) + 1;   // Change for y -> y+1, x -> x-1
+        }
+    }
+}
 
 /* **** **** **** **** **** **** **** **** **** **** **** */
 
+void display_drawLine( Display *display , uint8_t x0 , uint8_t y0 , uint8_t x1 , uint8_t y1 )
+{
+    int dx = abs(x1-x0), sx = x0<x1 ? 1 : -1;
+    int dy = abs(y1-y0), sy = y0<y1 ? 1 : -1;
+    int err = (dx>dy ? dx : -dy)/2, e2;
+    
+    for(;;)
+    {
+        display_setPixel( display , x0,  y0  , display->fillColor);
 
+        if (x0==x1 && y0==y1)
+            break;
+        e2 = err;
+        if (e2 >-dx) { err -= dy; x0 += sx; }
+        if (e2 < dy) { err += dx; y0 += sy; }
+    }
+}
 
 

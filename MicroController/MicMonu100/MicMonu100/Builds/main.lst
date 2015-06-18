@@ -7,9 +7,8 @@
    7               	__zero_reg__ = 1
    9               		.text
   10               	.Ltext0:
- 139               		.section	.text.startup,"ax",@progbits
- 141               	.global	main
- 143               	main:
+ 138               	.global	AnimCircle
+ 140               	AnimCircle:
    1:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
    2:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** #include <stdlib.h> 
    3:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** #include <stdio.h>
@@ -19,45 +18,374 @@
    7:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** #define __PROG_TYPES_COMPAT__
    8:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** #include <avr/pgmspace.h>
    9:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** #include <avr/interrupt.h>
-  10:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
-  11:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** #include <util/delay.h>
-  12:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** #include <math.h>
-  13:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
-  14:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** #include "PinsConfig.h"
-  15:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
-  16:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** #include "Sensors.h"
-  17:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
-  18:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** #include "Display.h"
-  19:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** //#include "Chars.h"
-  20:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** #include "Coms.h"
+  10:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** #include <util/delay.h>
+  11:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** #include <math.h>
+  12:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+  13:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** #include "PinsConfig.h"
+  14:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+  15:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** #include "Sensors.h"
+  16:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+  17:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** #include "Display.h"
+  18:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** //#include "Chars.h"
+  19:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** #include "Coms.h"
+  20:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
   21:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
-  22:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
-  23:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** Display _display;
-  24:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** Sensors _sensors;
-  25:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
-  26:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
-  27:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** /*
-  28:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****  
-  29:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****  TODO : 
-  30:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****   - defilement vertical
-  31:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****   - 2 tailles  : 1/2 plaque + plaque entiere
-  32:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****   - trace avec LUMIERE qui se décalle dans le même sens que la typo + temps de vie avec fade out
-  33:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****   - colision avec les OMBRES
-  34:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
-  35:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****  */
-  36:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
-  37:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
-  38:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** int main( void )
-  39:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** {
- 145               	.LM0:
- 146               	.LFBB1:
- 147               	/* prologue: function */
- 148               	/* frame size = 0 */
- 149               	/* stack size = 0 */
- 150               	.L__stack_usage = 0
- 151               	.LBB6:
- 152               	.LBB7:
- 154               	.Ltext1:
+  22:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** Display _display;
+  23:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** Sensors _sensors;
+  24:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+  25:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
+  26:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** /*
+  27:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****  
+  28:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****  TODO : 
+  29:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****   - defilement vertical
+  30:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****   - 2 tailles  : 1/2 plaque + plaque entiere
+  31:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****   - trace avec LUMIERE qui se décalle dans le même sens que la typo + temps de vie avec fade out
+  32:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****   - colision avec les OMBRES
+  33:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+  34:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****  */
+  35:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
+  36:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+  37:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** void AnimCircle(void)
+  38:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** {
+ 142               	.LM0:
+ 143               	.LFBB1:
+ 144               	/* prologue: function */
+ 145               	/* frame size = 0 */
+ 146               	/* stack size = 0 */
+ 147               	.L__stack_usage = 0
+  39:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     uint8_t r = 0;
+  40:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     int dir = 1;
+ 149               	.LM1:
+ 150 0000 C1E0      		ldi r28,lo8(1)
+ 151 0002 D0E0      		ldi r29,0
+  39:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     uint8_t r = 0;
+ 153               	.LM2:
+ 154 0004 10E0      		ldi r17,0
+ 155               	.L2:
+  41:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     while (1)
+  42:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     {
+  43:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         display_drawCircle( &_display, 15, 15, r);
+ 157               	.LM3:
+ 158 0006 212F      		mov r18,r17
+ 159 0008 4FE0      		ldi r20,lo8(15)
+ 160 000a 6FE0      		ldi r22,lo8(15)
+ 161 000c 80E0      		ldi r24,lo8(_display)
+ 162 000e 90E0      		ldi r25,hi8(_display)
+ 163 0010 0E94 0000 		call display_drawCircle
+ 164               	.LBB10:
+ 165               	.LBB11:
+ 167               	.Ltext1:
+   1:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** /* Copyright (c) 2002, Marek Michalkiewicz
+   2:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****    Copyright (c) 2004,2005,2007 Joerg Wunsch
+   3:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****    Copyright (c) 2007  Florin-Viorel Petrov
+   4:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****    All rights reserved.
+   5:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 
+   6:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****    Redistribution and use in source and binary forms, with or without
+   7:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****    modification, are permitted provided that the following conditions are met:
+   8:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 
+   9:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****    * Redistributions of source code must retain the above copyright
+  10:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****      notice, this list of conditions and the following disclaimer.
+  11:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 
+  12:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****    * Redistributions in binary form must reproduce the above copyright
+  13:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****      notice, this list of conditions and the following disclaimer in
+  14:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****      the documentation and/or other materials provided with the
+  15:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****      distribution.
+  16:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 
+  17:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****    * Neither the name of the copyright holders nor the names of
+  18:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****      contributors may be used to endorse or promote products derived
+  19:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****      from this software without specific prior written permission.
+  20:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 
+  21:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+  22:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****   AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+  23:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****   IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+  24:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****   ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+  25:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****   LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+  26:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****   CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+  27:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****   SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+  28:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****   INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+  29:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****   CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+  30:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****   ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+  31:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****   POSSIBILITY OF SUCH DAMAGE. */
+  32:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 
+  33:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** /* $Id$ */
+  34:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 
+  35:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** #ifndef _UTIL_DELAY_H_
+  36:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** #define _UTIL_DELAY_H_ 1
+  37:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 
+  38:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** #ifndef __HAS_DELAY_CYCLES
+  39:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** #define __HAS_DELAY_CYCLES 1
+  40:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** #endif
+  41:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 
+  42:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** #include <inttypes.h>
+  43:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** #include <util/delay_basic.h>
+  44:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** #include <math.h>
+  45:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 
+  46:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** /** \file */
+  47:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** /** \defgroup util_delay <util/delay.h>: Convenience functions for busy-wait delay loops
+  48:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****     \code
+  49:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****     #define F_CPU 1000000UL  // 1 MHz
+  50:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****     //#define F_CPU 14.7456E6
+  51:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****     #include <util/delay.h>
+  52:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****     \endcode
+  53:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 
+  54:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****     \note As an alternative method, it is possible to pass the
+  55:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****     F_CPU macro down to the compiler from the Makefile.
+  56:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****     Obviously, in that case, no \c \#define statement should be
+  57:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****     used.
+  58:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 
+  59:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****     The functions in this header file are wrappers around the basic
+  60:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****     busy-wait functions from <util/delay_basic.h>.  They are meant as
+  61:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****     convenience functions where actual time values can be specified
+  62:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****     rather than a number of cycles to wait for.  The idea behind is
+  63:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****     that compile-time constant expressions will be eliminated by
+  64:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****     compiler optimization so floating-point expressions can be used
+  65:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****     to calculate the number of delay cycles needed based on the CPU
+  66:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****     frequency passed by the macro F_CPU.
+  67:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 
+  68:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****     \note In order for these functions to work as intended, compiler
+  69:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****     optimizations <em>must</em> be enabled, and the delay time
+  70:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****     <em>must</em> be an expression that is a known constant at
+  71:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****     compile-time.  If these requirements are not met, the resulting
+  72:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****     delay will be much longer (and basically unpredictable), and
+  73:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****     applications that otherwise do not use floating-point calculations
+  74:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****     will experience severe code bloat by the floating-point library
+  75:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****     routines linked into the application.
+  76:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 
+  77:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****     The functions available allow the specification of microsecond, and
+  78:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****     millisecond delays directly, using the application-supplied macro
+  79:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****     F_CPU as the CPU clock frequency (in Hertz).
+  80:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 
+  81:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** */
+  82:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 
+  83:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** #if !defined(__DOXYGEN__)
+  84:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** static inline void _delay_us(double __us) __attribute__((always_inline));
+  85:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** static inline void _delay_ms(double __ms) __attribute__((always_inline));
+  86:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** #endif
+  87:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 
+  88:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** #ifndef F_CPU
+  89:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** /* prevent compiler error by supplying a default */
+  90:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** # warning "F_CPU not defined for <util/delay.h>"
+  91:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** # define F_CPU 1000000UL
+  92:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** #endif
+  93:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 
+  94:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** #ifndef __OPTIMIZE__
+  95:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** # warning "Compiler optimizations disabled; functions from <util/delay.h> won't work as designed"
+  96:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** #endif
+  97:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 
+  98:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** #if __HAS_DELAY_CYCLES && defined(__OPTIMIZE__) && \
+  99:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****   !defined(__DELAY_BACKWARD_COMPATIBLE__) &&	   \
+ 100:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****   __STDC_HOSTED__
+ 101:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** #  include <math.h>
+ 102:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** #endif
+ 103:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 
+ 104:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** /**
+ 105:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****    \ingroup util_delay
+ 106:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 
+ 107:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****    Perform a delay of \c __ms milliseconds, using _delay_loop_2().
+ 108:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 
+ 109:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****    The macro F_CPU is supposed to be defined to a
+ 110:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****    constant defining the CPU clock frequency (in Hertz).
+ 111:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 
+ 112:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****    The maximal possible delay is 262.14 ms / F_CPU in MHz.
+ 113:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 
+ 114:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****    When the user request delay which exceed the maximum possible one,
+ 115:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****    _delay_ms() provides a decreased resolution functionality. In this
+ 116:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****    mode _delay_ms() will work with a resolution of 1/10 ms, providing
+ 117:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****    delays up to 6.5535 seconds (independent from CPU frequency).  The
+ 118:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****    user will not be informed about decreased resolution.
+ 119:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 
+ 120:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****    If the avr-gcc toolchain has __builtin_avr_delay_cycles(unsigned long)
+ 121:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****    support, maximal possible delay is 4294967.295 ms/ F_CPU in MHz. For
+ 122:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****    values greater than the maximal possible delay, overflows results in
+ 123:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****    no delay i.e., 0ms.
+ 124:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 
+ 125:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****    Conversion of __us into clock cycles may not always result in integer.
+ 126:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****    By default, the clock cycles rounded up to next integer. This ensures that
+ 127:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****    the user gets atleast __us microseconds of delay.
+ 128:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 
+ 129:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****    Alternatively, user can define __DELAY_ROUND_DOWN__ and __DELAY_ROUND_CLOSEST__
+ 130:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****    to round down and round to closest integer.
+ 131:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 
+ 132:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****    Note: The new implementation of _delay_ms(double __ms) with 
+ 133:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****     __builtin_avr_delay_cycles(unsigned long) support is not backward compatible. 
+ 134:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****    User can define __DELAY_BACKWARD_COMPATIBLE__ to get a backward compatible delay.
+ 135:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****    Also, the backward compatible
+ 136:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****    algorithm will be chosen if the code is compiled in a <em>freestanding
+ 137:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****    environment</em> (GCC option \c -ffreestanding), as the math functions
+ 138:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****    required for rounding are not available to the compiler then.
+ 139:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 
+ 140:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****  */
+ 141:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** void
+ 142:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** _delay_ms(double __ms)
+ 143:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** {
+ 144:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 	double __tmp ; 
+ 145:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** #if __HAS_DELAY_CYCLES && defined(__OPTIMIZE__) && \
+ 146:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****   !defined(__DELAY_BACKWARD_COMPATIBLE__) &&	   \
+ 147:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****   __STDC_HOSTED__
+ 148:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 	uint32_t __ticks_dc;
+ 149:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 	extern void __builtin_avr_delay_cycles(unsigned long);
+ 150:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 	__tmp = ((F_CPU) / 1e3) * __ms;
+ 151:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 
+ 152:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 	#if defined(__DELAY_ROUND_DOWN__)
+ 153:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 		__ticks_dc = (uint32_t)fabs(__tmp);
+ 154:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 
+ 155:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 	#elif defined(__DELAY_ROUND_CLOSEST__)
+ 156:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 		__ticks_dc = (uint32_t)(fabs(__tmp)+0.5);
+ 157:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 
+ 158:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 	#else
+ 159:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 		//round up by default
+ 160:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+ 161:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 	#endif
+ 162:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 
+ 163:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 	__builtin_avr_delay_cycles(__ticks_dc);
+ 169               	.LM4:
+ 170 0014 8FE1      		ldi r24,lo8(19999)
+ 171 0016 9EE4      		ldi r25,hi8(19999)
+ 172 0018 0197      		1: sbiw r24,1
+ 173 001a 01F4      		brne 1b
+ 174 001c 00C0      		rjmp .
+ 175 001e 0000      		nop
+ 176               	.LBE11:
+ 177               	.LBE10:
+ 179               	.Ltext2:
+  44:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         
+  45:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         _delay_ms(5);
+  46:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         
+  47:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         r+=dir;
+ 181               	.LM5:
+ 182 0020 1C0F      		add r17,r28
+  48:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         
+  49:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         if (r>15)
+ 184               	.LM6:
+ 185 0022 1031      		cpi r17,lo8(16)
+ 186 0024 00F0      		brlo .L3
+  50:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         {
+  51:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****             dir*=-1;
+ 188               	.LM7:
+ 189 0026 D195      		neg r29
+ 190 0028 C195      		neg r28
+ 191 002a D109      		sbc r29,__zero_reg__
+  52:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****             display_setFillColor( &_display, 0);
+ 193               	.LM8:
+ 194 002c 60E0      		ldi r22,0
+ 195 002e 00C0      		rjmp .L5
+ 196               	.L3:
+  53:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         }
+  54:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         if ( r<=0)
+ 198               	.LM9:
+ 199 0030 1111      		cpse r17,__zero_reg__
+ 200 0032 00C0      		rjmp .L2
+  55:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         {
+  56:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****             dir*=-1;
+ 202               	.LM10:
+ 203 0034 D195      		neg r29
+ 204 0036 C195      		neg r28
+ 205 0038 D109      		sbc r29,__zero_reg__
+  57:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****             display_setFillColor( &_display, 255);
+ 207               	.LM11:
+ 208 003a 6FEF      		ldi r22,lo8(-1)
+ 209               	.L5:
+ 210 003c 80E0      		ldi r24,lo8(_display)
+ 211 003e 90E0      		ldi r25,hi8(_display)
+ 212 0040 0E94 0000 		call display_setFillColor
+ 213 0044 00C0      		rjmp .L2
+ 219               	.Lscope1:
+ 221               	.global	testLines
+ 223               	testLines:
+  58:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         }
+  59:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         
+  60:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         
+  61:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     }
+  62:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+  63:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** }
+  64:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+  65:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+  66:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** void testLines(void)
+  67:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** {
+ 225               	.LM12:
+ 226               	.LFBB2:
+ 227               	/* prologue: function */
+ 228               	/* frame size = 0 */
+ 229               	/* stack size = 0 */
+ 230               	.L__stack_usage = 0
+  68:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     display_setFillColor( &_display, 255);
+ 232               	.LM13:
+ 233 0046 6FEF      		ldi r22,lo8(-1)
+ 234 0048 80E0      		ldi r24,lo8(_display)
+ 235 004a 90E0      		ldi r25,hi8(_display)
+ 236 004c 0E94 0000 		call display_setFillColor
+  69:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     display_drawLine(&_display,  4, 0 , 25 ,29);
+ 238               	.LM14:
+ 239 0050 0DE1      		ldi r16,lo8(29)
+ 240 0052 29E1      		ldi r18,lo8(25)
+ 241 0054 40E0      		ldi r20,0
+ 242 0056 64E0      		ldi r22,lo8(4)
+ 243 0058 80E0      		ldi r24,lo8(_display)
+ 244 005a 90E0      		ldi r25,hi8(_display)
+ 245 005c 0E94 0000 		call display_drawLine
+ 246               	.L8:
+ 247 0060 00C0      		rjmp .L8
+ 249               	.Lscope2:
+ 251               	.global	userCall
+ 253               	userCall:
+  70:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     while (1)
+  71:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     {
+  72:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     }
+  73:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** }
+  74:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+  75:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+  76:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+  77:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** void userCall()
+  78:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** {
+ 255               	.LM15:
+ 256               	.LFBB3:
+ 257               	/* prologue: function */
+ 258               	/* frame size = 0 */
+ 259               	/* stack size = 0 */
+ 260               	.L__stack_usage = 0
+  79:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     toggle(LED_PORT, LED_PIN);
+ 262               	.LM16:
+ 263 0062 E2E0      		ldi r30,lo8(2)
+ 264 0064 F1E0      		ldi r31,lo8(1)
+ 265 0066 8081      		ld r24,Z
+ 266 0068 98E0      		ldi r25,lo8(8)
+ 267 006a 8927      		eor r24,r25
+ 268 006c 8083      		st Z,r24
+ 269 006e 0895      		ret
+ 271               	.Lscope3:
+ 272               		.section	.rodata.str1.1,"aMS",@progbits,1
+ 273               	.LC0:
+ 274 0000 6865 6C6C 		.string	"hello"
+ 274      6F00 
+ 275               	.LC1:
+ 276 0006 776F 726C 		.string	"world"
+ 276      6400 
+ 277               		.section	.text.startup,"ax",@progbits
+ 279               	.global	main
+ 281               	main:
+  80:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** //    _delay_ms( 10 );
+  81:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** }
+  82:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** int main( void )
+  83:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** {
+ 283               	.LM17:
+ 284               	.LFBB4:
+ 285 0000 CF93      		push r28
+ 286 0002 DF93      		push r29
+ 287 0004 CDB7      		in r28,__SP_L__
+ 288 0006 DEB7      		in r29,__SP_H__
+ 289 0008 2C97      		sbiw r28,12
+ 290 000a 0FB6      		in __tmp_reg__,__SREG__
+ 291 000c F894      		cli
+ 292 000e DEBF      		out __SP_H__,r29
+ 293 0010 0FBE      		out __SREG__,__tmp_reg__
+ 294 0012 CDBF      		out __SP_L__,r28
+ 295               	/* prologue: function */
+ 296               	/* frame size = 12 */
+ 297               	/* stack size = 14 */
+ 298               	.L__stack_usage = 14
+ 299               	.LBB12:
+ 300               	.LBB13:
+ 302               	.Ltext3:
    1:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Coms.h **** //
    2:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Coms.h **** //  Coms.h
    3:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Coms.h **** //  MicMonu100
@@ -76,187 +404,391 @@
   16:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Coms.h **** {
   17:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Coms.h ****     // Set baud rate
   18:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Coms.h ****     UBRR0H = (uint8_t)(UBRR_VALUE>>8);
- 156               	.LM1:
- 157 0000 1092 C500 		sts 197,__zero_reg__
+ 304               	.LM18:
+ 305 0014 1092 C500 		sts 197,__zero_reg__
   19:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Coms.h ****     UBRR0L = (uint8_t)UBRR_VALUE;
- 159               	.LM2:
- 160 0004 C9E1      		ldi r28,lo8(25)
- 161 0006 C093 C400 		sts 196,r28
+ 307               	.LM19:
+ 308 0018 19E1      		ldi r17,lo8(25)
+ 309 001a 1093 C400 		sts 196,r17
   20:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Coms.h ****     // Set frame format to 8 data bits, no parity, 1 stop bit
   21:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Coms.h ****     UCSR0C |= (1<<UCSZ01)|(1<<UCSZ00); //|(1<<UMSEL00);
- 163               	.LM3:
- 164 000a 8091 C200 		lds r24,194
- 165 000e 8660      		ori r24,lo8(6)
- 166 0010 8093 C200 		sts 194,r24
+ 311               	.LM20:
+ 312 001e 8091 C200 		lds r24,194
+ 313 0022 8660      		ori r24,lo8(6)
+ 314 0024 8093 C200 		sts 194,r24
   22:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Coms.h ****     //enable transmission and reception
   23:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Coms.h ****     UCSR0B |= (1<<RXEN0)|(1<<TXEN0);
- 168               	.LM4:
- 169 0014 8091 C100 		lds r24,193
- 170 0018 8861      		ori r24,lo8(24)
- 171 001a 8093 C100 		sts 193,r24
- 172               	.LBE7:
- 173               	.LBE6:
- 175               	.Ltext2:
-  40:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     serial_init();
-  41:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
-  42:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     setOutput(LED_DDR, LED_PIN);
- 177               	.LM5:
- 178 001e 8091 0101 		lds r24,257
- 179 0022 8860      		ori r24,lo8(8)
- 180 0024 8093 0101 		sts 257,r24
-  43:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     
-  44:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     display_init( &_display);
- 182               	.LM6:
- 183 0028 80E0      		ldi r24,lo8(_display)
- 184 002a 90E0      		ldi r25,hi8(_display)
- 185 002c 0E94 0000 		call display_init
-  45:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     
-  46:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     sensors_init( &_sensors);
- 187               	.LM7:
- 188 0030 80E0      		ldi r24,lo8(_sensors)
- 189 0032 90E0      		ldi r25,hi8(_sensors)
- 190 0034 0E94 0000 		call sensors_init
-  47:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     
-  48:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     _sensors.display = &_display;
- 192               	.LM8:
- 193 0038 80E0      		ldi r24,lo8(_display)
- 194 003a 90E0      		ldi r25,hi8(_display)
- 195 003c 9093 0000 		sts _sensors+571+1,r25
- 196 0040 8093 0000 		sts _sensors+571,r24
- 197               	.LBB8:
- 198               	.LBB9:
- 200               	.Ltext3:
+ 316               	.LM21:
+ 317 0028 8091 C100 		lds r24,193
+ 318 002c 8861      		ori r24,lo8(24)
+ 319 002e 8093 C100 		sts 193,r24
+ 320               	.LBE13:
+ 321               	.LBE12:
+ 323               	.Ltext4:
+  84:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+  85:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     /* *** *** *** *** *** *** *** *** *** */
+  86:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     
+  87:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     serial_init();
+  88:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+  89:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+  90:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+  91:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     
+  92:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     display_init( &_display);
+ 325               	.LM22:
+ 326 0032 80E0      		ldi r24,lo8(_display)
+ 327 0034 90E0      		ldi r25,hi8(_display)
+ 328 0036 0E94 0000 		call display_init
+  93:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     
+  94:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     sensors_init( &_sensors);
+ 330               	.LM23:
+ 331 003a 80E0      		ldi r24,lo8(_sensors)
+ 332 003c 90E0      		ldi r25,hi8(_sensors)
+ 333 003e 0E94 0000 		call sensors_init
+  95:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     
+  96:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     _sensors.display = &_display;
+ 335               	.LM24:
+ 336 0042 80E0      		ldi r24,lo8(_display)
+ 337 0044 90E0      		ldi r25,hi8(_display)
+ 338 0046 9093 0000 		sts _sensors+454+1,r25
+ 339 004a 8093 0000 		sts _sensors+454,r24
+ 340               	.LBB14:
+ 341               	.LBB15:
+ 343               	.Ltext5:
   18:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Coms.h ****     UBRR0H = (uint8_t)(UBRR_VALUE>>8);
- 202               	.LM9:
- 203 0044 1092 C500 		sts 197,__zero_reg__
+ 345               	.LM25:
+ 346 004e 1092 C500 		sts 197,__zero_reg__
   19:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Coms.h ****     UBRR0L = (uint8_t)UBRR_VALUE;
- 205               	.LM10:
- 206 0048 C093 C400 		sts 196,r28
+ 348               	.LM26:
+ 349 0052 1093 C400 		sts 196,r17
   21:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Coms.h ****     UCSR0C |= (1<<UCSZ01)|(1<<UCSZ00); //|(1<<UMSEL00);
- 208               	.LM11:
- 209 004c 8091 C200 		lds r24,194
- 210 0050 8660      		ori r24,lo8(6)
- 211 0052 8093 C200 		sts 194,r24
- 213               	.LM12:
- 214 0056 8091 C100 		lds r24,193
- 215 005a 8861      		ori r24,lo8(24)
- 216 005c 8093 C100 		sts 193,r24
- 217               	.LBE9:
- 218               	.LBE8:
- 220               	.Ltext4:
-  49:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     serial_init();
-  50:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
-  51:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     
-  52:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     sei();
- 222               	.LM13:
- 223               	/* #APP */
- 224               	 ;  52 "/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main
- 225 0060 7894      		sei
- 226               	 ;  0 "" 2
-  53:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
-  54:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     display_clear( &_display );
- 228               	.LM14:
- 229               	/* #NOAPP */
- 230 0062 80E0      		ldi r24,lo8(_display)
- 231 0064 90E0      		ldi r25,hi8(_display)
- 232 0066 0E94 0000 		call display_clear
-  55:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     
-  56:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     sensors_calibration( &_sensors , 10 );
- 234               	.LM15:
- 235 006a 6AE0      		ldi r22,lo8(10)
- 236 006c 80E0      		ldi r24,lo8(_sensors)
- 237 006e 90E0      		ldi r25,hi8(_sensors)
- 238 0070 0E94 0000 		call sensors_calibration
-  57:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     
-  58:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     
-  59:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     const char name[] = "hello";
-  60:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     const uint8_t nameLen = strlen( name)* getCharWidth();
- 240               	.LM16:
- 241 0074 0E94 0000 		call getCharWidth
-  61:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     
-  62:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     const char name2[] = "world";
-  63:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     const uint8_t name2Len = strlen( name2)* getCharHeight();
- 243               	.LM17:
- 244 0078 0E94 0000 		call getCharHeight
-  64:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     int xPos = -nameLen;
-  65:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     
-  66:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     int yPos = name2Len;
-  67:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
-  68:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     display_setFontColor( &_display, 255);
- 246               	.LM18:
- 247 007c 6FEF      		ldi r22,lo8(-1)
- 248 007e 80E0      		ldi r24,lo8(_display)
- 249 0080 90E0      		ldi r25,hi8(_display)
- 250 0082 0E94 0000 		call display_setFontColor
- 251               	.L2:
-  69:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     
-  70:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
-  71:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
-  72:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     for (;;)
-  73:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     {
-  74:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
-  75:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** //   serial_send(  200 );
-  76:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
-  77:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
-  78:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** /*
-  79:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
-  80:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****          // HORIZONTAL
-  81:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         display_clearZone(&_display, xPos-1, 3, nameLen, 3+getCharHeight() );
-  82:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         display_write( &_display, name, xPos, 4,0);
-  83:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
-  84:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         
-  85:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         // VERTICAL
-  86:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         display_clearZone(&_display, 3 ,yPos, 3+getCharWidth(), name2Len );
-  87:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         display_write( &_display, name2, 4 ,yPos,1);
-  88:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****  */
-  89:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         
-  90:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** //        _delay_ms( 30 );
-  91:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         
-  92:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         xPos +=1;
-  93:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         yPos -=1;
-  94:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         
-  95:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         if ( xPos > 30)
-  96:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****             xPos = -nameLen;
-  97:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         
-  98:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         if ( yPos < -name2Len)
-  99:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****             yPos = name2Len*2;
- 100:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+ 351               	.LM27:
+ 352 0056 8091 C200 		lds r24,194
+ 353 005a 8660      		ori r24,lo8(6)
+ 354 005c 8093 C200 		sts 194,r24
+ 356               	.LM28:
+ 357 0060 8091 C100 		lds r24,193
+ 358 0064 8861      		ori r24,lo8(24)
+ 359 0066 8093 C100 		sts 193,r24
+ 360               	.LBE15:
+ 361               	.LBE14:
+ 363               	.Ltext6:
+  97:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     serial_init();
+  98:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+  99:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     
+ 100:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     sei();
+ 365               	.LM29:
+ 366               	/* #APP */
+ 367               	 ;  100 "/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/mai
+ 368 006a 7894      		sei
+ 369               	 ;  0 "" 2
  101:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
- 102:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         
- 103:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** //        sensors_reccordState( &_sensors , 1 , 10  , 2);
- 104:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         
- 105:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         test( &_sensors );
- 253               	.LM19:
- 254 0086 80E0      		ldi r24,lo8(_sensors)
- 255 0088 90E0      		ldi r25,hi8(_sensors)
- 256 008a 0E94 0000 		call test
- 257 008e 00C0      		rjmp .L2
- 259               	.Lscope1:
- 260               		.comm	_sensors,574,1
- 261               		.comm	_display,1807,1
- 264               		.text
- 266               	.Letext0:
- 267               		.ident	"GCC: (GNU) 4.8.1"
- 268               	.global __do_clear_bss
+ 102:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     display_clear( &_display );
+ 371               	.LM30:
+ 372               	/* #NOAPP */
+ 373 006c 80E0      		ldi r24,lo8(_display)
+ 374 006e 90E0      		ldi r25,hi8(_display)
+ 375 0070 0E94 0000 		call display_clear
+ 103:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     
+ 104:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     
+ 105:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     
+ 106:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     display_setFillColor( &_display, 255);
+ 377               	.LM31:
+ 378 0074 6FEF      		ldi r22,lo8(-1)
+ 379 0076 80E0      		ldi r24,lo8(_display)
+ 380 0078 90E0      		ldi r25,hi8(_display)
+ 381 007a 0E94 0000 		call display_setFillColor
+ 107:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     display_fillZone( &_display, 0, 0, 4, 4);
+ 383               	.LM32:
+ 384 007e 04E0      		ldi r16,lo8(4)
+ 385 0080 24E0      		ldi r18,lo8(4)
+ 386 0082 40E0      		ldi r20,0
+ 387 0084 60E0      		ldi r22,0
+ 388 0086 80E0      		ldi r24,lo8(_display)
+ 389 0088 90E0      		ldi r25,hi8(_display)
+ 390 008a 0E94 0000 		call display_fillZone
+ 108:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     
+ 109:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     sensors_calibration( &_sensors , 10 );
+ 392               	.LM33:
+ 393 008e 6AE0      		ldi r22,lo8(10)
+ 394 0090 80E0      		ldi r24,lo8(_sensors)
+ 395 0092 90E0      		ldi r25,hi8(_sensors)
+ 396 0094 0E94 0000 		call sensors_calibration
+ 110:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+ 111:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     display_clearZone( &_display, 0, 0, 4, 4);
+ 398               	.LM34:
+ 399 0098 24E0      		ldi r18,lo8(4)
+ 400 009a 40E0      		ldi r20,0
+ 401 009c 60E0      		ldi r22,0
+ 402 009e 80E0      		ldi r24,lo8(_display)
+ 403 00a0 90E0      		ldi r25,hi8(_display)
+ 404 00a2 0E94 0000 		call display_clearZone
+ 112:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     
+ 113:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     const char name[] = "hello";
+ 406               	.LM35:
+ 407 00a6 86E0      		ldi r24,lo8(6)
+ 408 00a8 E0E0      		ldi r30,lo8(.LC0)
+ 409 00aa F0E0      		ldi r31,hi8(.LC0)
+ 410 00ac DE01      		movw r26,r28
+ 411 00ae 1796      		adiw r26,7
+ 412               		0:
+ 413 00b0 0190      		ld r0,Z+
+ 414 00b2 0D92      		st X+,r0
+ 415 00b4 8A95      		dec r24
+ 416 00b6 01F4      		brne 0b
+ 114:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     const uint8_t nameLen = strlen( name)* getCharWidth();
+ 418               	.LM36:
+ 419 00b8 0E94 0000 		call getCharWidth
+ 420 00bc 182F      		mov r17,r24
+ 421 00be 94E0      		ldi r25,lo8(4)
+ 422 00c0 899F      		mul r24,r25
+ 423 00c2 100D      		add r17,r0
+ 424 00c4 1124      		clr __zero_reg__
+ 115:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     
+ 116:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     const char name2[] = "world";
+ 426               	.LM37:
+ 427 00c6 86E0      		ldi r24,lo8(6)
+ 428 00c8 E0E0      		ldi r30,lo8(.LC1)
+ 429 00ca F0E0      		ldi r31,hi8(.LC1)
+ 430 00cc DE01      		movw r26,r28
+ 431 00ce 1196      		adiw r26,1
+ 432               		0:
+ 433 00d0 0190      		ld r0,Z+
+ 434 00d2 0D92      		st X+,r0
+ 435 00d4 8A95      		dec r24
+ 436 00d6 01F4      		brne 0b
+ 117:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     const uint8_t name2Len = strlen( name2)* getCharHeight();
+ 438               	.LM38:
+ 439 00d8 0E94 0000 		call getCharHeight
+ 440 00dc 582E      		mov r5,r24
+ 441 00de 94E0      		ldi r25,lo8(4)
+ 442 00e0 899F      		mul r24,r25
+ 443 00e2 500C      		add r5,r0
+ 444 00e4 1124      		clr __zero_reg__
+ 118:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     int xPos = -nameLen;
+ 446               	.LM39:
+ 447 00e6 A12E      		mov r10,r17
+ 448 00e8 B12C      		mov r11,__zero_reg__
+ 449 00ea B194      		neg r11
+ 450 00ec A194      		neg r10
+ 451 00ee B108      		sbc r11,__zero_reg__
+ 119:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     
+ 120:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     int yPos = name2Len;
+ 453               	.LM40:
+ 454 00f0 E52C      		mov r14,r5
+ 455 00f2 F12C      		mov r15,__zero_reg__
+ 121:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+ 122:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     display_setFontColor( &_display, 255);
+ 457               	.LM41:
+ 458 00f4 6FEF      		ldi r22,lo8(-1)
+ 459 00f6 80E0      		ldi r24,lo8(_display)
+ 460 00f8 90E0      		ldi r25,hi8(_display)
+ 461 00fa 0E94 0000 		call display_setFontColor
+ 123:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     
+ 124:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+ 125:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     _sensors.thresholdHigh = 400; //200
+ 463               	.LM42:
+ 464 00fe 80E9      		ldi r24,lo8(-112)
+ 465 0100 91E0      		ldi r25,lo8(1)
+ 466 0102 9093 0000 		sts _sensors+450+1,r25
+ 467 0106 8093 0000 		sts _sensors+450,r24
+ 126:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     _sensors.thresholdLow =  10;
+ 469               	.LM43:
+ 470 010a 8AE0      		ldi r24,lo8(10)
+ 471 010c 90E0      		ldi r25,0
+ 472 010e 9093 0000 		sts _sensors+452+1,r25
+ 473 0112 8093 0000 		sts _sensors+452,r24
+ 127:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     
+ 128:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     display_setFillColor( &_display, 255);
+ 475               	.LM44:
+ 476 0116 6FEF      		ldi r22,lo8(-1)
+ 477 0118 80E0      		ldi r24,lo8(_display)
+ 478 011a 90E0      		ldi r25,hi8(_display)
+ 479 011c 0E94 0000 		call display_setFillColor
+ 129:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+ 130:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+ 131:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     
+ 132:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     
+ 133:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     for (;;)
+ 134:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     {
+ 135:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         readAll( &_sensors);
+ 136:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         toggle(LED_PORT, LED_PIN);
+ 137:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         _delay_ms(5);
+ 138:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         
+ 139:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+ 140:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+ 141:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+ 142:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****          // HORIZONTAL
+ 143:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         display_clearZone(&_display, xPos-1, 3, nameLen, 3+getCharHeight() );
+ 144:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         display_write( &_display, name, xPos, 4,0);
+ 145:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+ 146:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         
+ 147:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         // VERTICAL
+ 148:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         display_clearZone(&_display, 3 ,yPos, 3+getCharWidth(), name2Len );
+ 149:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         display_write( &_display, name2, 4 ,yPos,1);
+ 150:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** 
+ 151:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         
+ 152:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c **** //        _delay_ms( 30 );
+ 153:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         
+ 154:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         xPos +=1;
+ 155:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         yPos -=1;
+ 156:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         
+ 157:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         if ( xPos > 30)
+ 158:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****             xPos = -nameLen;
+ 159:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         
+ 160:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         if ( yPos < -name2Len)
+ 161:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****             yPos = name2Len*2;
+ 481               	.LM45:
+ 482 0120 4701      		movw r8,r14
+ 483 0122 880C      		lsl r8
+ 484 0124 991C      		rol r9
+ 118:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****     int xPos = -nameLen;
+ 486               	.LM46:
+ 487 0126 6501      		movw r12,r10
+ 136:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         toggle(LED_PORT, LED_PIN);
+ 489               	.LM47:
+ 490 0128 98E0      		ldi r25,lo8(8)
+ 491 012a 492E      		mov r4,r25
+ 160:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         if ( yPos < -name2Len)
+ 493               	.LM48:
+ 494 012c 6624      		clr r6
+ 495 012e 7724      		clr r7
+ 496 0130 6E18      		sub r6,r14
+ 497 0132 7F08      		sbc r7,r15
+ 498               	.L11:
+ 135:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         readAll( &_sensors);
+ 500               	.LM49:
+ 501 0134 80E0      		ldi r24,lo8(_sensors)
+ 502 0136 90E0      		ldi r25,hi8(_sensors)
+ 503 0138 0E94 0000 		call readAll
+ 136:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         toggle(LED_PORT, LED_PIN);
+ 505               	.LM50:
+ 506 013c 8091 0201 		lds r24,258
+ 507 0140 8425      		eor r24,r4
+ 508 0142 8093 0201 		sts 258,r24
+ 509               	.LBB16:
+ 510               	.LBB17:
+ 512               	.Ltext7:
+ 514               	.LM51:
+ 515 0146 8FE1      		ldi r24,lo8(19999)
+ 516 0148 9EE4      		ldi r25,hi8(19999)
+ 517 014a 0197      		1: sbiw r24,1
+ 518 014c 01F4      		brne 1b
+ 519 014e 00C0      		rjmp .
+ 520 0150 0000      		nop
+ 521               	.LBE17:
+ 522               	.LBE16:
+ 524               	.Ltext8:
+ 143:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         display_clearZone(&_display, xPos-1, 3, nameLen, 3+getCharHeight() );
+ 526               	.LM52:
+ 527 0152 0E94 0000 		call getCharHeight
+ 528 0156 03E0      		ldi r16,lo8(3)
+ 529 0158 080F      		add r16,r24
+ 530 015a 6FEF      		ldi r22,lo8(-1)
+ 531 015c 6C0D      		add r22,r12
+ 532 015e 212F      		mov r18,r17
+ 533 0160 43E0      		ldi r20,lo8(3)
+ 534 0162 80E0      		ldi r24,lo8(_display)
+ 535 0164 90E0      		ldi r25,hi8(_display)
+ 536 0166 0E94 0000 		call display_clearZone
+ 144:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         display_write( &_display, name, xPos, 4,0);
+ 538               	.LM53:
+ 539 016a 00E0      		ldi r16,0
+ 540 016c 24E0      		ldi r18,lo8(4)
+ 541 016e 4C2D      		mov r20,r12
+ 542 0170 BE01      		movw r22,r28
+ 543 0172 695F      		subi r22,-7
+ 544 0174 7F4F      		sbci r23,-1
+ 545 0176 80E0      		ldi r24,lo8(_display)
+ 546 0178 90E0      		ldi r25,hi8(_display)
+ 547 017a 0E94 0000 		call display_write
+ 148:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         display_clearZone(&_display, 3 ,yPos, 3+getCharWidth(), name2Len );
+ 549               	.LM54:
+ 550 017e 0E94 0000 		call getCharWidth
+ 551 0182 23E0      		ldi r18,lo8(3)
+ 552 0184 280F      		add r18,r24
+ 553 0186 052D      		mov r16,r5
+ 554 0188 4E2D      		mov r20,r14
+ 555 018a 63E0      		ldi r22,lo8(3)
+ 556 018c 80E0      		ldi r24,lo8(_display)
+ 557 018e 90E0      		ldi r25,hi8(_display)
+ 558 0190 0E94 0000 		call display_clearZone
+ 149:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         display_write( &_display, name2, 4 ,yPos,1);
+ 560               	.LM55:
+ 561 0194 01E0      		ldi r16,lo8(1)
+ 562 0196 2E2D      		mov r18,r14
+ 563 0198 44E0      		ldi r20,lo8(4)
+ 564 019a BE01      		movw r22,r28
+ 565 019c 6F5F      		subi r22,-1
+ 566 019e 7F4F      		sbci r23,-1
+ 567 01a0 80E0      		ldi r24,lo8(_display)
+ 568 01a2 90E0      		ldi r25,hi8(_display)
+ 569 01a4 0E94 0000 		call display_write
+ 154:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         xPos +=1;
+ 571               	.LM56:
+ 572 01a8 9FEF      		ldi r25,-1
+ 573 01aa C91A      		sub r12,r25
+ 574 01ac D90A      		sbc r13,r25
+ 155:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         yPos -=1;
+ 576               	.LM57:
+ 577 01ae 81E0      		ldi r24,1
+ 578 01b0 E81A      		sub r14,r24
+ 579 01b2 F108      		sbc r15,__zero_reg__
+ 157:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         if ( xPos > 30)
+ 581               	.LM58:
+ 582 01b4 9FE1      		ldi r25,31
+ 583 01b6 C916      		cp r12,r25
+ 584 01b8 D104      		cpc r13,__zero_reg__
+ 585 01ba 04F0      		brlt .L12
+ 158:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****             xPos = -nameLen;
+ 587               	.LM59:
+ 588 01bc 6501      		movw r12,r10
+ 589               	.L12:
+ 160:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/main.c ****         if ( yPos < -name2Len)
+ 591               	.LM60:
+ 592 01be E614      		cp r14,r6
+ 593 01c0 F704      		cpc r15,r7
+ 594 01c2 04F0      		brlt .+2
+ 595 01c4 00C0      		rjmp .L11
+ 597               	.LM61:
+ 598 01c6 7401      		movw r14,r8
+ 599 01c8 00C0      		rjmp .L11
+ 607               	.Lscope4:
+ 608               		.comm	_sensors,682,1
+ 609               		.comm	_display,1805,1
+ 612               		.text
+ 614               	.Letext0:
+ 615               		.ident	"GCC: (GNU) 4.8.1"
+ 616               	.global __do_copy_data
+ 617               	.global __do_clear_bss
 DEFINED SYMBOLS
                             *ABS*:00000000 main.c
-/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccmTfyEi.s:2      *ABS*:0000003e __SP_H__
-/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccmTfyEi.s:3      *ABS*:0000003d __SP_L__
-/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccmTfyEi.s:4      *ABS*:0000003f __SREG__
-/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccmTfyEi.s:5      *ABS*:0000003b __RAMPZ__
-/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccmTfyEi.s:6      *ABS*:00000000 __tmp_reg__
-/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccmTfyEi.s:7      *ABS*:00000001 __zero_reg__
-/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccmTfyEi.s:143    .text.startup:00000000 main
-                            *COM*:0000070f _display
-                            *COM*:0000023e _sensors
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccUp2wEX.s:2      *ABS*:0000003e __SP_H__
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccUp2wEX.s:3      *ABS*:0000003d __SP_L__
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccUp2wEX.s:4      *ABS*:0000003f __SREG__
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccUp2wEX.s:5      *ABS*:0000003b __RAMPZ__
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccUp2wEX.s:6      *ABS*:00000000 __tmp_reg__
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccUp2wEX.s:7      *ABS*:00000001 __zero_reg__
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccUp2wEX.s:140    .text:00000000 AnimCircle
+                            *COM*:0000070d _display
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccUp2wEX.s:223    .text:00000046 testLines
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccUp2wEX.s:253    .text:00000062 userCall
+/var/folders/8r/0fdlnc995dl_vxqd6srx06ch0000gn/T//ccUp2wEX.s:281    .text.startup:00000000 main
+                            *COM*:000002aa _sensors
 
 UNDEFINED SYMBOLS
+display_drawCircle
+display_setFillColor
+display_drawLine
 display_init
 sensors_init
 display_clear
+display_fillZone
 sensors_calibration
+display_clearZone
 getCharWidth
 getCharHeight
 display_setFontColor
-test
+readAll
+display_write
+__do_copy_data
 __do_clear_bss

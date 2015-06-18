@@ -149,7 +149,7 @@ int main(int argc, const char * argv[])
     
     while( 1)
     {
-        s.currentRow = 0;
+//        s.currentRow = 0;
     extract_image(&values);
         printf("\n After");
     }

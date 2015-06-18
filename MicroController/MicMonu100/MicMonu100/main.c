@@ -7,7 +7,6 @@
 #define __PROG_TYPES_COMPAT__
 #include <avr/pgmspace.h>
 #include <avr/interrupt.h>
-
 #include <util/delay.h>
 #include <math.h>
 
@@ -35,11 +34,60 @@ Sensors _sensors;
  */
 /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
 
+void AnimCircle(void)
+{
+    uint8_t r = 0;
+    int dir = 1;
+    while (1)
+    {
+        display_drawCircle( &_display, 15, 15, r);
+        
+        _delay_ms(5);
+        
+        r+=dir;
+        
+        if (r>15)
+        {
+            dir*=-1;
+            display_setFillColor( &_display, 0);
+        }
+        if ( r<=0)
+        {
+            dir*=-1;
+            display_setFillColor( &_display, 255);
+        }
+        
+        
+    }
+
+}
+
+
+void testLines(void)
+{
+    display_setFillColor( &_display, 255);
+    display_drawLine(&_display,  4, 0 , 25 ,29);
+    while (1)
+    {
+    }
+}
+
+
+
+void userCall()
+{
+    toggle(LED_PORT, LED_PIN);
+//    _delay_ms( 10 );
+}
 int main( void )
 {
+
+    /* *** *** *** *** *** *** *** *** *** */
+    
     serial_init();
 
-    setOutput(LED_DDR, LED_PIN);
+
+
     
     display_init( &_display);
     
@@ -53,8 +101,14 @@ int main( void )
 
     display_clear( &_display );
     
-    sensors_calibration( &_sensors , 10 );
     
+    
+    display_setFillColor( &_display, 255);
+    display_fillZone( &_display, 0, 0, 4, 4);
+    
+    sensors_calibration( &_sensors , 10 );
+
+    display_clearZone( &_display, 0, 0, 4, 4);
     
     const char name[] = "hello";
     const uint8_t nameLen = strlen( name)* getCharWidth();
@@ -68,14 +122,22 @@ int main( void )
     display_setFontColor( &_display, 255);
     
 
+    _sensors.thresholdHigh = 400; //200
+    _sensors.thresholdLow =  10;
+    
+    display_setFillColor( &_display, 255);
 
+
+    
+    
     for (;;)
     {
+        readAll( &_sensors);
+        toggle(LED_PORT, LED_PIN);
+        _delay_ms(5);
+        
 
-//   serial_send(  200 );
 
-
-/*
 
          // HORIZONTAL
         display_clearZone(&_display, xPos-1, 3, nameLen, 3+getCharHeight() );
@@ -85,7 +147,7 @@ int main( void )
         // VERTICAL
         display_clearZone(&_display, 3 ,yPos, 3+getCharWidth(), name2Len );
         display_write( &_display, name2, 4 ,yPos,1);
- */
+
         
 //        _delay_ms( 30 );
         
@@ -98,15 +160,7 @@ int main( void )
         if ( yPos < -name2Len)
             yPos = name2Len*2;
 
-
         
-//        sensors_reccordState( &_sensors , 1 , 10  , 2);
-        
-        test( &_sensors );
-//        display_clear( &_display);
-
-        
-//    serial_send( 80 );
         
   
     } // end endless for

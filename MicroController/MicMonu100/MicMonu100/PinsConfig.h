@@ -22,7 +22,7 @@
  */
 
 #ifndef __AVR_ATmega2560__
-#error " pinout mustbe redefined"
+#error " pinout must be redefined"
 #endif
 
 /* **** **** **** **** **** **** **** **** **** **** */
@@ -33,6 +33,7 @@
 #define setOutput(ddr, pin) ((ddr) |= (1 << (pin)))
 #define setLow(port, pin) ((port) &= ~(1 << (pin)))
 #define setHigh(port, pin) ((port) |= (1 << (pin)))
+#define toggle(port , pin) ((port) ^= (1 << (pin)))
 
 #define getValue(port, pin) ((port) & (1 << (pin)))
 #define outputState(port, pin) getValue(port,pin)
