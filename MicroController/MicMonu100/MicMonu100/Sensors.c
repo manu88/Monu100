@@ -18,6 +18,8 @@
 #include "Coms.h"
 
 
+void analyze(Sensors *sensors);
+
 /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
 
 void adc_init(void)
@@ -104,6 +106,9 @@ void sensors_init( Sensors *sensors)
         }
     }
     
+    sensors->moyenne     = 1000.0f;
+    sensors->prevMoyenne = 1000.0f;
+    
 }
 
 /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
@@ -142,7 +147,7 @@ void sensors_calibration( Sensors *sensors , uint8_t count)
                 if (iter == 0)
                     temp[i][j] = 0;
                 
-                temp[i][j] += adc_read( i );// >> ADC_SHIFT_MULT;
+                temp[i][j] += (float) adc_read( i );// >> ADC_SHIFT_MULT;
                 
                 if( iter == count-1)
                 {
@@ -182,43 +187,12 @@ void readFrame(Sensors *sensors)
 
 void readRow( Sensors *sensors , uint8_t *buffer)
 {
+    const uint8_t j = sensors->currentRow;
     
-    for (int i = 0; i < MIC_SENSOR_COUNT ; i++)
-    {
-        uint8_t x = 0;
-        uint8_t y = 0;
-        
-        int val = ( adc_read( i ) );// - sensors->calibValues[i][ sensors->currentRow ];
-
-
-        /*if ( val < sensors->thresholdLow )
-            val = BLOB_SHADOW;
-        
-        else */if ( val > sensors->thresholdHigh )
-            val = BLOB_LIGHT;
-        
-        
-        else
-            val = 0;
-
-        x = sensors->currentRow*2;
-        y = (14-i)*2;
-
-        if ( buffer != NULL)
-            buffer[i] =(uint8_t) val ;
-        
-        sensors->values[i][ sensors->currentRow ] = val;
-
-        display_setFillColor( sensors->display, val );
-        display_fillZone( sensors->display , x - 2, y - 2 , 4, 4 );
-
-
-    }
-    
-    
-    if (sensors->currentRow == ( MIC_SENSOR_COUNT - 1) )
+    if (sensors->currentRow == 0 )
     {
         setHigh( LDR_DATA_PORT , LDR_DATA_PIN );
+
     }
     else
     {
@@ -227,6 +201,62 @@ void readRow( Sensors *sensors , uint8_t *buffer)
     
     pulse( LDR_CLOCK_PORT , LDR_CLOCK_PIN);
     pulse( LDR_STROBE_PORT, LDR_STROBE_PIN);
+    
+
+
+    _delay_us( 1600 );    // 1500
+    
+    for (int i = 0; i < MIC_SENSOR_COUNT ; i++)
+//    for (int i = 14; i >= 0 ; i--)
+    {
+
+        
+        const int read = adc_read( i );
+        const int diffLow  = ( int ) ( sensors->prevMoyenne*0.65f ); // 0.65
+        const int diffHigh = ( int ) ( sensors->prevMoyenne*2.0f );
+        
+        int val = read;
+        
+
+        if ( read<diffHigh )
+        {
+            sensors->moyenne+= read;
+        }
+        
+        /* *** *** *** */
+        
+        
+        // light
+        if ( read>=diffHigh)
+        {
+            val = BLOB_SHADOW;
+        }
+        
+        // Shadow
+        else if ( val < diffLow )
+            val = BLOB_SHADOW;
+
+        else
+        {
+
+            val = 0;
+        }
+        
+
+/*
+        if ( buffer != NULL)
+            buffer[i] =(uint8_t) val ;
+*/
+        
+        // temp : ignore edges
+        
+        if( (i!= 0) && ( i!= SENSOR_COUNT-1 ) && ( j!= 0) && ( j!= SENSOR_COUNT-1 ))
+            sensors->values[i][ j ] = val;
+
+
+
+    }
+
 
 }
 
@@ -234,11 +264,71 @@ void readRow( Sensors *sensors , uint8_t *buffer)
 void readAll( Sensors *sensors)
 {
     sensors->currentRow = 0;
-    display_clear( sensors->display );
+    
+    sensors->moyenne = 0;
+
     for ( int i=0; i< MIC_SENSOR_COUNT;i++ )
     {
         readRow( sensors, NULL );
         sensors->currentRow++;
+    }
+    
+    sensors->moyenne /= MIC_SENSOR_COUNT * SENSOR_COUNT;
+    
+    sensors->prevMoyenne = sensors->moyenne;
+    
+    analyze( sensors );
+    
+    
+    for (int i = 0; i<MIC_SENSOR_COUNT ; i++)
+        for (int j = 0 ; j<SENSOR_COUNT ; j++)
+        {
+            const uint8_t x = j*2;
+            const uint8_t y = (14-i)*2;
+            
+            const uint8_t val =sensors->values[i][j];
+            
+            if(  val != sensors->display->buff_A[y][x] )
+            {
+                display_setFillColor( sensors->display, val );
+                
+                display_fillZone( sensors->display , x , y  , 2, 2 );
+            }
+        }
+}
+
+/* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
+
+void analyze(Sensors *sensors)
+{
+
+    for (int x = 1; x<MIC_SENSOR_COUNT-1 ; x++)
+    {
+        for (int y = 1 ; y<SENSOR_COUNT -1 ; y++)
+        {
+            /*
+              a b c
+              d E f
+              g h i
+             */
+            const uint8_t a = sensors->values[x-1][y-1];
+            const uint8_t b = sensors->values[x  ][y-1];
+            const uint8_t c = sensors->values[x+1][y-1];
+            
+            const uint8_t d = sensors->values[x-1][y];
+
+            const uint8_t f = sensors->values[x+1][y];
+            
+            const uint8_t g = sensors->values[x-1][y+1];
+            const uint8_t h = sensors->values[x  ][y+1];
+            const uint8_t i = sensors->values[x+1][y+1];
+            
+            const uint8_t sum =a+b+c+d+f+g+h+i;
+            
+            if( sum == 0 )
+                sensors->values[x][y] =0 ;
+            
+        }
     }
 }
 

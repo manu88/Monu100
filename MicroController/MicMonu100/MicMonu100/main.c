@@ -94,7 +94,7 @@ int main( void )
     sensors_init( &_sensors);
     
     _sensors.display = &_display;
-    serial_init();
+//    serial_init();
 
     
     sei();
@@ -106,7 +106,7 @@ int main( void )
     display_setFillColor( &_display, 255);
     display_fillZone( &_display, 0, 0, 4, 4);
     
-    sensors_calibration( &_sensors , 10 );
+//    sensors_calibration( &_sensors , 10 );
 
     display_clearZone( &_display, 0, 0, 4, 4);
     
@@ -123,18 +123,19 @@ int main( void )
     
 
     _sensors.thresholdHigh = 400; //200
-    _sensors.thresholdLow =  10;
+    _sensors.thresholdLow =  5;
     
     display_setFillColor( &_display, 255);
 
-
-    
     
     for (;;)
     {
         readAll( &_sensors);
         toggle(LED_PORT, LED_PIN);
-        _delay_ms(5);
+        _delay_ms( 20 );
+        
+        
+//        display_clear( &_display );
         
 
 

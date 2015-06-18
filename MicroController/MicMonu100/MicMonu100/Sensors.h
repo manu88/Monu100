@@ -39,6 +39,8 @@ struct _Sensors
     uint16_t thresholdHigh;
     int16_t thresholdLow;
     
+    float moyenne;
+    float prevMoyenne;
     
     Display* display;
     
