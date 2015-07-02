@@ -10,29 +10,29 @@
 	<string>MicMonu100</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>A3E82487-02FA-4BBD-A65B-EFB3CAC8F13F</key>
+		<key>D8632A9D5DED03F38FBF6C0A7AC11ED7FDFB53AA</key>
 		<string>https://github.com/manu88/Monu100.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>MicroController/MicMonu100/MicMonu100.xcodeproj/project.xcworkspace</string>
+	<string>MicroController/MicMonu100/MicMonu100.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>A3E82487-02FA-4BBD-A65B-EFB3CAC8F13F</key>
+		<key>D8632A9D5DED03F38FBF6C0A7AC11ED7FDFB53AA</key>
 		<string>../../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/manu88/Monu100.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>A3E82487-02FA-4BBD-A65B-EFB3CAC8F13F</string>
+	<string>D8632A9D5DED03F38FBF6C0A7AC11ED7FDFB53AA</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>A3E82487-02FA-4BBD-A65B-EFB3CAC8F13F</string>
+			<string>D8632A9D5DED03F38FBF6C0A7AC11ED7FDFB53AA</string>
 			<key>IDESourceControlWCCName</key>
 			<string>Monu100</string>
 		</dict>

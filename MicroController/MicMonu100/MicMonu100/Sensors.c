@@ -18,7 +18,7 @@
 #include "Coms.h"
 
 
-void analyze(Sensors *sensors);
+uint8_t analyze(Sensors *sensors);
 
 /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
 
@@ -201,35 +201,31 @@ void readRow( Sensors *sensors , uint8_t *buffer)
     
     pulse( LDR_CLOCK_PORT , LDR_CLOCK_PIN);
     pulse( LDR_STROBE_PORT, LDR_STROBE_PIN);
-    
-
 
     _delay_us( 1600 );    // 1500
     
     for (int i = 0; i < MIC_SENSOR_COUNT ; i++)
-//    for (int i = 14; i >= 0 ; i--)
     {
 
-        
         const int read = adc_read( i );
         const int diffLow  = ( int ) ( sensors->prevMoyenne*0.65f ); // 0.65
         const int diffHigh = ( int ) ( sensors->prevMoyenne*2.0f );
         
         int val = read;
-        
+
 
         if ( read<diffHigh )
         {
             sensors->moyenne+= read;
         }
         
-        /* *** *** *** */
+
         
         
         // light
         if ( read>=diffHigh)
         {
-            val = BLOB_SHADOW;
+            val = BLOB_LIGHT;
         }
         
         // Shadow
@@ -241,7 +237,7 @@ void readRow( Sensors *sensors , uint8_t *buffer)
 
             val = 0;
         }
-        
+
 
 /*
         if ( buffer != NULL)
@@ -249,19 +245,24 @@ void readRow( Sensors *sensors , uint8_t *buffer)
 */
         
         // temp : ignore edges
-        
-        if( (i!= 0) && ( i!= SENSOR_COUNT-1 ) && ( j!= 0) && ( j!= SENSOR_COUNT-1 ))
+//        if( (i!= 0) && ( i!= SENSOR_COUNT-1 ) && ( j!= 0) && ( j!= SENSOR_COUNT-1 ))
             sensors->values[i][ j ] = val;
+        
+        
+        const uint8_t x = j*2;
+        const uint8_t y = (14-i)*2;
 
 
-
+        display_setFillColor( sensors->display, val );
+        
+        display_fillZone( sensors->display , x , y  , 2, 2 );
     }
 
 
 }
 
 
-void readAll( Sensors *sensors)
+uint8_t readAll( Sensors *sensors)
 {
     sensors->currentRow = 0;
     
@@ -277,9 +278,13 @@ void readAll( Sensors *sensors)
     
     sensors->prevMoyenne = sensors->moyenne;
     
-    analyze( sensors );
+    return 1;//analyze( sensors );
     
-    
+}
+/* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
+
+void sensors_drawInter( Sensors *sensors)
+{
     for (int i = 0; i<MIC_SENSOR_COUNT ; i++)
         for (int j = 0 ; j<SENSOR_COUNT ; j++)
         {
@@ -287,6 +292,8 @@ void readAll( Sensors *sensors)
             const uint8_t y = (14-i)*2;
             
             const uint8_t val =sensors->values[i][j];
+            
+
             
             if(  val != sensors->display->buff_A[y][x] )
             {
@@ -299,9 +306,9 @@ void readAll( Sensors *sensors)
 
 /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
 
-void analyze(Sensors *sensors)
+uint8_t analyze(Sensors *sensors)
 {
-
+    uint8_t ret = 0;
     for (int x = 1; x<MIC_SENSOR_COUNT-1 ; x++)
     {
         for (int y = 1 ; y<SENSOR_COUNT -1 ; y++)
@@ -327,9 +334,13 @@ void analyze(Sensors *sensors)
             
             if( sum == 0 )
                 sensors->values[x][y] =0 ;
+            else
+                ret++;
             
         }
     }
+    
+    return ret;
 }
 
 /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */

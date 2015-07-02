@@ -322,14 +322,19 @@ void display_write(Display *display , const char* text, int8_t x , int8_t y , ui
     
     while ( text[i] != '\0' )
     {
-        if ( text[i] == '\n' )
+        if ( !dir && ( text[i] == '\n' ) )
         {
             xx+= CHAR_HEIGHT;
             yy = x;
         }
         
         else if ( text[i] == ' ' )
-            yy+=CHAR_WIDTH;
+        {
+            if (!dir)
+                yy+=CHAR_WIDTH;
+            else
+                xx+=CHAR_HEIGHT;
+        }
         
         else
         {

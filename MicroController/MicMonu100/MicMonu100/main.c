@@ -110,14 +110,13 @@ int main( void )
 
     display_clearZone( &_display, 0, 0, 4, 4);
     
-    const char name[] = "hello";
-    const uint8_t nameLen = strlen( name)* getCharWidth();
+
+    const char name2[] = "hello world";
+    const int name2Len = strlen( name2)* getCharHeight();
     
-    const char name2[] = "world";
-    const uint8_t name2Len = strlen( name2)* getCharHeight();
-    int xPos = -nameLen;
     
-    int yPos = name2Len;
+    
+    int yPos = 30;
 
     display_setFontColor( &_display, 255);
     
@@ -128,41 +127,84 @@ int main( void )
     display_setFillColor( &_display, 255);
 
     
+    int count = 0;
+    const int countMax = 10;
+    
+    uint8_t animStarted = 0;
     for (;;)
     {
-        readAll( &_sensors);
-        toggle(LED_PORT, LED_PIN);
         _delay_ms( 20 );
+
+        readAll( &_sensors);
+//        sensors_drawInter( &_sensors );
+
         
+        /*
+        count++;
         
-//        display_clear( &_display );
+        if (count >=countMax)
+        {
+
+            if (!animStarted)
+            {
+                animStarted = 1;
+
+            }
+
+        }
         
+        if (animStarted)
+        {
+            setHigh( LED_PORT, LED_PIN );
+            
+            for (int y = 14; y>=0; y--)
+            {
+                _delay_ms(5);
+                for (int x = 0; x<15; x++)
+                {
+                    const uint8_t val = y>0? _sensors.values[y-1][x] : 0;
+                    _sensors.values[y][x] = 2*val/animStarted;
+                }
+            }
+            
+            animStarted++;
+            
+            if (animStarted > 14)
+            {
+                animStarted = 0;
+                count = 0;
+            }
+         
+//            animStarted = 0;
+//            count = 0;
 
 
-
-         // HORIZONTAL
-        display_clearZone(&_display, xPos-1, 3, nameLen, 3+getCharHeight() );
-        display_write( &_display, name, xPos, 4,0);
+        }
+        
+        else //if (!animStarted)
+        {
+            setLow(LED_PORT, LED_PIN);
+            readAll( &_sensors);
+        }
+        
+        sensors_drawInter( &_sensors );
+        
+        */
+        
+        // TEXT
+        /*
 
         
         // VERTICAL
         display_clearZone(&_display, 3 ,yPos, 3+getCharWidth(), name2Len );
         display_write( &_display, name2, 4 ,yPos,1);
 
-        
-//        _delay_ms( 30 );
-        
-        xPos +=1;
         yPos -=1;
         
-        if ( xPos > 30)
-            xPos = -nameLen;
-        
         if ( yPos < -name2Len)
-            yPos = name2Len*2;
+            yPos = 30;// name2Len*2;
 
-        
-        
+        */
   
     } // end endless for
     

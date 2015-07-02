@@ -16,18 +16,13 @@
 #define SENSOR_COUNT     15
 #define MIC_SENSOR_COUNT 15
 
-//#define MAX_DETECTION_POINTS 60
-
-#define ADC_SHIFT_MULT 5
-
-
 #define MIN_BLOB_SIZE 2
 #define MAX_BLOB_SIZE 6
 
 #define BLOB_MARGIN 5
 
 #define BLOB_LIGHT  255
-#define BLOB_SHADOW 127
+#define BLOB_SHADOW 255
 
 /* *** *** *** *** *** *** *** *** *** *** *** *** *** *** */
 
@@ -57,7 +52,8 @@ typedef struct _Sensors Sensors;
 void sensors_init( Sensors *sensors);
 void sensors_calibration( Sensors *sensors , uint8_t count);
 
-void readAll( Sensors *sensors);
+uint8_t readAll( Sensors *sensors);
+void sensors_drawInter( Sensors *sensors);
 
 void readFrame(Sensors *sensors);
 void userCall(void);

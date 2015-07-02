@@ -58,9 +58,11 @@ setLow((port), (pin));   \
 #define SCLK_PORT PORTB
 #define SCLK_PIN  PB1
 
-#define BLANK_DDR  DDRB // DEVRAIT ETRE B0 pour SS'
+#define BLANK_DDR  DDRB  // DEVRAIT ETRE B0 pour SS'
 #define BLANK_PORT PORTB
 #define BLANK_PIN  PB0
+
+/* GSCLK Sur PE7 -> clock output*/
 
 #define XLAT_DDR  DDRB // ok
 #define XLAT_PORT PORTB
