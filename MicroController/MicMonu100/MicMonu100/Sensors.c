@@ -16,7 +16,8 @@
 #include "quickblob.h"
 
 #include "Coms.h"
-
+#include "mcp2515.h"
+#include "CanMessages.h"
 
 uint8_t analyze(Sensors *sensors);
 
@@ -93,21 +94,21 @@ void sensors_init( Sensors *sensors)
     adc_init();    
     sensors_resetCalibration( sensors );
     
-    sensors->thresholdHigh = 0;
-    
-    sensors->thresholdLow  = 0;
     
     for (int j = 0; j<MIC_SENSOR_COUNT ; j++) // mics
     {
         
-        for (int i = 0; i < MIC_SENSOR_COUNT ; i++)
+        for (int i = 0; i < SENSOR_COUNT ; i++)
         {
-            sensors->values[i][j] = 0;
+            sensors->values     [i][j] = 0;
         }
     }
     
     sensors->moyenne     = 1000.0f;
     sensors->prevMoyenne = 1000.0f;
+    
+    sensors->lowTreshold  = SEUIL_SHADOW;
+    sensors->highTreshold = SEUIL_LIGHT;
     
 }
 
@@ -115,15 +116,7 @@ void sensors_init( Sensors *sensors)
 
 void sensors_resetCalibration( Sensors *sensors )
 {
-    for (int j = 0; j<MIC_SENSOR_COUNT ; j++) // mics
-    {
-        
-        for (int i = 0; i < MIC_SENSOR_COUNT ; i++)
-        {
-            sensors->calibValues[i][j] = 0;
-        }
-    }
-    
+
 }
 
 /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
@@ -152,7 +145,7 @@ void sensors_calibration( Sensors *sensors , uint8_t count)
                 if( iter == count-1)
                 {
                     temp[i][j] /= count;
-                    sensors->calibValues[i][j] =  (uint16_t)temp[i][j];
+//                    sensors->calibValues[i][j] =  (uint16_t)temp[i][j];
                 }
             }
             
@@ -189,209 +182,79 @@ void readRow( Sensors *sensors , uint8_t *buffer)
 {
     const uint8_t j = sensors->currentRow;
     
-    if (sensors->currentRow == 0 )
-    {
-        setHigh( LDR_DATA_PORT , LDR_DATA_PIN );
 
-    }
+    
+    if (sensors->currentRow == 0 )
+        setHigh( LDR_DATA_PORT , LDR_DATA_PIN );
     else
-    {
         setLow( LDR_DATA_PORT , LDR_DATA_PIN );
-    }
+    
     
     pulse( LDR_CLOCK_PORT , LDR_CLOCK_PIN);
     pulse( LDR_STROBE_PORT, LDR_STROBE_PIN);
 
     _delay_us( 1600 );    // 1500
     
-    for (int i = 0; i < MIC_SENSOR_COUNT ; i++)
+    for (int i = 0; i < SENSOR_COUNT ; i++)
+//    for (int i = SENSOR_COUNT-1; i >=0 ; i--)
     {
 
         const int read = adc_read( i );
-        const int diffLow  = ( int ) ( sensors->prevMoyenne*0.65f ); // 0.65
-        const int diffHigh = ( int ) ( sensors->prevMoyenne*2.0f );
-        
-        int val = read;
 
 
-        if ( read<diffHigh )
-        {
-            sensors->moyenne+= read;
-        }
-        
+        uint8_t val =0;// = read< SEUIL_SHADOW?BLOB_SHADOW: (read>SEUIL_LIGHT?BLOB_LIGHT:0);
 
-        
-        
-        // light
-        if ( read>=diffHigh)
-        {
-            val = BLOB_LIGHT;
-        }
-        
-        // Shadow
-        else if ( val < diffLow )
+        if (read < sensors->lowTreshold )
             val = BLOB_SHADOW;
+        
+        else if ( read>sensors->highTreshold)
+            val = BLOB_LIGHT;
+        
+        sensors->values[i][j] = val ;
+        
+        if( buffer != NULL)
+            buffer[i] = val;
 
-        else
+
+        if (val == BLOB_LIGHT && (i!= SENSOR_COUNT-1))
         {
-
-            val = 0;
+            display_setFillColor(sensors->display, val);
+            display_fillZone(sensors->display,mapXFromSensors(j) ,mapYFromSensors(i), 2, 2);
         }
 
-
-/*
-        if ( buffer != NULL)
-            buffer[i] =(uint8_t) val ;
-*/
-        
-        // temp : ignore edges
-//        if( (i!= 0) && ( i!= SENSOR_COUNT-1 ) && ( j!= 0) && ( j!= SENSOR_COUNT-1 ))
-            sensors->values[i][ j ] = val;
-        
-        
-        const uint8_t x = j*2;
-        const uint8_t y = (14-i)*2;
-
-
-        display_setFillColor( sensors->display, val );
-        
-        display_fillZone( sensors->display , x , y  , 2, 2 );
     }
 
 
 }
 
 
-uint8_t readAll( Sensors *sensors)
-{
-    sensors->currentRow = 0;
-    
-    sensors->moyenne = 0;
 
-    for ( int i=0; i< MIC_SENSOR_COUNT;i++ )
-    {
-        readRow( sensors, NULL );
-        sensors->currentRow++;
-    }
-    
-    sensors->moyenne /= MIC_SENSOR_COUNT * SENSOR_COUNT;
-    
-    sensors->prevMoyenne = sensors->moyenne;
-    
-    return 1;//analyze( sensors );
-    
-}
-/* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
-
-void sensors_drawInter( Sensors *sensors)
-{
-    for (int i = 0; i<MIC_SENSOR_COUNT ; i++)
-        for (int j = 0 ; j<SENSOR_COUNT ; j++)
-        {
-            const uint8_t x = j*2;
-            const uint8_t y = (14-i)*2;
-            
-            const uint8_t val =sensors->values[i][j];
-            
-
-            
-            if(  val != sensors->display->buff_A[y][x] )
-            {
-                display_setFillColor( sensors->display, val );
-                
-                display_fillZone( sensors->display , x , y  , 2, 2 );
-            }
-        }
-}
-
-/* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
-
-uint8_t analyze(Sensors *sensors)
-{
-    uint8_t ret = 0;
-    for (int x = 1; x<MIC_SENSOR_COUNT-1 ; x++)
-    {
-        for (int y = 1 ; y<SENSOR_COUNT -1 ; y++)
-        {
-            /*
-              a b c
-              d E f
-              g h i
-             */
-            const uint8_t a = sensors->values[x-1][y-1];
-            const uint8_t b = sensors->values[x  ][y-1];
-            const uint8_t c = sensors->values[x+1][y-1];
-            
-            const uint8_t d = sensors->values[x-1][y];
-
-            const uint8_t f = sensors->values[x+1][y];
-            
-            const uint8_t g = sensors->values[x-1][y+1];
-            const uint8_t h = sensors->values[x  ][y+1];
-            const uint8_t i = sensors->values[x+1][y+1];
-            
-            const uint8_t sum =a+b+c+d+f+g+h+i;
-            
-            if( sum == 0 )
-                sensors->values[x][y] =0 ;
-            else
-                ret++;
-            
-        }
-    }
-    
-    return ret;
-}
 
 /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
 /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
 
 void log_blob_hook(void* user_struct, struct blob* b)
 {
+    Sensors* sensors = ( Sensors* ) user_struct;
 
-    
-    const uint8_t x = b->center_y*2;
-    const uint8_t y = (14-b->center_x)*2;
-    
-    /*
-    if ( ( x <-BLOB_MARGIN ) || ( y <-BLOB_MARGIN ))
-        return;
-    
-    if ( (x >(30+BLOB_MARGIN)) || (y>(30+BLOB_MARGIN) ) )
-        return;
-    
+    toggle(LED_PORT, LED_PIN);
 
 
-    if (( b->size < MIN_BLOB_SIZE ) || ( b->size > MAX_BLOB_SIZE ))
-        return;
-    
-     */
-
-
-    const Sensors* sensors = ( const Sensors* ) user_struct;
-
-
-    display_clear(sensors->display);
-    display_setFillColor( sensors->display, 255 );
-
-
-    if ( b->color == BLOB_SHADOW )
+    call();
+    if(( b->color == BLOB_SHADOW) && (b->size <=4))
     {
-        const uint8_t x1 = b->bb_x1*2;
-        const uint8_t y1 = (14-b->bb_y1)*2;
-        
-        const uint8_t x2 = b->bb_x2*2;
-        const uint8_t y2 = (14-b->bb_y2)*2;
-        
-        display_fillZone( sensors->display , x1, y1, x2 , y2 );
+        sensors->shadowX    = mapXFromSensors( b->center_y );
+        sensors->shadowY    = mapYFromSensors( b->center_x );
+        sensors->shadowSize = b->size;
+
     }
-    
-    else if (b->color == BLOB_LIGHT )
+    else if (( b->color == BLOB_LIGHT) && (b->size <=10))
     {
-        display_drawCircle(sensors->display, x, y, b->size);
+        sensors->lightX = mapXFromSensors( b->center_y );
+        sensors->lightY = mapYFromSensors( b->center_x );
+        sensors->lightSize = b->size;
+
     }
-
-
 
 }
 
@@ -404,7 +267,7 @@ int init_pixel_stream_hook(void* user_struct, struct stream_state* stream)
     sensors->currentRow = 0;
     
     stream->w = SENSOR_COUNT;
-    stream->h = SENSOR_COUNT;
+    stream->h = MIC_SENSOR_COUNT;
     stream->x = 0;
     stream->y = 0;
     
@@ -424,19 +287,19 @@ int close_pixel_stream_hook(void* user_struct, struct stream_state* stream)
 int next_row_hook(void* user_struct, struct stream_state* stream)
 {
     Sensors* sensors = ( Sensors* ) user_struct;
-
-    if ( sensors->currentRow == SENSOR_COUNT)
+    
+    serviceCall();
+    
+    if ( sensors->currentRow == MIC_SENSOR_COUNT)
     {
-        
-        return -1;
+        sensors->currentRow = 0;
+        return 0;//-1;
     }
     
     readRow( sensors , stream->row );
 
     sensors->currentRow++;
-    
 
-    
     return 0;
 }
 
@@ -444,21 +307,17 @@ int next_row_hook(void* user_struct, struct stream_state* stream)
 
 int next_frame_hook(void* user_struct, struct stream_state* stream)
 {
-    
+    /*
     Sensors* sensors = ( Sensors*) user_struct;
-    sensors->currentRow = 0;
-    
-    
-    userCall();
-    
-    if ( sensors->currentRow == SENSOR_COUNT)
+
+    if ( sensors->currentRow == MIC_SENSOR_COUNT)
     {
         sensors->currentRow = 0;
         return -1;
     }
+     */
 
-
-    
+//    call();
 
     return 0;
 }

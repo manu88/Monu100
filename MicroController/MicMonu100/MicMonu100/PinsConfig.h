@@ -7,10 +7,6 @@
 //
 
 
-
-
-
-
 #ifndef MicMonu100_PinsConfig_h
 #define MicMonu100_PinsConfig_h
 
@@ -27,9 +23,6 @@
 
 /* **** **** **** **** **** **** **** **** **** **** */
 
-
-
-
 #define setOutput(ddr, pin) ((ddr) |= (1 << (pin)))
 #define setLow(port, pin) ((port) &= ~(1 << (pin)))
 #define setHigh(port, pin) ((port) |= (1 << (pin)))
@@ -43,10 +36,16 @@ setHigh((port), (pin));  \
 setLow((port), (pin));   \
 } while (0)
 
-
+/* VERSION PROTO
 #define LED_DDR  DDRH
 #define LED_PORT PORTH
 #define LED_PIN  PH3
+ */
+// VERSION DEF
+#define LED_DDR  DDRA
+#define LED_PORT PORTA
+#define LED_PIN  PA0
+
 /* **** **** **** **** **** **** **** **** **** **** */
 // TLC Pins
 
@@ -77,7 +76,6 @@ setLow((port), (pin));   \
 #define DATA0_PORT PORTL
 #define DATA0_PIN  PL3
 
-
 #define DATA1_DDR  DDRL      // data row 1
 #define DATA1_PORT PORTL
 #define DATA1_PIN  PL4
@@ -88,7 +86,7 @@ setLow((port), (pin));   \
 
 #define MIC_STROBE_DDR  DDRL
 #define MIC_STROBE_PORT PORTL
-#define MIC_STROBE_PIN PL2
+#define MIC_STROBE_PIN  PL2
 
 #define MIC_OUT_ENABLE_DDR  DDRL // utile?
 #define MIC_OUT_ENABLE_PORT PORTL
@@ -124,7 +122,18 @@ setLow((port), (pin));   \
 #define CAN_RST_PORT PORTC
 #define CAN_RST_PIN  PC1
 
+#define DDR_SPI     DDRB
+#define PORT_SPI    PORTB
+#define P_MISO      3
+#define P_MOSI      2
+#define P_SCK       1
 
+
+/* DIP Switches*/
+// pull up
+#define DIP_DDR  DDRG // ok
+#define DIP_PORT PORTG
+#define DIP_PIN  PG0
 
 
 

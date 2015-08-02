@@ -160,7 +160,7 @@ static void blob_insert(struct blob* bl_start, struct blob* b2)
     }
     // append to end
     if (b1->x1 > b2->x1)
-        {printf("insert error\n"); return;}  // TODO: should raise an error
+        { return;}  // TODO: should raise an error
     b1->next = b2;
     b2->prev = b1;
 }
@@ -446,12 +446,12 @@ int extract_image(void* user_struct)
     struct blob* blob_prev = NULL;
 
     if (init_pixel_stream(user_struct, &stream))
-        {printf("init malloc error!\n"); return 1;}
+        {return 1;}
     if (stream.row == NULL)
-        {printf("row malloc error!\n"); return 1;}
+        {return 1;}
     blist.length = stream.w + 5;
     if (malloc_blobs(&blist))
-        {printf("blob malloc error!\n"); return 1;}
+        { return 1;}
 
     while (!next_frame(user_struct, &stream))
     {

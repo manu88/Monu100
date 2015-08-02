@@ -11,6 +11,9 @@
 #include <avr/pgmspace.h>
 #include <avr/interrupt.h>
 #include <stdlib.h>
+
+#include <util/delay.h>
+#include "MCP2515.h"
 #include "PinsConfig.h"
 
 #include "Display.h"
@@ -36,6 +39,11 @@ inline uint8_t clipVal( uint8_t val)
     return val>=PIXEL_MAX_VALUE ? PIXEL_MAX_VALUE : val;
 }
 
+inline uint8_t getPixel( const uint8_t x , const uint8_t y)
+{
+    return _display.buff_text[x][y] +_display.buff_draw[x][y] ;
+}
+
 /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
 /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
 
@@ -50,11 +58,13 @@ inline void sendSPI( const uint8_t val)
 
 ISR(TIMER0_COMPA_vect)
 {
+
     static uint16_t rowIndex = Y_MIC_MAX;
-    uint8_t firstCycleFlag = 1;// 0;
+    static uint8_t firstCycleFlag = 1;// 0;
     static uint8_t xlatNeedsPulse = 0;
     
     
+
     
     if ( rowIndex == Y_MIC_MAX ) // matrix ok. return col0;
     {
@@ -70,6 +80,7 @@ ISR(TIMER0_COMPA_vect)
         setLow( DATA1_PORT , DATA1_PIN);
     }
     
+
     
     setLow(BLANK_PORT, BLANK_PIN);
     
@@ -81,18 +92,21 @@ ISR(TIMER0_COMPA_vect)
     
     for (int x=0;x<14;x+=2)
     {
-        const uint8_t pixA = _display.buff_A/* pixels*/[x][rowIndex];
-        const uint8_t pixB =  _display.buff_A/*pixels*/[x+1][rowIndex];
-        
+        const uint8_t pixA = getPixel(x   , rowIndex);
+        const uint8_t pixB = getPixel(x+1 , rowIndex);
+
         sendSPI( pixA >> 4); // p1
         sendSPI( (uint8_t )(pixA << 4) ); // p1
         sendSPI( pixB ); // p2
+
     }
     
     //  col 15 a la mano
-    sendSPI( _display.buff_A/* pixels*/[14][rowIndex] >> 4); // p15
-    sendSPI( (uint8_t )(  _display.buff_A/*pixels*/[14][rowIndex] << 4) ); // p15
-    
+    {
+    const uint8_t  p = getPixel(14, rowIndex);
+    sendSPI( p >> 4 ); // p15
+    sendSPI( p << 4 ); // p15
+    }
     /**/
     
     // col 16 -> send dumm values ( not displayed)
@@ -100,8 +114,8 @@ ISR(TIMER0_COMPA_vect)
     
     for (int x = 15;x<28;x+=2)
     {
-        const uint8_t pixA =  _display.buff_A/*pixels*/[x][rowIndex];
-        const uint8_t pixB =  _display.buff_A/*pixels*/[x+1][rowIndex];
+        const uint8_t pixA =  getPixel(x   , rowIndex);
+        const uint8_t pixB =  getPixel(x+1 , rowIndex);
         
         sendSPI( pixA >> 4); // p1
         sendSPI( (uint8_t )(pixA<< 4) ); // p1
@@ -109,9 +123,11 @@ ISR(TIMER0_COMPA_vect)
     }
     
     // col 29 a la mano
-    sendSPI(  _display.buff_A/*pixels*/[29][rowIndex] >> 4); // p15
-    sendSPI( (uint8_t )( _display.buff_A/*pixels*/[29][rowIndex] << 4) ); // p15
-    
+    {
+        const uint8_t p = getPixel(29,4);
+    sendSPI(  p >> 4 ); // p15
+    sendSPI(  p << 4 ); // p15
+    }
     /***** END OF FILL TLC BUFFERS ****/
     
     _display.isDrawing = 0;
@@ -120,9 +136,10 @@ ISR(TIMER0_COMPA_vect)
     
     pulse( MIC_CLOCK_PORT , MIC_CLOCK_PIN );
     
+    
     /**/
     // additionnal pulse for non-wired outs of mics.
-    
+    /*
     if ( (rowIndex == 15) ||
          (rowIndex == 22)
         )
@@ -131,8 +148,9 @@ ISR(TIMER0_COMPA_vect)
         setLow( DATA1_PORT , DATA1_PIN);
         
         pulse( MIC_CLOCK_PORT , MIC_CLOCK_PIN );
+        
     }
-    
+    */
     /**/
     
     setHigh(BLANK_PORT, BLANK_PIN);
@@ -149,14 +167,142 @@ ISR(TIMER0_COMPA_vect)
     if (firstCycleFlag)
     {
         pulse(SCLK_PORT, SCLK_PIN);
+
+        firstCycleFlag = 0;
+    }
+    /*
+    else
+        while (1){}
+    */
+
+    
+    rowIndex++;
+    
+
+    
+}
+
+/*!*/
+void update(void)
+{
+    static uint16_t rowIndex = Y_MIC_MAX;
+    static uint8_t firstCycleFlag = 1;// 0;
+    static uint8_t xlatNeedsPulse = 0;
+    
+    if ( rowIndex == Y_MIC_MAX ) // matrix ok. return col0;
+    {
+        setHigh( DATA0_PORT , DATA0_PIN);
+        setHigh( DATA1_PORT , DATA1_PIN);
+        
+        rowIndex = 0;
+        
+    }
+    else
+    {
+        setLow( DATA0_PORT , DATA0_PIN);
+        setLow( DATA1_PORT , DATA1_PIN);
+    }
+    
+    
+    
+    setLow(BLANK_PORT, BLANK_PIN);
+
+    _display.isDrawing = 1;
+    /**** FILL TLC BUFFERS *****/
+    
+    // col 0 -> send dumm values ( not displayed)
+    sendSPI(0b00000000); // p0
+    
+    for (int x=0;x<14;x+=2)
+    {
+        const uint8_t pixA = getPixel(x  , rowIndex);
+        const uint8_t pixB = getPixel(x+1, rowIndex);
+
+        sendSPI( pixA >> 4); // p1
+        sendSPI( (uint8_t )(pixA << 4) ); // p1
+        sendSPI( pixB ); // p2
+
+    }
+    
+    //  col 15 a la mano
+    {
+        const uint8_t p = getPixel(14 , rowIndex);
+    sendSPI( p >> 4 ); // p15
+    sendSPI( p << 4 ); // p15
+    }
+    //
+    
+    // col 16 -> send dumm values ( not displayed)
+    sendSPI(0b00000000); // p16
+    
+    for (int x = 15;x<28;x+=2)
+    {
+        const uint8_t pixA =  getPixel(x  , rowIndex);
+        const uint8_t pixB =  getPixel(x+1, rowIndex);
+        
+        sendSPI( pixA >> 4); // p1
+        sendSPI( (uint8_t )(pixA<< 4) ); // p1
+        sendSPI( pixB ); // p2
+    }
+    
+    // col 29 a la mano
+    {
+        const uint8_t p = getPixel(29, rowIndex);
+    sendSPI( p >> 4 ); // p15
+    sendSPI( p << 4 ); // p15
+    }
+    /***** END OF FILL TLC BUFFERS ****/
+    
+
+    
+    _display.isDrawing = 0;
+    
+    xlatNeedsPulse = 1;
+    
+    //pulse( MIC_CLOCK_PORT , MIC_CLOCK_PIN );
+    setHigh( MIC_CLOCK_PORT , MIC_CLOCK_PIN );
+    setLow( MIC_CLOCK_PORT , MIC_CLOCK_PIN );
+    /**/
+    // additionnal pulse for non-wired outs of mics.
+    /*
+    if ( (rowIndex == 15) ||
+        (rowIndex == 22)
+        )
+    {
+        setLow( DATA0_PORT , DATA0_PIN);
+        setLow( DATA1_PORT , DATA1_PIN);
+        
+        pulse( MIC_CLOCK_PORT , MIC_CLOCK_PIN );
+        
+    }
+    */
+    /**/
+    
+    setHigh(BLANK_PORT, BLANK_PIN);
+
+    
+    if (xlatNeedsPulse)
+    {
+        pulse(XLAT_PORT, XLAT_PIN);
+        xlatNeedsPulse = 0;
         
         
     }
     
+    if (firstCycleFlag)
+    {
+        //pulse(SCLK_PORT, SCLK_PIN);
+        setHigh(SCLK_PORT, SCLK_PIN);
+//        _delay_ms( 20 );
+        setLow(SCLK_PORT, SCLK_PIN);
+        firstCycleFlag = 0;
+    }
     
-    rowIndex++;
+    
+
     
     
+    rowIndex++;    
 }
 
 /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
@@ -223,7 +369,7 @@ void TLC5940_Init(void)
 
 void display_init( Display *display)
 {
-    display_clear( display);
+    display_clearAll( display);
 
 
     
@@ -234,27 +380,6 @@ void display_init( Display *display)
     display->isDrawing = 0;
     
     TLC5940_Init();    
-}
-
-/* **** **** **** **** **** **** **** **** **** **** **** */
-
-void display_swapbuffers( Display *display)
-{
-    
-}
-
-/* **** **** **** **** **** **** **** **** **** **** **** */
-
-void display_setNeedsUpdate( Display *display)
-{
-    display->needsDisplay+=(1 << 0);
-}
-
-/* **** **** **** **** **** **** **** **** **** **** **** */
-
-uint8_t display_needsUpdate( Display *display)
-{
-    return display->needsDisplay & 1 <<0;
 }
 
 /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
@@ -271,13 +396,9 @@ void display_setFillColor( Display *display ,uint8_t color)
 
 /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
 
-void display_clearZone( Display *display , const int8_t x , const int8_t y, const uint8_t w , const uint8_t h )
+
+void display_clearZoneDraw     ( Display *display , const int8_t x , const int8_t y, const uint8_t w , const uint8_t h )
 {
-    if (display->isDrawing == 1)
-        return;
-    
-    
-// inv x<->y
     for (uint8_t xx=0; xx< w; xx++)
         
         for (uint8_t yy=0; yy<h; yy++)
@@ -286,17 +407,28 @@ void display_clearZone( Display *display , const int8_t x , const int8_t y, cons
             const int8_t defY =y+yy;
             
             if( inBouds(defX, defY) )
-                display->buff_A[defY][defX] = display->backgroundColor;
+            {
+                display->buff_draw[defX][defY] = display->backgroundColor;
+            }
         }
 }
 
-/* **** **** **** **** **** **** **** **** **** **** **** */
-
-void display_clear( Display *display)
+void display_clearZoneText     ( Display *display , const int8_t x , const int8_t y, const uint8_t w , const uint8_t h )
 {
-    display_clearZone( display ,0,0 , X_TLC_MAX ,Y_MIC_MAX  );
-
+    for (uint8_t xx=0; xx< w; xx++)
+        
+        for (uint8_t yy=0; yy<h; yy++)
+        {
+            const int8_t defX =x+xx;
+            const int8_t defY =y+yy;
+            
+            if( inBouds(defX, defY) )
+            {
+                display->buff_text[defX][defY] = display->backgroundColor;
+            }
+        }
 }
+
 
 /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
 
@@ -307,12 +439,10 @@ void display_translate( Display *display , int8_t dX , int8_t dY)
 
 /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
 
-void display_write(Display *display , const char* text, int8_t x , int8_t y , uint8_t dir /* 0 : hori , 1 : verti*/)
+void display_write(Display *display , const char* text, int8_t x , int8_t y ,
+                    uint8_t dir /* 0 : hori , 1 : verti*/,
+                    uint8_t mask /* 0 : none , 1 left , 2 right*/)
 {
-    /*
-    if (display->isDrawing == 1)
-        return;
-    */
     // inv x<->y
     int i =0;
     
@@ -354,7 +484,11 @@ void display_write(Display *display , const char* text, int8_t x , int8_t y , ui
                         // ][ Y_MIC_MAX
                         if( inBouds(defX, defY) )
                         {
-                            display->buff_A[ defX ][ defY ] = display->fontColor;
+                            if (    (mask == 0)
+                                 || ((mask == 1 ) && (j<4))
+                                 || ((mask == 2 ) && (j>3))
+                                )
+                                display->buff_text[ defX ][ defY ] = display->fontColor;
                         }
                     }
 
@@ -384,14 +518,14 @@ void display_writeImage( Display *display,const  uint8_t *image )
     {
         for (int y = 0; y<Y_MIC_MAX;y++)
         {
-            display->buff_A[x][y] = clipVal( image[y + x*30] );
+            display->buff_draw[x][y] = clipVal( image[y + x*X_TLC_MAX] );
         }
     }
 }
 
 /* **** **** **** **** **** **** **** **** **** **** **** */
 
-void display_fillZone  ( Display *display , const uint8_t x , const uint8_t y, const uint8_t w , const uint8_t h )
+void display_fillZone  ( Display *display , const int8_t x , const int8_t y, const int8_t w , const int8_t h )
 {
     /*
     if (display->isDrawing == 1)
@@ -402,8 +536,13 @@ void display_fillZone  ( Display *display , const uint8_t x , const uint8_t y, c
     for (uint8_t xx=0; xx< w; xx++)
         
         for (uint8_t yy=0; yy<h; yy++)
+        {
+            const int8_t dX = y+yy;
+            const int8_t dY = x+xx;
             
-            display->buff_A[y+yy][x+xx] = display->fillColor;
+            if( inBouds(dX, dY))
+                display->buff_draw[dX][dY] = display->fillColor;
+        }
 }
 
 /* **** **** **** **** **** **** **** **** **** **** **** */
@@ -415,7 +554,7 @@ void display_setPixel( Display *display , const uint8_t x , const uint8_t y, con
     
     // inversion x<->y
     if ( (y < X_TLC_MAX) && ( x <Y_MIC_MAX) )
-        display->buff_A[y][x] = clipVal( value );
+        display->buff_draw[y][x] = clipVal( value );
 }
 
 /* **** **** **** **** **** **** **** **** **** **** **** */
@@ -424,7 +563,7 @@ void display_addPixel( Display *display , const uint8_t x , const uint8_t y, con
 {
     // inversion x<->y
     if ( (y < X_TLC_MAX) && ( x <Y_MIC_MAX) )
-        display->buff_A[y][x] = clipVal( value );
+        display->buff_draw[y][x] = clipVal( value );
 }
 
 /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */

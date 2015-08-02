@@ -11,9 +11,11 @@
 
 
 #define X_TLC_MAX 30
-#define Y_MIC_MAX 30
+#define Y_MIC_MAX 20
 
 #define PIXEL_MAX_VALUE  100 //112
+
+
 
 
 /* **** **** **** **** **** **** **** **** **** **** **** */
@@ -24,13 +26,11 @@
  */
 struct _Display
 {
-    uint8_t buff_A[ X_TLC_MAX ][ Y_MIC_MAX ]; // -> to display
-    uint8_t buff_B[ X_TLC_MAX ][ Y_MIC_MAX ]; // -> image is constructed in this one
-
-   // Point pos; // -> drawing pos
+    uint8_t buff_text[ X_TLC_MAX ][ Y_MIC_MAX ];
+    uint8_t buff_draw[ X_TLC_MAX ][ Y_MIC_MAX ];
 
 
-    
+
     /* This color will be used when clearing the display */
     uint8_t backgroundColor;
     uint8_t fillColor;
@@ -59,14 +59,10 @@ inline uint8_t inBouds( int8_t x , int8_t y)
 uint8_t getCharWidth( void );
 uint8_t getCharHeight( void );
 
+void update(void);
 /* **** **** **** **** **** **** **** **** **** **** **** **** **** */
 
 void display_init( Display *display);
-
-void display_swapbuffers   ( Display *display);
-
-void display_setNeedsUpdate( Display *display);
-uint8_t display_needsUpdate( Display *display);
 
 /* getters/setters */
 
@@ -74,8 +70,24 @@ void display_setFontColor( Display *display ,uint8_t color);
 void display_setFillColor( Display *display ,uint8_t color);
 
 // inv x<->y
-void display_clearZone     ( Display *display , const int8_t x , const int8_t y, const uint8_t w , const uint8_t h );
-void display_clear         ( Display *display);
+void display_clearZoneDraw     ( Display *display , const int8_t x , const int8_t y, const uint8_t w , const uint8_t h );
+void display_clearZoneText     ( Display *display , const int8_t x , const int8_t y, const uint8_t w , const uint8_t h );
+
+inline void display_clearAll         ( Display *display)
+{
+    display_clearZoneDraw( display ,0,0 , X_TLC_MAX ,Y_MIC_MAX  );
+    display_clearZoneText( display ,0,0 , X_TLC_MAX ,Y_MIC_MAX  );
+}
+
+inline void display_clearText( Display *display)
+{
+    display_clearZoneText( display ,0,0 , X_TLC_MAX ,Y_MIC_MAX  );
+}
+
+inline void display_clearDraw( Display *display)
+{
+    display_clearZoneDraw( display ,0,0 , X_TLC_MAX ,Y_MIC_MAX  );
+}
 
 void display_translate( Display *display , int8_t dX , int8_t dY);
 
@@ -86,12 +98,17 @@ void display_translate( Display *display , int8_t dX , int8_t dY);
 /*
   x y can be <0 or > max , text will be croped
  */
-void display_write     ( Display *display , const char* text, int8_t x , int8_t y , uint8_t dir /* 0 : hori , 1 : verti*/);
+void display_write     ( Display *display ,
+                         const char* text,
+                         int8_t x ,
+                         int8_t y ,
+                         uint8_t dir /* 0 : hori , 1 : verti*/ ,
+                         uint8_t mask /* 0 : none , 1 left , 2 right*/);
 
 void display_writeImage( Display *display , const uint8_t *image );
 
 // inv x<->y
-void display_fillZone  ( Display *display , const uint8_t x , const uint8_t y, const uint8_t w , const uint8_t h );
+void display_fillZone  ( Display *display , const int8_t x , const int8_t y, const int8_t w , const int8_t h );
 
 // inv x<->y 
 void display_setPixel( Display *display , const uint8_t x , const uint8_t y, const uint8_t value);
