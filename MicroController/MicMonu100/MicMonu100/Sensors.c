@@ -214,13 +214,30 @@ void readRow( Sensors *sensors , uint8_t *buffer)
         
         if( buffer != NULL)
             buffer[i] = val;
+        
+        if ( j==MIC_SENSOR_COUNT-1)
+        {
+            CANMessage m;
+            m.length = 2;
+            m.id = 17;
+            m.data[0] = i;
+            m.data[1] = read;
+            can_send_message( &m);
+            
+        }
 
-
-        if (val == BLOB_LIGHT && (i!= SENSOR_COUNT-1))
+        /*
+        if( i == (SENSOR_COUNT-1) || (i == 0 ))
+        {
+            display_setFillColor(sensors->display, 0);
+            display_fillZone(sensors->display,mapXFromSensors(j) ,mapYFromSensors(i), 2, 2);
+        }
+        else*/ if (val == BLOB_LIGHT )
         {
             display_setFillColor(sensors->display, val);
             display_fillZone(sensors->display,mapXFromSensors(j) ,mapYFromSensors(i), 2, 2);
         }
+
 
     }
 

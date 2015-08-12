@@ -103,7 +103,9 @@ void display_write     ( Display *display ,
                          int8_t x ,
                          int8_t y ,
                          uint8_t dir /* 0 : hori , 1 : verti*/ ,
-                         uint8_t mask /* 0 : none , 1 left , 2 right*/);
+                         uint8_t mask /* 0 : none , 1 left , 2 right*/
+//                         int8_t charStart
+);
 
 void display_writeImage( Display *display , const uint8_t *image );
 

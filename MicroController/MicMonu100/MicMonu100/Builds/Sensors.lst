@@ -81,7 +81,7 @@
  168 0010 80E1      		ldi r24,lo8(16)
  169 0012 90E0      		ldi r25,0
  170               	.L3:
- 171               	.LBB31:
+ 171               	.LBB32:
   48:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     
   49:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     for (int i=0; i<16; i++)
   50:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****         pulse( LDR_CLOCK_PORT , LDR_CLOCK_PIN);
@@ -93,7 +93,7 @@
  178               	.LM10:
  179 001a 0097      		sbiw r24,0
  180 001c 01F4      		brne .L3
- 181               	.LBE31:
+ 181               	.LBE32:
   51:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     
   52:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     
   53:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     /*
@@ -172,7 +172,7 @@
   94:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     adc_init();    
  225               	.LM17:
  226 0052 0E94 0000 		call adc_init
- 227               	.LBB32:
+ 227               	.LBB33:
   95:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     sensors_resetCalibration( sensors );
   96:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     
   97:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     
@@ -181,7 +181,7 @@
  230 0056 80E0      		ldi r24,0
  231 0058 90E0      		ldi r25,0
  232               	.L6:
- 233               	.LBE32:
+ 233               	.LBE33:
   93:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** {
  235               	.LM19:
  236 005a 20E0      		ldi r18,0
@@ -193,8 +193,8 @@
  242 0064 FA01      		movw r30,r20
  243 0066 E20F      		add r30,r18
  244 0068 F31F      		adc r31,r19
- 245               	.LBB34:
- 246               	.LBB33:
+ 245               	.LBB35:
+ 246               	.LBB34:
   99:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     {
  100:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****         
  101:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****         for (int i = 0; i < SENSOR_COUNT ; i++)
@@ -209,14 +209,14 @@
  254 0070 2639      		cpi r18,-106
  255 0072 3105      		cpc r19,__zero_reg__
  256 0074 01F4      		brne .L9
- 257               	.LBE33:
+ 257               	.LBE34:
   98:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     for (int j = 0; j<MIC_SENSOR_COUNT ; j++) // mics
  259               	.LM22:
  260 0076 0196      		adiw r24,1
  261 0078 8A30      		cpi r24,10
  262 007a 9105      		cpc r25,__zero_reg__
  263 007c 01F4      		brne .L6
- 264               	.LBE34:
+ 264               	.LBE35:
  104:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****         }
  105:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     }
  106:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     
@@ -243,7 +243,7 @@
  284 0098 8883      		st Y,r24
  111:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     sensors->highTreshold = SEUIL_LIGHT;
  286               	.LM26:
- 287 009a 88EC      		ldi r24,lo8(-56)
+ 287 009a 8EEF      		ldi r24,lo8(-2)
  288 009c 8983      		std Y+1,r24
  289               	/* epilogue start */
  112:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     
@@ -283,7 +283,7 @@
  328               	/* frame size = 0 */
  329               	/* stack size = 0 */
  330               	.L__stack_usage = 0
- 331               	.LBB35:
+ 331               	.LBB36:
  126:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     sensors_resetCalibration( sensors );
  127:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     
  128:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     float temp[ SENSOR_COUNT ][ MIC_SENSOR_COUNT ];
@@ -300,16 +300,16 @@
  342 00ac 80E0      		ldi r24,0
  343 00ae 90E0      		ldi r25,0
  344               	.L21:
- 345               	.LBE35:
+ 345               	.LBE36:
  125:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** {
  347               	.LM33:
  348 00b0 40E0      		ldi r20,0
  349               	.L19:
- 350               	.LBB40:
- 351               	.LBB36:
- 352               	.LBB37:
- 353               	.LBB38:
- 354               	.LBB39:
+ 350               	.LBB41:
+ 351               	.LBB37:
+ 352               	.LBB38:
+ 353               	.LBB39:
+ 354               	.LBB40:
   79:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     ADMUX &= 0xE0;           //Clear bits MUX0-4
  356               	.LM34:
  357 00b2 2091 7C00 		lds r18,124
@@ -343,8 +343,8 @@
  385 00e4 2091 7800 		lds r18,120
  386 00e8 3091 7900 		lds r19,120+1
  387 00ec 4F5F      		subi r20,lo8(-(1))
- 388               	.LBE39:
- 389               	.LBE38:
+ 388               	.LBE40:
+ 389               	.LBE39:
  132:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     {
  133:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****         for (int j = 0; j<MIC_SENSOR_COUNT ; j++) // mics
  134:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****         {
@@ -353,7 +353,7 @@
  391               	.LM40:
  392 00ee 4A30      		cpi r20,lo8(10)
  393 00f0 01F4      		brne .L19
- 394               	.LBE37:
+ 394               	.LBE38:
  137:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****             {
  138:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** 
  139:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****                 
@@ -405,14 +405,14 @@
  420 0108 8A30      		cpi r24,10
  421 010a 9105      		cpc r25,__zero_reg__
  422 010c 01F4      		brne .L21
- 423               	.LBE36:
+ 423               	.LBE37:
  131:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     for ( uint8_t iter = 0; iter < count ; iter++)
  425               	.LM47:
  426 010e 5F5F      		subi r21,lo8(-(1))
  427 0110 00C0      		rjmp .L12
  428               	.L11:
  429 0112 0895      		ret
- 430               	.LBE40:
+ 430               	.LBE41:
  441               	.Lscope4:
  444               	.global	readFrame
  446               	readFrame:
@@ -447,58 +447,72 @@
  182:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** {
  466               	.LM50:
  467               	.LFBB6:
- 468 0118 7F92      		push r7
- 469 011a 8F92      		push r8
- 470 011c 9F92      		push r9
- 471 011e AF92      		push r10
- 472 0120 BF92      		push r11
- 473 0122 CF92      		push r12
- 474 0124 DF92      		push r13
- 475 0126 EF92      		push r14
- 476 0128 FF92      		push r15
- 477 012a 0F93      		push r16
- 478 012c 1F93      		push r17
- 479 012e CF93      		push r28
- 480 0130 DF93      		push r29
- 481               	/* prologue: function */
- 482               	/* frame size = 0 */
- 483               	/* stack size = 13 */
- 484               	.L__stack_usage = 13
- 485 0132 EC01      		movw r28,r24
- 486 0134 5B01      		movw r10,r22
+ 468 0118 2F92      		push r2
+ 469 011a 3F92      		push r3
+ 470 011c 4F92      		push r4
+ 471 011e 5F92      		push r5
+ 472 0120 6F92      		push r6
+ 473 0122 7F92      		push r7
+ 474 0124 8F92      		push r8
+ 475 0126 9F92      		push r9
+ 476 0128 AF92      		push r10
+ 477 012a BF92      		push r11
+ 478 012c CF92      		push r12
+ 479 012e DF92      		push r13
+ 480 0130 EF92      		push r14
+ 481 0132 FF92      		push r15
+ 482 0134 0F93      		push r16
+ 483 0136 1F93      		push r17
+ 484 0138 CF93      		push r28
+ 485 013a DF93      		push r29
+ 486 013c CDB7      		in r28,__SP_L__
+ 487 013e DEB7      		in r29,__SP_H__
+ 488 0140 2C97      		sbiw r28,12
+ 489 0142 0FB6      		in __tmp_reg__,__SREG__
+ 490 0144 F894      		cli
+ 491 0146 DEBF      		out __SP_H__,r29
+ 492 0148 0FBE      		out __SREG__,__tmp_reg__
+ 493 014a CDBF      		out __SP_L__,r28
+ 494               	/* prologue: function */
+ 495               	/* frame size = 12 */
+ 496               	/* stack size = 30 */
+ 497               	.L__stack_usage = 30
+ 498 014c 7C01      		movw r14,r24
+ 499 014e 4B01      		movw r8,r22
  183:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     const uint8_t j = sensors->currentRow;
- 488               	.LM51:
- 489 0136 8C85      		ldd r24,Y+12
+ 501               	.LM51:
+ 502 0150 FC01      		movw r30,r24
+ 503 0152 2484      		ldd r2,Z+12
  184:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     
  185:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** 
  186:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     
  187:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     if (sensors->currentRow == 0 )
- 491               	.LM52:
- 492 0138 8111      		cpse r24,__zero_reg__
- 493 013a 00C0      		rjmp .L24
+ 505               	.LM52:
+ 506 0154 2110      		cpse r2,__zero_reg__
+ 507 0156 00C0      		rjmp .L24
  188:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****         setHigh( LDR_DATA_PORT , LDR_DATA_PIN );
- 495               	.LM53:
- 496 013c 5F9A      		sbi 0xb,7
- 497 013e 00C0      		rjmp .L25
- 498               	.L24:
+ 509               	.LM53:
+ 510 0158 5F9A      		sbi 0xb,7
+ 511 015a 00C0      		rjmp .L25
+ 512               	.L24:
  189:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     else
  190:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****         setLow( LDR_DATA_PORT , LDR_DATA_PIN );
- 500               	.LM54:
- 501 0140 5F98      		cbi 0xb,7
- 502               	.L25:
+ 514               	.LM54:
+ 515 015c 5F98      		cbi 0xb,7
+ 516               	.L25:
  191:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     
  192:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     
  193:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     pulse( LDR_CLOCK_PORT , LDR_CLOCK_PIN);
- 504               	.LM55:
- 505 0142 5B9A      		sbi 0xb,3
- 506 0144 5B98      		cbi 0xb,3
+ 518               	.LM55:
+ 519 015e 5B9A      		sbi 0xb,3
+ 520 0160 5B98      		cbi 0xb,3
  194:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     pulse( LDR_STROBE_PORT, LDR_STROBE_PIN);
- 508               	.LM56:
- 509 0146 749A      		sbi 0xe,4
- 510 0148 7498      		cbi 0xe,4
- 511               	.LBB41:
- 512               	.LBB42:
- 514               	.Ltext1:
+ 522               	.LM56:
+ 523 0162 749A      		sbi 0xe,4
+ 524 0164 7498      		cbi 0xe,4
+ 525               	.LBB42:
+ 526               	.LBB43:
+ 528               	.Ltext1:
    1:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** /* Copyright (c) 2002, Marek Michalkiewicz
    2:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****    Copyright (c) 2004,2005,2007 Joerg Wunsch
    3:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h ****    Copyright (c) 2007  Florin-Viorel Petrov
@@ -744,20 +758,20 @@
  243:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 	#endif
  244:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 
  245:/usr/local/CrossPack-AVR-20131216/avr/include/util/delay.h **** 	__builtin_avr_delay_cycles(__ticks_dc);
- 516               	.LM57:
- 517 014a EFEF      		ldi r30,lo8(6399)
- 518 014c F8E1      		ldi r31,hi8(6399)
- 519 014e 3197      		1: sbiw r30,1
- 520 0150 01F4      		brne 1b
- 521 0152 00C0      		rjmp .
- 522 0154 0000      		nop
- 523               	.LBE42:
- 524               	.LBE41:
- 525               	.LBB43:
- 526               	.LBB44:
- 527               	.LBB45:
- 528               	.LBB46:
- 530               	.Ltext2:
+ 530               	.LM57:
+ 531 0166 8FEF      		ldi r24,lo8(6399)
+ 532 0168 98E1      		ldi r25,hi8(6399)
+ 533 016a 0197      		1: sbiw r24,1
+ 534 016c 01F4      		brne 1b
+ 535 016e 00C0      		rjmp .
+ 536 0170 0000      		nop
+ 537               	.LBE43:
+ 538               	.LBE42:
+ 539               	.LBB44:
+ 540               	.LBB45:
+ 541               	.LBB46:
+ 542               	.LBB47:
+ 544               	.Ltext2:
    1:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.h **** //
    2:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.h **** //  Sensors.h
    3:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.h **** //  MicMonu100
@@ -782,9 +796,9 @@
   22:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.h **** #define BLOB_MARGIN  3
   23:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.h **** 
   24:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.h **** #define BLOB_LIGHT   255
-  25:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.h **** #define BLOB_SHADOW  200
+  25:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.h **** #define BLOB_SHADOW  0
   26:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.h **** 
-  27:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.h **** #define SEUIL_LIGHT  200
+  27:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.h **** #define SEUIL_LIGHT  254
   28:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.h **** #define SEUIL_SHADOW 50
   29:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.h **** 
   30:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.h **** /* *** *** *** *** *** *** *** *** *** *** *** *** *** *** */
@@ -819,12 +833,12 @@
   59:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.h **** inline uint8_t mapXFromSensors( const uint8_t i )
   60:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.h **** {
   61:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.h ****     return (i*2);
- 532               	.LM58:
- 533 0156 182F      		mov r17,r24
- 534 0158 110F      		lsl r17
- 535               	.LBE46:
- 536               	.LBE45:
- 538               	.Ltext3:
+ 546               	.LM58:
+ 547 0172 322C      		mov r3,r2
+ 548 0174 330C      		lsl r3
+ 549               	.LBE47:
+ 550               	.LBE46:
+ 552               	.Ltext3:
  195:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** 
  196:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     _delay_us( 1600 );    // 1500
  197:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     
@@ -847,533 +861,592 @@
  214:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****         
  215:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****         if( buffer != NULL)
  216:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****             buffer[i] = val;
- 217:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** 
- 218:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** 
- 219:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****         if (val == BLOB_LIGHT && (i!= SENSOR_COUNT-1))
- 220:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****         {
- 221:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****             display_setFillColor(sensors->display, val);
- 222:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****             display_fillZone(sensors->display,mapXFromSensors(j) ,mapYFromSensors(i), 2, 2);
- 540               	.LM59:
- 541 015a C12C      		mov r12,__zero_reg__
- 542 015c D12C      		mov r13,__zero_reg__
- 543 015e 9CE1      		ldi r25,lo8(28)
- 544 0160 792E      		mov r7,r25
- 545               	.LBE44:
+ 217:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****         
+ 218:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****         if ( j==MIC_SENSOR_COUNT-1)
+ 219:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****         {
+ 220:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****             CANMessage m;
+ 221:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****             m.length = 2;
+ 222:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****             m.id = 17;
+ 223:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****             m.data[0] = i;
+ 224:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****             m.data[1] = read;
+ 225:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****             can_send_message( &m);
+ 226:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****             
+ 227:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****         }
+ 228:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** 
+ 229:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****         /*
+ 230:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****         if( i == (SENSOR_COUNT-1) || (i == 0 ))
+ 231:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****         {
+ 232:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****             display_setFillColor(sensors->display, 0);
+ 233:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****             display_fillZone(sensors->display,mapXFromSensors(j) ,mapYFromSensors(i), 2, 2);
+ 234:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****         }
+ 235:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****         else*/ if (val == BLOB_LIGHT )
+ 236:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****         {
+ 237:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****             display_setFillColor(sensors->display, val);
+ 238:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****             display_fillZone(sensors->display,mapXFromSensors(j) ,mapYFromSensors(i), 2, 2);
+ 554               	.LM59:
+ 555 0176 A12C      		mov r10,__zero_reg__
+ 556 0178 B12C      		mov r11,__zero_reg__
+ 557 017a 1CE1      		ldi r17,lo8(28)
+ 558               	.LBE45:
  198:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     for (int i = 0; i < SENSOR_COUNT ; i++)
- 547               	.LM60:
- 548 0162 E12C      		mov r14,__zero_reg__
- 549 0164 F12C      		mov r15,__zero_reg__
- 550 0166 4E01      		movw r8,r28
- 551 0168 880E      		add r8,r24
- 552 016a 911C      		adc r9,__zero_reg__
- 553               	.L33:
- 554               	.LBB49:
- 555               	.LBB47:
- 556               	.LBB48:
+ 560               	.LM60:
+ 561 017c C12C      		mov r12,__zero_reg__
+ 562 017e D12C      		mov r13,__zero_reg__
+ 563 0180 3701      		movw r6,r14
+ 564 0182 620C      		add r6,r2
+ 565 0184 711C      		adc r7,__zero_reg__
+ 566               	.LBB52:
+ 567               	.LBB48:
+ 222:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****             m.id = 17;
+ 569               	.LM61:
+ 570 0186 81E1      		ldi r24,lo8(17)
+ 571 0188 482E      		mov r4,r24
+ 572 018a 512C      		mov r5,__zero_reg__
+ 573               	.L34:
+ 574               	.LBE48:
+ 202:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****         const int read = adc_read( i );
+ 576               	.LM62:
+ 577 018c 2C2D      		mov r18,r12
+ 578               	.LBB49:
+ 579               	.LBB50:
   79:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     ADMUX &= 0xE0;           //Clear bits MUX0-4
- 558               	.LM61:
- 559 016c 8091 7C00 		lds r24,124
- 560 0170 807E      		andi r24,lo8(-32)
- 561 0172 8093 7C00 		sts 124,r24
+ 581               	.LM63:
+ 582 018e 8091 7C00 		lds r24,124
+ 583 0192 807E      		andi r24,lo8(-32)
+ 584 0194 8093 7C00 		sts 124,r24
   80:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     ADMUX |= channel&0x07;   //Defines the new ADC channel to be read by setting bits MUX0-2
- 563               	.LM62:
- 564 0176 9091 7C00 		lds r25,124
- 565 017a 8E2D      		mov r24,r14
- 566 017c 8770      		andi r24,lo8(7)
- 567 017e 892B      		or r24,r25
- 568 0180 8093 7C00 		sts 124,r24
+ 586               	.LM64:
+ 587 0198 9091 7C00 		lds r25,124
+ 588 019c 8C2D      		mov r24,r12
+ 589 019e 8770      		andi r24,lo8(7)
+ 590 01a0 892B      		or r24,r25
+ 591 01a2 8093 7C00 		sts 124,r24
   81:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     ADCSRB = channel&(1<<3); //Set MUX5
- 570               	.LM63:
- 571 0184 8E2D      		mov r24,r14
- 572 0186 8870      		andi r24,lo8(8)
- 573 0188 8093 7B00 		sts 123,r24
+ 593               	.LM65:
+ 594 01a6 8C2D      		mov r24,r12
+ 595 01a8 8870      		andi r24,lo8(8)
+ 596 01aa 8093 7B00 		sts 123,r24
   82:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     ADCSRA |= (1<<ADSC);      //Starts a new conversion
- 575               	.LM64:
- 576 018c 8091 7A00 		lds r24,122
- 577 0190 8064      		ori r24,lo8(64)
- 578 0192 8093 7A00 		sts 122,r24
- 579               	.L27:
+ 598               	.LM66:
+ 599 01ae 8091 7A00 		lds r24,122
+ 600 01b2 8064      		ori r24,lo8(64)
+ 601 01b4 8093 7A00 		sts 122,r24
+ 602               	.L27:
   84:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     while( ADCSRA & (1<<ADSC) );  //Wait until the conversion is done
- 581               	.LM65:
- 582 0196 8091 7A00 		lds r24,122
- 583 019a 86FD      		sbrc r24,6
- 584 019c 00C0      		rjmp .L27
+ 604               	.LM67:
+ 605 01b8 8091 7A00 		lds r24,122
+ 606 01bc 86FD      		sbrc r24,6
+ 607 01be 00C0      		rjmp .L27
   86:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     return ADCW;
- 586               	.LM66:
- 587 019e 8091 7800 		lds r24,120
- 588 01a2 9091 7900 		lds r25,120+1
- 589               	.LBE48:
- 590               	.LBE47:
+ 609               	.LM68:
+ 610 01c0 8091 7800 		lds r24,120
+ 611 01c4 9091 7900 		lds r25,120+1
+ 612               	.LBE50:
+ 613               	.LBE49:
  207:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****         if (read < sensors->lowTreshold )
- 592               	.LM67:
- 593 01a6 2881      		ld r18,Y
- 594 01a8 30E0      		ldi r19,0
- 595 01aa 8217      		cp r24,r18
- 596 01ac 9307      		cpc r25,r19
- 597 01ae 04F0      		brlt .L34
+ 615               	.LM69:
+ 616 01c8 F701      		movw r30,r14
+ 617 01ca 4081      		ld r20,Z
+ 618 01cc 50E0      		ldi r21,0
+ 619 01ce 8417      		cp r24,r20
+ 620 01d0 9507      		cpc r25,r21
+ 621 01d2 04F0      		brlt .L35
  210:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****         else if ( read>sensors->highTreshold)
- 599               	.LM68:
- 600 01b0 2981      		ldd r18,Y+1
- 601 01b2 30E0      		ldi r19,0
- 602 01b4 41E0      		ldi r20,lo8(1)
- 603 01b6 2817      		cp r18,r24
- 604 01b8 3907      		cpc r19,r25
- 605 01ba 04F0      		brlt .L29
- 606 01bc 40E0      		ldi r20,0
- 607               	.L29:
- 608 01be 842F      		mov r24,r20
- 609 01c0 8195      		neg r24
- 610 01c2 00C0      		rjmp .L28
- 611               	.L34:
+ 623               	.LM70:
+ 624 01d4 4181      		ldd r20,Z+1
+ 625 01d6 50E0      		ldi r21,0
+ 626 01d8 01E0      		ldi r16,lo8(1)
+ 627 01da 4817      		cp r20,r24
+ 628 01dc 5907      		cpc r21,r25
+ 629 01de 04F0      		brlt .L29
+ 630 01e0 00E0      		ldi r16,0
+ 631               	.L29:
+ 632 01e2 0195      		neg r16
+ 633 01e4 00C0      		rjmp .L28
+ 634               	.L35:
  208:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****             val = BLOB_SHADOW;
- 613               	.LM69:
- 614 01c4 88EC      		ldi r24,lo8(-56)
- 615               	.L28:
- 616 01c6 F401      		movw r30,r8
- 617 01c8 EC0D      		add r30,r12
- 618 01ca FD1D      		adc r31,r13
+ 636               	.LM71:
+ 637 01e6 00E0      		ldi r16,0
+ 638               	.L28:
+ 639 01e8 F301      		movw r30,r6
+ 640 01ea EA0D      		add r30,r10
+ 641 01ec FB1D      		adc r31,r11
  213:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****         sensors->values[i][j] = val ;
- 620               	.LM70:
- 621 01cc 8587      		std Z+13,r24
+ 643               	.LM72:
+ 644 01ee 0587      		std Z+13,r16
  215:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****         if( buffer != NULL)
- 623               	.LM71:
- 624 01ce A114      		cp r10,__zero_reg__
- 625 01d0 B104      		cpc r11,__zero_reg__
- 626 01d2 01F0      		breq .L30
- 627 01d4 F501      		movw r30,r10
- 628 01d6 EE0D      		add r30,r14
- 629 01d8 FF1D      		adc r31,r15
+ 646               	.LM73:
+ 647 01f0 8114      		cp r8,__zero_reg__
+ 648 01f2 9104      		cpc r9,__zero_reg__
+ 649 01f4 01F0      		breq .L30
+ 650 01f6 F401      		movw r30,r8
+ 651 01f8 EC0D      		add r30,r12
+ 652 01fa FD1D      		adc r31,r13
  216:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****             buffer[i] = val;
- 631               	.LM72:
- 632 01da 8083      		st Z,r24
- 633               	.L30:
- 219:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****         if (val == BLOB_LIGHT && (i!= SENSOR_COUNT-1))
- 635               	.LM73:
- 636 01dc 8F3F      		cpi r24,lo8(-1)
- 637 01de 01F4      		brne .L31
- 219:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****         if (val == BLOB_LIGHT && (i!= SENSOR_COUNT-1))
- 639               	.LM74:
- 640 01e0 FEE0      		ldi r31,14
- 641 01e2 EF16      		cp r14,r31
- 642 01e4 F104      		cpc r15,__zero_reg__
- 643 01e6 01F0      		breq .L31
- 221:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****             display_setFillColor(sensors->display, val);
- 645               	.LM75:
- 646 01e8 6FEF      		ldi r22,lo8(-1)
- 647 01ea 8A85      		ldd r24,Y+10
- 648 01ec 9B85      		ldd r25,Y+11
- 649 01ee 0E94 0000 		call display_setFillColor
- 651               	.LM76:
- 652 01f2 02E0      		ldi r16,lo8(2)
- 653 01f4 22E0      		ldi r18,lo8(2)
- 654 01f6 472D      		mov r20,r7
- 655 01f8 612F      		mov r22,r17
- 656 01fa 8A85      		ldd r24,Y+10
- 657 01fc 9B85      		ldd r25,Y+11
- 658 01fe 0E94 0000 		call display_fillZone
- 659               	.L31:
- 660               	.LBE49:
+ 654               	.LM74:
+ 655 01fc 0083      		st Z,r16
+ 656               	.L30:
+ 218:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****         if ( j==MIC_SENSOR_COUNT-1)
+ 658               	.LM75:
+ 659 01fe F9E0      		ldi r31,lo8(9)
+ 660 0200 2F12      		cpse r2,r31
+ 661 0202 00C0      		rjmp .L31
+ 662               	.LBB51:
+ 221:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****             m.length = 2;
+ 664               	.LM76:
+ 665 0204 32E0      		ldi r19,lo8(2)
+ 666 0206 3C83      		std Y+4,r19
+ 222:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****             m.id = 17;
+ 668               	.LM77:
+ 669 0208 5A82      		std Y+2,r5
+ 670 020a 4982      		std Y+1,r4
+ 223:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****             m.data[0] = i;
+ 672               	.LM78:
+ 673 020c 2D83      		std Y+5,r18
+ 224:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****             m.data[1] = read;
+ 675               	.LM79:
+ 676 020e 8E83      		std Y+6,r24
+ 225:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****             can_send_message( &m);
+ 678               	.LM80:
+ 679 0210 CE01      		movw r24,r28
+ 680 0212 0196      		adiw r24,1
+ 681 0214 0E94 0000 		call can_send_message
+ 682               	.L31:
+ 683               	.LBE51:
+ 235:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****         else*/ if (val == BLOB_LIGHT )
+ 685               	.LM81:
+ 686 0218 0F3F      		cpi r16,lo8(-1)
+ 687 021a 01F4      		brne .L32
+ 237:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****             display_setFillColor(sensors->display, val);
+ 689               	.LM82:
+ 690 021c 6FEF      		ldi r22,lo8(-1)
+ 691 021e F701      		movw r30,r14
+ 692 0220 8285      		ldd r24,Z+10
+ 693 0222 9385      		ldd r25,Z+11
+ 694 0224 0E94 0000 		call display_setFillColor
+ 696               	.LM83:
+ 697 0228 02E0      		ldi r16,lo8(2)
+ 698 022a 22E0      		ldi r18,lo8(2)
+ 699 022c 412F      		mov r20,r17
+ 700 022e 632D      		mov r22,r3
+ 701 0230 F701      		movw r30,r14
+ 702 0232 8285      		ldd r24,Z+10
+ 703 0234 9385      		ldd r25,Z+11
+ 704 0236 0E94 0000 		call display_fillZone
+ 705               	.L32:
+ 706               	.LBE52:
  198:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     for (int i = 0; i < SENSOR_COUNT ; i++)
- 662               	.LM77:
- 663 0202 8FEF      		ldi r24,-1
- 664 0204 E81A      		sub r14,r24
- 665 0206 F80A      		sbc r15,r24
- 666 0208 7A94      		dec r7
- 667 020a 7A94      		dec r7
- 668 020c EAE0      		ldi r30,10
- 669 020e CE0E      		add r12,r30
- 670 0210 D11C      		adc r13,__zero_reg__
- 671 0212 FEEF      		ldi r31,lo8(-2)
- 672 0214 7F12      		cpse r7,r31
- 673 0216 00C0      		rjmp .L33
- 674               	/* epilogue start */
- 675               	.LBE43:
- 223:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****         }
- 224:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** 
- 225:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     }
- 226:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** 
- 227:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** 
- 228:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** }
- 677               	.LM78:
- 678 0218 DF91      		pop r29
- 679 021a CF91      		pop r28
- 680 021c 1F91      		pop r17
- 681 021e 0F91      		pop r16
- 682 0220 FF90      		pop r15
- 683 0222 EF90      		pop r14
- 684 0224 DF90      		pop r13
- 685 0226 CF90      		pop r12
- 686 0228 BF90      		pop r11
- 687 022a AF90      		pop r10
- 688 022c 9F90      		pop r9
- 689 022e 8F90      		pop r8
- 690 0230 7F90      		pop r7
- 691 0232 0895      		ret
- 705               	.Lscope6:
- 706               	.global	__fixunssfsi
- 710               	.global	log_blob_hook
- 712               	log_blob_hook:
- 229:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** 
- 230:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** 
- 231:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** 
- 232:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** 
- 233:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
- 234:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
- 235:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** 
- 236:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** void log_blob_hook(void* user_struct, struct blob* b)
- 237:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** {
- 714               	.LM79:
- 715               	.LFBB7:
- 716 0234 EF92      		push r14
- 717 0236 FF92      		push r15
- 718 0238 0F93      		push r16
- 719 023a 1F93      		push r17
- 720 023c CF93      		push r28
- 721 023e DF93      		push r29
- 722               	/* prologue: function */
- 723               	/* frame size = 0 */
- 724               	/* stack size = 6 */
- 725               	.L__stack_usage = 6
- 726 0240 8C01      		movw r16,r24
- 727 0242 EB01      		movw r28,r22
- 238:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     Sensors* sensors = ( Sensors* ) user_struct;
- 239:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** 
- 240:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     toggle(LED_PORT, LED_PIN);
- 729               	.LM80:
- 730 0244 82B1      		in r24,0x2
- 731 0246 91E0      		ldi r25,lo8(1)
- 732 0248 8927      		eor r24,r25
- 733 024a 82B9      		out 0x2,r24
+ 708               	.LM84:
+ 709 023a FFEF      		ldi r31,-1
+ 710 023c CF1A      		sub r12,r31
+ 711 023e DF0A      		sbc r13,r31
+ 712 0240 1250      		subi r17,lo8(-(-2))
+ 713 0242 3AE0      		ldi r19,10
+ 714 0244 A30E      		add r10,r19
+ 715 0246 B11C      		adc r11,__zero_reg__
+ 716 0248 1E3F      		cpi r17,lo8(-2)
+ 717 024a 01F0      		breq .+2
+ 718 024c 00C0      		rjmp .L34
+ 719               	/* epilogue start */
+ 720               	.LBE44:
+ 239:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****         }
+ 240:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** 
  241:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** 
- 242:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** 
- 243:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     call();
- 735               	.LM81:
- 736 024c 0E94 0000 		call call
- 244:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     if(( b->color == BLOB_SHADOW) && (b->size <=4))
- 738               	.LM82:
- 739 0250 8A81      		ldd r24,Y+2
- 740 0252 9B81      		ldd r25,Y+3
- 741 0254 883C      		cpi r24,-56
- 742 0256 9105      		cpc r25,__zero_reg__
- 743 0258 01F4      		brne .L42
- 745               	.LM83:
- 746 025a 8881      		ld r24,Y
- 747 025c 9981      		ldd r25,Y+1
- 748 025e 0597      		sbiw r24,5
- 749 0260 04F4      		brge .L41
- 245:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     {
- 246:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****         sensors->shadowX    = mapXFromSensors( b->center_y );
- 751               	.LM84:
- 752 0262 7801      		movw r14,r16
- 753 0264 83EA      		ldi r24,-93
- 754 0266 E80E      		add r14,r24
- 755 0268 F11C      		adc r15,__zero_reg__
- 756 026a 6E89      		ldd r22,Y+22
- 757 026c 7F89      		ldd r23,Y+23
- 758 026e 888D      		ldd r24,Y+24
- 759 0270 998D      		ldd r25,Y+25
- 760 0272 0E94 0000 		call __fixunssfsi
- 761               	.LBB50:
- 762               	.LBB51:
- 764               	.Ltext4:
- 766               	.LM85:
- 767 0276 660F      		lsl r22
- 768               	.LBE51:
- 769               	.LBE50:
- 771               	.Ltext5:
- 773               	.LM86:
- 774 0278 F701      		movw r30,r14
- 775 027a 6083      		st Z,r22
- 247:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****         sensors->shadowY    = mapYFromSensors( b->center_x );
- 777               	.LM87:
- 778 027c 7801      		movw r14,r16
- 779 027e F4EA      		ldi r31,-92
- 780 0280 EF0E      		add r14,r31
- 781 0282 F11C      		adc r15,__zero_reg__
- 782 0284 00C0      		rjmp .L44
- 783               	.L42:
- 248:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****         sensors->shadowSize = b->size;
+ 242:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     }
+ 243:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** 
+ 244:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** 
+ 245:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** }
+ 722               	.LM85:
+ 723 024e 2C96      		adiw r28,12
+ 724 0250 0FB6      		in __tmp_reg__,__SREG__
+ 725 0252 F894      		cli
+ 726 0254 DEBF      		out __SP_H__,r29
+ 727 0256 0FBE      		out __SREG__,__tmp_reg__
+ 728 0258 CDBF      		out __SP_L__,r28
+ 729 025a DF91      		pop r29
+ 730 025c CF91      		pop r28
+ 731 025e 1F91      		pop r17
+ 732 0260 0F91      		pop r16
+ 733 0262 FF90      		pop r15
+ 734 0264 EF90      		pop r14
+ 735 0266 DF90      		pop r13
+ 736 0268 CF90      		pop r12
+ 737 026a BF90      		pop r11
+ 738 026c AF90      		pop r10
+ 739 026e 9F90      		pop r9
+ 740 0270 8F90      		pop r8
+ 741 0272 7F90      		pop r7
+ 742 0274 6F90      		pop r6
+ 743 0276 5F90      		pop r5
+ 744 0278 4F90      		pop r4
+ 745 027a 3F90      		pop r3
+ 746 027c 2F90      		pop r2
+ 747 027e 0895      		ret
+ 767               	.Lscope6:
+ 768               	.global	__fixunssfsi
+ 772               	.global	log_blob_hook
+ 774               	log_blob_hook:
+ 246:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** 
+ 247:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** 
+ 248:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** 
  249:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** 
- 250:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     }
- 251:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     else if (( b->color == BLOB_LIGHT) && (b->size <=10))
- 785               	.LM88:
- 786 0286 8F3F      		cpi r24,-1
- 787 0288 9105      		cpc r25,__zero_reg__
- 788 028a 01F4      		brne .L41
- 790               	.LM89:
- 791 028c 8881      		ld r24,Y
- 792 028e 9981      		ldd r25,Y+1
- 793 0290 0B97      		sbiw r24,11
- 794 0292 04F4      		brge .L41
- 252:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     {
- 253:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****         sensors->lightX = mapXFromSensors( b->center_y );
- 796               	.LM90:
- 797 0294 7801      		movw r14,r16
- 798 0296 F6EA      		ldi r31,-90
- 799 0298 EF0E      		add r14,r31
- 800 029a F11C      		adc r15,__zero_reg__
- 801 029c 6E89      		ldd r22,Y+22
- 802 029e 7F89      		ldd r23,Y+23
- 803 02a0 888D      		ldd r24,Y+24
- 804 02a2 998D      		ldd r25,Y+25
- 805 02a4 0E94 0000 		call __fixunssfsi
- 806               	.LBB52:
- 807               	.LBB53:
- 809               	.Ltext6:
- 811               	.LM91:
- 812 02a8 660F      		lsl r22
- 813               	.LBE53:
- 814               	.LBE52:
- 816               	.Ltext7:
- 818               	.LM92:
- 819 02aa F701      		movw r30,r14
- 820 02ac 6083      		st Z,r22
- 254:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****         sensors->lightY = mapYFromSensors( b->center_x );
- 822               	.LM93:
- 823 02ae 7801      		movw r14,r16
- 824 02b0 F7EA      		ldi r31,-89
- 825 02b2 EF0E      		add r14,r31
- 826 02b4 F11C      		adc r15,__zero_reg__
- 827               	.L44:
- 828 02b6 6A89      		ldd r22,Y+18
- 829 02b8 7B89      		ldd r23,Y+19
- 830 02ba 8C89      		ldd r24,Y+20
- 831 02bc 9D89      		ldd r25,Y+21
- 832 02be 0E94 0000 		call __fixunssfsi
- 833               	.LBB54:
- 834               	.LBB55:
- 836               	.Ltext8:
+ 250:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
+ 251:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
+ 252:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** 
+ 253:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** void log_blob_hook(void* user_struct, struct blob* b)
+ 254:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** {
+ 776               	.LM86:
+ 777               	.LFBB7:
+ 778 0280 EF92      		push r14
+ 779 0282 FF92      		push r15
+ 780 0284 0F93      		push r16
+ 781 0286 1F93      		push r17
+ 782 0288 CF93      		push r28
+ 783 028a DF93      		push r29
+ 784               	/* prologue: function */
+ 785               	/* frame size = 0 */
+ 786               	/* stack size = 6 */
+ 787               	.L__stack_usage = 6
+ 788 028c 8C01      		movw r16,r24
+ 789 028e EB01      		movw r28,r22
+ 255:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     Sensors* sensors = ( Sensors* ) user_struct;
+ 256:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** 
+ 257:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     toggle(LED_PORT, LED_PIN);
+ 791               	.LM87:
+ 792 0290 82B1      		in r24,0x2
+ 793 0292 91E0      		ldi r25,lo8(1)
+ 794 0294 8927      		eor r24,r25
+ 795 0296 82B9      		out 0x2,r24
+ 258:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** 
+ 259:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** 
+ 260:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     call();
+ 797               	.LM88:
+ 798 0298 0E94 0000 		call call
+ 261:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     if(( b->color == BLOB_SHADOW) && (b->size <=4))
+ 800               	.LM89:
+ 801 029c 8A81      		ldd r24,Y+2
+ 802 029e 9B81      		ldd r25,Y+3
+ 803 02a0 0097      		sbiw r24,0
+ 804 02a2 01F4      		brne .L40
+ 806               	.LM90:
+ 807 02a4 8881      		ld r24,Y
+ 808 02a6 9981      		ldd r25,Y+1
+ 809 02a8 0597      		sbiw r24,5
+ 810 02aa 04F4      		brge .L39
+ 262:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     {
+ 263:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****         sensors->shadowX    = mapXFromSensors( b->center_y );
+ 812               	.LM91:
+ 813 02ac 7801      		movw r14,r16
+ 814 02ae 83EA      		ldi r24,-93
+ 815 02b0 E80E      		add r14,r24
+ 816 02b2 F11C      		adc r15,__zero_reg__
+ 817 02b4 6E89      		ldd r22,Y+22
+ 818 02b6 7F89      		ldd r23,Y+23
+ 819 02b8 888D      		ldd r24,Y+24
+ 820 02ba 998D      		ldd r25,Y+25
+ 821 02bc 0E94 0000 		call __fixunssfsi
+ 822               	.LBB53:
+ 823               	.LBB54:
+ 825               	.Ltext4:
+ 827               	.LM92:
+ 828 02c0 660F      		lsl r22
+ 829               	.LBE54:
+ 830               	.LBE53:
+ 832               	.Ltext5:
+ 834               	.LM93:
+ 835 02c2 F701      		movw r30,r14
+ 836 02c4 6083      		st Z,r22
+ 264:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****         sensors->shadowY    = mapYFromSensors( b->center_x );
+ 838               	.LM94:
+ 839 02c6 7801      		movw r14,r16
+ 840 02c8 F4EA      		ldi r31,-92
+ 841 02ca EF0E      		add r14,r31
+ 842 02cc F11C      		adc r15,__zero_reg__
+ 843 02ce 00C0      		rjmp .L42
+ 844               	.L40:
+ 265:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****         sensors->shadowSize = b->size;
+ 266:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** 
+ 267:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     }
+ 268:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     else if (( b->color == BLOB_LIGHT) && (b->size <=10))
+ 846               	.LM95:
+ 847 02d0 8F3F      		cpi r24,-1
+ 848 02d2 9105      		cpc r25,__zero_reg__
+ 849 02d4 01F4      		brne .L39
+ 851               	.LM96:
+ 852 02d6 8881      		ld r24,Y
+ 853 02d8 9981      		ldd r25,Y+1
+ 854 02da 0B97      		sbiw r24,11
+ 855 02dc 04F4      		brge .L39
+ 269:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     {
+ 270:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****         sensors->lightX = mapXFromSensors( b->center_y );
+ 857               	.LM97:
+ 858 02de 7801      		movw r14,r16
+ 859 02e0 F6EA      		ldi r31,-90
+ 860 02e2 EF0E      		add r14,r31
+ 861 02e4 F11C      		adc r15,__zero_reg__
+ 862 02e6 6E89      		ldd r22,Y+22
+ 863 02e8 7F89      		ldd r23,Y+23
+ 864 02ea 888D      		ldd r24,Y+24
+ 865 02ec 998D      		ldd r25,Y+25
+ 866 02ee 0E94 0000 		call __fixunssfsi
+ 867               	.LBB55:
+ 868               	.LBB56:
+ 870               	.Ltext6:
+ 872               	.LM98:
+ 873 02f2 660F      		lsl r22
+ 874               	.LBE56:
+ 875               	.LBE55:
+ 877               	.Ltext7:
+ 879               	.LM99:
+ 880 02f4 F701      		movw r30,r14
+ 881 02f6 6083      		st Z,r22
+ 271:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****         sensors->lightY = mapYFromSensors( b->center_x );
+ 883               	.LM100:
+ 884 02f8 7801      		movw r14,r16
+ 885 02fa F7EA      		ldi r31,-89
+ 886 02fc EF0E      		add r14,r31
+ 887 02fe F11C      		adc r15,__zero_reg__
+ 888               	.L42:
+ 889 0300 6A89      		ldd r22,Y+18
+ 890 0302 7B89      		ldd r23,Y+19
+ 891 0304 8C89      		ldd r24,Y+20
+ 892 0306 9D89      		ldd r25,Y+21
+ 893 0308 0E94 0000 		call __fixunssfsi
+ 894               	.LBB57:
+ 895               	.LBB58:
+ 897               	.Ltext8:
   62:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.h **** }
   63:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.h **** 
   64:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.h **** inline uint8_t mapYFromSensors( const uint8_t j )
   65:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.h **** {
   66:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.h ****     return (14-j)*2;
- 838               	.LM94:
- 839 02c2 8EE0      		ldi r24,lo8(14)
- 840 02c4 90E0      		ldi r25,0
- 841 02c6 861B      		sub r24,r22
- 842 02c8 9109      		sbc r25,__zero_reg__
- 843 02ca 880F      		lsl r24
- 844               	.LBE55:
- 845               	.LBE54:
- 847               	.Ltext9:
- 849               	.LM95:
- 850 02cc F701      		movw r30,r14
- 851 02ce 8083      		st Z,r24
- 255:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****         sensors->lightSize = b->size;
- 853               	.LM96:
- 854 02d0 3196      		adiw r30,1
- 855 02d2 8881      		ld r24,Y
- 856 02d4 8083      		st Z,r24
- 857               	.L41:
- 858               	/* epilogue start */
- 256:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** 
- 257:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     }
- 258:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** 
- 259:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** }
- 860               	.LM97:
- 861 02d6 DF91      		pop r29
- 862 02d8 CF91      		pop r28
- 863 02da 1F91      		pop r17
- 864 02dc 0F91      		pop r16
- 865 02de FF90      		pop r15
- 866 02e0 EF90      		pop r14
- 867 02e2 0895      		ret
- 869               	.Lscope7:
- 873               	.global	init_pixel_stream_hook
- 875               	init_pixel_stream_hook:
- 260:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** 
- 261:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
- 262:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** 
- 263:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** int init_pixel_stream_hook(void* user_struct, struct stream_state* stream)
- 264:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** {
- 877               	.LM98:
- 878               	.LFBB8:
- 879               	/* prologue: function */
- 880               	/* frame size = 0 */
- 881               	/* stack size = 0 */
- 882               	.L__stack_usage = 0
- 883 02e4 FB01      		movw r30,r22
- 265:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** 
- 266:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     Sensors* sensors = ( Sensors* ) user_struct;
- 267:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     sensors->currentRow = 0;
- 885               	.LM99:
- 886 02e6 DC01      		movw r26,r24
- 887 02e8 1C96      		adiw r26,12
- 888 02ea 1C92      		st X,__zero_reg__
- 268:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     
- 269:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     stream->w = SENSOR_COUNT;
- 890               	.LM100:
- 891 02ec 8FE0      		ldi r24,lo8(15)
- 892 02ee 90E0      		ldi r25,0
- 893 02f0 9183      		std Z+1,r25
- 894 02f2 8083      		st Z,r24
- 270:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     stream->h = MIC_SENSOR_COUNT;
- 896               	.LM101:
- 897 02f4 8AE0      		ldi r24,lo8(10)
- 898 02f6 90E0      		ldi r25,0
- 899 02f8 9383      		std Z+3,r25
- 900 02fa 8283      		std Z+2,r24
- 271:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     stream->x = 0;
- 902               	.LM102:
- 903 02fc 1582      		std Z+5,__zero_reg__
- 904 02fe 1482      		std Z+4,__zero_reg__
- 272:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     stream->y = 0;
- 906               	.LM103:
- 907 0300 1782      		std Z+7,__zero_reg__
- 908 0302 1682      		std Z+6,__zero_reg__
- 273:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     
- 274:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     return 0;
- 275:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** }
- 910               	.LM104:
- 911 0304 80E0      		ldi r24,0
- 912 0306 90E0      		ldi r25,0
- 913 0308 0895      		ret
- 915               	.Lscope8:
- 919               	.global	close_pixel_stream_hook
- 921               	close_pixel_stream_hook:
- 276:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** 
- 277:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
- 278:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** 
- 279:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** int close_pixel_stream_hook(void* user_struct, struct stream_state* stream)
- 280:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** {
- 923               	.LM105:
- 924               	.LFBB9:
- 925               	/* prologue: function */
- 926               	/* frame size = 0 */
- 927               	/* stack size = 0 */
- 928               	.L__stack_usage = 0
- 281:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** 
- 282:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     return 0;
- 283:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** }
- 930               	.LM106:
- 931 030a 80E0      		ldi r24,0
- 932 030c 90E0      		ldi r25,0
- 933 030e 0895      		ret
- 935               	.Lscope9:
- 939               	.global	next_row_hook
- 941               	next_row_hook:
- 284:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** 
- 285:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
- 286:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** 
- 287:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** int next_row_hook(void* user_struct, struct stream_state* stream)
- 288:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** {
- 943               	.LM107:
- 944               	.LFBB10:
- 945 0310 0F93      		push r16
- 946 0312 1F93      		push r17
- 947 0314 CF93      		push r28
- 948 0316 DF93      		push r29
- 949               	/* prologue: function */
- 950               	/* frame size = 0 */
- 951               	/* stack size = 4 */
- 952               	.L__stack_usage = 4
- 953 0318 EC01      		movw r28,r24
- 954 031a 8B01      		movw r16,r22
- 289:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     Sensors* sensors = ( Sensors* ) user_struct;
+ 899               	.LM101:
+ 900 030c 8EE0      		ldi r24,lo8(14)
+ 901 030e 90E0      		ldi r25,0
+ 902 0310 861B      		sub r24,r22
+ 903 0312 9109      		sbc r25,__zero_reg__
+ 904 0314 880F      		lsl r24
+ 905               	.LBE58:
+ 906               	.LBE57:
+ 908               	.Ltext9:
+ 910               	.LM102:
+ 911 0316 F701      		movw r30,r14
+ 912 0318 8083      		st Z,r24
+ 272:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****         sensors->lightSize = b->size;
+ 914               	.LM103:
+ 915 031a 3196      		adiw r30,1
+ 916 031c 8881      		ld r24,Y
+ 917 031e 8083      		st Z,r24
+ 918               	.L39:
+ 919               	/* epilogue start */
+ 273:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** 
+ 274:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     }
+ 275:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** 
+ 276:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** }
+ 921               	.LM104:
+ 922 0320 DF91      		pop r29
+ 923 0322 CF91      		pop r28
+ 924 0324 1F91      		pop r17
+ 925 0326 0F91      		pop r16
+ 926 0328 FF90      		pop r15
+ 927 032a EF90      		pop r14
+ 928 032c 0895      		ret
+ 930               	.Lscope7:
+ 934               	.global	init_pixel_stream_hook
+ 936               	init_pixel_stream_hook:
+ 277:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** 
+ 278:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
+ 279:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** 
+ 280:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** int init_pixel_stream_hook(void* user_struct, struct stream_state* stream)
+ 281:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** {
+ 938               	.LM105:
+ 939               	.LFBB8:
+ 940               	/* prologue: function */
+ 941               	/* frame size = 0 */
+ 942               	/* stack size = 0 */
+ 943               	.L__stack_usage = 0
+ 944 032e FB01      		movw r30,r22
+ 282:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** 
+ 283:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     Sensors* sensors = ( Sensors* ) user_struct;
+ 284:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     sensors->currentRow = 0;
+ 946               	.LM106:
+ 947 0330 DC01      		movw r26,r24
+ 948 0332 1C96      		adiw r26,12
+ 949 0334 1C92      		st X,__zero_reg__
+ 285:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     
+ 286:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     stream->w = SENSOR_COUNT;
+ 951               	.LM107:
+ 952 0336 8FE0      		ldi r24,lo8(15)
+ 953 0338 90E0      		ldi r25,0
+ 954 033a 9183      		std Z+1,r25
+ 955 033c 8083      		st Z,r24
+ 287:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     stream->h = MIC_SENSOR_COUNT;
+ 957               	.LM108:
+ 958 033e 8AE0      		ldi r24,lo8(10)
+ 959 0340 90E0      		ldi r25,0
+ 960 0342 9383      		std Z+3,r25
+ 961 0344 8283      		std Z+2,r24
+ 288:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     stream->x = 0;
+ 963               	.LM109:
+ 964 0346 1582      		std Z+5,__zero_reg__
+ 965 0348 1482      		std Z+4,__zero_reg__
+ 289:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     stream->y = 0;
+ 967               	.LM110:
+ 968 034a 1782      		std Z+7,__zero_reg__
+ 969 034c 1682      		std Z+6,__zero_reg__
  290:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     
- 291:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     serviceCall();
- 956               	.LM108:
- 957 031c 0E94 0000 		call serviceCall
- 292:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     
- 293:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     if ( sensors->currentRow == MIC_SENSOR_COUNT)
- 959               	.LM109:
- 960 0320 8C85      		ldd r24,Y+12
- 961 0322 8A30      		cpi r24,lo8(10)
- 962 0324 01F4      		brne .L48
- 294:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     {
- 295:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****         sensors->currentRow = 0;
- 964               	.LM110:
- 965 0326 1C86      		std Y+12,__zero_reg__
- 296:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****         return 0;//-1;
- 967               	.LM111:
- 968 0328 00C0      		rjmp .L49
- 969               	.L48:
- 297:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     }
- 298:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     
- 299:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     readRow( sensors , stream->row );
- 971               	.LM112:
- 972 032a F801      		movw r30,r16
- 973 032c 6285      		ldd r22,Z+10
- 974 032e 7385      		ldd r23,Z+11
- 975 0330 CE01      		movw r24,r28
- 976 0332 0E94 0000 		call readRow
- 300:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** 
- 301:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     sensors->currentRow++;
- 978               	.LM113:
- 979 0336 8C85      		ldd r24,Y+12
- 980 0338 8F5F      		subi r24,lo8(-(1))
- 981 033a 8C87      		std Y+12,r24
- 982               	.L49:
- 302:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** 
- 303:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     return 0;
- 304:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** }
- 984               	.LM114:
- 985 033c 80E0      		ldi r24,0
- 986 033e 90E0      		ldi r25,0
- 987               	/* epilogue start */
- 988 0340 DF91      		pop r29
- 989 0342 CF91      		pop r28
- 990 0344 1F91      		pop r17
- 991 0346 0F91      		pop r16
- 992 0348 0895      		ret
- 994               	.Lscope10:
- 998               	.global	next_frame_hook
- 1000               	next_frame_hook:
- 305:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** 
- 306:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
- 307:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** 
- 308:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** int next_frame_hook(void* user_struct, struct stream_state* stream)
- 309:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** {
- 1002               	.LM115:
- 1003               	.LFBB11:
- 1004               	/* prologue: function */
- 1005               	/* frame size = 0 */
- 1006               	/* stack size = 0 */
- 1007               	.L__stack_usage = 0
- 310:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     /*
- 311:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     Sensors* sensors = ( Sensors*) user_struct;
- 312:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** 
- 313:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     if ( sensors->currentRow == MIC_SENSOR_COUNT)
- 314:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     {
- 315:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****         sensors->currentRow = 0;
- 316:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****         return -1;
- 317:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     }
- 318:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****      */
+ 291:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     return 0;
+ 292:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** }
+ 971               	.LM111:
+ 972 034e 80E0      		ldi r24,0
+ 973 0350 90E0      		ldi r25,0
+ 974 0352 0895      		ret
+ 976               	.Lscope8:
+ 980               	.global	close_pixel_stream_hook
+ 982               	close_pixel_stream_hook:
+ 293:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** 
+ 294:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
+ 295:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** 
+ 296:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** int close_pixel_stream_hook(void* user_struct, struct stream_state* stream)
+ 297:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** {
+ 984               	.LM112:
+ 985               	.LFBB9:
+ 986               	/* prologue: function */
+ 987               	/* frame size = 0 */
+ 988               	/* stack size = 0 */
+ 989               	.L__stack_usage = 0
+ 298:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** 
+ 299:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     return 0;
+ 300:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** }
+ 991               	.LM113:
+ 992 0354 80E0      		ldi r24,0
+ 993 0356 90E0      		ldi r25,0
+ 994 0358 0895      		ret
+ 996               	.Lscope9:
+ 1000               	.global	next_row_hook
+ 1002               	next_row_hook:
+ 301:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** 
+ 302:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
+ 303:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** 
+ 304:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** int next_row_hook(void* user_struct, struct stream_state* stream)
+ 305:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** {
+ 1004               	.LM114:
+ 1005               	.LFBB10:
+ 1006 035a 0F93      		push r16
+ 1007 035c 1F93      		push r17
+ 1008 035e CF93      		push r28
+ 1009 0360 DF93      		push r29
+ 1010               	/* prologue: function */
+ 1011               	/* frame size = 0 */
+ 1012               	/* stack size = 4 */
+ 1013               	.L__stack_usage = 4
+ 1014 0362 EC01      		movw r28,r24
+ 1015 0364 8B01      		movw r16,r22
+ 306:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     Sensors* sensors = ( Sensors* ) user_struct;
+ 307:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     
+ 308:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     serviceCall();
+ 1017               	.LM115:
+ 1018 0366 0E94 0000 		call serviceCall
+ 309:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     
+ 310:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     if ( sensors->currentRow == MIC_SENSOR_COUNT)
+ 1020               	.LM116:
+ 1021 036a 8C85      		ldd r24,Y+12
+ 1022 036c 8A30      		cpi r24,lo8(10)
+ 1023 036e 01F4      		brne .L46
+ 311:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     {
+ 312:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****         sensors->currentRow = 0;
+ 1025               	.LM117:
+ 1026 0370 1C86      		std Y+12,__zero_reg__
+ 313:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****         return 0;//-1;
+ 1028               	.LM118:
+ 1029 0372 00C0      		rjmp .L47
+ 1030               	.L46:
+ 314:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     }
+ 315:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     
+ 316:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     readRow( sensors , stream->row );
+ 1032               	.LM119:
+ 1033 0374 F801      		movw r30,r16
+ 1034 0376 6285      		ldd r22,Z+10
+ 1035 0378 7385      		ldd r23,Z+11
+ 1036 037a CE01      		movw r24,r28
+ 1037 037c 0E94 0000 		call readRow
+ 317:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** 
+ 318:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     sensors->currentRow++;
+ 1039               	.LM120:
+ 1040 0380 8C85      		ldd r24,Y+12
+ 1041 0382 8F5F      		subi r24,lo8(-(1))
+ 1042 0384 8C87      		std Y+12,r24
+ 1043               	.L47:
  319:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** 
- 320:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** //    call();
- 321:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** 
- 322:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     return 0;
- 323:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** }
- 1009               	.LM116:
- 1010 034a 80E0      		ldi r24,0
- 1011 034c 90E0      		ldi r25,0
- 1012 034e 0895      		ret
- 1014               	.Lscope11:
- 1016               	.Letext0:
- 1017               		.ident	"GCC: (GNU) 4.8.1"
+ 320:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     return 0;
+ 321:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** }
+ 1045               	.LM121:
+ 1046 0386 80E0      		ldi r24,0
+ 1047 0388 90E0      		ldi r25,0
+ 1048               	/* epilogue start */
+ 1049 038a DF91      		pop r29
+ 1050 038c CF91      		pop r28
+ 1051 038e 1F91      		pop r17
+ 1052 0390 0F91      		pop r16
+ 1053 0392 0895      		ret
+ 1055               	.Lscope10:
+ 1059               	.global	next_frame_hook
+ 1061               	next_frame_hook:
+ 322:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** 
+ 323:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
+ 324:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** 
+ 325:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** int next_frame_hook(void* user_struct, struct stream_state* stream)
+ 326:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** {
+ 1063               	.LM122:
+ 1064               	.LFBB11:
+ 1065               	/* prologue: function */
+ 1066               	/* frame size = 0 */
+ 1067               	/* stack size = 0 */
+ 1068               	.L__stack_usage = 0
+ 327:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     /*
+ 328:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     Sensors* sensors = ( Sensors*) user_struct;
+ 329:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** 
+ 330:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     if ( sensors->currentRow == MIC_SENSOR_COUNT)
+ 331:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     {
+ 332:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****         sensors->currentRow = 0;
+ 333:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****         return -1;
+ 334:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     }
+ 335:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****      */
+ 336:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** 
+ 337:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** //    call();
+ 338:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** 
+ 339:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c ****     return 0;
+ 340:/Users/manueldeneu/Documents/projets/dev/Monu100/MicroController/MicMonu100/MicMonu100/Sensors.c **** }
+ 1070               	.LM123:
+ 1071 0394 80E0      		ldi r24,0
+ 1072 0396 90E0      		ldi r25,0
+ 1073 0398 0895      		ret
+ 1075               	.Lscope11:
+ 1077               	.Letext0:
+ 1078               		.ident	"GCC: (GNU) 4.8.1"
 DEFINED SYMBOLS
                             *ABS*:00000000 Sensors.c
-/var/folders/yp/wn04j3ms5mn9jhx6j8jq8l4c0000gn/T//cc5FluW7.s:2      *ABS*:0000003e __SP_H__
-/var/folders/yp/wn04j3ms5mn9jhx6j8jq8l4c0000gn/T//cc5FluW7.s:3      *ABS*:0000003d __SP_L__
-/var/folders/yp/wn04j3ms5mn9jhx6j8jq8l4c0000gn/T//cc5FluW7.s:4      *ABS*:0000003f __SREG__
-/var/folders/yp/wn04j3ms5mn9jhx6j8jq8l4c0000gn/T//cc5FluW7.s:5      *ABS*:0000003b __RAMPZ__
-/var/folders/yp/wn04j3ms5mn9jhx6j8jq8l4c0000gn/T//cc5FluW7.s:6      *ABS*:00000000 __tmp_reg__
-/var/folders/yp/wn04j3ms5mn9jhx6j8jq8l4c0000gn/T//cc5FluW7.s:7      *ABS*:00000001 __zero_reg__
-/var/folders/yp/wn04j3ms5mn9jhx6j8jq8l4c0000gn/T//cc5FluW7.s:136    .text:00000000 adc_init
-/var/folders/yp/wn04j3ms5mn9jhx6j8jq8l4c0000gn/T//cc5FluW7.s:213    .text:0000004c sensors_init
-/var/folders/yp/wn04j3ms5mn9jhx6j8jq8l4c0000gn/T//cc5FluW7.s:307    .text:000000a4 sensors_resetCalibration
-/var/folders/yp/wn04j3ms5mn9jhx6j8jq8l4c0000gn/T//cc5FluW7.s:323    .text:000000a6 sensors_calibration
-/var/folders/yp/wn04j3ms5mn9jhx6j8jq8l4c0000gn/T//cc5FluW7.s:446    .text:00000114 readFrame
-/var/folders/yp/wn04j3ms5mn9jhx6j8jq8l4c0000gn/T//cc5FluW7.s:464    .text:00000118 readRow
-/var/folders/yp/wn04j3ms5mn9jhx6j8jq8l4c0000gn/T//cc5FluW7.s:712    .text:00000234 log_blob_hook
-/var/folders/yp/wn04j3ms5mn9jhx6j8jq8l4c0000gn/T//cc5FluW7.s:875    .text:000002e4 init_pixel_stream_hook
-/var/folders/yp/wn04j3ms5mn9jhx6j8jq8l4c0000gn/T//cc5FluW7.s:921    .text:0000030a close_pixel_stream_hook
-/var/folders/yp/wn04j3ms5mn9jhx6j8jq8l4c0000gn/T//cc5FluW7.s:941    .text:00000310 next_row_hook
-/var/folders/yp/wn04j3ms5mn9jhx6j8jq8l4c0000gn/T//cc5FluW7.s:1000   .text:0000034a next_frame_hook
+/var/folders/yp/wn04j3ms5mn9jhx6j8jq8l4c0000gn/T//cctJwjrK.s:2      *ABS*:0000003e __SP_H__
+/var/folders/yp/wn04j3ms5mn9jhx6j8jq8l4c0000gn/T//cctJwjrK.s:3      *ABS*:0000003d __SP_L__
+/var/folders/yp/wn04j3ms5mn9jhx6j8jq8l4c0000gn/T//cctJwjrK.s:4      *ABS*:0000003f __SREG__
+/var/folders/yp/wn04j3ms5mn9jhx6j8jq8l4c0000gn/T//cctJwjrK.s:5      *ABS*:0000003b __RAMPZ__
+/var/folders/yp/wn04j3ms5mn9jhx6j8jq8l4c0000gn/T//cctJwjrK.s:6      *ABS*:00000000 __tmp_reg__
+/var/folders/yp/wn04j3ms5mn9jhx6j8jq8l4c0000gn/T//cctJwjrK.s:7      *ABS*:00000001 __zero_reg__
+/var/folders/yp/wn04j3ms5mn9jhx6j8jq8l4c0000gn/T//cctJwjrK.s:136    .text:00000000 adc_init
+/var/folders/yp/wn04j3ms5mn9jhx6j8jq8l4c0000gn/T//cctJwjrK.s:213    .text:0000004c sensors_init
+/var/folders/yp/wn04j3ms5mn9jhx6j8jq8l4c0000gn/T//cctJwjrK.s:307    .text:000000a4 sensors_resetCalibration
+/var/folders/yp/wn04j3ms5mn9jhx6j8jq8l4c0000gn/T//cctJwjrK.s:323    .text:000000a6 sensors_calibration
+/var/folders/yp/wn04j3ms5mn9jhx6j8jq8l4c0000gn/T//cctJwjrK.s:446    .text:00000114 readFrame
+/var/folders/yp/wn04j3ms5mn9jhx6j8jq8l4c0000gn/T//cctJwjrK.s:464    .text:00000118 readRow
+/var/folders/yp/wn04j3ms5mn9jhx6j8jq8l4c0000gn/T//cctJwjrK.s:774    .text:00000280 log_blob_hook
+/var/folders/yp/wn04j3ms5mn9jhx6j8jq8l4c0000gn/T//cctJwjrK.s:936    .text:0000032e init_pixel_stream_hook
+/var/folders/yp/wn04j3ms5mn9jhx6j8jq8l4c0000gn/T//cctJwjrK.s:982    .text:00000354 close_pixel_stream_hook
+/var/folders/yp/wn04j3ms5mn9jhx6j8jq8l4c0000gn/T//cctJwjrK.s:1002   .text:0000035a next_row_hook
+/var/folders/yp/wn04j3ms5mn9jhx6j8jq8l4c0000gn/T//cctJwjrK.s:1061   .text:00000394 next_frame_hook
 
 UNDEFINED SYMBOLS
 extract_image
+can_send_message
 display_setFillColor
 display_fillZone
 __fixunssfsi

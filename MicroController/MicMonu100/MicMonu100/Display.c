@@ -70,7 +70,7 @@ ISR(TIMER0_COMPA_vect)
     {
         setHigh( DATA0_PORT , DATA0_PIN);
         setHigh( DATA1_PORT , DATA1_PIN);
-        
+
         rowIndex = 0;
         
     }
@@ -88,7 +88,6 @@ ISR(TIMER0_COMPA_vect)
     /**** FILL TLC BUFFERS *****/
     
     // col 0 -> send dumm values ( not displayed)
-    sendSPI(0b00000000); // p0
     
     for (int x=0;x<14;x+=2)
     {
@@ -124,7 +123,7 @@ ISR(TIMER0_COMPA_vect)
     
     // col 29 a la mano
     {
-        const uint8_t p = getPixel(29,4);
+        const uint8_t p = getPixel(29,rowIndex);
     sendSPI(  p >> 4 ); // p15
     sendSPI(  p << 4 ); // p15
     }
@@ -170,139 +169,13 @@ ISR(TIMER0_COMPA_vect)
 
         firstCycleFlag = 0;
     }
-    /*
-    else
-        while (1){}
-    */
+
 
     
     rowIndex++;
     
 
     
-}
-
-/*!*/
-void update(void)
-{
-    static uint16_t rowIndex = Y_MIC_MAX;
-    static uint8_t firstCycleFlag = 1;// 0;
-    static uint8_t xlatNeedsPulse = 0;
-    
-    if ( rowIndex == Y_MIC_MAX ) // matrix ok. return col0;
-    {
-        setHigh( DATA0_PORT , DATA0_PIN);
-        setHigh( DATA1_PORT , DATA1_PIN);
-        
-        rowIndex = 0;
-        
-    }
-    else
-    {
-        setLow( DATA0_PORT , DATA0_PIN);
-        setLow( DATA1_PORT , DATA1_PIN);
-    }
-    
-    
-    
-    setLow(BLANK_PORT, BLANK_PIN);
-
-    _display.isDrawing = 1;
-    /**** FILL TLC BUFFERS *****/
-    
-    // col 0 -> send dumm values ( not displayed)
-    sendSPI(0b00000000); // p0
-    
-    for (int x=0;x<14;x+=2)
-    {
-        const uint8_t pixA = getPixel(x  , rowIndex);
-        const uint8_t pixB = getPixel(x+1, rowIndex);
-
-        sendSPI( pixA >> 4); // p1
-        sendSPI( (uint8_t )(pixA << 4) ); // p1
-        sendSPI( pixB ); // p2
-
-    }
-    
-    //  col 15 a la mano
-    {
-        const uint8_t p = getPixel(14 , rowIndex);
-    sendSPI( p >> 4 ); // p15
-    sendSPI( p << 4 ); // p15
-    }
-    //
-    
-    // col 16 -> send dumm values ( not displayed)
-    sendSPI(0b00000000); // p16
-    
-    for (int x = 15;x<28;x+=2)
-    {
-        const uint8_t pixA =  getPixel(x  , rowIndex);
-        const uint8_t pixB =  getPixel(x+1, rowIndex);
-        
-        sendSPI( pixA >> 4); // p1
-        sendSPI( (uint8_t )(pixA<< 4) ); // p1
-        sendSPI( pixB ); // p2
-    }
-    
-    // col 29 a la mano
-    {
-        const uint8_t p = getPixel(29, rowIndex);
-    sendSPI( p >> 4 ); // p15
-    sendSPI( p << 4 ); // p15
-    }
-    /***** END OF FILL TLC BUFFERS ****/
-    
-
-    
-    _display.isDrawing = 0;
-    
-    xlatNeedsPulse = 1;
-    
-    //pulse( MIC_CLOCK_PORT , MIC_CLOCK_PIN );
-    setHigh( MIC_CLOCK_PORT , MIC_CLOCK_PIN );
-    setLow( MIC_CLOCK_PORT , MIC_CLOCK_PIN );
-    /**/
-    // additionnal pulse for non-wired outs of mics.
-    /*
-    if ( (rowIndex == 15) ||
-        (rowIndex == 22)
-        )
-    {
-        setLow( DATA0_PORT , DATA0_PIN);
-        setLow( DATA1_PORT , DATA1_PIN);
-        
-        pulse( MIC_CLOCK_PORT , MIC_CLOCK_PIN );
-        
-    }
-    */
-    /**/
-    
-    setHigh(BLANK_PORT, BLANK_PIN);
-
-    
-    if (xlatNeedsPulse)
-    {
-        pulse(XLAT_PORT, XLAT_PIN);
-        xlatNeedsPulse = 0;
-        
-        
-    }
-    
-    if (firstCycleFlag)
-    {
-        //pulse(SCLK_PORT, SCLK_PIN);
-        setHigh(SCLK_PORT, SCLK_PIN);
-//        _delay_ms( 20 );
-        setLow(SCLK_PORT, SCLK_PIN);
-        firstCycleFlag = 0;
-    }
-    
-    
-
-    
-    
-    rowIndex++;    
 }
 
 /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
@@ -440,8 +313,8 @@ void display_translate( Display *display , int8_t dX , int8_t dY)
 /* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
 
 void display_write(Display *display , const char* text, int8_t x , int8_t y ,
-                    uint8_t dir /* 0 : hori , 1 : verti*/,
-                    uint8_t mask /* 0 : none , 1 left , 2 right*/)
+                   uint8_t dir /* 0 : hori , 1 : verti*/,
+                   uint8_t mask /* 0 : none , 1 left , 2 right*/)
 {
     // inv x<->y
     int i =0;
@@ -485,13 +358,13 @@ void display_write(Display *display , const char* text, int8_t x , int8_t y ,
                         if( inBouds(defX, defY) )
                         {
                             if (    (mask == 0)
-                                 || ((mask == 1 ) && (j<4))
-                                 || ((mask == 2 ) && (j>3))
+                                || ((mask == 1 ) && (j<4))
+                                || ((mask == 2 ) && (j>3))
                                 )
                                 display->buff_text[ defX ][ defY ] = display->fontColor;
                         }
                     }
-
+                    
                 }
             }
             

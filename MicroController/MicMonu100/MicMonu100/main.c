@@ -22,6 +22,8 @@
 
 #include "mcp2515.h"
 #include "CanMessages.h"
+#include "Constants.h"
+#include "Errors.h"
 /*
  LEDS
  MIC 20 
@@ -151,9 +153,13 @@ void checkErrors(void)
 int16_t textX = 0;
 int16_t textY = 0;
 
-uint8_t sep = 0;
+uint8_t sep   = 0;
+int8_t  angle = 0;
+char text[TEXT_LENGTH_MAX];
+char tempText[TEXT_LENGTH_MAX];
 
-char text[16];
+volatile uint8_t textChanging = 0;
+volatile uint8_t textLength   = 0;
 
 void updateScreen(void)
 {
@@ -162,8 +168,8 @@ void updateScreen(void)
 
     display_setFillColor(&_display, 255);
 
-    display_write(&_display, text, textX-sep, textY, 1 , 1);
-    display_write(&_display, text, textX+sep, textY, 1 , 2);
+    //display_write(&_display, text, textX-sep, textY, 1 , 1 /* ,-angle*/);
+    //display_write(&_display, text, textX+sep, textY, 1 , 2 /*,angle*/);
 /*
  hory
     display_write(&_display, text, textX-sep, textY, 0 , 1);
@@ -174,36 +180,60 @@ void updateScreen(void)
 void call(void)
 {
 
-    static uint8_t acc = 0;
+
     
     
-//    if (acc++>4)
-//    {
-        CANMessage message;
-        message.id = CAN_BLOB_ID;
-        message.rtr = 0;
-        message.length = 5;
-        message.data[0] = canID;
-        message.data[1] = getMainX( _sensors.shadowX );
-        message.data[2] = getMainY( _sensors.shadowY );
-        message.data[3] = getMainX( _sensors.lightX  );
-        message.data[4] = getMainY( _sensors.lightY  );
 
-        can_send_message(&message);
-    
-        display_setFillColor(&_display, 255);
-        display_fillZone(&_display, _sensors.lightX, _sensors.lightY, 2, 2);
+    CANMessage message;
+    message.id = CAN_BLOB_ID;
+    message.rtr = 0;
+    message.length = 5;
+    message.data[0] = canID;
+    message.data[1] = getMainX( _sensors.shadowX );
+    message.data[2] = getMainY( _sensors.shadowY );
+    message.data[3] = getMainX( _sensors.lightX  );
+    message.data[4] = getMainY( _sensors.lightY  );
+
+    can_send_message(&message);
+
+//    display_setFillColor(&_display, 255);
+//    display_fillZone(&_display, _sensors.lightX, _sensors.lightY, 2, 2);
 
 
-//        acc = 0;
-//    }
     
     updateScreen();
 }
 
 /* **** **** **** **** **** **** **** **** */
 
+inline uint8_t checkMsgLength( CANMessage *msg, const uint8_t l )
+{
+    if (msg->length !=l)
+    {
+        errorCode = ERROR_LENGTH_MSG;
+        sendState();
+        return 0;
+    }
+    return 1;
+}
 
+inline void sendError( const uint8_t err)
+{
+    errorCode = err;
+    sendState();
+}
+
+inline void sendTest( const uint8_t val1 , const uint8_t val2)
+{
+    CANMessage m;
+    m.id = 30;
+    m.length = 3;
+    m.data[0] = canID;
+    m.data[1] = val1;
+    m.data[2] = val2;
+    can_send_message( &m);
+    
+}
 
 void serviceCall(void)
 {
@@ -222,14 +252,13 @@ void serviceCall(void)
         else if (m.id == 4)
         {
 
-            if (m.length !=3)
-            {
-                errorCode = 1;
-                sendState();
-            }
+            if (checkMsgLength( &m, 4) == 0)
+                return;
+            
             textX = getRealX( m.data[0]);
             textY = getRealY( m.data[1]);
             sep   = m.data[2];
+            angle = m.data[3];
             updateScreen();
         }
         
@@ -238,7 +267,7 @@ void serviceCall(void)
         else if ( m.id == 5)
         {
             
-            strcpy(text, "test");
+            strcpy(text, DEFAULT_NAME);
 
             updateScreen();
         }
@@ -250,9 +279,10 @@ void serviceCall(void)
         }
         else if( m.id == 7)
         {
-
+/*
             display_setFillColor(&_display, 255);
             display_fillZone(&_display, getRealX( m.data[0])-2, getRealY( m.data[1])-2, 4, 4);
+ */
             updateScreen();
         }
 
@@ -262,7 +292,72 @@ void serviceCall(void)
             _sensors.lowTreshold = m.data[0];
             _sensors.highTreshold = m.data[1];
         }
+        
+        /* TEXT CHANGE */
 
+        else if (m.id == TEXT_CHANGE_START_ID)
+        {
+            /*
+            if (checkMsgLength( &m, 1) == 0)
+                return;
+            */
+            
+
+            
+            textLength = m.data[0];
+            sendTest(1 , textLength);
+            
+            textChanging =1;
+//            tempText[0] = '\0';
+            setLow(LED_PORT, LED_PIN);
+            
+            //sendTest(1 , textLength);
+        }
+        else if (m.id == TEXT_CHANGE_END_ID)
+        {
+            /*
+            if (checkMsgLength( &m, 1) == 0)
+                return;
+            */
+            sendTest(10 , textLength);
+            textChanging =0;
+            //tempText[textLength] = '\0';
+            textLength = 0;
+            //strcpy(text, tempText);
+            //sendTest(20 , textLength);
+            updateScreen();
+            setHigh(LED_PORT, LED_PIN);
+        }
+        
+
+        else if (m.id == TEXT_CHANGE_CHAR_ID)
+        {
+            /*
+            if (checkMsgLength( &m, 3) == 0)
+                return;
+            */
+            /*
+            toggle(LED_PORT, LED_PIN);
+            if( m.data[0] != textLength)
+                sendError( ERROR_LENGTH_STR );
+            
+            if( m.data[1] >= textLength )
+                sendError( ERROR_CHAR_POS);
+            
+
+            sendTest(12 , m.data[1]);
+             */
+            const char c = m.data[2];
+            text[m.data[1] ] = c;
+            
+
+            
+        }
+        
+        else if( m.id == SET_PIX_ID)
+        {
+            display_setPixel(&_display , m.data[0] , m.data[1], m.data[2]);
+        }
     }
 }
 
@@ -272,12 +367,18 @@ int main( void )
 {
 
     cli();
-    wdt_enable(WDTO_8S);
+//    wdt_enable(WDTO_8S);
     
     initDip();
     canID = readCanID();
     
     computeGeometry();
+    
+    for( uint8_t i =0; i<TEXT_LENGTH_MAX ; i++)
+    {
+        text[i] = 0;
+        tempText[i] = 0;
+    }
     
     sensors_init( &_sensors );
     _sensors.display = &_display;
@@ -316,7 +417,7 @@ int main( void )
 
     wdt_reset();
 
-    strcpy(text, "");
+    strcpy(text, DEFAULT_NAME );
 
     
     display_clearAll(&_display);
@@ -326,40 +427,54 @@ int main( void )
     
     //readFrame( &_sensors );
     
+    uint8_t xx = 0;
+    uint8_t yy = 0;
+    uint8_t val  = 0;
+    
+    uint8_t a = 0;
     while (1)
     {
-        serviceCall();
+//        serviceCall();
+        
+/*
+        for (int i = 0; i < 40; i++ )
+        {
+            for (int j = 0 ; j < 30; j++)
+            {
+                display_setPixel(&_display ,i, j, 255);
+                _delay_ms(10);
+                
+                display_setPixel(&_display ,i, j, 0);
+                _delay_ms(10);
+            }
+        }
+*/
+        
+        display_setPixel(&_display, xx, yy, val);
+        
         if(readOne( &_sensors) == 1)
         {
-            // une trame entière lue
-            toggle(LED_PORT, LED_PIN);
-            for (uint8_t x = 0; x<X_TLC_MAX; x++)
+
+            if (a++ >2)
             {
-                //y = 1 passe en y = 0
-                // y = 2 -> y =1
-                for (uint8_t y = 0; y<Y_MIC_MAX; y++)
-                {
-                    if (y!= Y_MIC_MAX-1)
-                        _display.buff_draw[x][y] = _display.buff_draw[x+1][y]/2;
-                    else
-                        _display.buff_draw[x][y] = 0;
-                }
-            }
-            
-            /* EFFET COULE !
-            for (uint8_t y = 0; y<Y_MIC_MAX; y++)
-            {
-                //y = 1 passe en y = 0
-                // y = 2 -> y =1
                 for (uint8_t x = 0; x<X_TLC_MAX; x++)
                 {
-                    if (x!= X_TLC_MAX-1)
-                        _display.buff_draw[x][y] = _display.buff_draw[x][y+1]/5;
-                    else
-                        _display.buff_draw[x][y] = 0;
+                    //y = 1 passe en y = 0
+                    // y = 2 -> y =1
+                    for (uint8_t y = 0; y<Y_MIC_MAX; y++)
+                    {
+
+                            int c =_display.buff_draw[x+1][y]-10;
+                            
+                            if (c <0)
+                                c = 0;
+                            _display.buff_draw[x][y] = c;
+
+                    }
                 }
+                a =0;
             }
-             */
+
         }
 
     }

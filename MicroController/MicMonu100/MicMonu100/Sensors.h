@@ -22,9 +22,9 @@
 #define BLOB_MARGIN  3
 
 #define BLOB_LIGHT   255
-#define BLOB_SHADOW  200
+#define BLOB_SHADOW  0
 
-#define SEUIL_LIGHT  200
+#define SEUIL_LIGHT  254
 #define SEUIL_SHADOW 50
 
 /* *** *** *** *** *** *** *** *** *** *** *** *** *** *** */

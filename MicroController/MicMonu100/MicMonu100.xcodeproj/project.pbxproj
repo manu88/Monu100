@@ -22,6 +22,8 @@
 		5953549C1A9E05F60054C036 /* Chars.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Chars.h; sourceTree = "<group>"; };
 		5953549D1A9E319C0054C036 /* Square15.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Square15.h; sourceTree = "<group>"; };
 		595A9B371AFD0C4F00F675AB /* Coms.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Coms.h; sourceTree = "<group>"; };
+		5960D4B51B6F5763005A7399 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		5960D4B61B6F57D3005A7399 /* Errors.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Errors.h; sourceTree = "<group>"; };
 		59749FFD1B59421D00861B5A /* spi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = spi.h; sourceTree = "<group>"; };
 		5974A0051B595E5400861B5A /* mcp2515_defs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mcp2515_defs.h; sourceTree = "<group>"; };
 		5974A0061B595E5400861B5A /* MCP2515.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = MCP2515.c; sourceTree = "<group>"; };
@@ -65,8 +67,10 @@
 			children = (
 				59749FF41B59399300861B5A /* can */,
 				595354861A9DDAFB0054C036 /* PinsConfig.h */,
-				59D40C3D1A9B463600FC0E5A /* main.c */,
+				5960D4B51B6F5763005A7399 /* Constants.h */,
+				5960D4B61B6F57D3005A7399 /* Errors.h */,
 				5987546D1B6B7C9600848D00 /* CanMessages.h */,
+				59D40C3D1A9B463600FC0E5A /* main.c */,
 				59749FFD1B59421D00861B5A /* spi.h */,
 				59214D1E1B1F19DB00ED69E1 /* quickblob.h */,
 				59214D1D1B1F19DB00ED69E1 /* quickblob.c */,

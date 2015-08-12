@@ -27,6 +27,10 @@
  Data 3 -> size
  */
 
-#define CAN_ERROR 3
+#define TEXT_CHANGE_START_ID 9
+#define TEXT_CHANGE_CHAR_ID  10
+#define TEXT_CHANGE_END_ID   11
+
+#define SET_PIX_ID 16
 
 #endif
