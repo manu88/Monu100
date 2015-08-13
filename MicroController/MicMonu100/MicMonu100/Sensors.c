@@ -196,7 +196,6 @@ void readRow( Sensors *sensors , uint8_t *buffer)
     _delay_us( 1600 );    // 1500
     
     for (int i = 0; i < SENSOR_COUNT ; i++)
-//    for (int i = SENSOR_COUNT-1; i >=0 ; i--)
     {
 
         const int read = adc_read( i );
@@ -214,29 +213,22 @@ void readRow( Sensors *sensors , uint8_t *buffer)
         
         if( buffer != NULL)
             buffer[i] = val;
-        
-        if ( j==MIC_SENSOR_COUNT-1)
-        {
-            CANMessage m;
-            m.length = 2;
-            m.id = 17;
-            m.data[0] = i;
-            m.data[1] = read;
-            can_send_message( &m);
-            
-        }
+
+
+        CANMessage m;
+        m.length = 2;
+        m.id = 14;
+        m.data[0] = i*15+j;
+        m.data[1] = 127;//read;
+        can_send_message( &m);
 
         /*
-        if( i == (SENSOR_COUNT-1) || (i == 0 ))
+        if (val == BLOB_LIGHT )
         {
-            display_setFillColor(sensors->display, 0);
-            display_fillZone(sensors->display,mapXFromSensors(j) ,mapYFromSensors(i), 2, 2);
+           display_setFillColor(sensors->display, val);
+          display_fillZone(sensors->display,mapXFromSensors(j) ,mapYFromSensors(i), 2, 2);
         }
-        else*/ if (val == BLOB_LIGHT )
-        {
-            display_setFillColor(sensors->display, val);
-            display_fillZone(sensors->display,mapXFromSensors(j) ,mapYFromSensors(i), 2, 2);
-        }
+         */
 
 
     }

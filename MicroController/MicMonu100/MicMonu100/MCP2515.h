@@ -15,8 +15,8 @@
 #define R_CNF1  (1<<BRP0)
 #define R_CNF2  (1<<BTLMODE)|(1<<PHSEG11)
 #define R_CNF3  (1<<PHSEG21)
-
 /*
+
 // CAN Bitrate 1 Mbps
 #define R_CNF1  0
 #define R_CNF2  (1<<BTLMODE)|(1<<PHSEG11)

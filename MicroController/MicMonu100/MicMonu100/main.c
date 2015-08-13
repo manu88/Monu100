@@ -383,7 +383,7 @@ int main( void )
     sensors_init( &_sensors );
     _sensors.display = &_display;
     
-    display_init( &_display);
+    //display_init( &_display);
 
 
 
@@ -398,7 +398,7 @@ int main( void )
         setLow(LED_PORT, LED_PIN);
 
     _delay_ms(200);
-    sei();
+    //sei();
     
     /* END OF INIT */
     wdt_reset();
@@ -434,7 +434,7 @@ int main( void )
     uint8_t a = 0;
     while (1)
     {
-//        serviceCall();
+        //serviceCall();
         
 /*
         for (int i = 0; i < 40; i++ )
@@ -449,12 +449,12 @@ int main( void )
             }
         }
 */
-        
-        display_setPixel(&_display, xx, yy, val);
+
+//        display_setPixel(&_display, xx, yy, val);
         
         if(readOne( &_sensors) == 1)
         {
-
+/*
             if (a++ >2)
             {
                 for (uint8_t x = 0; x<X_TLC_MAX; x++)
@@ -474,8 +474,9 @@ int main( void )
                 }
                 a =0;
             }
-
+ */
         }
+
 
     }
     
